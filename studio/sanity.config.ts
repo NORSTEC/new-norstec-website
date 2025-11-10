@@ -7,8 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'new-norstec-website',
 
-  projectId: 'z54h7oke',
-  dataset: 'production',
+  projectId: process.env.NEXT_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
 
   plugins: [structureTool(), visionTool()],
 
