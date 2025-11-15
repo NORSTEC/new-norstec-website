@@ -3,7 +3,7 @@ import {Hero} from "@/app/types/components/hero";
 export type LandingPageSection = Hero
 
 
-export interface LandingPage {
+export interface HomePage {
     _type: "landingPage";
     _id: string;
     title: string;

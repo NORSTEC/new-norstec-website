@@ -1,7 +1,8 @@
-import hero from "./components/landingPage/hero";
-import landingPage from "./pages/landingPage";
+import hero from "./sections/hero";
+import homePage from "./pages/homePage";
+
 
 
 export const schemaTypes = [
-    landingPage, hero,
+    homePage, hero,
 ]
