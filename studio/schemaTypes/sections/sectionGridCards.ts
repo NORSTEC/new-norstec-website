@@ -15,14 +15,12 @@ export default defineType({
         }),
 
         defineField({
-            name: 'color',
-            title: 'Color',
-            type: 'color',
+            name: 'colorToken',
+            title: 'Accent color',
+            type: 'reference',
+            to: [{ type: 'colorToken' }],
             description:
-                'Accent color used by this grid section for background on cards.',
-            options: {
-                disableAlpha: true,
-            },
+                'Choose which saved color token this grid should use as accent color for the cards.',
         }),
 
         defineField({

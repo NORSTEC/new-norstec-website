@@ -21,14 +21,14 @@ export default  defineType({
         defineField({
             name: 'caption',
             title: 'Caption',
-            type: 'string',
+            type: 'portableText',
             description: 'Short explanation of the statistic.',
         }),
     ],
     preview: {
         select: {
-            title: 'value',
-            subtitle: 'subtitle',
+            title: 'subtitle',
+            subtitle: 'value',
         },
     },
 })

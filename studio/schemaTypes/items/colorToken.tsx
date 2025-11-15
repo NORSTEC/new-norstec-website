@@ -39,8 +39,6 @@ export default defineType({
                         style={{
                             width: '100%',
                             height: '100%',
-                            borderRadius: '3px',
-                            border: '1px solid #999',
                             backgroundColor: hex || '#ccc',
                         }}
                     />

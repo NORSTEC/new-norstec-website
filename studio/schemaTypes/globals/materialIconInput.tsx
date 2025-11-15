@@ -4,11 +4,12 @@ import { Button, Dialog, Box, Grid, Stack, Text } from '@sanity/ui'
 import type { StringInputProps } from 'sanity'
 
 const ICONS = [
-    { label: 'People / organizations', value: 'group' },
-    { label: 'Growth / progress', value: 'trending_up' },
-    { label: 'Collaboration', value: 'handshake' },
-    { label: 'Funding', value: 'attach_money' },
-    { label: 'Rocket / launch', value: 'rocket_launch' },
+    { value: 'group' },
+    { value: 'groups' },
+    { value: 'trending_up' },
+    { value: 'handshake' },
+    { value: 'attach_money' },
+    { value: 'rocket_launch' },
 ]
 
 export function MaterialIconInput(props: StringInputProps) {
