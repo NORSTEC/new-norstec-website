@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity'
 
-export const mediaItem = defineType({
+export default defineType({
     name: 'mediaItem',
     title: 'Media Item',
     type: 'document',

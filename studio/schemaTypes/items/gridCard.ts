@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity'
 
-export const gridCard = defineType({
+export default defineType({
     name: 'gridCard',
     title: 'Grid Card',
     type: 'document',

@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity'
 
-export const statItem = defineType({
+export default  defineType({
     name: 'statItem',
     title: 'Statistic Item',
     type: 'document',

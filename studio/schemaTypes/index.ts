@@ -1,6 +1,91 @@
-import hero from "./items/hero";
-import homePage from "./pages/homePage";
+// Pages
+import homePage from './pages/homePage'
+import aboutPage from './pages/aboutPage'
+import teamPage from './pages/teamPage'
+import joinPage from './pages/joinPage'
+import initiativesPage from './pages/initiativesPage'
+
+// Globals
+import footer from "./globals/footer";
+import contactInfo from './globals/contactInfo'
+import link from './globals/link'
+import portableText from "./globals/portableText";
+
+// Sections
+import sectionHero from "./sections/sectionHero";
+import sectionTextImage from './sections/sectionTextImage'
+import sectionTeam from "./sections/sectionTeam";
+import sectionHeaderText from "./sections/sectionHeaderText";
+import sectionStats from './sections/sectionStats'
+import sectionMap from './sections/sectionMap'
+import sectionTable from './sections/sectionTable'
+import sectionCtaGrid from './sections/sectionCtaGrid'
+import sectionContact from './sections/sectionContact'
+import sectionInitiatives from './sections/sectionInitiatives'
+import sectionMedia from './sections/sectionMedia'
+import sectionPodcast from './sections/sectionPodcast'
+import sectionIconStats from './sections/sectionIconStats'
+import sectionNapkin from './sections/sectionNapkin'
+import sectionGridCards from './sections/sectionGridCards'
+import sectionFaq from './sections/sectionFaq'
+import sectionJoin from './sections/sectionJoin'
+import divider from "./items/divider";
+
+// Items
+import teamMember from './items/teamMember'
+import initiative from './items/initiative'
+import iconStatItem from './items/iconStatItem'
+import statItem from './items/statItem'
+import gridCard from './items/gridCard'
+import tableRow from './items/tableRow'
+import ctaItem from './items/ctaItem'
+import faqItem from './items/faqItem'
+import mediaItem from './items/mediaItem'
+import podcastEpisode from './items/podcastEpisode'
 
 export const schemaTypes = [
-    homePage, hero,
+    // Pages
+    homePage,
+    aboutPage,
+    teamPage,
+    joinPage,
+    initiativesPage,
+
+    // Globals
+    footer,
+    contactInfo,
+    link,
+    portableText,
+
+    // Sections
+    sectionHero,
+    sectionTextImage,
+    sectionTeam,
+    sectionHeaderText,
+    sectionStats,
+    sectionMap,
+    sectionTable,
+    sectionCtaGrid,
+    sectionContact,
+    sectionInitiatives,
+    sectionMedia,
+    sectionPodcast,
+    sectionIconStats,
+    sectionNapkin,
+    sectionGridCards,
+    sectionFaq,
+    sectionJoin,
+    divider,
+
+    // Items
+    teamMember,
+    initiative,
+    iconStatItem,
+    statItem,
+    gridCard,
+    tableRow,
+    ctaItem,
+    faqItem,
+    mediaItem,
+    podcastEpisode,
 ]

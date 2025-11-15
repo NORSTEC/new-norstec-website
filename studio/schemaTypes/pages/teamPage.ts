@@ -1,0 +1,40 @@
+import {defineType, defineField} from 'sanity'
+
+export default defineType({
+    name: 'teamPage',
+    title: 'Team page',
+    type: 'document',
+    fields: [
+        defineField({
+            name: 'sections',
+            title: 'Sections',
+            type: 'array',
+            of: [
+                {
+                    type: 'reference',
+                    to: [
+                        {type: 'sectionTextImage'},
+                        {type: 'divider'},
+                        {type: 'sectionTeam'},
+                    ],
+                },
+            ],
+        }),
+
+        defineField({
+            name: 'footer',
+            title: 'Footer',
+            type: 'reference',
+            to: [{type: 'footer'}],
+            validation: (Rule) => Rule.required(),
+        }),
+    ],
+    preview: {
+        select: {title: 'title'},
+        prepare({title}) {
+            return {
+                title: title || 'Team page',
+            }
+        },
+    },
+})
