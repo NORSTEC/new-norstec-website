@@ -1,7 +1,7 @@
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
-    name: 'divider',
+    name: 'sectionDivider',
     title: 'Divider',
     type: 'document',
     fields: [

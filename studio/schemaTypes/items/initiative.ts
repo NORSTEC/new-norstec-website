@@ -48,6 +48,38 @@ export default defineType({
             },
             validation: (Rule) => Rule.required(),
         }),
+        defineField({
+            name: 'sections',
+            title: 'Sections',
+            type: 'array',
+            description: 'Add the sections that should appear on this initiative page, in order.',
+            of: [
+                {
+                    type: 'reference',
+                    to: [
+                        {type: 'sectionHero'},
+                        {type: 'sectionTextImage'},
+                        {type: 'sectionHeaderText'},
+                        {type: 'sectionStats'},
+                        {type: 'sectionIconStats'},
+                        {type: 'sectionMap'},
+                        {type: 'sectionTable'},
+                        {type: 'sectionGridCards'},
+                        {type: 'sectionCtaGrid'},
+                        {type: 'sectionFaq'},
+                        {type: 'sectionContact'},
+                        {type: 'sectionTeam'},
+                        {type: 'sectionInitiatives'},
+                        {type: 'sectionJoin'},
+                        {type: 'sectionMedia'},
+                        {type: 'sectionNapkin'},
+                        {type: 'sectionPodcast'},
+                        {type: 'sectionDivider'},
+                    ],
+                },
+            ],
+            validation: (Rule) => Rule.required(),
+        }),
     ],
     preview: {
         select: {

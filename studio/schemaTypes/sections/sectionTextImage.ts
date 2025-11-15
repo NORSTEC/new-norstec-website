@@ -6,8 +6,36 @@ export default defineType({
     type: 'document',
     fields: [
         defineField({
-            name: 'header',
-            title: 'Header',
+            name: 'layout',
+            title: 'Layout style',
+            type: 'string',
+            options: {
+                list: [
+                    {
+                        title: 'Side-by-side (title, text and image in one row)',
+                        value: 'split',
+                    },
+                    {
+                        title: 'Title above (text and image in two columns below)',
+                        value: 'stacked',
+                    },
+                ],
+                layout: 'radio',
+            },
+            initialValue: 'split',
+            description:
+                'Choose how the title, text and image should be positioned.',
+        }),
+        defineField({
+            name: 'showBreadcrumb',
+            title: 'Show breadcrumb',
+            type: 'boolean',
+            description: 'Toggle if this section should show a breadcrumb path above the title',
+            initialValue: false,
+        }),
+        defineField({
+            name: 'title',
+            title: 'Title',
             type: 'string',
             validation: (Rule) => Rule.required(),
         }),
@@ -15,7 +43,7 @@ export default defineType({
             name: 'icon',
             title: 'Icon',
             type: 'image',
-            description: 'Optional icon on the right side of the header',
+            description: 'Optional icon on the right side of the title',
             options: { hotspot: true },
         }),
         defineField({

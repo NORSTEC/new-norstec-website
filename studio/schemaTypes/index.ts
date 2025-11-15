@@ -28,7 +28,7 @@ import sectionNapkin from './sections/sectionNapkin'
 import sectionGridCards from './sections/sectionGridCards'
 import sectionFaq from './sections/sectionFaq'
 import sectionJoin from './sections/sectionJoin'
-import divider from "./items/divider";
+import sectionDivider from "./sections/sectionDivider";
 
 // Items
 import teamMember from './items/teamMember'
@@ -41,6 +41,7 @@ import ctaItem from './items/ctaItem'
 import faqItem from './items/faqItem'
 import mediaItem from './items/mediaItem'
 import podcastEpisode from './items/podcastEpisode'
+import teamRole from "./items/teamRole";
 
 export const schemaTypes = [
     // Pages
@@ -73,7 +74,7 @@ export const schemaTypes = [
     sectionGridCards,
     sectionFaq,
     sectionJoin,
-    divider,
+    sectionDivider,
 
     // Items
     teamMember,
@@ -86,4 +87,5 @@ export const schemaTypes = [
     faqItem,
     mediaItem,
     podcastEpisode,
+    teamRole,
 ]

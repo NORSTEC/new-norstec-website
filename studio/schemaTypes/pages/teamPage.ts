@@ -14,7 +14,7 @@ export default defineType({
                     type: 'reference',
                     to: [
                         {type: 'sectionTextImage'},
-                        {type: 'divider'},
+                        {type: 'sectionDivider'},
                         {type: 'sectionTeam'},
                     ],
                 },

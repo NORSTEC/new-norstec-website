@@ -9,7 +9,7 @@ export default defineType({
             name: 'title',
             title: 'Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            description: 'Optional title above the grid with cards',
         }),
         defineField({
             name: 'color',
@@ -33,7 +33,7 @@ export default defineType({
         },
         prepare({ title, count }) {
             return {
-                title,
+                title: title || "Grid Cards Section",
                 subtitle: count ? `${count} cards` : 'No cards',
             }
         },
