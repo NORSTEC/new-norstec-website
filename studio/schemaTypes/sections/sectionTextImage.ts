@@ -4,6 +4,7 @@ export default defineType({
     name: 'sectionTextImage',
     title: 'Text + Image Section',
     type: 'document',
+
     fields: [
         defineField({
             name: 'layout',
@@ -23,59 +24,73 @@ export default defineType({
                 layout: 'radio',
             },
             initialValue: 'split',
-            description:
-                'Choose how the title, text and image should be positioned.',
+            description: 'Choose how the title, text and image should be positioned.',
         }),
+
         defineField({
             name: 'showBreadcrumb',
             title: 'Show breadcrumb',
             type: 'boolean',
-            description: 'Toggle if this section should show a breadcrumb path above the title',
             initialValue: false,
+            description: 'Enable to show a breadcrumb path above the title.',
         }),
+
         defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            validation: Rule => Rule.required(),
         }),
+
         defineField({
-            name: 'icon',
-            title: 'Icon',
-            type: 'image',
-            description: 'Optional icon on the right side of the title',
-            options: { hotspot: true },
+            name: 'showIcon',
+            title: 'Show star icon',
+            type: 'boolean',
+            initialValue: false,
+            description: 'Enable to display the default star icon next to the title.',
         }),
+
         defineField({
             name: 'body',
             title: 'Body',
             type: 'portableText',
-            validation: (Rule) => Rule.required(),
+            validation: Rule => Rule.required(),
         }),
+
         defineField({
             name: 'image',
             title: 'Image',
             type: 'image',
             options: { hotspot: true },
-            validation: (Rule) => Rule.required(),
+            validation: Rule => Rule.required(),
         }),
+
         defineField({
             name: 'imageAlt',
             title: 'Image alt text',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            validation: Rule => Rule.required(),
         }),
+
         defineField({
             name: 'link',
             title: 'Link',
             type: 'link',
-            description: 'Optional link at the bottom',
+            description: 'Optional internal or external link at the bottom.',
         }),
     ],
+
     preview: {
         select: {
             title: 'title',
             media: 'image',
+            showIcon: 'showIcon',
+        },
+        prepare({ title, media }) {
+            return {
+                title,
+                media,
+            }
         },
     },
 })

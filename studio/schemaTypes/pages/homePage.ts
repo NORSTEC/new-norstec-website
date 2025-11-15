@@ -5,13 +5,6 @@ export default defineType({
     title: 'Home page',
     type: 'document',
     fields: [
-        defineField({
-            name: 'hero',
-            title: 'Hero',
-            type: 'sectionHero',
-            description: 'Main hero section at the top of the page.',
-            validation: (Rule) => Rule.required(),
-        }),
 
         defineField({
             name: 'sections',
@@ -21,6 +14,7 @@ export default defineType({
                 {
                     type: 'reference',
                     to: [
+                        {type: 'sectionHero'},
                         {type: 'sectionTextImage'},
                         {type: 'sectionStats'},
                         {type: 'sectionMap'},
@@ -36,12 +30,9 @@ export default defineType({
         }),
     ],
     preview: {
-        select: {
-            title: 'title',
-        },
-        prepare({title}) {
+        prepare() {
             return {
-                title: title || 'Home page',
+                title: 'Home page',
             }
         },
     },

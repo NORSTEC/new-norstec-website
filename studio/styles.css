@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+/* materialIconInput.tsx */
+.material-icon-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #3D4258;
+    background: transparent;
+}
+
+.material-icon-button.selected {
+    border: 1px solid #5569EF;
+    background: #111827;
+}
+
+.material-icon-preview {
+    font-size: 20px;
+}
+
+/* sectionDivider.tsx */
+.divider-preview {
+    width: 100%;
+    height: 100%;
+}

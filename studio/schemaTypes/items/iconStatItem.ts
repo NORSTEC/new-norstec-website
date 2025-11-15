@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import {MaterialIconInput} from "../globals/materialIconInput";
 
 export default defineType({
     name: 'iconStatItem',
@@ -9,6 +10,9 @@ export default defineType({
             name: 'icon',
             title: 'Icon',
             type: 'string',
+            components: {
+                input: MaterialIconInput,
+            },
             validation: (Rule) => Rule.required(),
         }),
         defineField({

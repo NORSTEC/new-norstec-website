@@ -4,6 +4,7 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {colorInput} from "@sanity/color-input";
 import {structure} from './structure'
+import './styles.css'
 
 export default defineConfig({
   name: 'default',

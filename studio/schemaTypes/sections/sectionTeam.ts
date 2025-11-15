@@ -20,13 +20,6 @@ export default defineType({
             description: 'Optional introduction text shown above the team members.',
         }),
         defineField({
-            name: 'link',
-            title: 'Link',
-            type: 'link',
-            description:
-                'Optional link placed below the text. Can be used for “Read more”, “Join the team”, etc.',
-        }),
-        defineField({
             name: 'members',
             title: 'Team members',
             type: 'array',

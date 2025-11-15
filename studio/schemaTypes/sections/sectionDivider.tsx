@@ -29,14 +29,9 @@ export default defineType({
 
                 media: () => (
                     <div
-                        style={{
-                width: '100%',
-                    height: '100%',
-                    backgroundColor: hex || '#ccc',
-                    borderRadius: '3px',
-                    border: '1px solid #999',
-            }}
-            />
+                        className="divider-preview"
+                        style={{ backgroundColor: hex || "#ccc" }}
+                    />
         ),
         }
         },
