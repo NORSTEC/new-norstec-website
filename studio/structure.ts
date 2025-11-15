@@ -1,4 +1,3 @@
-// studio/structure.ts
 import {
     HomeIcon,
     InfoOutlineIcon,
@@ -15,8 +14,7 @@ import {
 } from '@sanity/icons'
 import type {StructureResolver} from 'sanity/structure'
 
-// Does not show under "All Documents"
-const singletonTypes = [
+export const singletonTypes = [
     'homePage',
     'aboutPage',
     'teamPage',
