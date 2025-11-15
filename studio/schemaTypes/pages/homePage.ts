@@ -34,14 +34,6 @@ export default defineType({
                 },
             ],
         }),
-
-        defineField({
-            name: 'footer',
-            title: 'Footer',
-            type: 'reference',
-            to: [{type: 'footer'}],
-            validation: (Rule) => Rule.required(),
-        }),
     ],
     preview: {
         select: {

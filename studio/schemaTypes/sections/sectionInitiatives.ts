@@ -26,12 +26,19 @@ export default defineType({
     preview: {
         select: {
             title: 'title',
-            count: 'initiatives.length',
+            initiatives: 'initiatives',
         },
-        prepare({ title, count }) {
+        prepare({ title, initiatives }) {
+            const count = initiatives?.length || 0
+
             return {
-                title,
-                subtitle: count ? `${count} initiatives` : 'No initiatives',
+                title: title || 'Initiatives Section',
+                subtitle:
+                    count === 0
+                        ? 'No initiatives'
+                        : count === 1
+                            ? '1 initiative'
+                            : `${count} initiatives`,
             }
         },
     },

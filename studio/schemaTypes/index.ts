@@ -6,7 +6,6 @@ import joinPage from './pages/joinPage'
 import initiativesPage from './pages/initiativesPage'
 
 // Globals
-import footer from "./globals/footer";
 import contactInfo from './globals/contactInfo'
 import link from './globals/link'
 import portableText from "./globals/portableText";
@@ -52,7 +51,6 @@ export const schemaTypes = [
     initiativesPage,
 
     // Globals
-    footer,
     contactInfo,
     link,
     portableText,
