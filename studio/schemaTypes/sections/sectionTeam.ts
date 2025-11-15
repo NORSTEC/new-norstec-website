@@ -1,42 +1,52 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
     name: 'sectionTeam',
     title: 'Team Section',
     type: 'document',
+
     fields: [
         defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            description: 'Main heading for this team section.',
+            validation: Rule => Rule.required(),
         }),
         defineField({
             name: 'body',
-            title: 'Body',
+            title: 'Body text',
             type: 'portableText',
+            description: 'Optional introduction text shown above the team members.',
         }),
         defineField({
             name: 'link',
             title: 'Link',
             type: 'link',
+            description:
+                'Optional link placed below the text. Can be used for “Read more”, “Join the team”, etc.',
         }),
         defineField({
             name: 'members',
             title: 'Team members',
             type: 'array',
-            of: [{ type: 'reference', to: [{ type: 'teamMember' }] }],
+            description: 'Select the team members that should appear in this section, in order.',
+            of: [{type: 'reference', to: [{type: 'teamMember'}]}],
+            validation: Rule =>
+                Rule.min(1).warning('A team section usually contains at least one member.'),
         }),
     ],
+
     preview: {
         select: {
             title: 'title',
-            count: 'members.length',
+            members: 'members',
         },
-        prepare({ title, count }) {
+        prepare({title, members}) {
+            const count = members?.length || 0
             return {
-                title,
-                subtitle: count ? `${count} members` : 'No members',
+                title: title || 'Team Section',
+                subtitle: count ? `${count} member${count > 1 ? 's' : ''}` : 'No members selected',
             }
         },
     },

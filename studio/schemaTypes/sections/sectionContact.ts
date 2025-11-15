@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
     name: 'sectionContact',
@@ -9,30 +9,22 @@ export default defineType({
             name: 'title',
             title: 'Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            description: 'Heading shown above the contact details.',
+            validation: Rule => Rule.required(),
         }),
         defineField({
             name: 'body',
             title: 'Body',
             type: 'portableText',
-        }),
-        defineField({
-            name: 'contactInfo',
-            title: 'Contact info',
-            type: 'reference',
-            to: [{ type: 'contactInfo' }],
-            validation: (Rule) => Rule.required(),
+            description: 'Intro text shown under the contact information.',
         }),
     ],
     preview: {
-        select: {
-            title: 'title',
-            email: 'contactInfo.email',
-        },
-        prepare({ title, email }) {
+        select: {title: 'title'},
+        prepare({title}) {
             return {
-                title,
-                subtitle: email || 'Contact info',
+                title: title || 'Contact Section',
+                subtitle: 'Uses global contact info',
             }
         },
     },

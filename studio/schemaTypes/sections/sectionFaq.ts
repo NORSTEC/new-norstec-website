@@ -1,32 +1,40 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
     name: 'sectionFaq',
     title: 'FAQ Section',
     type: 'document',
+
     fields: [
         defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            description: 'Main heading for this FAQ section.',
+            validation: Rule => Rule.required(),
         }),
         defineField({
             name: 'items',
             title: 'Questions',
             type: 'array',
-            of: [{ type: 'reference', to: [{ type: 'faqItem' }] }],
+            description:
+                'Add one or more frequently asked questions. Each FAQ item contains a question and answer.',
+            of: [{type: 'reference', to: [{type: 'faqItem'}]}],
+            validation: Rule =>
+                Rule.min(1).warning('FAQ sections normally contain at least one question.'),
         }),
     ],
+
     preview: {
         select: {
             title: 'title',
-            count: 'items.length',
+            items: 'items',
         },
-        prepare({ title, count }) {
+        prepare({title, items}) {
+            const count = items?.length || 0
             return {
-                title,
-                subtitle: count ? `${count} questions` : 'No questions',
+                title: title || 'FAQ Section',
+                subtitle: count ? `${count} question${count > 1 ? 's' : ''}` : 'No questions added',
             }
         },
     },

@@ -71,8 +71,8 @@ export default defineType({
         },
         prepare({email, phone}) {
             return {
-                title: email || 'Contact Info',
-                subtitle: phone || '',
+                title: 'Contact Info',
+                subtitle: email + " - " + phone,
             }
         },
     },

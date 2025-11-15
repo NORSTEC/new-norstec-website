@@ -4,37 +4,55 @@ export default defineType({
     name: 'sectionGridCards',
     title: 'Grid Cards Section',
     type: 'document',
+
     fields: [
         defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
-            description: 'Optional title above the grid with cards',
+            description:
+                'Optional heading displayed above the grid. Leave empty if you do not want a section header.',
         }),
+
         defineField({
             name: 'color',
             title: 'Color',
             type: 'color',
+            description:
+                'Accent color used by this grid section for background on cards.',
             options: {
                 disableAlpha: true,
             },
         }),
+
         defineField({
             name: 'items',
             title: 'Cards',
+            description:
+                'Add the cards you want to appear in this grid. Each card contains a title and body text.',
             type: 'array',
-            of: [{ type: 'reference', to: [{ type: 'gridCard' }] }],
+            of: [
+                {
+                    type: 'reference',
+                    to: [{ type: 'gridCard' }],
+                },
+            ],
+            validation: (Rule) =>
+                Rule.min(1).warning('A grid usually has at least one card.'),
         }),
     ],
+
     preview: {
         select: {
             title: 'title',
-            count: 'items.length',
+            items: 'items',
         },
-        prepare({ title, count }) {
+        prepare({ title, items }) {
+            const count = items?.length || 0
+
             return {
-                title: title || "Grid Cards Section",
-                subtitle: count ? `${count} cards` : 'No cards',
+                title: title || 'Grid Cards Section',
+                subtitle: count ? `${count} card${count > 1 ? 's' : ''}` : 'No cards added',
             }
         },
     },
