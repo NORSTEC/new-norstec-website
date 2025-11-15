@@ -10,11 +10,10 @@ export default defineType({
         defineField({
             name: 'color',
             title: 'Color',
-            type: 'color',
-            options: {
-                disableAlpha: true,
-            },
-            description: 'Select the color for this divider line.',
+            type: 'reference',
+            to: [{ type: 'colorToken' }],
+            description:
+                'Color used for this divider line. Reuse an existing color token or create a new one.',
         }),
     ],
 

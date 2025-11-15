@@ -42,6 +42,7 @@ import faqItem from './items/faqItem'
 import mediaItem from './items/mediaItem'
 import podcastEpisode from './items/podcastEpisode'
 import teamRole from "./items/teamRole";
+import colorToken from "./items/colorToken";
 
 export const schemaTypes = [
     // Pages
@@ -88,4 +89,5 @@ export const schemaTypes = [
     mediaItem,
     podcastEpisode,
     teamRole,
+    colorToken,
 ]
