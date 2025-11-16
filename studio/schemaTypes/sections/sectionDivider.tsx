@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 import React from 'react'
 
 export default defineType({
@@ -19,20 +19,27 @@ export default defineType({
 
     preview: {
         select: {
-            hex: 'color.hex',
+            hex: 'color.color.hex',
+            label: 'color.name',
         },
-        prepare({ hex }) {
+        prepare({hex, label}) {
+            const subtitle = hex
+                ? `${label || 'Color token'} - ${hex}`
+                : 'No color selected'
+
             return {
                 title: 'Divider',
-                subtitle: hex || 'No color selected',
-
+                subtitle,
                 media: () => (
                     <div
-                        className="divider-preview"
-                        style={{ backgroundColor: hex || "#ccc" }}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: hex || '#ccc',
+                        }}
                     />
-        ),
-        }
+                ),
+            }
         },
     },
 })

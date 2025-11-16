@@ -17,9 +17,7 @@ export default defineType({
             name: 'color',
             title: 'Color',
             type: 'color',
-            options: {
-                disableAlpha: true,
-            },
+            options: { disableAlpha: true },
             validation: Rule => Rule.required(),
         }),
     ],
@@ -27,13 +25,12 @@ export default defineType({
     preview: {
         select: {
             title: 'name',
-            key: 'key',
             hex: 'color.hex',
         },
-        prepare({title, key, hex}) {
+        prepare({title, hex}) {
             return {
                 title: title || 'Color',
-                subtitle: key ? `${key} • ${hex}` : hex,
+                subtitle: hex,
                 media: () => (
                     <div
                         style={{
