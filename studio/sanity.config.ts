@@ -10,10 +10,8 @@ export default defineConfig({
   name: 'default',
   title: 'new-norstec-website',
 
-  // projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  // dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  projectId: "z54h7oke",
-  dataset: "production",
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
+  dataset: process.env.SANITY_STUDIO_DATASET!,
   plugins: [structureTool({structure}), visionTool(), colorInput(),],
 
   schema: {
@@ -29,7 +27,7 @@ export default defineConfig({
             )
             : prev,
 
-    // Hindrer å opprette nye dokumenter av singleton-typer
+    // Hindrer å opprette nye dokumenter av singleton-typer (står som unused men er misvisende)
     newDocumentOptions: (prev, {creationContext}) => {
       if (creationContext.type !== 'global') {
         return prev
