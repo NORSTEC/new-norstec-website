@@ -1,32 +1,65 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
     name: 'sectionPodcast',
     title: 'Podcast Section',
     type: 'document',
+
     fields: [
         defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            description: 'Heading shown above the podcast list.',
+            validation: Rule => Rule.required(),
         }),
+
         defineField({
-            name: 'episodes',
-            title: 'Episodes',
-            type: 'array',
-            of: [{ type: 'reference', to: [{ type: 'podcastEpisode' }] }],
+            name: 'limit',
+            title: 'Number of episodes to show',
+            type: 'number',
+            description: 'How many latest episodes to display.',
+            initialValue: 4,
+            validation: Rule =>
+                Rule.min(1)
+                    .max(20)
+                    .warning('Showing more than 20 episodes at once is usually not necessary.'),
+        }),
+
+        defineField({
+            name: 'showSpotifyLink',
+            title: 'Show Spotify link',
+            type: 'boolean',
+            initialValue: true,
+            description: 'Toggle if text “(Only available in Norwegian)” and Spotify icon/link should be shown.',
+        }),
+
+        defineField({
+            name: 'spotifyUrl',
+            title: 'Spotify URL',
+            type: 'url',
+            description: 'Link to the podcast on Spotify.',
+            hidden: ({parent}) => !parent?.showSpotifyLink,
+            validation: Rule =>
+                Rule.custom((value, context) => {
+                    const parent = context.parent as any
+                    if (parent?.showSpotifyLink && !value) {
+                        return 'Spotify URL is required when “Show Spotify link” is enabled.'
+                    }
+                    return true
+                }),
         }),
     ],
+
     preview: {
         select: {
             title: 'title',
-            count: 'episodes.length',
+            limit: 'limit',
         },
-        prepare({ title, count }) {
+        prepare({title, limit}) {
             return {
-                title,
-                subtitle: count ? `${count} episodes` : 'No episodes',
+                title: title || 'Podcast Section',
+                subtitle: limit ? `Shows latest ${limit} episode(s)` : 'No limit set',
             }
         },
     },

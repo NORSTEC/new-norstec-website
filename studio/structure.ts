@@ -6,7 +6,6 @@ import {
     AddUserIcon,
     ArchiveIcon,
     SparklesIcon,
-    PlayIcon,
     HelpCircleIcon,
     VideoIcon,
     EnvelopeIcon,
@@ -96,11 +95,6 @@ export const structure: StructureResolver = (S) =>
                 .title('Media items')
                 .icon(VideoIcon)
                 .child(S.documentTypeList('mediaItem').title('Media items')),
-
-            S.listItem()
-                .title('Podcast episodes')
-                .icon(PlayIcon)
-                .child(S.documentTypeList('podcastEpisode').title('Podcast episodes')),
 
             S.listItem()
                 .title('FAQ items')

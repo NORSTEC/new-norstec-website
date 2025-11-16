@@ -39,7 +39,6 @@ import gridCard from './items/gridCard'
 import ctaItem from './items/ctaItem'
 import faqItem from './items/faqItem'
 import mediaItem from './items/mediaItem'
-import podcastEpisode from './items/podcastEpisode'
 import teamRole from "./items/teamRole";
 import colorToken from "./items/colorToken";
 
@@ -85,7 +84,6 @@ export const schemaTypes = [
     ctaItem,
     faqItem,
     mediaItem,
-    podcastEpisode,
     teamRole,
     colorToken,
 ]
