@@ -9,12 +9,14 @@ export default defineType({
             name: 'title',
             title: 'Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            description: 'Optional heading displayed above the map section.',
         }),
         defineField({
             name: 'body',
             title: 'Body',
             type: 'portableText',
+            description: 'Text displayed left of the map',
+            validation: (Rule) => Rule.required(),
         }),
     ],
     preview: {
