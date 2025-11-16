@@ -10,7 +10,8 @@ export default defineType({
             name: 'title',
             title: 'Title',
             type: 'string',
-            description: 'Optional heading shown above the statistics grid. Leave empty if you do not want a section header.',
+            description:
+                'Optional heading shown above the statistics grid. Leave empty if you do not want a section header.',
         }),
 
         defineField({
@@ -29,7 +30,7 @@ export default defineType({
             description:
                 'Add one or more statistic items. Each item contains a value, caption and icon.',
             of: [{ type: 'reference', to: [{ type: 'statItem' }] }],
-            validation: (Rule) =>
+            validation: Rule =>
                 Rule.min(1).warning('A stats section usually contains at least one item.'),
         }),
     ],
@@ -37,16 +38,16 @@ export default defineType({
     preview: {
         select: {
             title: 'title',
-            count: 'items.length',
+            items: 'items',
         },
-        prepare({ title, count }) {
-            const displayTitle = title && title.trim() !== ''
-                ? title
-                : 'Stats Section'
+        prepare({ title, items }) {
+            const count = items?.length || 0
+            const displayTitle =
+                title && title.trim() !== '' ? title : 'Stats Section'
 
             return {
                 title: displayTitle,
-                subtitle: count ? `${count} stats` : 'No items',
+                subtitle: count ? `${count} stat${count > 1 ? 's' : ''}` : 'No items',
             }
         },
     },

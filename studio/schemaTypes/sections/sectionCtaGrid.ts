@@ -10,16 +10,18 @@ export default defineType({
             name: 'title',
             title: 'Title',
             type: 'string',
-            description: 'Optional heading displayed above the grid. Leave empty if this section does not need a title.',
+            description:
+                'Optional heading displayed above the grid. Leave empty if this section does not need a title.',
         }),
 
         defineField({
             name: 'items',
             title: 'CTA items',
             type: 'array',
-            description: 'Add one or more call-to-action items. These are displayed in a responsive grid.',
+            description:
+                'Add one or more call-to-action items. These are displayed in a responsive grid.',
             of: [{ type: 'reference', to: [{ type: 'ctaItem' }] }],
-            validation: (Rule) =>
+            validation: Rule =>
                 Rule.min(1).warning('A CTA grid normally contains at least one item.'),
         }),
     ],
@@ -27,12 +29,14 @@ export default defineType({
     preview: {
         select: {
             title: 'title',
-            count: 'items.length',
+            items: 'items',
         },
-        prepare({ title, count }) {
+        prepare({ title, items }) {
+            const count = items?.length || 0
+
             return {
                 title: title || 'CTA Grid Section',
-                subtitle: count ? `${count} items` : 'No items',
+                subtitle: count ? `${count} item${count > 1 ? 's' : ''}` : 'No items',
             }
         },
     },
