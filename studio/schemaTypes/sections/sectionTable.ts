@@ -1,3 +1,26 @@
+/**
+ * Represents a configurable table with defined columns and rows.
+ * Data is stored in three parts:
+ *
+ * - title: Optional heading shown above the table.
+ * - columns: An ordered list of column definitions. Each column has:
+ *     label: Header text
+ *     type: "string", "number" or "url"
+ *     urlFallback: Optional fallback label for empty URL cells
+ *
+ * - rows: Each row contains a `cells` array, where the number of cells always
+ *         matches the number of columns. Schema validation guarantees:
+ *         - one cell per column
+ *         - valid URLs for url-columns
+ *         - numeric values for number-columns
+ *         - non-empty text for string-columns
+ *
+ * Frontend:
+ * - Use `columns[i]` to render headers.
+ * - Use `rows[j].cells[i]` as the cell value for the corresponding column.
+ * - For URL columns: if the value is empty, use columns[i].urlFallback.
+ */
+
 import {defineType, defineField} from 'sanity'
 import {TableRowCellsInput} from "../ui/TableRowCellsInput";
 
@@ -109,20 +132,30 @@ export default defineType({
                                         const col = columns[i]
                                         const val = cells[i]
 
-                                        // URL-kolonner kan være tomme (fallback håndteres i frontend)
+                                        const label = col?.label || `Column ${i + 1}`
+
+                                        // URL
                                         if (col?.type === 'url') {
                                             if (val && !/^https?:\/\/.+/i.test(String(val))) {
-                                                return `Cell in column “${
-                                                    col?.label || `Column ${i + 1}`
-                                                }” must be a valid URL starting with http:// or https://.`
+                                                return `Cell in column “${label}” must be a valid URL starting with http:// or https://.`
                                             }
                                             continue
                                         }
 
+                                        // Tall
+                                        if (col?.type === 'number') {
+                                            if (!val || String(val).trim() === '') {
+                                                return `Cell in column “${label}” cannot be empty.`
+                                            }
+                                            if (isNaN(Number(val))) {
+                                                return `Cell in column “${label}” must be a number.`
+                                            }
+                                            continue
+                                        }
+
+                                        // Tekst
                                         if (!val || String(val).trim() === '') {
-                                            return `Cell in column “${
-                                                col?.label || `Column ${i + 1}`
-                                            }” cannot be empty.`
+                                            return `Cell in column “${label}” cannot be empty.`
                                         }
                                     }
 

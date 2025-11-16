@@ -1,4 +1,5 @@
-import {defineType, defineField} from 'sanity'
+import { defineType, defineField } from 'sanity'
+import { ColorPreview } from '../ui/ColorPreview'
 
 export default defineType({
     name: 'colorToken',
@@ -27,19 +28,11 @@ export default defineType({
             title: 'name',
             hex: 'color.hex',
         },
-        prepare({title, hex}) {
+        prepare({ title, hex }) {
             return {
                 title: title || 'Color',
                 subtitle: hex,
-                media: () => (
-                    <div
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            backgroundColor: hex || '#ccc',
-                        }}
-                    />
-                ),
+                media: () => ColorPreview({ hex }),
             }
         },
     },

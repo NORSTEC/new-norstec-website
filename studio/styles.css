@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-/* materialIconInput.tsx */
+/* MaterialIconInput.tsx */
 .material-icon-button {
     display: flex;
     align-items: center;
@@ -21,8 +21,23 @@
     font-size: 20px;
 }
 
-/* sectionDivider.tsx */
-.divider-preview {
-    width: 100%;
-    height: 100%;
+/* MediaItemPreview.tsx */
+.media-item-preview {
+    display: flex;
+    align-items: center;
+}
+
+.media-item-thumbnail {
+    object-fit: fill !important;
+}
+
+.media-item-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.media-item-url {
+    opacity: 0.7;
+    font-size: 12px;
+    word-break: break-all;
 }

@@ -1,5 +1,5 @@
 import {defineType, defineField} from 'sanity'
-import {MaterialIconInput} from "../globals/materialIconInput";
+import {MaterialIconInput} from "../ui/MaterialIconInput";
 
 export default defineType({
     name: 'ctaItem',
