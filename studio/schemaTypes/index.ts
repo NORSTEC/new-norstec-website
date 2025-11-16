@@ -36,7 +36,6 @@ import initiative from './items/initiative'
 import iconStatItem from './items/iconStatItem'
 import statItem from './items/statItem'
 import gridCard from './items/gridCard'
-import tableRow from './items/tableRow'
 import ctaItem from './items/ctaItem'
 import faqItem from './items/faqItem'
 import mediaItem from './items/mediaItem'
@@ -83,7 +82,6 @@ export const schemaTypes = [
     iconStatItem,
     statItem,
     gridCard,
-    tableRow,
     ctaItem,
     faqItem,
     mediaItem,
