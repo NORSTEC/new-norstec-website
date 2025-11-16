@@ -19,12 +19,51 @@ export default defineType({
             type: 'portableText',
             description: 'Optional introduction text shown above the team members.',
         }),
+
         defineField({
             name: 'members',
             title: 'Team members',
             type: 'array',
-            description: 'Select the team members that should appear in this section, in order.',
-            of: [{type: 'reference', to: [{type: 'teamMember'}]}],
+            description:
+                'Choose which people to show in this section and which role they have here.',
+            of: [
+                defineField({
+                    name: 'memberInSection',
+                    title: 'Member in section',
+                    type: 'object',
+                    fields: [
+                        defineField({
+                            name: 'member',
+                            title: 'Person',
+                            type: 'reference',
+                            to: [{type: 'teamMember'}],
+                            validation: Rule => Rule.required(),
+                        }),
+                        defineField({
+                            name: 'role',
+                            title: 'Role in this section',
+                            type: 'reference',
+                            to: [{type: 'teamRole'}],
+                            description: 'The role of the member in this team.',
+                            validation: Rule => Rule.required(),
+                        }),
+                    ],
+                    preview: {
+                        select: {
+                            name: 'member.name',
+                            role: 'role.title',
+                            media: 'member.photo',
+                        },
+                        prepare({name, role, media}) {
+                            return {
+                                title: name || 'Unnamed member',
+                                subtitle: role || 'No role selected',
+                                media,
+                            }
+                        },
+                    },
+                }),
+            ],
             validation: Rule =>
                 Rule.min(1).warning('A team section usually contains at least one member.'),
         }),

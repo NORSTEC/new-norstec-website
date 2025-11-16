@@ -59,16 +59,6 @@ export const structure: StructureResolver = (S) =>
                 ),
 
             S.listItem()
-                .title('Join page')
-                .icon(AddUserIcon)
-                .child(
-                    S.editor()
-                        .id('joinPage')
-                        .schemaType('joinPage')
-                        .documentId('joinPage'),
-                ),
-
-            S.listItem()
                 .title('Initiatives page')
                 .icon(SparklesIcon)
                 .child(
@@ -76,6 +66,16 @@ export const structure: StructureResolver = (S) =>
                         .id('initiativesPage')
                         .schemaType('initiativesPage')
                         .documentId('initiativesPage'),
+                ),
+
+            S.listItem()
+                .title('Join page')
+                .icon(AddUserIcon)
+                .child(
+                    S.editor()
+                        .id('joinPage')
+                        .schemaType('joinPage')
+                        .documentId('joinPage'),
                 ),
 
             S.divider(),

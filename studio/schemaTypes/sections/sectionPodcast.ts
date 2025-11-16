@@ -18,12 +18,7 @@ export default defineType({
             name: 'limit',
             title: 'Number of episodes to show',
             type: 'number',
-            description: 'How many latest episodes to display.',
-            initialValue: 4,
-            validation: Rule =>
-                Rule.min(1)
-                    .max(20)
-                    .warning('Showing more than 20 episodes at once is usually not necessary.'),
+            description: 'How many latest episodes to display. Leave empty to show all episodes.',
         }),
 
         defineField({

@@ -37,13 +37,17 @@ export default defineType({
     preview: {
         select: {
             title: 'title',
-            count: 'items.length',
+            items: 'items',
         },
-        prepare({ title, count }) {
+        prepare({ title, items }) {
+            const count = items?.length || 0
+
             return {
                 title: title || 'Icon Stats Section',
-                subtitle: count ? `${count} stats` : 'No statistics added',
+                subtitle: count
+                    ? `${count} stat${count > 1 ? 's' : ''}`
+                    : 'No statistics added',
             }
         },
-    },
+    }
 })
