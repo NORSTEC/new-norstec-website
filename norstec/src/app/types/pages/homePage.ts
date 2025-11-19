@@ -1,13 +1,13 @@
-import {SectionHero} from "@/app/types/components/sections/sectionHero";
-import {SectionTextImage} from "@/app/types/components/sections/sectionTextImage";
-import {SectionStats} from "@/app/types/components/sections/sectionStats";
-import {SectionMap} from "@/app/types/components/sections/sectionMap";
-import {SectionTable} from "@/app/types/components/sections/sectionTable";
-import {SectionCtaGrid} from "@/app/types/components/sections/sectionCtaGrid";
-import {SectionContact} from "@/app/types/components/sections/sectionContact";
-import {SectionInitiatives} from "@/app/types/components/sections/sectionInitiatives";
-import {SectionMedia} from "@/app/types/components/sections/sectionMedia";
-import {SectionPodcast} from "@/app/types/components/sections/sectionPodcast";
+import {SectionHero} from "@/app/types/sections/sectionHero";
+import {SectionTextImage} from "@/app/types/sections/sectionTextImage";
+import {SectionStats} from "@/app/types/sections/sectionStats";
+import {SectionMap} from "@/app/types/sections/sectionMap";
+import {SectionTable} from "@/app/types/sections/sectionTable";
+import {SectionCtaGrid} from "@/app/types/sections/sectionCtaGrid";
+import {SectionContact} from "@/app/types/sections/sectionContact";
+import {SectionInitiatives} from "@/app/types/sections/sectionInitiatives";
+import {SectionMedia} from "@/app/types/sections/sectionMedia";
+import {SectionPodcast} from "@/app/types/sections/sectionPodcast";
 
 
 export type HomePageSection =
