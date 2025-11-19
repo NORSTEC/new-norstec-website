@@ -1,4 +1,5 @@
 import {PortableTextBlock} from "next-sanity";
+import {Initiative} from "@/app/types/items/initiative";
 
 
 export interface SectionInitiatives {
@@ -6,8 +7,5 @@ export interface SectionInitiatives {
     _id: string;
     title: string;
     body?: PortableTextBlock[];
-    initiatives: Array<{
-        _type: "reference";
-        _ref: string;
-    }>;
+    initiatives: Initiative[];
 }

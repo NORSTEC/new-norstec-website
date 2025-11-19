@@ -1,5 +1,8 @@
+import {SectionInitiatives} from "@/app/types/sections/sectionInitiatives";
+
 export interface InitiativesPage {
-    _type: "";
+    _type: "initiativesPage";
     _id: string;
-    title: string;
+    title?: string;
+    sections: SectionInitiatives[];
 }
