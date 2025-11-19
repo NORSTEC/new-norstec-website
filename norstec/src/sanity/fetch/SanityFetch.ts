@@ -1,5 +1,4 @@
 import {sanityFetch} from "@/sanity/lib/live";
-
 import {HomePage} from "@/app/types/pages/homePage";
 import {HOME_PAGE_QUERY} from "@/sanity/queries/pages/homePage";
 export const getHomePage = async (): Promise<HomePage | null> => {
