@@ -1,4 +1,4 @@
-import {PortableTextBlock} from "@/app/types/pages/homePage";
+import {PortableTextBlock} from "next-sanity";
 
 export interface SectionMap {
     _type: "sectionMap";

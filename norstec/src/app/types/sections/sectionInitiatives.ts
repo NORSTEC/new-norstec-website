@@ -1,4 +1,5 @@
-import {PortableTextBlock} from "@/app/types/pages/homePage";
+import {PortableTextBlock} from "next-sanity";
+
 
 export interface SectionInitiatives {
     _type: "sectionInitiatives";
