@@ -1,4 +1,8 @@
 import { defineLive } from "next-sanity/live";
 import { client } from "@/sanity/lib/client";
 
-export const { sanityFetch, SanityLive } = defineLive({client});
+export const { sanityFetch, SanityLive } = defineLive({
+    client: client,
+    serverToken: false,
+    browserToken: false,
+});
