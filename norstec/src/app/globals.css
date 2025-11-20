@@ -17,7 +17,22 @@
 @layer base {
     body {
         background-color: var(--color-egg);
-        color: #000000;
+        color: var(--color-moody);
         font-family: "Barlow", system-ui, sans-serif;
     }
+
+    p {
+        @apply text-[1.25rem] leading-relaxed font-medium ;
+    }
+}
+
+@layer utilities {
+    .container {
+        @apply px-[40px] py-[40px] min-w-screen;
+    }
+
+    .text-h2 {
+        @apply text-[2rem] md:text-[2.5rem] font-medium;
+    }
+
 }
