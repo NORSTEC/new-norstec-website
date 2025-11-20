@@ -18,3 +18,4 @@ export interface Initiative {
         _ref: string;
     }[];
 }
+
