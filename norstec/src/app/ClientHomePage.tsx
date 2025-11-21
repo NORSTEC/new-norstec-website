@@ -1,9 +1,9 @@
 "use client";
 
 import type { HomePage } from "@/app/types/pages/homePage";
-import Hero from "@/app/components/sections/Hero";
+import SectionHero from "@/app/components/sections/SectionHero";
 import {PortableTextBlock} from "next-sanity";
-import TextWithImage from "@/app/components/sections/TextWithImage";
+import SectionTextImage from "@/app/components/sections/SectionTextImage";
 
 
 interface ClientHomePageProps {
@@ -41,9 +41,9 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
     }
     return (
         <>
-            <Hero />
+            <SectionHero />
             <main>
-                <TextWithImage title={"Nerds, Students, and Engineers"} body={mockIntro} />
+                <SectionTextImage title={"Nerds, Students, and Engineers"} body={mockIntro} />
             </main>
         </>
     );

@@ -15,11 +15,11 @@ const TAGLINE_LETTER_DELAY = 0.04;
 
 // fuck hydration errors
 const HERO_TITLE_CLASSES =
-    "font-semibold whitespace-nowrap text-[21vh] md:text-[20vw] " +
+    "font-semibold whitespace-nowrap text-[21vh] md:text-[20vw] 3xl:text-[22.2rem] " +
     "absolute right-0 top-[97.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
     "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center";
 
-export default function Hero({
+export default function SectionHero({
                                  title = "NORSTEC",
                                  tagline = "Securing our future in space.",
                              }: HeroProps) {
@@ -27,11 +27,11 @@ export default function Hero({
     const taglineStart = titleStart + title.length * TITLE_LETTER_DELAY * 1.5;
 
     return (
-        <header className="h-screen w-screen relative overflow-hidden">
+        <header className="h-screen w-full relative overflow-hidden">
             <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 flex z-0"
             >
-                <div className="flex h-full gap-[1.5vw] pl-[7vw] pr-4">
+                <div className="flex h-full gap-[1.5vw] 3xl:gap-[2rem] px-[20px] md:pl-[7vw] 3xl:pl-[15rem]">
                     {[
                         "bg-sky",
                         "bg-beachball",
@@ -40,7 +40,7 @@ export default function Hero({
                     ].map((color, i) => (
                         <motion.span
                             key={i}
-                            className={`h-full w-[3vw] origin-top ${color}`}
+                            className={`h-full w-[3vw] 3xl:w-[3rem] origin-top ${color}`}
                             initial={{ scaleY: 0 }}
                             animate={{ scaleY: 1 }}
                             transition={{
@@ -72,7 +72,7 @@ export default function Hero({
                     ))}
                 </h1>
 
-                <h2 className="hidden md:block text-[2.75vw] italic">
+                <h2 className="hidden md:block text-[2.75vw] 3xl:text-[3.3rem] italic">
                     {tagline.split("").map((char, i) => (
                         <motion.span
                             key={i}

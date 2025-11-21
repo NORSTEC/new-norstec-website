@@ -12,6 +12,8 @@
     --color-sky: #1697B7;
 
     --font-barlow: "Barlow", system-ui, sans-serif;
+
+    --breakpoint-3xl: 125rem;
 }
 
 @layer base {
@@ -19,20 +21,23 @@
         background-color: var(--color-egg);
         color: var(--color-moody);
         font-family: "Barlow", system-ui, sans-serif;
+        overflow-x: hidden;
+        margin-inline: auto;
+        max-width: 2000px;
     }
 
     p {
-        @apply text-[1.25rem] leading-relaxed font-medium ;
+        @apply text-[1.25rem] 2xl:text-[1.5rem] leading-relaxed font-medium ;
     }
 }
 
 @layer utilities {
     .container {
-        @apply px-[40px] py-[40px] min-w-screen;
+        @apply px-[40px];
     }
 
     .text-h2 {
-        @apply text-[2rem] md:text-[2.5rem] font-medium;
+        @apply text-[2rem] md:text-[2.25rem] xl:text-[3rem] 2xl:text-[3.5rem] font-medium;
     }
 
 }
