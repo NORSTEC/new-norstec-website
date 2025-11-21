@@ -23,7 +23,7 @@ export default function Hero({
                                  title = "NORSTEC",
                                  tagline = "Securing our future in space.",
                              }: HeroProps) {
-    const titleStart = stripeTransition.duration + 0.6;
+    const titleStart = stripeTransition.duration;
     const taglineStart = titleStart + title.length * TITLE_LETTER_DELAY * 1.5;
 
     return (
