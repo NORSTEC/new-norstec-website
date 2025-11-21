@@ -4,7 +4,7 @@ import ClientHomePage from "@/app/ClientHomePage";
 
 export default async function HomePage() {
   const homePage = await getHomePage();
-  const initiatives = await getInitiativesPage()
+  // const initiatives = await getInitiativesPage()
   console.log(homePage)
   if (!homePage) {
     return (<p></p>);

@@ -1,12 +1,14 @@
-import { PortableText, type PortableTextBlock } from "next-sanity";
+import { PortableText } from "next-sanity";
 import StripesVertical from "@/app/components/items/StripesVertical";
+import type { SectionTextImage as SectionTextImageType } from "@/app/types/sections/sectionTextImage";
 
-type TextWithImageProps = {
-    title: string;
-    body: PortableTextBlock[];
+type SectionTextImageProps = {
+    section: SectionTextImageType;
 };
 
-export default function SectionTextImage({ title, body }: TextWithImageProps) {
+export default function SectionTextImage({ section }: SectionTextImageProps) {
+    const { title, body } = section;
+
     return (
         <section className="relative h-screen overflow-hidden">
             <StripesVertical className="hidden md:flex pl-[7vw] 3xl:pl-[15rem]"/>
