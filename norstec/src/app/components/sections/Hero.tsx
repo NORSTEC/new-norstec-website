@@ -72,7 +72,7 @@ export default function Hero({
                     ))}
                 </h1>
 
-                <p className="hidden md:block text-[2.5vw] italic">
+                <h2 className="hidden md:block text-[2.75vw] italic">
                     {tagline.split("").map((char, i) => (
                         <motion.span
                             key={i}
@@ -88,7 +88,7 @@ export default function Hero({
                             {char === " " ? "\u00A0" : char}
                         </motion.span>
                     ))}
-                </p>
+                </h2>
             </div>
         </header>
     );
