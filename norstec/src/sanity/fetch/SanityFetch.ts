@@ -4,6 +4,8 @@ import {InitiativesPage} from "@/app/types/pages/initiativesPage";
 import {HOME_PAGE_QUERY} from "@/sanity/queries/homePage";
 import {INITIATIVE_BY_SLUG_QUERY, INITIATIVES_PAGE_QUERY} from "@/sanity/queries/initiativesPage";
 import {Initiative} from "@/app/types/items/initiative";
+import {AboutPage} from "@/app/types/pages/aboutPage";
+import {ABOUT_PAGE_QUERY} from "@/sanity/queries/aboutPage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -36,4 +38,13 @@ export const getInitiativeBySlug = async (slug: string): Promise<Initiative | nu
         return null;
     }
 };
-
+// ============== ABOUT ============== //
+export const getAboutPage = async (): Promise<AboutPage | null> => {
+    try {
+        const { data } = await sanityFetch({ query: ABOUT_PAGE_QUERY });
+        return (data as AboutPage) ?? null;
+    } catch (e) {
+        console.error("Error fetching about page:", e);
+        return null;
+    }
+};

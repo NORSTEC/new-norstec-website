@@ -18,11 +18,11 @@
     "@sanity/color-input": "^4.0.6",
     "@sanity/icons": "^3.7.4",
     "@sanity/ui": "^3.1.11",
-    "@sanity/vision": "^4.17.0",
+    "@sanity/vision": "^4.18.0",
     "groq": "^4.15.0",
     "react": "^19.1",
     "react-dom": "^19.1",
-    "sanity": "^4.17.0",
+    "sanity": "^4.18.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {

@@ -59,7 +59,7 @@ export default defineType({
                     to: [
                         {type: 'sectionHero'},
                         {type: 'sectionTextImage'},
-                        {type: 'sectionHeaderText'},
+                        {type: 'sectionHeaderImage'},
                         {type: 'sectionStats'},
                         {type: 'sectionIconStats'},
                         {type: 'sectionMap'},

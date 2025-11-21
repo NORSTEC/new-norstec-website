@@ -6,6 +6,7 @@ export interface SectionTextImage {
     _id: string;
     title: string;
     body: PortableTextBlock[];
+    mirrored?: boolean;
     images: {
         image: Image;
         imageAlt: string;

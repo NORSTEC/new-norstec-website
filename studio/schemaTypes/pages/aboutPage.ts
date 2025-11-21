@@ -15,7 +15,7 @@ export default defineType({
                     to: [
                         {type: 'sectionTextImage'},
                         {type: 'sectionIconStats'},
-                        {type: 'sectionHeaderText'},
+                        {type: 'sectionHeaderImage'},
                         {type: 'sectionNapkin'},
                         {type: 'sectionGridCards'},
                         {type: 'sectionStats'},

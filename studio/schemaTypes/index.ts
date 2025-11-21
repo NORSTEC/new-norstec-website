@@ -14,7 +14,7 @@ import portableText from "./globals/portableText";
 import sectionHero from "./sections/sectionHero";
 import sectionTextImage from './sections/sectionTextImage'
 import sectionTeam from "./sections/sectionTeam";
-import sectionHeaderText from "./sections/sectionHeaderText";
+import sectionHeaderImage from "./sections/sectionHeaderImage";
 import sectionStats from './sections/sectionStats'
 import sectionMap from './sections/sectionMap'
 import sectionTable from './sections/sectionTable'
@@ -41,6 +41,7 @@ import faqItem from './items/faqItem'
 import mediaItem from './items/mediaItem'
 import teamRole from "./items/teamRole";
 import colorToken from "./items/colorToken";
+import sectionHeaderText from "./sections/sectionHeaderText";
 
 export const schemaTypes = [
     // Pages
@@ -59,7 +60,7 @@ export const schemaTypes = [
     sectionHero,
     sectionTextImage,
     sectionTeam,
-    sectionHeaderText,
+    sectionHeaderImage,
     sectionStats,
     sectionMap,
     sectionTable,
@@ -70,6 +71,7 @@ export const schemaTypes = [
     sectionPodcast,
     sectionIconStats,
     sectionNapkin,
+    sectionHeaderText,
     sectionGridCards,
     sectionFaq,
     sectionJoin,

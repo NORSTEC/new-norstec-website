@@ -19,6 +19,13 @@ export default defineType({
             type: 'portableText',
             validation: Rule => Rule.required(),
         }),
+        defineField({
+            name: 'mirrored',
+            title: 'Mirror layout?',
+            type: 'boolean',
+            description: 'Mirrors the layout',
+            initialValue: false,
+        }),
 
         defineField({
             name: 'images',

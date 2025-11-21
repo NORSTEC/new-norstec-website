@@ -15,15 +15,6 @@ export default defineType({
         }),
 
         defineField({
-            name: 'colorToken',
-            title: 'Accent color',
-            type: 'reference',
-            to: [{ type: 'colorToken' }],
-            description:
-                'Choose which saved color token this grid should use as accent color for the cards.',
-        }),
-
-        defineField({
             name: 'items',
             title: 'Cards',
             description:
