@@ -6,9 +6,6 @@ import {SectionTable} from "@/app/types/sections/sectionTable";
 import {SectionCtaGrid} from "@/app/types/sections/sectionCtaGrid";
 import {SectionContact} from "@/app/types/sections/sectionContact";
 import {SectionInitiatives} from "@/app/types/sections/sectionInitiatives";
-import {SectionMedia} from "@/app/types/sections/sectionMedia";
-import {SectionPodcast} from "@/app/types/sections/sectionPodcast";
-
 
 export type HomePageSection =
     | SectionHero
@@ -18,9 +15,7 @@ export type HomePageSection =
     | SectionTable
     | SectionCtaGrid
     | SectionContact
-    | SectionInitiatives
-    | SectionMedia
-    | SectionPodcast;
+    | SectionInitiatives;
 
 
 export interface HomePage {

@@ -7,47 +7,10 @@ export default defineType({
 
     fields: [
         defineField({
-            name: 'layout',
-            title: 'Layout style',
-            type: 'string',
-            options: {
-                list: [
-                    {
-                        title: 'Side-by-side (title, text and image in one row)',
-                        value: 'split',
-                    },
-                    {
-                        title: 'Title above (text and image in two columns below)',
-                        value: 'stacked',
-                    },
-                ],
-                layout: 'radio',
-            },
-            initialValue: 'split',
-            description: 'Choose how the title, text and image should be positioned.',
-        }),
-
-        defineField({
-            name: 'showBreadcrumb',
-            title: 'Show breadcrumb',
-            type: 'boolean',
-            initialValue: false,
-            description: 'Enable to show a breadcrumb path above the title.',
-        }),
-
-        defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
             validation: Rule => Rule.required(),
-        }),
-
-        defineField({
-            name: 'showIcon',
-            title: 'Show star icon',
-            type: 'boolean',
-            initialValue: false,
-            description: 'Enable to display the default star icon next to the title.',
         }),
 
         defineField({
@@ -58,20 +21,32 @@ export default defineType({
         }),
 
         defineField({
-            name: 'image',
-            title: 'Image',
-            type: 'image',
-            options: { hotspot: true },
-            validation: Rule => Rule.required(),
+            name: 'images',
+            title: 'Carousel of Images',
+            type: 'array',
+            description: 'Here you can display an array of images.',
+            validation: Rule => Rule.min(3).required(),
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        {
+                            name: 'image',
+                            title: 'Image',
+                            type: 'image',
+                            options: { hotspot: true },
+                            validation: Rule => Rule.required(),
+                        },
+                        {
+                            name: 'imageAlt',
+                            title: 'Image alt text',
+                            type: 'string',
+                            validation: Rule => Rule.required(),
+                        }
+                    ]
+                }
+            ]
         }),
-
-        defineField({
-            name: 'imageAlt',
-            title: 'Image alt text',
-            type: 'string',
-            validation: Rule => Rule.required(),
-        }),
-
         defineField({
             name: 'link',
             title: 'Link',
@@ -83,8 +58,7 @@ export default defineType({
     preview: {
         select: {
             title: 'title',
-            media: 'image',
-            showIcon: 'showIcon',
+            media: 'images.0.image',
         },
         prepare({ title, media }) {
             return {

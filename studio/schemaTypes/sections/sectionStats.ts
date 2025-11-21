@@ -15,15 +15,6 @@ export default defineType({
         }),
 
         defineField({
-            name: 'colorToken',
-            title: 'Accent Color',
-            type: 'reference',
-            to: [{ type: 'colorToken' }],
-            description:
-                'Choose the accent color used for the left vertical bars in this stats section.',
-        }),
-
-        defineField({
             name: 'items',
             title: 'Items',
             type: 'array',
