@@ -84,11 +84,11 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                                     scale: isMain ? 1 : 0.96,
                                 }}
                                 transition={{
-                                    x: { duration: 0.35, ease: [0.25, 0.8, 0.5, 1] },
+                                    x: { duration: 0.15, ease: [0.25, 0.8, 0.5, 1] },
                                     opacity: { duration: 0.25 },
-                                    scale: { duration: 0.35, ease: [0.25, 0.8, 0.5, 1] },
+                                    scale: { duration: 0.15, ease: [0.25, 0.8, 0.5, 1] },
                                     layout: {
-                                        duration: 0.35,
+                                        duration: 0.15,
                                         ease: [0.25, 0.8, 0.5, 1],
                                     },
                                 }}
@@ -110,7 +110,6 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                 </div>
             </div>
 
-            {/* Høyre pil */}
             <button
                 type="button"
                 onClick={handleNext}
