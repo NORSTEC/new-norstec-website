@@ -14,7 +14,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
         <section className="relative md:min-h-screen xl:h-screen snap-start">
             <StripesVertical className="hidden md:flex pl-[7vw] 3xl:pl-[15rem]"/>
 
-            <div className="flex flex-col md:flex-row h-full md:min-h-screen items-start relative z-10 px-[20px] md:px-[40px]">
+            <div className="flex flex-col md:flex-row h-full md:min-h-screen items-start relative z-10  md:px-[40px]">
                 <div className="md:min-w-[30vw] 3xl:min-w-[40rem] bg-egg md:py-10">
                     {title && <h2 className="text-h2 italic">{title}</h2>}
                 </div>
