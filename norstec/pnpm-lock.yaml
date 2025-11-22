@@ -24,6 +24,9 @@ importers:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
     devDependencies:
+      '@savaryna/tailwindcss-material-symbols':
+        specifier: ^1.3.0
+        version: 1.3.0(tailwindcss@4.1.17)
       '@tailwindcss/postcss':
         specifier: ^4.1.17
         version: 4.1.17
@@ -1941,6 +1944,11 @@ packages:
         optional: true
       svelte:
         optional: true
+
+  '@savaryna/tailwindcss-material-symbols@1.3.0':
+    resolution: {integrity: sha512-3PObCl04Z6ahwA8DzfB6WOQq6X91uaTUaFwppv+OEX13s7/C2vIrGuw6sYbGem8gpBeBEc6ZccFoQqeInNxmlQ==}
+    peerDependencies:
+      tailwindcss: '>=3.4.17'
 
   '@sentry-internal/browser-utils@8.55.0':
     resolution: {integrity: sha512-ROgqtQfpH/82AQIpESPqPQe0UyWywKJsmVIqi3c5Fh+zkds5LUxnssTj3yNd1x+kxaPDVB023jAP+3ibNgeNDw==}
@@ -8108,6 +8116,10 @@ snapshots:
       - debug
       - sanity
       - typescript
+
+  '@savaryna/tailwindcss-material-symbols@1.3.0(tailwindcss@4.1.17)':
+    dependencies:
+      tailwindcss: 4.1.17
 
   '@sentry-internal/browser-utils@8.55.0':
     dependencies:
