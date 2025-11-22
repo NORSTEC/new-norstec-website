@@ -27,7 +27,7 @@ export default function SectionHero({
     const taglineStart = titleStart + title.length * TITLE_LETTER_DELAY * 1.5;
 
     return (
-        <header className="h-screen w-full relative overflow-hidden">
+        <header className="h-screen w-full relative overflow-hidden snap-start">
             <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 flex z-0"
             >

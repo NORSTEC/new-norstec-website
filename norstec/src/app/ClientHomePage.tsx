@@ -5,6 +5,7 @@ import type { HomePageSection } from "@/app/types/pages/homePage";
 
 import SectionTextImage from "@/app/components/sections/SectionTextImage";
 import SectionHero from "@/app/components/sections/SectionHero";
+import SectionTable from "@/app/components/sections/SectionTable";
 
 interface ClientHomePageProps {
     data: HomePage;
@@ -21,8 +22,8 @@ function renderHomeSection(section: HomePageSection) {
         // case "sectionMap":
         //   return <SectionMap key={section._id} section={section} />;
 
-        // case "sectionTable":
-        //   return <SectionTable key={section._id} section={section} />;
+        case "sectionTable":
+            return <SectionTable key={section._id} section={section} />;
 
         // case "sectionInitiatives":
         //   return <SectionInitiatives key={section._id} section={section} />;
