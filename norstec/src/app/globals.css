@@ -19,7 +19,7 @@
 
 @layer base {
     html {
-        @apply xl:snap-y xl:scroll-smooth;
+        @apply xl:snap-y xl:snap-proximity xl:scroll-smooth;
     }
 
     body {
