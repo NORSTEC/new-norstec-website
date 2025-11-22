@@ -21,7 +21,7 @@ export default function SectionTable({ section }: SectionTableProps) {
                     {title}
                 </h2>
             </div>
-            <div className="hidden lg:flex px-[20px] md:px-[40px] lg:mr-[24vw] relative z-10 flex-1 pb-10">
+            <div className="hidden lg:flex px-[20px] md:px-[40px] lg:mr-[24vw] 2xl:mr-[35rem] 3xl:mr-[40rem] relative z-10 flex-1 pb-10">
                 <Table columns={columns} rows={rows} />
             </div>
         </section>
