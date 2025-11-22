@@ -28,7 +28,7 @@
     }
 
     p {
-        @apply text-[1.25rem] 2xl:text-[1.5rem] leading-relaxed font-medium;
+        @apply text-[1rem] 2xl:text-[1.5rem] leading-8 font-medium;
     }
 }
 

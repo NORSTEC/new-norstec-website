@@ -19,7 +19,7 @@ type ImageCarouselProps = {
 export default function ImageCarousel({ images, className }: ImageCarouselProps) {
     const total = images?.length ?? 0;
     const [startIndex, setStartIndex] = useState(0);
-    const [direction, setDirection] = useState<1 | -1>(1); // 1 = høyre, -1 = venstre
+    const [direction, setDirection] = useState<1 | -1>(1);
 
     const visibleImages = useMemo(() => {
         const count = Math.min(3, total);
@@ -44,19 +44,22 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
     };
 
     return (
-        <section className={`relative flex items-center w-full ${className ?? ""}`}>
+        <section
+            className={`relative flex items-center w-full xl:h-full max-h-[37.5rem] ${className ?? ""}`}
+        >
             <button
                 type="button"
                 onClick={handlePrev}
                 className="hidden md:flex items-center justify-center text-moody cursor-pointer"
                 aria-label="Previous image"
             >
-                <span className="icon icon-rounded icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
-                    arrow_circle_left
-                </span>
+        <span className="icon icon-rounded icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
+          arrow_circle_left
+        </span>
             </button>
 
-            <div className="relative flex-1 h-full">
+            {/* DESKTOP */}
+            <div className="relative flex-1 h-full hidden xl:block">
                 <div className="flex h-full gap-4 sm:gap-3">
                     {visibleImages.map((item, index) => {
                         const isMain = index === 0;
@@ -100,7 +103,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                                     src={src}
                                     alt={item.imageAlt || "Image"}
                                     fill
-                                    sizes="(min-width: 1024px) 33vw, 100vw"
+                                    sizes="(min-width: 1280px) 33vw, 100vw"
                                     className="object-cover"
                                     priority={isMain}
                                 />
@@ -110,15 +113,56 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                 </div>
             </div>
 
+            {/* MOBIL */}
+            <div className="relative flex-1 xl:h-full xl:hidden">
+                {(() => {
+                    const current = images[startIndex];
+
+                    const src = imageBuilder(current.image, {
+                        width: 1200,
+                        height: 800,
+                        quality: 90,
+                        fit: "crop",
+                    });
+                    if (!src) return null;
+
+                    return (
+                        <motion.div
+                            key={startIndex}
+                            initial={{
+                                opacity: 0,
+                            }}
+                            animate={{
+                                opacity: 1,
+                            }}
+                            transition={{
+                                opacity: { duration: 0.25 },
+                            }}
+                            className="relative h-full w-full overflow-hidden aspect-[4/3] rounded-xl bg-egg"
+                        >
+                            <NextImage
+                                src={src}
+                                alt={current.imageAlt || "Image"}
+                                fill
+                                sizes="100vw"
+                                className="object-cover"
+                                priority
+                            />
+                        </motion.div>
+                    );
+                })()}
+            </div>
+
+            {/* HØYRE PIL */}
             <button
                 type="button"
                 onClick={handleNext}
                 className="hidden md:flex items-center justify-center text-moody cursor-pointer"
                 aria-label="Next image"
             >
-                <span className="icon icon-rounded icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
-                    arrow_circle_right
-                </span>
+        <span className="icon icon-rounded icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
+          arrow_circle_right
+        </span>
             </button>
         </section>
     );
