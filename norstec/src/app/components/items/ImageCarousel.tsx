@@ -19,7 +19,6 @@ type ImageCarouselProps = {
 export default function ImageCarousel({ images, className }: ImageCarouselProps) {
     const total = images?.length ?? 0;
     const [startIndex, setStartIndex] = useState(0);
-    const [direction, setDirection] = useState<1 | -1>(1);
 
     const visibleImages = useMemo(() => {
         const count = Math.min(3, total);
@@ -34,12 +33,10 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
     if (total === 0) return null;
 
     const handleNext = () => {
-        setDirection(1);
         setStartIndex((prev) => (prev + 1) % total);
     };
 
     const handlePrev = () => {
-        setDirection(-1);
         setStartIndex((prev) => (prev - 1 + total) % total);
     };
 
@@ -50,12 +47,12 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
             <button
                 type="button"
                 onClick={handlePrev}
-                className="hidden md:flex items-center justify-center text-moody cursor-pointer"
+                className="flex items-center justify-center text-moody cursor-pointer"
                 aria-label="Previous image"
             >
-        <span className="icon icon-rounded icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
-          arrow_circle_left
-        </span>
+                <span className="icon icon-rounded icon-40 md:icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
+                  arrow_circle_left
+                </span>
             </button>
 
             {/* DESKTOP */}
@@ -77,17 +74,14 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                                 key={item.globalIndex}
                                 layout
                                 initial={{
-                                    x: direction === 1 ? 40 : -40,
                                     opacity: 0,
                                     scale: isMain ? 0.96 : 0.94,
                                 }}
                                 animate={{
-                                    x: 0,
                                     opacity: 1,
                                     scale: isMain ? 1 : 0.96,
                                 }}
                                 transition={{
-                                    x: { duration: 0.15, ease: [0.25, 0.8, 0.5, 1] },
                                     opacity: { duration: 0.25 },
                                     scale: { duration: 0.15, ease: [0.25, 0.8, 0.5, 1] },
                                     layout: {
@@ -114,7 +108,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
             </div>
 
             {/* MOBIL */}
-            <div className="relative flex-1 xl:h-full xl:hidden">
+            <div className="px-[2vw] relative flex-1 xl:h-full xl:hidden">
                 {(() => {
                     const current = images[startIndex];
 
@@ -153,16 +147,15 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                 })()}
             </div>
 
-            {/* HØYRE PIL */}
             <button
                 type="button"
                 onClick={handleNext}
-                className="hidden md:flex items-center justify-center text-moody cursor-pointer"
+                className="flex items-center justify-center text-moody cursor-pointer"
                 aria-label="Next image"
             >
-        <span className="icon icon-rounded icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
-          arrow_circle_right
-        </span>
+                <span className="icon icon-rounded icon-40 md:icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
+                  arrow_circle_right
+                </span>
             </button>
         </section>
     );

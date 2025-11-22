@@ -1,5 +1,3 @@
-"use client";
-
 import type { HomePage } from "@/app/types/pages/homePage";
 import type { HomePageSection } from "@/app/types/pages/homePage";
 
