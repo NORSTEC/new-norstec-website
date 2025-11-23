@@ -1,6 +1,7 @@
 import type { SectionTable as SectionTableType } from "@/app/types/sections/sectionTable";
 import StripesVertical from "@/app/components/items/StripesVertical";
 import Table from "@/app/components/items/Table";
+import CollapsibleList from "@/app/components/items/CollapsibleList";
 
 type SectionTableProps = {
     section: SectionTableType;
@@ -10,9 +11,9 @@ export default function SectionTable({ section }: SectionTableProps) {
     const { title, columns, rows } = section;
 
     return (
-        <section className="relative min-h-screen flex flex-col xl:h-screen snap-start">
+        <section className="relative md:min-h-screen flex flex-col xl:h-screen snap-start">
             <StripesVertical
-                className="hidden md:flex pr-[7vw] 3xl:pr-[15rem]"
+                className="flex pr-[7vw] 3xl:pr-[15rem]"
                 side="right"
             />
 
@@ -23,6 +24,9 @@ export default function SectionTable({ section }: SectionTableProps) {
             </div>
             <div className="hidden lg:flex px-[20px] md:px-[40px] lg:mr-[24vw] 2xl:mr-[35rem] 3xl:mr-[40rem] relative z-10 flex-1 pb-10">
                 <Table columns={columns} rows={rows} />
+            </div>
+            <div className="lg:hidden  mr-[24vw] md:px-[40px]">
+                <CollapsibleList columns={columns} rows={rows} />
             </div>
         </section>
     );
