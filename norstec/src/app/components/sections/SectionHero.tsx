@@ -15,9 +15,9 @@ const TAGLINE_LETTER_DELAY = 0.04;
 
 // fuck hydration errors
 const HERO_TITLE_CLASSES =
-    "font-semibold whitespace-nowrap text-[21vh] md:text-[20vw] 3xl:text-[22.2rem] " +
+    "whitespace-nowrap text-[18vh] md:text-[17vw] 3xl:text-[19rem] " +
     "absolute right-0 top-[97.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
-    "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center";
+    "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-oughter";
 
 export default function SectionHero({
                                  title = "NORSTEC",
@@ -72,7 +72,7 @@ export default function SectionHero({
                     ))}
                 </h1>
 
-                <h2 className="hidden md:block text-[2.75vw] 3xl:text-[3.3rem] italic">
+                <h2 className="hidden md:block text-[2.25vw] 3xl:text-[3rem] italic font-oughter">
                     {tagline.split("").map((char, i) => (
                         <motion.span
                             key={i}
