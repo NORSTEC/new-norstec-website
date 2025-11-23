@@ -77,12 +77,12 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
                 className="py-[10px] flex justify-between items-center transition-all duration-100 cursor-pointer"
                 onClick={() => setOpen(prev => !prev)}
             >
-                <h3 className="text-base md:text-lg font-semibold">
+                <h3 className=" font-medium">
                     {title}
                 </h3>
 
                 <span
-                    className={`icon icon-24 icon-500 transition-transform duration-100 text-moody ${
+                    className={`icon icon-24 icon-400 transition-transform duration-100 text-moody ${
                         open ? "rotate-90" : "rotate-0"
                     }`}
                 >
@@ -110,7 +110,7 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
                             <motion.div
                                 key={i}
                                 variants={lineVariants}
-                                className="flex flex-col gap-[2px]"
+                                className="flex flex-col gap-[2px] "
                             >
                                 <span className="text-sm font-medium opacity-70">
                                     {col.label}

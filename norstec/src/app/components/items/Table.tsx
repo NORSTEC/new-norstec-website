@@ -10,7 +10,7 @@ type TableProps = {
 };
 
 const rowVariants = {
-    hidden: { x: "-100%", opacity: 0 },
+    hidden: { x: "-20%", opacity: 0 },
     visible: { x: 0, opacity: 1 },
 };
 
@@ -113,10 +113,9 @@ export default function Table({ columns, rows }: TableProps) {
                                 <span className="inline-flex items-center gap-[2px]">
                                     {column.label}
                                     {isActive && (
-                                        <span className="icon icon-20 icon-500">
-                                            {direction === "asc"
-                                                ? "arrow_upward"
-                                                : "arrow_downward"}
+                                        <span className={`icon icon-20 icon-500 transition-transform duration-150 text-moody
+                                         ${direction === "desc" ? "rotate-0" : "rotate-180"}`}>
+                                            arrow_upward
                                         </span>
                                     )}
                                 </span>
@@ -136,7 +135,7 @@ export default function Table({ columns, rows }: TableProps) {
                     <motion.tr
                         key={rowIndex}
                         variants={rowVariants}
-                        transition={{ duration: 0.45, ease: "easeOut" }}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
                         className="border-b-2 border-moody"
                     >
                         {row.cells.map((cell, cellIndex) => {
