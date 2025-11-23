@@ -143,8 +143,14 @@ export default function Table({ columns, rows }: TableProps) {
                             if (!column) return null;
 
                             if (column.type === "url") {
+                                const raw = (cell || "").trim();
+                                const fallbackText = column.urlFallback?.trim();
+
                                 const href =
-                                    cell || column.urlFallback || "";
+                                    raw && (raw.startsWith("http://") || raw.startsWith("https://"))
+                                        ? raw
+                                        : "";
+
                                 return (
                                     <td key={cellIndex} className="py-2">
                                         {href ? (
@@ -156,6 +162,8 @@ export default function Table({ columns, rows }: TableProps) {
                                             >
                                                 {href}
                                             </a>
+                                        ) : fallbackText ? (
+                                            <span>{fallbackText}</span>
                                         ) : (
                                             <span>—</span>
                                         )}
