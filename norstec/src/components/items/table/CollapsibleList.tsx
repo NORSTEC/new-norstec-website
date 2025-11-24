@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import type { SectionTable } from "@/app/types/sections/sectionTable";
+import type { SectionTable } from "@/types/sections/sectionTable";
 
 type CollapsibleListProps = {
     columns: SectionTable["columns"];

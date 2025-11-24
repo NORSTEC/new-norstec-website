@@ -1,4 +1,4 @@
-import {SectionInitiatives} from "@/app/types/sections/sectionInitiatives";
+import {SectionInitiatives} from "@/types/sections/sectionInitiatives";
 
 export interface InitiativesPage {
     _type: "initiativesPage";

@@ -1,10 +1,10 @@
 import {sanityFetch} from "@/sanity/lib/live";
-import {HomePage} from "@/app/types/pages/homePage";
-import {InitiativesPage} from "@/app/types/pages/initiativesPage";
+import {HomePage} from "@/types/pages/homePage";
+import {InitiativesPage} from "@/types/pages/initiativesPage";
 import {HOME_PAGE_QUERY} from "@/sanity/queries/homePage";
 import {INITIATIVE_BY_SLUG_QUERY, INITIATIVES_PAGE_QUERY} from "@/sanity/queries/initiativesPage";
-import {Initiative} from "@/app/types/items/initiative";
-import {AboutPage} from "@/app/types/pages/aboutPage";
+import {Initiative} from "@/types/items/initiative";
+import {AboutPage} from "@/types/pages/aboutPage";
 import {ABOUT_PAGE_QUERY} from "@/sanity/queries/aboutPage";
 
 // ============== HOME ============== //

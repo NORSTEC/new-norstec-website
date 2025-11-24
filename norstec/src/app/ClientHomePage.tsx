@@ -1,11 +1,12 @@
 "use client";
 
-import type { HomePage } from "@/app/types/pages/homePage";
-import type { HomePageSection } from "@/app/types/pages/homePage";
+import type { HomePage } from "@/types/pages/homePage";
+import type { HomePageSection } from "@/types/pages/homePage";
 
-import SectionTextImage from "@/app/components/sections/SectionTextImage";
-import SectionHero from "@/app/components/sections/SectionHero";
-import SectionTable from "@/app/components/sections/SectionTable";
+import SectionTextImage from "@/components/sections/SectionTextImage";
+import Hero from "@/components/static/Hero";
+import SectionTable from "@/components/sections/SectionTable";
+import SectionInitiatives from "@/components/sections/SectionInitiatives";
 
 interface ClientHomePageProps {
     data: HomePage;
@@ -25,8 +26,8 @@ function renderHomeSection(section: HomePageSection) {
         case "sectionTable":
             return <SectionTable key={section._id} section={section} />;
 
-        // case "sectionInitiatives":
-        //   return <SectionInitiatives key={section._id} section={section} />;
+        case "sectionInitiatives":
+            return <SectionInitiatives key={section._id} section={section} />;
 
         default:
             return null;
@@ -40,7 +41,7 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
 
     return (
         <>
-            <SectionHero />
+            <Hero />
             <main>
                 {data.sections?.map((section) => renderHomeSection(section))}
             </main>

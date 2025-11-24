@@ -6,7 +6,16 @@ export const HOME_PAGE_QUERY = defineQuery(`
     sections[]->{
       _id,
       _type,
-      ...
+      ...,
+      initiatives[]->{
+        _id,
+        title,
+        tag,
+        summary,
+        cover,
+        coverAlt,
+        slug
+      }
     }
   }
 `);

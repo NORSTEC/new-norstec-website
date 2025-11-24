@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.css"
 import React from "react";
-import { oughter, barlow } from "./fonts";
+import { oughter, barlow } from "@/assets/fonts"
 
 export const metadata: Metadata = {
     title: "NORSTEC",

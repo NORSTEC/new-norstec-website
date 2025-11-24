@@ -1,7 +1,7 @@
-import type { SectionTable as SectionTableType } from "@/app/types/sections/sectionTable";
-import StripesVertical from "@/app/components/items/StripesVertical";
-import Table from "@/app/components/items/Table";
-import CollapsibleList from "@/app/components/items/CollapsibleList";
+import type { SectionTable as SectionTableType } from "@/types/sections/sectionTable";
+import StripesVertical from "@/components/items/stripes/StripesVertical";
+import Table from "@/components/items/table/Table";
+import CollapsibleList from "@/components/items/table/CollapsibleList";
 
 type SectionTableProps = {
     section: SectionTableType;
@@ -25,7 +25,7 @@ export default function SectionTable({ section }: SectionTableProps) {
             <div className="hidden lg:flex px-[20px] md:px-[40px] lg:mr-[24vw] 2xl:mr-[35rem] 3xl:mr-[40rem] relative z-10 flex-1 pb-10">
                 <Table columns={columns} rows={rows} />
             </div>
-            <div className="lg:hidden  mr-[24vw] md:px-[40px]">
+            <div className="lg:hidden mr-[24vw] md:px-[40px]">
                 <CollapsibleList columns={columns} rows={rows} />
             </div>
         </section>

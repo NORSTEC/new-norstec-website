@@ -1,4 +1,4 @@
-import { Image } from "@/app/types/image/image";
+import { Image } from "@/types/image/image";
 
 export interface SectionNapkin {
     _type: "sectionNapkin";

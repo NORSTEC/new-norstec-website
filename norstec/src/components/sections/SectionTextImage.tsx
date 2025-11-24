@@ -1,7 +1,7 @@
 import { PortableText } from "next-sanity";
-import StripesVertical from "@/app/components/items/StripesVertical";
-import type { SectionTextImage as SectionTextImageType } from "@/app/types/sections/sectionTextImage";
-import ImageCarousel from "@/app/components/items/ImageCarousel";
+import StripesVertical from "@/components/items/stripes/StripesVertical";
+import type { SectionTextImage as SectionTextImageType } from "@/types/sections/sectionTextImage";
+import ImageCarousel from "@/components/items/ImageCarousel";
 
 type SectionTextImageProps = {
     section: SectionTextImageType;

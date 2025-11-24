@@ -19,7 +19,7 @@ const HERO_TITLE_CLASSES =
     "absolute right-0 top-[97.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
     "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-oughter";
 
-export default function SectionHero({
+export default function Hero({
                                  title = "NORSTEC",
                                  tagline = "Securing our future in space.",
                              }: HeroProps) {

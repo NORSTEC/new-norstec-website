@@ -1,5 +1,5 @@
 import {PortableTextBlock} from "next-sanity";
-import {Image} from "@/app/types/image/image";
+import {Image} from "@/types/image/image";
 
 export interface SectionTextImage {
     _type: "sectionTextImage";

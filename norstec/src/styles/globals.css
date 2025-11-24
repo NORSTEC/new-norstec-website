@@ -32,10 +32,6 @@
 }
 
 @layer utilities {
-    .container {
-        @apply px-[40px];
-    }
-
     .text-h2 {
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-oughter;
     }

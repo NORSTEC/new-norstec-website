@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useMemo, useState } from "react";
-import type { SectionTable } from "@/app/types/sections/sectionTable";
+import type { SectionTable } from "@/types/sections/sectionTable";
 
 type TableProps = {
     columns: SectionTable["columns"];

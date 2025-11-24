@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import NextImage from "next/image";
 import { motion } from "motion/react";
-import { imageBuilder } from "@/app/utils/imageBuilder";
-import type { Image as SanityImage } from "@/app/types/image/image";
+import { imageBuilder } from "@/utils/imageBuilder";
+import type { Image as SanityImage } from "@/types/image/image";
 
 type CarouselImage = {
     image: SanityImage;

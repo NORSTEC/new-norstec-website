@@ -1,6 +1,6 @@
 "use client";
 
-import { AboutPage } from "@/app/types/pages/aboutPage";
+import { AboutPage } from "@/types/pages/aboutPage";
 
 interface AboutPageProps {
     page: AboutPage;
