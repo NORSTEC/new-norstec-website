@@ -112,7 +112,7 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
                                 variants={lineVariants}
                                 className="flex flex-col gap-[2px] "
                             >
-                                <span className="text-sm font-medium opacity-70">
+                                <span className="text-sm font-semibold">
                                     {col.label}
                                 </span>
 

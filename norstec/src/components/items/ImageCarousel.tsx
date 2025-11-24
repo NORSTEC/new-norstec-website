@@ -47,7 +47,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
             <button
                 type="button"
                 onClick={handlePrev}
-                className="flex items-center justify-center text-moody cursor-pointer"
+                className="flex items-center justify-center text-moody cursor-pointer md:pr-2"
                 aria-label="Previous image"
             >
                 <span className="icon icon-rounded icon-40 md:icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
@@ -150,10 +150,10 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
             <button
                 type="button"
                 onClick={handleNext}
-                className="flex items-center justify-center text-moody cursor-pointer"
+                className="flex items-center justify-center text-moody cursor-pointer md:pl-2"
                 aria-label="Next image"
             >
-                <span className="icon icon-rounded icon-40 md:icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
+                <span className="icon icon-rounded icon-40 md:icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200 ">
                   arrow_circle_right
                 </span>
             </button>

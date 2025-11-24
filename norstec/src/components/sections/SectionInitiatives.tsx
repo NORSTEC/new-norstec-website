@@ -7,7 +7,7 @@ export default function SectionInitiatives({ section }: { section: SectionInitia
     const { title, body, initiatives } = section;
 
     return (
-        <section className="relative md:min-h-screen xl:h-screen snap-start">
+        <section className="section">
             <StripesVertical
                 className="flex pr-[7vw] 3xl:pr-[15rem]"
                 side="right"

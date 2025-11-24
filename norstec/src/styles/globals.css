@@ -36,4 +36,7 @@
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-oughter;
     }
 
+    .section {
+        @apply relative md:h-[clamp(650px,100vh,900px)] snap-start
+    }
 }

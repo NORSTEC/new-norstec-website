@@ -74,14 +74,14 @@ export default function InitiativesCarousel({ initiatives }: InitiativesCarousel
 
     return (
         <div className="embla bg-egg py-10">
-            <div className="embla__viewport " ref={enableEmbla ? emblaRef : undefined}>
+            <div className="embla__viewport" ref={enableEmbla ? emblaRef : undefined}>
                 <div className="embla__container " ref={!enableEmbla ? containerRef : null}>
                     {slides.map((x, i) => {
                         const key = x._id ?? x._key ?? x.slug?.current ?? `slide-${i}`;
 
                         return (
                             <div
-                                className="embla__slide w-[25vw] 2xl:w-[25rem]"
+                                className="embla__slide min-w-[20rem] w-[25vw]"
                                 key={key}
                             >
                                 <InitiativeCard {...x} />

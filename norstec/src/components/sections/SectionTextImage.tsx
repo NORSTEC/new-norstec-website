@@ -11,15 +11,15 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
     const { title, body, images, mirrored } = section;
 
     return (
-        <section className="relative md:min-h-screen xl:h-screen snap-start ">
+        <section className="section">
             <StripesVertical className="hidden md:flex pl-[7vw] 3xl:pl-[15rem]"/>
 
-            <div className="flex flex-col md:flex-row h-full md:min-h-screen items-start relative z-10  md:px-[40px]">
+            <div className="flex flex-col md:flex-row h-full  items-start relative z-10  md:px-[40px]">
                 <div className="md:min-w-[30vw] 3xl:min-w-[40rem] bg-egg md:py-10">
                     {title && <h2 className="text-h2 italic">{title}</h2>}
                 </div>
 
-                <div className="md:py-10 bg-egg md:pl-[8vw] 2xl:pl-[2vw] flex flex-col justify-center h-full md:min-h-screen">
+                <div className="md:py-10 bg-egg md:pl-[8vw] 2xl:pl-[2vw] flex flex-col justify-center h-full">
                     <div className="md:flex-1 flex items-center h-full pt-5 md:pt-[5vh] order-1 md:order-2">
                         <ImageCarousel images={images} className="w-full" />
                     </div>
