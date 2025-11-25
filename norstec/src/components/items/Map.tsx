@@ -16,10 +16,9 @@ export default function Map({ organizations }: MapProps) {
 
     return (
         <section>
-                <div className=" min-w-[25rem] w-[40vw]">
                     <svg
                         viewBox="0 0 1482 1763"
-                        className="w-full h-auto"
+                        className="w-auto h-full"
                         aria-label="Map of Norway with NORSTEC organisations"
                     >
                         <image
@@ -73,7 +72,6 @@ export default function Map({ organizations }: MapProps) {
                             </p>
                         </div>
                     )}
-                </div>
         </section>
     );
 }

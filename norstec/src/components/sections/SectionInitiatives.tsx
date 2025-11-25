@@ -14,7 +14,7 @@ export default function SectionInitiatives({ section }: { section: SectionInitia
             />
             <div className="flex flex-col h-full">
                 <div className="md:w-[40rem] lg:w-[45rem] 2xl:w-[60rem] mr-[24vw] md:mr-0 md:px-[40px] md:pt-10">
-                    {title && <h2 className="text-h2 italic">{title}</h2>}
+                    {title && <h2 className="text-h2 italic md:pb-5">{title}</h2>}
 
                     <PortableText
                         value={body ?? []}
