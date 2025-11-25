@@ -27,7 +27,7 @@ export default function InitiativeCard({
     const href = slug ? `/initiatives/${slug.current}` : undefined;
 
     const card = (
-        <div className="md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-t-2xl bg-egg hover:shadow-lg hover:scale-[98%] rounded-2xl transition-all duration-200 cursor-pointer overflow-hidden">
+        <div className="md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-t-2xl bg-egg hover:shadow-lg hover:scale-95 rounded-2xl transition-all duration-200 cursor-pointer overflow-hidden">
             <div className="relative w-full md:h-[40vh] h-[20rem] md:max-h-[25rem]">
                 {imageUrl ? (
                     <Image
@@ -43,7 +43,7 @@ export default function InitiativeCard({
                 )}
             </div>
 
-            <div className="p-3 border-b-1 border-r border-l border-moody rounded-b-2xl">
+            <div className="p-3 border-b-2 border-r-2 border-l-2 border-moody rounded-b-2xl">
                 <h3 className="font-semibold">{title}</h3>
 
                 {summary && (

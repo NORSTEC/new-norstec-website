@@ -7,6 +7,7 @@ import SectionTextImage from "@/components/sections/SectionTextImage";
 import Hero from "@/components/static/Hero";
 import SectionTable from "@/components/sections/SectionTable";
 import SectionInitiatives from "@/components/sections/SectionInitiatives";
+import SectionMap from "@/components/sections/SectionMap";
 
 interface ClientHomePageProps {
     data: HomePage;
@@ -20,8 +21,8 @@ function renderHomeSection(section: HomePageSection) {
         // case "sectionStats":
         //   return <SectionStats key={section._id} section={section} />;
 
-        // case "sectionMap":
-        //   return <SectionMap key={section._id} section={section} />;
+        case "sectionMap":
+            return <SectionMap key={section._id} section={section} />;
 
         case "sectionTable":
             return <SectionTable key={section._id} section={section} />;
