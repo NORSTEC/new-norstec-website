@@ -16,7 +16,7 @@ export default function SectionMap({ section }: SectionMapProps) {
             />
 
             <div className="flex flex-col lg:flex-row h-full w-full justify-between gap-10">
-                <div className="w-[clamp(30rem,50vw,40rem)] md:py-10 my-auto">
+                <div className="w-[clamp(30rem,50vw,40rem)] md:py-10 my-auto max-w-screen mx-auto">
                     <Map organizations={section.organizations} />
                 </div>
 

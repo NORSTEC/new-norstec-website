@@ -39,6 +39,6 @@ export const MOCK_ORGANIZATIONS: Organization[] = [
         description: "Space-fokusert studentforening ved Universitetet i Oslo.",
         type: "non-incubator",
         x: 200,
-        y: 1230,
+        y: 1280,
     },
 ];

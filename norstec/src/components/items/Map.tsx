@@ -12,6 +12,7 @@ type MapProps = {
 const VIEWBOX_WIDTH = 1482;
 const VIEWBOX_HEIGHT = 1763;
 
+
 export default function Map({ organizations }: MapProps) {
     const orgs = organizations ?? MOCK_ORGANIZATIONS;
 
@@ -36,11 +37,11 @@ export default function Map({ organizations }: MapProps) {
     }, [hovered]);
 
     const baseCircleClasses =
-        "cursor-pointer outline-0";
+        "cursor-pointer outline-0 hover:stroke-moody hover:z-40 transition-all";
 
     return (
         <section className="relative w-full">
-            <div className="relative w-full flex justify-center ">
+            <div className="relative w-full flex justify-center hover:opa">
                 <svg
                     ref={svgRef}
                     viewBox="0 0 1482 1763"
@@ -61,13 +62,13 @@ export default function Map({ organizations }: MapProps) {
                             key={org.id}
                             cx={org.x}
                             cy={org.y}
-                            r={22}
+                            r={30}
                             className={
                                 baseCircleClasses +
                                 " " +
                                 (org.type === "incubator"
-                                    ? "fill-sun stroke-egg stroke-[4]"
-                                    : "fill-beachball stroke-egg stroke-[4]")
+                                    ? "fill-sun stroke-egg stroke-[8]"
+                                    : "fill-beachball stroke-egg stroke-[8]")
                             }
                             onMouseEnter={() => setHoveredId(org.id)}
                             onMouseLeave={() =>
@@ -79,7 +80,6 @@ export default function Map({ organizations }: MapProps) {
                             }
                             tabIndex={0}
                         >
-                            <title>{org.name}</title>
                         </circle>
                     ))}
                 </svg>
@@ -93,11 +93,11 @@ export default function Map({ organizations }: MapProps) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.15 }}
-                            className="absolute z-20 pointer-events-none"
+                            className="hidden md:block md:absolute z-20 pointer-events-none"
                             style={{
                                 left: tooltipPos.x,
-                                top: tooltipPos.y - 30,
-                                transform: "translate(-50%, -100%)",
+                                top: tooltipPos.y,
+                                transform: "translate(20%, -50%)",
                             }}
                         >
                             <div className="rounded-xl bg-moody text-egg px-4 py-3 shadow-lg max-w-[260px] text-sm">
