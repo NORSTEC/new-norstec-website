@@ -29,7 +29,7 @@ export default function SectionInitiatives({ section }: { section: SectionInitia
                         }}
                     />
                 </div>
-                <div className="flex-1 flex items-center justify-center">
+                <div className="flex-1 flex items-center justify-center 3xl:px-[40px]">
                     <InitiativesCarousel initiatives={initiatives} />
                 </div>
             </div>

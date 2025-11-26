@@ -28,7 +28,7 @@ export default function InitiativeCard({
 
     const card = (
         <div className="md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-t-2xl bg-egg hover:shadow-lg hover:scale-95 rounded-2xl transition-all duration-200 cursor-pointer overflow-hidden">
-            <div className="relative w-full md:h-[40vh] h-[20rem] md:max-h-[25rem]">
+            <div className="relative w-full md:h-[40vh] h-[20rem] md:max-h-[25rem] 3xl:max-h-[35rem]">
                 {imageUrl ? (
                     <Image
                         src={imageUrl}

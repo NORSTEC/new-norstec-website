@@ -81,7 +81,7 @@ export default function InitiativesCarousel({ initiatives }: InitiativesCarousel
 
                         return (
                             <div
-                                className="embla__slide min-w-[20rem] w-[25vw]"
+                                className="embla__slide min-w-[20rem] w-[25vw] 3xl:w-[40rem]"
                                 key={key}
                             >
                                 <InitiativeCard {...x} />
