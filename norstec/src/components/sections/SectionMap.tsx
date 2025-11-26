@@ -14,12 +14,11 @@ type SectionMapProps = {
 export default function SectionMap({ section }: SectionMapProps) {
     const [filter, setFilter] = useState<MapFilterId>("all");
 
-    const organizations = section.organizations ?? [];
-
     const filteredOrgs = useMemo(() => {
-        if (filter === "all") return organizations;
-        return organizations.filter((o) => o.type === filter);
-    }, [organizations, filter]);
+        const orgs = section.organizations ?? [];
+        if (filter === "all") return orgs;
+        return orgs.filter((o) => o.type === filter);
+    }, [section.organizations, filter]);
 
     return (
         <section className="section md:px-[40px]">
@@ -29,21 +28,11 @@ export default function SectionMap({ section }: SectionMapProps) {
             />
 
             <div className="flex flex-col lg:flex-row h-full w-full justify-between lg:gap-10">
-                <MapFilter
-                    value={filter}
-                    onChange={setFilter}
-                    className="inline-flex lg:hidden"
-                />
-                <div className="w-[clamp(30rem,50vw,40rem)] md:py-10 my-auto max-w-screen mx-auto md:mx-0">
-                    <Map organizations={filteredOrgs} />
-                </div>
 
-
-                <aside className="flex flex-col lg:w-[clamp(50rem,50vw,80rem)]">
+                {/* Desktop */}
+                <aside className="order-1 lg:order-2 flex flex-col lg:w-[clamp(50rem,50vw,80rem)]">
                     <div className="bg-egg md:pt-10 md:pb-5 flex md:justify-end">
-                        <h2 className="text-h2 italic">
-                            {section.title}
-                        </h2>
+                        <h2 className="text-h2 italic">{section.title}</h2>
                     </div>
                     <div className="bg-egg md:pb-10">
                         <PortableText
@@ -51,20 +40,32 @@ export default function SectionMap({ section }: SectionMapProps) {
                             components={{
                                 block: {
                                     normal: ({ children }) => (
-                                        <p className="mb-[1rem] last:mb-0">
-                                            {children}
-                                        </p>
+                                        <p className="mb-[1rem] last:mb-0">{children}</p>
                                     ),
                                 },
                             }}
                         />
                     </div>
+
                     <MapFilter
                         value={filter}
                         onChange={setFilter}
                         className="hidden lg:inline-flex mt-2 md:mt-4"
                     />
                 </aside>
+
+                {/* Mobil*/}
+                <div className="order-2 lg:order-1 lg:w-[clamp(30rem,50vw,40rem)] my-auto max-w-screen md:mx-0">
+                    <MapFilter
+                        value={filter}
+                        onChange={setFilter}
+                        className="inline-flex lg:hidden"
+                    />
+                    <div className="mx-auto md:mx-0 md:w-[65vw] lg:w-full">
+                        <Map organizations={filteredOrgs} />
+                    </div>
+                </div>
+
             </div>
         </section>
     );

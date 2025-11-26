@@ -37,6 +37,6 @@
     }
 
     .section {
-        @apply relative lg:h-[clamp(650px,100vh,900px)] snap-start
+        @apply relative lg:h-[clamp(650px,100vh,900px)] xl:h-screen snap-start
     }
 }
