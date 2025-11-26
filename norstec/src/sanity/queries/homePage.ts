@@ -15,6 +15,16 @@ export const HOME_PAGE_QUERY = defineQuery(`
         cover,
         coverAlt,
         slug
+      },
+      organizations[]->{
+        _id,
+        name,
+        description,
+        location,
+        type,
+        website,
+        specialization,
+        mapPosition,
       }
     }
   }

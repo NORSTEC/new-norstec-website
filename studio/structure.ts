@@ -10,6 +10,7 @@ import {
     VideoIcon,
     EnvelopeIcon,
     SparkleIcon,
+    RocketIcon,
 } from '@sanity/icons'
 import type {StructureResolver} from 'sanity/structure'
 
@@ -85,6 +86,11 @@ export const structure: StructureResolver = (S) =>
                 .title('Initiatives')
                 .icon(SparkleIcon)
                 .child(S.documentTypeList('initiative').title('Initiatives')),
+
+          S.listItem()
+            .title('Organizations')
+            .icon(RocketIcon)
+            .child(S.documentTypeList('organization').title('Organizations')),
 
             S.listItem()
                 .title('Team members')

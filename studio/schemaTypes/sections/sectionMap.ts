@@ -18,6 +18,17 @@ export default defineType({
             description: 'Text displayed left of the map',
             validation: (Rule) => Rule.required(),
         }),
+        defineField({
+          name: "organizations",
+          title: "Organizations",
+          type: "array",
+          of: [
+            {
+              type: "reference",
+              to: [{type: "organization"}],
+            },
+          ],
+        }),
     ],
     preview: {
         select: {

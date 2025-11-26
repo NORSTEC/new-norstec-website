@@ -29,6 +29,7 @@ import sectionGridCards from './sections/sectionGridCards'
 import sectionFaq from './sections/sectionFaq'
 import sectionJoin from './sections/sectionJoin'
 import sectionDivider from "./sections/sectionDivider";
+import sectionHeaderText from "./sections/sectionHeaderText";
 
 // Items
 import teamMember from './items/teamMember'
@@ -41,7 +42,8 @@ import faqItem from './items/faqItem'
 import mediaItem from './items/mediaItem'
 import teamRole from "./items/teamRole";
 import colorToken from "./items/colorToken";
-import sectionHeaderText from "./sections/sectionHeaderText";
+import organization from "./items/organization";
+import mapPosition from './items/mapPosition'
 
 export const schemaTypes = [
     // Pages
@@ -88,4 +90,6 @@ export const schemaTypes = [
     mediaItem,
     teamRole,
     colorToken,
+    organization,
+    mapPosition
 ]

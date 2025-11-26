@@ -1,8 +1,13 @@
 export interface Organization {
-    id: string;
+    _id: string;
     name: string;
     description: string;
+    location: string;
     type: "incubator" | "non-incubator";
-    x: number;
-    y: number;
+    website: string;
+    specialization: string;
+    mapPosition: {
+        x: number;
+        y: number;
+    };
 }

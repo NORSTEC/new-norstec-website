@@ -3,7 +3,6 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import type { Organization } from "@/types/items/organization";
-import { MOCK_ORGANIZATIONS } from "@/mock/organizations";
 
 type MapProps = {
     organizations?: Organization[];
@@ -14,14 +13,17 @@ const VIEWBOX_HEIGHT = 1763;
 
 
 export default function Map({ organizations }: MapProps) {
-    const orgs = organizations ?? MOCK_ORGANIZATIONS;
+    const orgs = (organizations ?? []).filter(
+        (org): org is Organization & { mapPosition: { x: number; y: number } } =>
+            !!org.mapPosition
+    );
 
     const [hoveredId, setHoveredId] = useState<string | null>(null);
     const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
     const svgRef = useRef<SVGSVGElement | null>(null);
 
-    const hovered = hoveredId ? orgs.find((o) => o.id === hoveredId) ?? null : null;
+    const hovered = hoveredId ? orgs.find((o) => o._id === hoveredId) ?? null : null;
 
     useLayoutEffect(() => {
         if (!hovered || !svgRef.current) return;
@@ -31,8 +33,8 @@ export default function Map({ organizations }: MapProps) {
         const scaleY = rect.height / VIEWBOX_HEIGHT;
 
         setTooltipPos({
-            x: hovered.x * scaleX,
-            y: hovered.y * scaleY,
+            x: hovered.mapPosition.x * scaleX,
+            y: hovered.mapPosition.y * scaleY,
         });
     }, [hovered]);
 
@@ -59,9 +61,9 @@ export default function Map({ organizations }: MapProps) {
 
                     {orgs.map((org) => (
                         <circle
-                            key={org.id}
-                            cx={org.x}
-                            cy={org.y}
+                            key={org._id}
+                            cx={org.mapPosition.x}
+                            cy={org.mapPosition.y}
                             r={30}
                             className={
                                 baseCircleClasses +
@@ -70,13 +72,13 @@ export default function Map({ organizations }: MapProps) {
                                     ? "fill-sun stroke-egg stroke-[8]"
                                     : "fill-beachball stroke-egg stroke-[8]")
                             }
-                            onMouseEnter={() => setHoveredId(org.id)}
+                            onMouseEnter={() => setHoveredId(org._id)}
                             onMouseLeave={() =>
-                                setHoveredId((prev) => (prev === org.id ? null : prev))
+                                setHoveredId((prev) => (prev === org._id ? null : prev))
                             }
-                            onFocus={() => setHoveredId(org.id)}
+                            onFocus={() => setHoveredId(org._id)}
                             onBlur={() =>
-                                setHoveredId((prev) => (prev === org.id ? null : prev))
+                                setHoveredId((prev) => (prev === org._id ? null : prev))
                             }
                             tabIndex={0}
                         >
@@ -88,7 +90,7 @@ export default function Map({ organizations }: MapProps) {
                 <AnimatePresence>
                     {hovered && (
                         <motion.div
-                            key={hovered.id}
+                            key={hovered._id}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
