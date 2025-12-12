@@ -6,7 +6,7 @@ interface AboutPageProps {
     page: AboutPage;
 }
 
-export default function AboutPageClient({ page }: AboutPageProps) {
+export default function ClientAboutPage({ page }: AboutPageProps) {
     return (
         <main>
             {page.sections.map((section) => (
