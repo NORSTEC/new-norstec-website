@@ -8,6 +8,7 @@ import Hero from "@/components/static/Hero";
 import SectionTable from "@/components/sections/SectionTable";
 import SectionInitiatives from "@/components/sections/SectionInitiatives";
 import SectionMap from "@/components/sections/SectionMap";
+import NewsletterForm from "@/components/static/newsletter/NewsletterForm";
 
 interface ClientHomePageProps {
     data: HomePage;
@@ -42,6 +43,7 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
 
     return (
         <>
+            <NewsletterForm />
             <Hero />
             <main>
                 {data.sections?.map((section) => renderHomeSection(section))}
