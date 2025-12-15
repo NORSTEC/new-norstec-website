@@ -77,7 +77,7 @@ export default function NewsletterForm() {
                                             <label>
                                                 <input type="checkbox" className="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required/>
                                                 <span className="checkbox checkbox_tick_positive"
-                                                ></span><span className="text-sm! font-barlow!" >  I agree to receive newsletters from NORSTEC.
+                                                ></span><span className="text-base! font-barlow!" >  I agree to receive newsletters from NORSTEC.
                                                   <span
                                                       data-required="*"
                                                       className="entry__label entry__label_optin inline!"
