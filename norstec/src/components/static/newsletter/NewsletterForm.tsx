@@ -6,8 +6,8 @@ export default function NewsletterForm() {
             <div id="sib-form-container" className="sib-form-container max-w-xl w-full bg-transparent">
                 <div id="error-message" className="sib-form-message-panel m-0!">
                     <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
-            <span className="sib-form-message-panel__inner-text">
-              Your subscription could not be saved. Please try again.
+            <span className="sib-form-message-panel__inner-text text-md!">
+              Your subscription could not be saved. Please check your details and try again.
             </span>
                     </div>
                 </div>
