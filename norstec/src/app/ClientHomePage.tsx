@@ -43,11 +43,11 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
 
     return (
         <>
-            <NewsletterForm />
             <Hero />
             <main>
                 {data.sections?.map((section) => renderHomeSection(section))}
             </main>
+            <NewsletterForm />
         </>
     );
 }
