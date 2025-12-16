@@ -7,14 +7,6 @@ export default defineType({
 
     fields: [
         defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string',
-            description:
-                'Optional heading displayed above the grid. Leave empty if you do not want a section header.',
-        }),
-
-        defineField({
             name: 'items',
             title: 'Cards',
             description:
@@ -27,7 +19,7 @@ export default defineType({
                 },
             ],
             validation: (Rule) =>
-                Rule.min(1).warning('A grid usually has at least one card.'),
+                Rule.length(4).warning('A grid must contain 4 cards'),
         }),
     ],
 

@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
-    name: 'sectionStats',
-    title: 'Stats Section',
+    name: 'sectionBarList',
+    title: 'Bar List Section',
     type: 'document',
 
     fields: [
@@ -11,7 +11,7 @@ export default defineType({
             title: 'Title',
             type: 'string',
             description:
-                'Optional heading shown above the statistics grid. Leave empty if you do not want a section header.',
+                'Optional heading shown above the list. Leave empty if you do not want a section header.',
         }),
 
         defineField({
@@ -19,10 +19,10 @@ export default defineType({
             title: 'Items',
             type: 'array',
             description:
-                'Add one or more statistic items. Each item contains a value, caption and icon.',
+                'Add one or more list items. Each item contains a header and caption',
             of: [{ type: 'reference', to: [{ type: 'statItem' }] }],
             validation: Rule =>
-                Rule.length(4).warning('A stats section has to contain four items.'),
+                Rule.length(4).warning('A section has to contain four list items.'),
         }),
     ],
 
@@ -34,7 +34,7 @@ export default defineType({
         prepare({ title, items }) {
             const count = items?.length || 0
             const displayTitle =
-                title && title.trim() !== '' ? title : 'Stats Section'
+                title && title.trim() !== '' ? title : 'Bar list Section'
 
             return {
                 title: displayTitle,

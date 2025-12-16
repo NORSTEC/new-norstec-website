@@ -1,12 +1,12 @@
 import {SectionTextImage} from "@/types/sections/sectionTextImage";
-import {SectionStats} from "@/types/sections/sectionStats";
+import {SectionBarList} from "@/types/sections/sectionBarList";
 import {SectionMap} from "@/types/sections/sectionMap";
 import {SectionTable} from "@/types/sections/sectionTable";
 import {SectionInitiatives} from "@/types/sections/sectionInitiatives";
 
 export type HomePageSection =
     | SectionTextImage
-    | SectionStats
+    | SectionBarList
     | SectionMap
     | SectionTable
     | SectionInitiatives;

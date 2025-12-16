@@ -1,22 +1,22 @@
 import { defineType, defineField } from 'sanity'
 
 export default  defineType({
-    name: 'statItem',
-    title: 'Statistic Item',
+    name: 'barListItem',
+    title: 'Bar List Item',
     type: 'document',
     fields: [
         defineField({
             name: 'value',
             title: 'Value',
             type: 'string',
-            description: 'Example: "450+", "1M", "8".',
+            description: 'Example: "Ambition", "Passion", "30+',
             validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: 'caption',
             title: 'Caption',
             type: 'portableText',
-            description: 'Short explanation of the statistic.',
+            description: 'Short explanation of the item.',
         }),
     ],
     preview: {

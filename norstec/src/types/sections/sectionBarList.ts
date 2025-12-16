@@ -1,7 +1,6 @@
-export interface SectionCtaGrid {
-    _type: "sectionCtaGrid";
+export interface SectionBarList {
+    _type: "sectionStats";
     _id: string;
-
     title?: string;
     items: Array<{
         _type: "reference";
