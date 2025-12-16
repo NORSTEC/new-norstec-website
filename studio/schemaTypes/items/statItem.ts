@@ -6,12 +6,6 @@ export default  defineType({
     type: 'document',
     fields: [
         defineField({
-            name: 'subtitle',
-            title: 'Subtitle',
-            type: 'string',
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
             name: 'value',
             title: 'Value',
             type: 'string',

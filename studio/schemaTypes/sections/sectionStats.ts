@@ -22,7 +22,7 @@ export default defineType({
                 'Add one or more statistic items. Each item contains a value, caption and icon.',
             of: [{ type: 'reference', to: [{ type: 'statItem' }] }],
             validation: Rule =>
-                Rule.min(1).warning('A stats section usually contains at least one item.'),
+                Rule.length(4).warning('A stats section has to contain four items.'),
         }),
     ],
 

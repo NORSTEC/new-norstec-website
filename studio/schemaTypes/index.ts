@@ -14,7 +14,6 @@ import portableText from "./globals/portableText";
 import sectionHero from "./sections/sectionHero";
 import sectionTextImage from './sections/sectionTextImage'
 import sectionTeam from "./sections/sectionTeam";
-import sectionHeaderImage from "./sections/sectionHeaderImage";
 import sectionStats from './sections/sectionStats'
 import sectionMap from './sections/sectionMap'
 import sectionTable from './sections/sectionTable'
@@ -23,18 +22,13 @@ import sectionContact from './sections/sectionContact'
 import sectionInitiatives from './sections/sectionInitiatives'
 import sectionMedia from './sections/sectionMedia'
 import sectionPodcast from './sections/sectionPodcast'
-import sectionIconStats from './sections/sectionIconStats'
 import sectionNapkin from './sections/sectionNapkin'
 import sectionGridCards from './sections/sectionGridCards'
 import sectionFaq from './sections/sectionFaq'
-import sectionJoin from './sections/sectionJoin'
-import sectionDivider from "./sections/sectionDivider";
-import sectionHeaderText from "./sections/sectionHeaderText";
 
 // Items
 import teamMember from './items/teamMember'
 import initiative from './items/initiative'
-import iconStatItem from './items/iconStatItem'
 import statItem from './items/statItem'
 import gridCard from './items/gridCard'
 import ctaItem from './items/ctaItem'
@@ -62,7 +56,6 @@ export const schemaTypes = [
     sectionHero,
     sectionTextImage,
     sectionTeam,
-    sectionHeaderImage,
     sectionStats,
     sectionMap,
     sectionTable,
@@ -71,18 +64,13 @@ export const schemaTypes = [
     sectionInitiatives,
     sectionMedia,
     sectionPodcast,
-    sectionIconStats,
     sectionNapkin,
-    sectionHeaderText,
     sectionGridCards,
     sectionFaq,
-    sectionJoin,
-    sectionDivider,
 
     // Items
     teamMember,
     initiative,
-    iconStatItem,
     statItem,
     gridCard,
     ctaItem,
