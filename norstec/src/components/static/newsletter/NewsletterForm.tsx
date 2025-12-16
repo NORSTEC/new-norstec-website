@@ -52,7 +52,7 @@ export default function NewsletterForm() {
 
                                         <div className="entry__field border-0! rounded-md! ">
                                             <input
-                                                className="input focus:outline-2!"
+                                                className="input focus:outline-2! w-full rounded-md px-4 py-2"
                                                 type="text"
                                                 id="EMAIL"
                                                 name="EMAIL"
@@ -103,7 +103,7 @@ export default function NewsletterForm() {
                             </div>
                         </div>
                         <div className="px-[16px]">
-                            <div className="g-recaptcha-v3" data-sitekey="6LeIuCwsAAAAAFrJNg6QI--3GLa0AC0u3MAtNMo-"></div>
+                            <div className="g-recaptcha-v3" data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}></div>
                             <p className="text-xs text-moody/70 leading-snug">
                                 This site is protected by reCAPTCHA and the Google{" "}
                                 <a

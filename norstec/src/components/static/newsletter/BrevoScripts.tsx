@@ -29,7 +29,7 @@ export default function BrevoScripts() {
             },
         };
 
-        window.AUTOHIDE = false;
+        window.AUTOHIDE = true;
     }, []);
 
     return (

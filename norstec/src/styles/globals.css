@@ -42,23 +42,6 @@
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-oughter;
     }
 
-
-    #sib-container {
-        @apply max-w-xl w-full  rounded-md p-6 bg-transparent;
-    }
-
-    .sib-text-form-block p {
-        @apply text-base text-moody/80;
-    }
-
-    .entry__label {
-        @apply block mb-2 font-medium text-moody;
-    }
-
-    .entry__field input {
-        @apply w-full rounded-md px-4 py-2;
-    }
-
     #error-message {
         @apply  text-red-700 bg-red-100 border border-red-300 rounded-md p-3 mb-4;
     }
