@@ -11,7 +11,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
     const { title, body, images, mirrored } = section;
 
     return (
-        <section className="section relative h-full overflow-hidden ">
+        <section className="section relative h-full overflow-hidden [--chem-mask:#E9E3D7] ">
             <Chemtrails />
 
             <div className="flex flex-col md:flex-row h-full  items-start relative z-10  md:px-[40px]">
