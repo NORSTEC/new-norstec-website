@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css"
 import React from "react";
 import { oughter, barlow } from "@/assets/fonts"
-import BrevoScripts from "@/components/static/newsletter/BrevoScripts";
+import BrevoScripts from "@/components/items/newsletter/BrevoScripts";
 
 export const metadata: Metadata = {
     title: "NORSTEC",

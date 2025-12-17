@@ -12,8 +12,7 @@ export default function StripesVertical({
     return (
         <div
             className={`
-                flex gap-[1.5vw] absolute inset-y-0 px-[20px] md:pl-[7vw] 3xl:pl-[15rem]
-                -z-10 3xl:gap-[2rem]
+                flex absolute inset-y-0 px-[20px] md:pl-[7vw] -z-10 h-full gap-[1rem] lg:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]
                 ${side === "left" ? "left-0" : "right-0"}
                 ${className}
             `}
@@ -21,7 +20,7 @@ export default function StripesVertical({
             {COLORS.map((color, i) => (
                 <span
                     key={i}
-                    className={`w-[3vw] 3xl:w-[3rem] h-full ${color}`}
+                    className={`h-full w-[1.5rem] lg:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  ${color}`}
                 />
             ))}
         </div>

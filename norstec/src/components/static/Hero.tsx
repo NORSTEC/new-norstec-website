@@ -31,7 +31,7 @@ export default function Hero({
             <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 flex z-0"
             >
-                <div className="flex h-full gap-[1.5vw] 3xl:gap-[2rem] px-[20px] md:pl-[7vw] 3xl:pl-[15rem]">
+                <div className="flex h-full gap-[1rem] lg:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]">
                     {[
                         "bg-sky",
                         "bg-beachball",
@@ -40,7 +40,7 @@ export default function Hero({
                     ].map((color, i) => (
                         <motion.span
                             key={i}
-                            className={`h-full w-[3vw] 3xl:w-[3rem] origin-top ${color}`}
+                            className={`h-full w-[1.5rem] lg:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
                             initial={{ scaleY: 0 }}
                             animate={{ scaleY: 1 }}
                             transition={{
