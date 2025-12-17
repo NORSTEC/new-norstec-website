@@ -2,6 +2,7 @@ import { PortableText } from "next-sanity";
 import type { SectionTextImage as SectionTextImageType } from "@/types/sections/sectionTextImage";
 import ImageCarousel from "@/components/items/ImageCarousel";
 import Chemtrails from "@/components/items/stripes/Chemtrails";
+import StripesVertical from "@/components/items/stripes/StripesVertical";
 
 type SectionTextImageProps = {
     section: SectionTextImageType;
@@ -11,7 +12,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
     const { title, body, images, mirrored } = section;
 
     return (
-        <section className="section relative h-full overflow-hidden [--chem-mask:#E9E3D7] ">
+        <section className="section relative h-full overflow-hidden ">
             <Chemtrails />
 
             <div className="flex flex-col md:flex-row h-full  items-start relative z-10  md:px-[40px]">
