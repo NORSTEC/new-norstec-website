@@ -42,7 +42,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
 
     return (
         <section
-            className={`relative flex items-center w-full xl:h-full max-h-[37.5rem] ${className ?? ""}`}
+            className={`relative flex items-center w-full xl:h-full ${className ?? ""}`}
         >
             <button
                 type="button"

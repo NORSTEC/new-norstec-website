@@ -21,7 +21,7 @@ export default function SectionMap({ section }: SectionMapProps) {
     }, [section.organizations, filter]);
 
     return (
-        <section className="section md:px-[40px]">
+        <section className="section mobile-section md:px-[40px]">
             <StripesVertical
                 className="hidden md:flex"
                 side="left"

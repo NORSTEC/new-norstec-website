@@ -11,7 +11,7 @@ export default function SectionTable({ section }: SectionTableProps) {
     const { title, columns, rows } = section;
 
     return (
-        <section className="flex flex-col section px-[20px] md:px-[40px]">
+        <section className="flex flex-col section mobile-section md:px-[40px]">
             <StripesVertical
                 side="right"
             />

@@ -18,13 +18,14 @@
 }
 
 @layer base {
+{/*
     html {
         @apply xl:scroll-smooth;
     }
-{/*
+    */}
     html {
         @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth;
-    }*/}
+    }
 
     body {
         @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem] ;
@@ -38,6 +39,22 @@
 @layer utilities {
     .section {
         @apply relative lg:h-[clamp(650px,100vh,900px)] xl:h-screen snap-start
+    }
+
+    .container {
+        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:pl-[15rem] py-[4rem]
+    }
+
+    .mobile-container {
+        @apply px-[1rem]
+    }
+
+    .stripes-right {
+        @apply pr-[6rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]
+    }
+
+    .stripes-left {
+        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-10
     }
 }
 

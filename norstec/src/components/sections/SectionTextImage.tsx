@@ -14,6 +14,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
 
     return (
         <section className="section relative h-full overflow-hidden">
+
             <StripesVertical
                 side="right"
             />
