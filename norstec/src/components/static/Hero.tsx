@@ -15,8 +15,8 @@ const TAGLINE_LETTER_DELAY = 0.04;
 
 // fuck hydration errors
 const HERO_TITLE_CLASSES =
-    "whitespace-nowrap text-[18vh] md:text-[17vw] 3xl:text-[19rem] " +
-    "absolute right-0 top-[97.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
+    "whitespace-nowrap text-[16.5vh] md:text-[17vw] 3xl:text-[19rem] " +
+    "absolute right-0 top-[88.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
     "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-oughter";
 
 export default function Hero({
@@ -27,11 +27,11 @@ export default function Hero({
     const taglineStart = titleStart + title.length * TITLE_LETTER_DELAY * 1.5;
 
     return (
-        <header className="h-screen w-full relative overflow-hidden snap-start">
+        <header className="md:h-screen w-full relative overflow-hidden snap-start">
             <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 flex z-0"
             >
-                <div className="flex h-full gap-[1rem] lg:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]">
+                <div className="flex h-full gap-[0.5rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[1rem] md:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]">
                     {[
                         "bg-sky",
                         "bg-beachball",
@@ -40,7 +40,7 @@ export default function Hero({
                     ].map((color, i) => (
                         <motion.span
                             key={i}
-                            className={`h-full w-[1.5rem] lg:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
+                            className={`h-full w-[1rem] md:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
                             initial={{ scaleY: 0 }}
                             animate={{ scaleY: 1 }}
                             transition={{
@@ -53,7 +53,7 @@ export default function Hero({
                 </div>
             </motion.div>
 
-            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-full md:h-[85%] leading-none relative z-10">
+            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-[90vh] md:h-[85%] leading-none relative z-10">
                 <h1 className={HERO_TITLE_CLASSES}>
                     {title.split("").map((char, i) => (
                         <motion.span

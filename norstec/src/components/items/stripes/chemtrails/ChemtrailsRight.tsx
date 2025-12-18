@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "motion/react";
 
-const MASK_COLOR = "#E9E3D7";
+const MASK_COLOR = "#EDE8DA";
 const STRIPE_DELAY = 0.1;
 const DURATION = 0.5;
 

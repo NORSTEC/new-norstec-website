@@ -23,8 +23,8 @@ export default function SectionMap({ section }: SectionMapProps) {
     return (
         <section className="section md:px-[40px]">
             <StripesVertical
-                className="hidden md:flex pr-[7vw] 3xl:pr-[15rem]"
-                side="right"
+                className="hidden md:flex"
+                side="left"
             />
 
             <div className="flex flex-col lg:flex-row h-full w-full justify-between lg:gap-10">
