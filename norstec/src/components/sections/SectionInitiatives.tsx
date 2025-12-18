@@ -2,16 +2,14 @@ import { PortableText } from "next-sanity";
 import InitiativesCarousel from "@/components/items/initiatives/InitiativesCarousel";
 import { SectionInitiatives as SectionInitiativesType } from "@/types/sections/sectionInitiatives";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
+import ChemtrailsRight from "@/components/items/stripes/chemtrails/ChemtrailsRight";
 
 export default function SectionInitiatives({ section }: { section: SectionInitiativesType }) {
     const { title, body, initiatives } = section;
 
     return (
         <section className="section">
-            <StripesVertical
-                className="flex pr-[7vw] 3xl:pr-[15rem]"
-                side="right"
-            />
+            <ChemtrailsRight />
             <div className="flex flex-col h-full">
                 <div className="md:w-[40rem] lg:w-[45rem] 2xl:w-[60rem] mr-[24vw] md:mr-0 md:px-[40px] md:pt-10">
                     {title && <h2 className="text-h2 italic md:pb-5">{title}</h2>}

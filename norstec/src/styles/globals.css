@@ -19,8 +19,12 @@
 
 @layer base {
     html {
-        @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth;
+        @apply xl:scroll-smooth;
     }
+{/*
+    html {
+        @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth;
+    }*/}
 
     body {
         @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem] ;

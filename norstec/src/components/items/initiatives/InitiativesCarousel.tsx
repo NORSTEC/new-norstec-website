@@ -73,7 +73,7 @@ export default function InitiativesCarousel({ initiatives }: InitiativesCarousel
     }, [enableEmbla, emblaApi]);
 
     return (
-        <div className="embla bg-egg py-10">
+        <div className="embla ">
             <div className="embla__viewport" ref={enableEmbla ? emblaRef : undefined}>
                 <div className="embla__container " ref={!enableEmbla ? containerRef : null}>
                     {slides.map((x, i) => {
