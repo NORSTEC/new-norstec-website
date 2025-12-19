@@ -6,6 +6,7 @@ import {PortableText} from "next-sanity";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
 import {useMemo, useState} from "react";
 import MapFilter, {MapFilterId} from "@/components/items/map/MapFilter";
+import StripesBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
 
 type SectionMapProps = {
     section: SectionMapType;
@@ -21,11 +22,8 @@ export default function SectionMap({ section }: SectionMapProps) {
     }, [section.organizations, filter]);
 
     return (
-        <section className="section mobile-section md:px-[40px]">
-            <StripesVertical
-                className="hidden md:flex"
-                side="left"
-            />
+        <section className="section md:px-[40px]">
+            <StripesBottomRight size={"400px"}/>
 
             <div className="flex flex-col lg:flex-row h-full w-full justify-between lg:gap-10">
 

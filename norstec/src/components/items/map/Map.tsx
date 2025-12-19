@@ -43,15 +43,15 @@ export default function Map({ organizations }: MapProps) {
 
     return (
         <section className="relative w-full">
-            <div className="relative w-full flex justify-center hover:opa">
+            <div className="relative w-full flex justify-center">
                 <svg
                     ref={svgRef}
                     viewBox="0 0 1482 1763"
-                    className="w-full h-auto max-h-[70vh]"
+                    className="w-full h-auto max-h-[70vh]  "
                     aria-label="Map of Norway with NORSTEC organisations"
                 >
                     <image
-                        href="/images/NorwayMap.svg"
+                        href="/images/NorwayMap2.svg"
                         x={0}
                         y={0}
                         width={1482}

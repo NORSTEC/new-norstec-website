@@ -58,7 +58,6 @@ export default function StripesVertical({
     return (
         <div ref={rootRef} className={containerClass} aria-hidden="true">
             {COLORS.map((color, i) => {
-                // Viktig: IKKE flip farger — bare flip delay-rekkefølgen ved side="right"
                 const delayIndex = side === "right" ? n - 1 - i : i;
 
                 return (

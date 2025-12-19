@@ -38,7 +38,7 @@
 
 @layer utilities {
     .section {
-        @apply relative lg:h-[clamp(650px,100vh,900px)] xl:h-screen snap-start
+        @apply relative h-[clamp(650px,100vh,900px)] xl:h-screen snap-start
     }
 
     .desktop-container {
