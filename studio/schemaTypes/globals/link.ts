@@ -44,7 +44,6 @@ export default defineType({
                 {type: 'homePage'},
                 {type: 'aboutPage'},
                 {type: 'teamPage'},
-                {type: 'joinPage'},
                 {type: 'initiativesPage'},
                 {type: 'initiative'},
             ],

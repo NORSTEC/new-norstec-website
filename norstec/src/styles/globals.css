@@ -42,7 +42,7 @@
     }
 
     .container {
-        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:pl-[15rem] py-[4rem]
+        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] md:py-20
     }
 
     .mobile-container {
@@ -56,6 +56,7 @@
     .stripes-left {
         @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-10
     }
+
 }
 
 @layer components {

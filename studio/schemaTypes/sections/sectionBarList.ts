@@ -20,7 +20,7 @@ export default defineType({
             type: 'array',
             description:
                 'Add one or more list items. Each item contains a header and caption',
-            of: [{ type: 'reference', to: [{ type: 'statItem' }] }],
+            of: [{ type: 'reference', to: [{ type: 'barListItem' }] }],
             validation: Rule =>
                 Rule.length(4).warning('A section has to contain four list items.'),
         }),
