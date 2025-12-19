@@ -1,25 +1,11 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useMemo, useState } from "react";
 import type { SectionTable } from "@/types/sections/sectionTable";
 
 type TableProps = {
     columns: SectionTable["columns"];
     rows: SectionTable["rows"];
-};
-
-const rowVariants = {
-    hidden: { x: "-20%", opacity: 0 },
-    visible: { x: 0, opacity: 1 },
-};
-
-const bodyVariants = {
-    visible: {
-        transition: {
-            staggerChildren: 0.06,
-        },
-    },
 };
 
 type SortDirection = "asc" | "desc";
@@ -125,17 +111,11 @@ export default function Table({ columns, rows }: TableProps) {
             </tr>
             </thead>
 
-            <motion.tbody
-                variants={bodyVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+            <tbody
             >
                 {sortedRows.map((row, rowIndex) => (
-                    <motion.tr
+                    <tr
                         key={rowIndex}
-                        variants={rowVariants}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
                         className="border-b-2 border-moody"
                     >
                         {row.cells.map((cell, cellIndex) => {
@@ -180,9 +160,9 @@ export default function Table({ columns, rows }: TableProps) {
                                 </td>
                             );
                         })}
-                    </motion.tr>
+                    </tr>
                 ))}
-            </motion.tbody>
+            </tbody>
         </table>
     );
 }
