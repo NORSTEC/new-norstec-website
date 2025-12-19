@@ -65,9 +65,9 @@ function ArcStripe({
 export default function StripesCornerBottomRight({
                                                      className = "",
                                                      size = 500,
-                                                     strokeWidth = 95,
-                                                     gap = 48,
-                                                     offsetX = -58,
+                                                     strokeWidth = 72,
+                                                     gap = 40,
+                                                     offsetX = -26,
                                                      offsetY = 0,
                                                      stripeDelay = 0.1,
                                                      duration = 0.45,
@@ -101,7 +101,7 @@ export default function StripesCornerBottomRight({
         return () => io.disconnect();
     }, []);
 
-    const baseR = 900;
+    const baseR = 650;
     const step = strokeWidth + gap;
 
     return (

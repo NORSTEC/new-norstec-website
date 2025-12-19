@@ -3,7 +3,6 @@
 import Map from "@/components/items/map/Map";
 import type { SectionMap as SectionMapType } from "@/types/sections/sectionMap";
 import {PortableText} from "next-sanity";
-import StripesVertical from "@/components/items/stripes/StripesVertical";
 import {useMemo, useState} from "react";
 import MapFilter, {MapFilterId} from "@/components/items/map/MapFilter";
 import StripesBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
@@ -23,16 +22,15 @@ export default function SectionMap({ section }: SectionMapProps) {
 
     return (
         <section className="section md:px-[40px]">
-            <StripesBottomRight size={"400px"}/>
+            <StripesBottomRight />
 
-            <div className="flex flex-col lg:flex-row h-full w-full justify-between lg:gap-10">
-
-                {/* Desktop */}
-                <aside className="order-1 lg:order-2 flex flex-col lg:w-[clamp(50rem,50vw,80rem)]">
-                    <div className="bg-egg md:pt-10 md:pb-5 flex md:justify-end">
-                        <h2 className="text-h2 italic">{section.title}</h2>
-                    </div>
-                    <div className="bg-egg md:pb-10">
+            <div className="flex h-full w-full justify-between stripes-left pl-0!">
+                <div className="w-full h-full flex-1">
+                    <Map organizations={filteredOrgs} />
+                </div>
+                <aside className="flex flex-col flex-1 ">
+                    <h2 className="text-h2 italic">{section.title}</h2>
+                    <div className="md:pb-10">
                         <PortableText
                             value={section.body}
                             components={{
@@ -48,22 +46,9 @@ export default function SectionMap({ section }: SectionMapProps) {
                     <MapFilter
                         value={filter}
                         onChange={setFilter}
-                        className="hidden lg:inline-flex mt-2 md:mt-4"
+                        className="mt-2 md:mt-4"
                     />
                 </aside>
-
-                {/* Mobil*/}
-                <div className="order-2 lg:order-1 lg:w-[clamp(30rem,50vw,40rem)] my-auto max-w-screen md:mx-0">
-                    <MapFilter
-                        value={filter}
-                        onChange={setFilter}
-                        className="inline-flex lg:hidden"
-                    />
-                    <div className="mx-auto md:mx-0 md:w-[65vw] lg:w-full">
-                        <Map organizations={filteredOrgs} />
-                    </div>
-                </div>
-
             </div>
         </section>
     );

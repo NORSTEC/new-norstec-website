@@ -27,7 +27,7 @@ export default function SectionTextImage2({ section }: SectionTextImageProps) {
                             components={{
                                 block: {
                                     normal: ({ children }) => (
-                                        <p className="mb-10 last:mb-0">
+                                        <p className="mb-[1rem] last:mb-0">
                                             {children}
                                         </p>
                                     ),
