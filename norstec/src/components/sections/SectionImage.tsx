@@ -12,7 +12,7 @@ export default function SectionTextImage2({ section }: SectionImageProps) {
     return (
         <section className="section relative flex items-center justify-center">
             <ChemtrailsLeft />
-                    <div className="h-full w-full flex justify-center items-center py-20 px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem]">
+                    <div className="h-full w-full flex justify-center items-center desktop-container">
                         <ImageCarousel images={images}  />
                     </div>
 

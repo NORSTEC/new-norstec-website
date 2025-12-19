@@ -41,7 +41,7 @@
         @apply relative lg:h-[clamp(650px,100vh,900px)] xl:h-screen snap-start
     }
 
-    .container {
+    .desktop-container {
         @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] md:py-20
     }
 
@@ -49,12 +49,20 @@
         @apply px-[1rem]
     }
 
+    .chemtrails-right {
+        @apply xl:pr-[45rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
+    }
+
+    .chemtrails-left {
+        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
+    }
+
     .stripes-right {
-        @apply pr-[6rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]
+        @apply xl:pr-[22rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
     }
 
     .stripes-left {
-        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-10
+        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
     }
 
 }
