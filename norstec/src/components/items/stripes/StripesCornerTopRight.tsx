@@ -3,26 +3,60 @@
 import React from "react";
 import { motion } from "motion/react";
 
-type StripesCornerTopRightProps = {
-    className?: string;
+const COLORS = ["#1697B7", "#30C3CD", "#F3AD78", "#E8804C"];
 
-    /** Størrelse på hele “hjørneformen” */
-    size?: number; // px
-    /** Tykkelse på hver stripe */
-    strokeWidth?: number; // px
-    /** Mellomrom mellom stripene */
-    gap?: number; // px
+const STRIPE_DELAY = 0.1;
+const DURATION = 0.45;
 
-    /** Offset fra høyre/topp */
-    offsetX?: number; // px (positiv = mer inn fra høyre)
-    offsetY?: number; // px (positiv = mer ned fra toppen)
-
-    /** Animasjon */
-    stripeDelay?: number;
-    duration?: number;
+type Config = {
+    size: number;
+    strokeWidth: number;
+    gap: number;
+    offsetX: number;
+    offsetY: number;
+    baseR: number;
 };
 
-const COLORS = ["#1697B7", "#30C3CD", "#F3AD78", "#E8804C"];
+const CONFIG: Record<"base" | "xl" | "3xl", Config> = {
+    base: {
+        size: 400,
+        strokeWidth: 80,
+        gap: 40,
+        offsetX: -20,
+        offsetY: 0,
+        baseR: 650,
+    },
+    xl: {
+        size: 500,
+        strokeWidth: 72,
+        gap: 40,
+        offsetX: -26,
+        offsetY: 0,
+        baseR: 650,
+    },
+    "3xl": {
+        size: 500,
+        strokeWidth: 80,
+        gap: 65,
+        offsetX: 87,
+        offsetY: 0,
+        baseR: 780,
+    },
+};
+
+function pickConfig(): Config {
+    if (typeof window === "undefined") return CONFIG.base;
+
+    if (window.matchMedia("(min-width: 2000px)").matches) {
+        return CONFIG["3xl"];
+    }
+
+    if (window.matchMedia("(min-width: 1280px)").matches) {
+        return CONFIG.xl;
+    }
+
+    return CONFIG.base;
+}
 
 function ArcStripe({
                        r,
@@ -41,16 +75,11 @@ function ArcStripe({
 }) {
     const S = 1000;
 
-    // Top-right hjørne:
-    // Senter: (S, 0)
-    // Start på toppen: (S - r, 0)
-    // Slutt på høyre side: (S, r)
     const startX = S - r;
     const startY = 0;
     const endX = S;
     const endY = r;
 
-    // Sweep = 1 gir “med klokka” fra top -> right.
     const d = `M ${startX} ${startY} A ${r} ${r} 0 0 0 ${endX} ${endY}`;
 
     return (
@@ -69,32 +98,49 @@ function ArcStripe({
 
 export default function StripesCornerTopRight({
                                                   className = "",
-                                                  size = 500,
-                                                  strokeWidth = 72,
-                                                  gap = 40,
-                                                  offsetX = -26,
-                                                  offsetY = 0,
-                                                  stripeDelay = 0.1,
-                                                  duration = 0.45,
-                                              }: StripesCornerTopRightProps) {
+                                                  startDelay = 0,
+                                              }: {
+    className?: string;
+    startDelay?: number;
+}) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
     const [show, setShow] = React.useState(false);
+    const [cfg, setCfg] = React.useState<Config>(() => CONFIG.base);
 
+    // Responsive config
+    React.useEffect(() => {
+        const apply = () => setCfg(pickConfig());
+        apply();
+
+        window.addEventListener("resize", apply);
+        return () => window.removeEventListener("resize", apply);
+    }, []);
+
+    // Intersection / delay
     React.useEffect(() => {
         const el = rootRef.current;
         if (!el) return;
 
-        const target = el.closest("section") || el.closest(".section") || el.parentElement;
+        const target =
+            el.closest("section") || el.closest(".section") || el.parentElement;
+
+        const start = () => {
+            if (startDelay > 0) {
+                window.setTimeout(() => setShow(true), startDelay * 1000);
+            } else {
+                setShow(true);
+            }
+        };
 
         if (!target) {
-            setShow(true);
+            start();
             return;
         }
 
         const io = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    setShow(true);
+                    start();
                     io.disconnect();
                 }
             },
@@ -103,10 +149,9 @@ export default function StripesCornerTopRight({
 
         io.observe(target);
         return () => io.disconnect();
-    }, []);
+    }, [startDelay]);
 
-    const baseR = 650;
-    const step = strokeWidth + gap;
+    const step = cfg.strokeWidth + cfg.gap;
 
     return (
         <div
@@ -114,23 +159,21 @@ export default function StripesCornerTopRight({
             aria-hidden="true"
             className={`hidden lg:block absolute right-0 top-0 pointer-events-none -z-10 ${className}`}
             style={{
-                width: size,
-                height: size,
-                // X: inn fra høyre (mot venstre) => -offsetX
-                // Y: ned fra toppen => +offsetY
-                transform: `translate(${-offsetX}px, ${offsetY}px)`,
+                width: cfg.size,
+                height: cfg.size,
+                transform: `translate(${-cfg.offsetX}px, ${cfg.offsetY}px)`,
             }}
         >
             <svg viewBox="0 0 1000 1000" width="100%" height="100%">
                 {COLORS.map((c, i) => (
                     <ArcStripe
                         key={c}
-                        r={baseR - i * step}
+                        r={cfg.baseR - i * step}
                         color={c}
                         show={show}
-                        delay={i * stripeDelay}
-                        duration={duration}
-                        strokeWidth={strokeWidth}
+                        delay={i * STRIPE_DELAY}
+                        duration={DURATION}
+                        strokeWidth={cfg.strokeWidth}
                     />
                 ))}
             </svg>
