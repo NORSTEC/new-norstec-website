@@ -75,7 +75,7 @@ export default function ChemtrailsLeft() {
                 {/* Stripe 1 */}
                 <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 40 }}>
                     <div
-                        className="absolute inset-0 [--rot:0deg] xl:[--rot:0deg] 3xl:[--rot:-2deg]"
+                        className="absolute inset-0 [--rot:0deg] xl:[--rot:0deg]"
                         style={{
                             transform: "translate(0px, 0px) rotate(var(--rot))",
                             transformOrigin: "top left",
@@ -83,7 +83,7 @@ export default function ChemtrailsLeft() {
                     >
                         <Line
                             color="#1697B7"
-                            className="[--trap-width:260px] [--trap-cut:230px] xl:[--trap-width:510px] xl:[--trap-cut:474px] 3xl:[--trap-width:400px] 3xl:[--trap-cut:364px]"
+                            className="[--trap-width:260px] [--trap-cut:230px] xl:[--trap-width:510px] xl:[--trap-cut:474px] 3xl:[--trap-width:600px] 3xl:[--trap-cut:560px]"
                         />
                     </div>
                     <RevealMask show={show} delay={0} />
@@ -92,15 +92,17 @@ export default function ChemtrailsLeft() {
                 {/* Stripe 2 */}
                 <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 30 }}>
                     <div
-                        className="absolute inset-0 [--rot:-13deg] xl:[--rot:-11deg] 3xl:[--rot:-10deg]"
+                        className="absolute inset-0
+                        [--rot:-13deg] xl:[--rot:-11deg] 3xl:[--rot:-10deg]
+                        [--x:3.55rem] xl:[--x:3.55rem] 3xl:[--x:4.45rem]"
                         style={{
-                            transform: "translate(3.55rem, 0px) rotate(var(--rot))",
+                            transform: "translateX(var(--x)) rotate(var(--rot))",
                             transformOrigin: "top left",
                         }}
                     >
                         <Line
                             color="#30C3CD"
-                            className="[--trap-width:220px] [--trap-cut:180px] xl:[--trap-width:644px] xl:[--trap-cut:610px] 3xl:[--trap-width:303px] 3xl:[--trap-cut:270px]"
+                            className="[--trap-width:220px] [--trap-cut:180px] xl:[--trap-width:644px] xl:[--trap-cut:610px] 3xl:[--trap-width:743px] 3xl:[--trap-cut:704px]"
                         />
                     </div>
                     <RevealMask show={show} delay={STRIPE_DELAY} />
@@ -109,15 +111,17 @@ export default function ChemtrailsLeft() {
                 {/* Stripe 3 */}
                 <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 20 }}>
                     <div
-                        className="absolute inset-0 [--rot:-26deg] xl:[--rot:-25deg] 3xl:[--rot:-22deg]"
+                        className="absolute inset-0
+                        [--rot:-26deg] xl:[--rot:-25deg] 3xl:[--rot:-22deg]
+                        [--x:7.10rem] xl:[--x:7.10rem] 3xl:[--x:9rem]"
                         style={{
-                            transform: "translate(7.10rem, 0px) rotate(var(--rot))",
+                            transform: "translateX(var(--x)) rotate(var(--rot))",
                             transformOrigin: "top left",
                         }}
                     >
                         <Line
                             color="#F3AD78"
-                            className="[--trap-width:240px] [--trap-cut:200px] xl:[--trap-width:661px] xl:[--trap-cut:632px] 3xl:[--trap-width:290px] 3xl:[--trap-cut:260px]"
+                            className="[--trap-width:240px] [--trap-cut:200px] xl:[--trap-width:661px] xl:[--trap-cut:632px] 3xl:[--trap-width:751px] 3xl:[--trap-cut:717px]"
                         />
                     </div>
                     <RevealMask show={show} delay={2 * STRIPE_DELAY} />
@@ -126,15 +130,17 @@ export default function ChemtrailsLeft() {
                 {/* Stripe 4 */}
                 <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 10 }}>
                     <div
-                        className="absolute inset-0 [--rot:-39deg] xl:[--rot:-40deg] 3xl:[--rot:-36deg]"
+                        className="absolute inset-0
+                         [--rot:-39deg] xl:[--rot:-40deg] 3xl:[--rot:-35deg]
+                         [--x:10.65rem] xl:[--x:10.65rem] 3xl:[--x:13.5rem]"
                         style={{
-                            transform: "translate(10.65rem, 0px) rotate(var(--rot))",
+                            transform: "translateX(var(--x)) rotate(var(--rot))",
                             transformOrigin: "top left",
                         }}
                     >
                         <Line
                             color="#E8804C"
-                            className="[--trap-width:360px] [--trap-cut:320px] xl:[--trap-width:483.5px] xl:[--trap-cut:460px] 3xl:[--trap-width:660px] 3xl:[--trap-cut:580px]"
+                            className="[--trap-width:360px] [--trap-cut:320px] xl:[--trap-width:483.5px] xl:[--trap-cut:460px] 3xl:[--trap-width:759px] 3xl:[--trap-cut:731px]"
                         />
                     </div>
                     <RevealMask show={show} delay={3 * STRIPE_DELAY} />

@@ -1,5 +1,4 @@
 import type { SectionTable as SectionTableType } from "@/types/sections/sectionTable";
-import StripesVertical from "@/components/items/stripes/StripesVertical";
 import Table from "@/components/items/table/Table";
 import CollapsibleList from "@/components/items/table/CollapsibleList";
 import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBottomRight";

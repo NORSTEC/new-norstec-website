@@ -18,14 +18,14 @@
 }
 
 @layer base {
-{/*
+
     html {
         @apply xl:scroll-smooth;
     }
-    */}
+{/*
     html {
         @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth;
-    }
+    }     */}
 
     body {
         @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem] ;
@@ -58,11 +58,11 @@
     }
 
     .stripes-right {
-        @apply xl:pr-[22rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
+        @apply xl:pr-[22rem] 3xl:pr-[35rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
     }
 
     .stripes-left {
-        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
+        @apply xl:pl-[22rem] 3xl:pl-[35rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
     }
 
 }

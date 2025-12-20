@@ -22,7 +22,7 @@ export default function SectionMap({ section }: SectionMapProps) {
 
     return (
         <section className="section md:px-[40px]">
-            <StripesBottomRight />
+            <StripesBottomRight startDelay={0.3}/>
 
             <div className="flex h-full w-full justify-between stripes-left pl-0!">
                 <div className="w-full h-full flex-1">
