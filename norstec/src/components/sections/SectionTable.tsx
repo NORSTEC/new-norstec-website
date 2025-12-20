@@ -12,7 +12,7 @@ export default function SectionTable({ section }: SectionTableProps) {
     const { title, columns, rows } = section;
 
     return (
-        <section className="flex flex-col gap-20 section stripes-right">
+        <section className="flex flex-col gap-5 md:gap-20 section mobile-container stripes-right">
             <StripesCornerBottomRight startDelay={0.5} />
             <StripesCornerTopRight />
 

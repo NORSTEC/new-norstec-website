@@ -21,14 +21,14 @@ export default function SectionMap({ section }: SectionMapProps) {
     }, [section.organizations, filter]);
 
     return (
-        <section className="section md:px-[40px]">
+        <section className="section">
             <StripesBottomRight startDelay={0.3}/>
 
-            <div className="flex h-full w-full justify-between stripes-left pl-0!">
+            <div className="flex h-full w-full justify-between stripes-left pl-0! mobile-container">
                 <div className="w-full h-full flex-1">
                     <Map organizations={filteredOrgs} />
                 </div>
-                <aside className="flex flex-col flex-1 ">
+                <aside className="flex flex-col flex-1">
                     <h2 className="text-h2 italic">{section.title}</h2>
                     <div className="md:pb-10">
                         <PortableText
@@ -46,8 +46,15 @@ export default function SectionMap({ section }: SectionMapProps) {
                     <MapFilter
                         value={filter}
                         onChange={setFilter}
-                        className="mt-2 md:mt-4"
+                        className="mt-2 md:pb-10"
                     />
+                    <div>
+
+                    <p className="italic font-[400] flex items-center">
+                        <span className="icon icon-24 md:icon-40 icon-400 rotate-[180deg]">trending_flat</span>
+                        Hover over each dot to read more
+                    </p>
+                    </div>
                 </aside>
             </div>
         </section>

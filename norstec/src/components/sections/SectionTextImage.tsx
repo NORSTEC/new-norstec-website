@@ -11,7 +11,7 @@ export default function SectionTextImage2({ section }: SectionTextImageProps) {
     const { title, body, images, mirrored } = section;
 
     return (
-        <section className="section relative lg:h-auto! xl:h-screen!">
+        <section className="section relative lg:h-auto! xl:h-screen! mobile-container">
 
             <StripesVertical
                 side="left"

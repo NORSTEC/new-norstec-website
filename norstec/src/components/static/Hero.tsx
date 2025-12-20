@@ -31,7 +31,7 @@ export default function Hero({
             <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 flex z-0"
             >
-                <div className="flex h-full gap-[0.5rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]">
+                <div className="flex h-full gap-[0.75rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]">
                     {[
                         "bg-sky",
                         "bg-beachball",
@@ -40,7 +40,7 @@ export default function Hero({
                     ].map((color, i) => (
                         <motion.span
                             key={i}
-                            className={`h-full w-[.5rem] md:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
+                            className={`h-full w-[1rem] md:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
                             initial={{ scaleY: 0 }}
                             animate={{ scaleY: 1 }}
                             transition={{
@@ -53,7 +53,7 @@ export default function Hero({
                 </div>
             </motion.div>
 
-            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-[90vh] md:h-[85%] leading-none relative z-10">
+            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-[100vh] md:h-[85%] leading-none relative z-10">
                 <h1 className={HERO_TITLE_CLASSES}>
                     {title.split("").map((char, i) => (
                         <motion.span

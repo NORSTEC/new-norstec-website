@@ -38,31 +38,31 @@
 
 @layer utilities {
     .section {
-        @apply relative overflow-x-hidden xl:h-screen snap-start lg:h-[clamp(1000px,100vh,1200px)]
+        @apply relative overflow-x-hidden xl:h-screen snap-start lg:h-[clamp(1000px,100vh,1200px)] overflow-y-hidden
     }
 
     .desktop-container {
-        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] md:py-20
+        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] lg:py-20
     }
 
     .mobile-container {
-        @apply px-[1rem]
+        @apply px-[1rem] py-20 md:py-32 lg:py-0
     }
 
     .chemtrails-right {
-        @apply xl:pr-[45rem] lg:pr-[30rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
+        @apply xl:pr-[45rem] lg:pr-[30rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] lg:py-20
     }
 
     .chemtrails-left {
-        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
+        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
     }
 
     .stripes-right {
-        @apply xl:pr-[22rem] 3xl:pr-[35rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
+        @apply lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] lg:py-20
     }
 
     .stripes-left {
-        @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
+        @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
     }
 
 }

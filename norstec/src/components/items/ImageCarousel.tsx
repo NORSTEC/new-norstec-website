@@ -97,7 +97,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
             </div>
 
             {/* MOBIL */}
-            <div className="px-[2vw] relative flex-1 xl:h-full xl:hidden">
+            <div className="relative flex-1 xl:h-full xl:hidden">
                 {(() => {
                     const current = images[startIndex];
 

@@ -95,7 +95,7 @@ export default function Map({ organizations }: MapProps) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.15 }}
-                            className="hidden md:block md:absolute z-20 pointer-events-none"
+                            className="hidden md:block md:absolute z-20 pointer-events-none lg:ml-8"
                             style={{
                                 left: tooltipPos.x,
                                 top: tooltipPos.y,
