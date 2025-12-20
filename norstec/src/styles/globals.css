@@ -38,7 +38,7 @@
 
 @layer utilities {
     .section {
-        @apply relative overflow-x-hidden xl:h-screen snap-start lg:h-[clamp(1000px,100vh,1200px)] overflow-y-hidden
+        @apply relative overflow-x-hidden xl:h-screen snap-start overflow-y-hidden
     }
 
     .desktop-container {
@@ -46,7 +46,7 @@
     }
 
     .mobile-container {
-        @apply px-[1rem] py-20 md:py-32 lg:py-0
+        @apply px-[1rem] py-20 md:py-32 xl:py-0
     }
 
     .chemtrails-right {
