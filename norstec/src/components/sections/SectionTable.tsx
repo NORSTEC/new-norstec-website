@@ -3,7 +3,6 @@ import Table from "@/components/items/table/Table";
 import CollapsibleList from "@/components/items/table/CollapsibleList";
 import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
 import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRight";
-import StripesVertical from "@/components/items/stripes/StripesVertical";
 
 type SectionTableProps = {
     section: SectionTableType;
@@ -14,9 +13,8 @@ export default function SectionTable({ section }: SectionTableProps) {
 
     return (
         <section className="flex flex-col gap-20 section stripes-right">
-            {/*<StripesCornerBottomRight startDelay={0.5} />*/}
+            <StripesCornerBottomRight startDelay={0.5} />
             <StripesCornerTopRight />
-            <StripesVertical side={"right"} />
 
             <div>
                 <h2 className="text-h2 italic">

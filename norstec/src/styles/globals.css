@@ -18,21 +18,21 @@
 }
 
 @layer base {
-
-    html {
-        @apply xl:scroll-smooth overflow-x-hidden;
-    }
 {/*
     html {
-        @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth;
-    }     */}
+        @apply xl:scroll-smooth overflow-x-hidden
+    }
+*/}
+    html {
+        @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth
+    }
 
     body {
-        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem] ;
+        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem]
     }
 
     p {
-        @apply leading-7 md:leading-8 2xl:leading-9 font-medium;
+        @apply leading-7 md:leading-8 2xl:leading-9 font-medium
     }
 }
 
