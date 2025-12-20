@@ -19,7 +19,7 @@ export default function SectionTextImage2({ section }: SectionTextImageProps) {
             <div className="flex flex-col justify-center h-full stripes-left gap-10">
 
                 <div>
-                    {title && <h2 className="text-h2 italic">{title}</h2>}
+                    {title && <h2 className="text-h2 italic pb-5">{title}</h2>}
 
                     <div className="order-2 md:order-1 md:py-0">
                         <PortableText
