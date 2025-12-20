@@ -1,7 +1,6 @@
 import { PortableText } from "next-sanity";
 import InitiativesCarousel from "@/components/items/initiatives/InitiativesCarousel";
 import { SectionInitiatives as SectionInitiativesType } from "@/types/sections/sectionInitiatives";
-import StripesVertical from "@/components/items/stripes/StripesVertical";
 import ChemtrailsRight from "@/components/items/stripes/chemtrails/ChemtrailsRight";
 
 export default function SectionInitiatives({ section }: { section: SectionInitiativesType }) {

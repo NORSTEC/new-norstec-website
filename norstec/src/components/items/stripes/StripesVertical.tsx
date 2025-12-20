@@ -49,7 +49,7 @@ export default function StripesVertical({
             : "pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem]";
 
     const containerClass =
-        `flex absolute inset-y-0 px-[20px] -z-10 h-full ` +
+        `hidden lg:flex absolute inset-y-0 px-[20px] -z-10 h-full ` +
         `gap-[0.5rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] ` +
         `${padding} ${side === "left" ? "left-0" : "right-0"} ${className}`;
 

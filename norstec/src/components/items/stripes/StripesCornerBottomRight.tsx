@@ -119,7 +119,7 @@ export default function StripesCornerBottomRight({
         <div
             ref={rootRef}
             aria-hidden="true"
-            className={`absolute right-0 bottom-0 pointer-events-none -z-10 ${className}`}
+            className={`hidden lg:block absolute right-0 bottom-0 pointer-events-none -z-10 ${className}`}
             style={{
                 width: size,
                 height: size,
