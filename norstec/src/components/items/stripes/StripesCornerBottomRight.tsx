@@ -139,7 +139,7 @@ export default function StripesCornerBottomRight({
                     io.disconnect();
                 }
             },
-            { threshold: 0.5, rootMargin: "0px 0px -10% 0px" }
+            { threshold: 0.6, rootMargin: "0px 0px -10% 0px" }
         );
 
         io.observe(target);

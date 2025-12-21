@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { imageBuilder } from "@/utils/imageBuilder";
-import { PortableText } from "next-sanity";
 import {Initiative} from "@/types/items/initiative";
 
 type InitiativeCardProps = Pick<
@@ -11,7 +10,6 @@ type InitiativeCardProps = Pick<
 
 export default function InitiativeCard({
                                            title,
-                                           summary,
                                            cover,
                                            coverAlt,
                                            slug,
@@ -34,6 +32,7 @@ export default function InitiativeCard({
                         src={imageUrl}
                         alt={altText}
                         fill
+                        sizes="(min-width: 1280px) 15vw, 80vw"
                         className="object-cover"
                     />
                 ) : (

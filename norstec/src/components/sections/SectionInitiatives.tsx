@@ -9,7 +9,7 @@ export default function SectionInitiatives({ section }: { section: SectionInitia
     return (
         <section className="section">
             <ChemtrailsRight />
-            <div className="flex flex-col h-full py-20 lg:py-0 gap-5 lg:gap-0">
+            <div className="flex flex-col h-full py-20 lg:py-0 lg:pb-20 gap-5 lg:gap-0">
                 <div className="chemtrails-right mobile-container py-0! lg:py-20!">
                     {title && <h2 className="text-h2 pb-5 uppercase">{title}</h2>}
 

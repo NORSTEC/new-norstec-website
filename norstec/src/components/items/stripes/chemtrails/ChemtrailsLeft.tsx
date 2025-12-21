@@ -92,9 +92,7 @@ export default function ChemtrailsLeft() {
                 {/* Stripe 2 */}
                 <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 30 }}>
                     <div
-                        className="absolute inset-0
-                        [--rot:-5deg] xl:[--rot:-11deg] 3xl:[--rot:-10deg]
-                        [--x:3rem] xl:[--x:3.55rem] 3xl:[--x:4.45rem]"
+                        className="absolute inset-0 [--rot:-5deg] xl:[--rot:-11deg] 3xl:[--rot:-10deg] [--x:3rem] xl:[--x:3.55rem] 3xl:[--x:4.45rem]"
                         style={{
                             transform: "translateX(var(--x)) rotate(var(--rot))",
                             transformOrigin: "top left",
@@ -111,9 +109,7 @@ export default function ChemtrailsLeft() {
                 {/* Stripe 3 */}
                 <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 20 }}>
                     <div
-                        className="absolute inset-0
-                        [--rot:-14deg] xl:[--rot:-25deg] 3xl:[--rot:-22deg]
-                        [--x:6rem] xl:[--x:7.10rem] 3xl:[--x:9rem]"
+                        className="absolute inset-0 [--rot:-14deg] xl:[--rot:-25deg] 3xl:[--rot:-22deg] [--x:6rem] xl:[--x:7.10rem] 3xl:[--x:9rem]"
                         style={{
                             transform: "translateX(var(--x)) rotate(var(--rot))",
                             transformOrigin: "top left",
@@ -130,9 +126,7 @@ export default function ChemtrailsLeft() {
                 {/* Stripe 4 */}
                 <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 10 }}>
                     <div
-                        className="absolute inset-0
-                         [--rot:-23deg] xl:[--rot:-40deg] 3xl:[--rot:-35deg]
-                         [--x:9rem] xl:[--x:10.65rem] 3xl:[--x:13.5rem]"
+                        className="absolute inset-0 [--rot:-23deg] xl:[--rot:-40deg] 3xl:[--rot:-35deg] [--x:9rem] xl:[--x:10.65rem] 3xl:[--x:13.5rem]"
                         style={{
                             transform: "translateX(var(--x)) rotate(var(--rot))",
                             transformOrigin: "top left",
