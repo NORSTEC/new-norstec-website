@@ -17,7 +17,7 @@ export default function SectionTable({ section }: SectionTableProps) {
             <StripesCornerTopRight />
 
             <div>
-                <h2 className="text-h2 italic">
+                <h2 className="text-h2 uppercase">
                     {title}
                 </h2>
             </div>

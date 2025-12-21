@@ -15,9 +15,9 @@ const TAGLINE_LETTER_DELAY = 0.04;
 
 // fuck hydration errors
 const HERO_TITLE_CLASSES =
-    "whitespace-nowrap text-[16.5vh] md:text-[17vw] 3xl:text-[19rem] " +
+    "whitespace-nowrap text-[20.5vh] md:text-[22vw] 3xl:text-[19rem] " +
     "absolute right-0 top-[88.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
-    "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-oughter";
+    "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-barlow font-bold";
 
 export default function Hero({
                                  title = "NORSTEC",
@@ -53,7 +53,7 @@ export default function Hero({
                 </div>
             </motion.div>
 
-            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-[100vh] md:h-[85%] leading-none relative z-10">
+            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-[88.5vh] md:h-[85%] leading-none relative z-10">
                 <h1 className={HERO_TITLE_CLASSES}>
                     {title.split("").map((char, i) => (
                         <motion.span
@@ -72,7 +72,7 @@ export default function Hero({
                     ))}
                 </h1>
 
-                <h2 className="hidden md:block text-[2.25vw] 3xl:text-[3rem] italic font-oughter">
+                <h2 className="hidden md:block text-[3vw] 3xl:text-[3rem] italic font-barlow font-semibold">
                     {tagline.split("").map((char, i) => (
                         <motion.span
                             key={i}
