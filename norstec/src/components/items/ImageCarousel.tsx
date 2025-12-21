@@ -139,7 +139,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                 <button
                     type="button"
                     onClick={handlePrev}
-                    className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-moody hover:text-egg transition-all duration-200"
+                    className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-moody hover:text-egg bg-moody lg:bg-transparent text-egg lg:text-moody transition-all duration-200"
                     aria-label="Previous image"
                 >
                     <span className="icon icon-24 md:icon-40 icon-400 icon-filled transition-all duration-200 rotate-[180deg]">
@@ -150,7 +150,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                 <button
                     type="button"
                     onClick={handleNext}
-                    className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-moody hover:text-egg transition-all duration-200"
+                    className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-moody hover:text-egg bg-moody lg:bg-transparent text-egg lg:text-moody transition-all duration-200"
                     aria-label="Next image"
                 >
                     <span className="icon icon-24 md:icon-40 icon-400 icon-filled transition-all duration-200 ">
