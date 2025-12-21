@@ -53,7 +53,7 @@ export default function Hero({
                 </div>
             </motion.div>
 
-            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-[88.5vh] md:h-[85%] leading-none relative z-10">
+            <div className="text-moody flex flex-col md:items-center md:justify-center w-full h-[90vh] md:h-[85%] leading-none relative z-10">
                 <h1 className={HERO_TITLE_CLASSES}>
                     {title.split("").map((char, i) => (
                         <motion.span
