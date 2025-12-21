@@ -65,11 +65,32 @@
         @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
     }
 
+    .star-inline {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-image: url("/images/star.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-left: 0.5rem;
+        vertical-align: -0.1em;
+    }
+
+    @media (min-width: 768px) {
+        .star-inline {
+            width: 2rem;
+            height: 2rem;
+            vertical-align: -0.1em;
+        }
+    }
+
+
 }
 
 @layer components {
     .text-h2 {
-        @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow;
+        @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
     }
 
     #error-message {

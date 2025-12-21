@@ -6,6 +6,7 @@ import {PortableText} from "next-sanity";
 import {useMemo, useState} from "react";
 import MapFilter, {MapFilterId} from "@/components/items/map/MapFilter";
 import StripesBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
+import Image from "next/image";
 
 type SectionMapProps = {
     section: SectionMapType;
@@ -29,7 +30,12 @@ export default function SectionMap({ section }: SectionMapProps) {
                     <Map organizations={filteredOrgs} />
                 </div>
                 <aside className="flex flex-col flex-1 order-1 lg:order-2">
-                    <h2 className="text-h2 pb-5 uppercase">{section.title}</h2>
+                    <h2 className="text-h2 pb-5">{section.title}
+                        <span
+                            aria-hidden
+                            className="star-inline"
+                        />
+                    </h2>
                     <div className="md:pb-10">
                         <PortableText
                             value={section.body}

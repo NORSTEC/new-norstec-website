@@ -19,6 +19,10 @@ export default function SectionTable({ section }: SectionTableProps) {
             <div>
                 <h2 className="text-h2 uppercase">
                     {title}
+                    <span
+                        aria-hidden
+                        className="star-inline"
+                    />
                 </h2>
             </div>
             <div className="hidden lg:flex">

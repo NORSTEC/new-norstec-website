@@ -19,7 +19,13 @@ export default function SectionTextImage2({ section }: SectionTextImageProps) {
             <div className="flex flex-col justify-center h-full stripes-left lg:gap-10">
 
                 <div>
-                    {title && <h2 className="order-1 text-h2 pb-5 uppercase">{title}</h2>}
+                    {title && <h2 className="order-1 text-h2 pb-5 uppercase">
+                        {title}
+                        <span
+                            aria-hidden
+                            className="star-inline"
+                        />
+                    </h2>}
 
                     <div className="hidden lg:block lg:py-0">
                         <PortableText
