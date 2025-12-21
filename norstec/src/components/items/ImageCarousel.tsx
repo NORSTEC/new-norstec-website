@@ -121,7 +121,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                             transition={{
                                 opacity: { duration: 0.25 },
                             }}
-                            className="relative h-full w-full overflow-hidden aspect-[4/3] rounded-xl bg-egg"
+                            className="relative h-full max-h-[90vh] w-full overflow-hidden aspect-[4/3] rounded-xl bg-egg"
                         >
                             <NextImage
                                 src={src}
