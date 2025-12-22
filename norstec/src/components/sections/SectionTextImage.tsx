@@ -23,7 +23,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
             <div className="flex flex-col justify-center h-full stripes-left lg:gap-10">
 
                 <div>
-                    {title && <h2 className="order-1 text-h2 pb-5 uppercase">
+                    {title && <h2 className="order-1 text-h2 pb-2 uppercase">
                         {title}
                         <span
                             aria-hidden
@@ -47,7 +47,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
                     </div>
                 </div>
 
-                <div className="md:flex-1 flex items-center h-full pb-5 lg:pb-0">
+                <div className="md:flex-1 flex items-center h-full pb-2 lg:pb-0">
                     {useContainer ? (
                         <ImageContainer
                             images={images}

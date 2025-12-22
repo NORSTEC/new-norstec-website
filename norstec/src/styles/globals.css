@@ -46,7 +46,7 @@
     }
 
     .mobile-container {
-        @apply px-[1rem] py-20 md:py-32 xl:py-0
+        @apply px-[1rem] pt-16 md:pt-28 xl:py-0
     }
 
     .chemtrails-right {
@@ -91,6 +91,12 @@
 @layer components {
     .text-h2 {
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
+    }
+
+    .sib-dark .sib-form-block {
+        border-color: var(--color-egg) !important;
+        color: var(--color-egg) !important;
+        background: transparent !important;
     }
 
     .sib-form .sib-form-message-panel#error-message,

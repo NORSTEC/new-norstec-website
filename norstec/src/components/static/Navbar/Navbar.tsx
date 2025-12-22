@@ -134,12 +134,12 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                                         type: "tween",
                                         ease: [0.22, 0.9, 0.2, 1],
                                         duration: 0.55,
-                                        delay: open ? 0.06 : 0, // valgfritt: litt “etterheng” kun når den åpner
+                                        delay: open ? 0.06 : 0,
                                     }}
                                     style={{ willChange: "transform", transform: "translateZ(0)" }}
                                 >
                                     <div className="px-5 lg:px-8">
-                                        <NewsletterForm />
+                                        <NewsletterForm tone="light" />
                                     </div>
                                 </motion.div>
 
@@ -160,7 +160,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                             </>
                         ) : (
                             <motion.div
-                                className="absolute left-0 top-0 h-screen w-[75vw] bg-moody overflow-y-scroll"
+                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] bg-moody overflow-y-auto space-y-20"
                                 variants={panelFrontVariants}
                                 transition={{
                                     type: "spring",
@@ -171,7 +171,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                                 style={{ willChange: "transform", transform: "translateZ(0)" }}
                             >
                                 <MenuContent onNavigate={() => setOpen(false)} />
-                                <NewsletterForm />
+                                <NewsletterForm tone="dark" onNavigate={() => setOpen(false)} />
                             </motion.div>
                         )}
                     </div>
@@ -183,7 +183,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
 function MenuContent({ onNavigate }: { onNavigate: () => void }) {
     return (
-        <div className="flex h-full flex-col pt-20 px-5 lg:px-8">
+        <div className="flex h-full flex-col pt-20 md:px-5 lg:px-8 3xl:px-[20rem] ">
             <nav className="space-y-5">
                 {NAV_ITEMS.map((item) => (
                     <Link

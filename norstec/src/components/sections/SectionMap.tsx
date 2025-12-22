@@ -29,7 +29,7 @@ export default function SectionMap({ section }: SectionMapProps) {
                     <Map organizations={filteredOrgs} />
                 </div>
                 <aside className="flex flex-col flex-1 order-1 lg:order-2">
-                    <h2 className="text-h2 pb-5">{section.title}
+                    <h2 className="text-h2 pb-2">{section.title}
                         <span
                             aria-hidden
                             className="star-inline"
