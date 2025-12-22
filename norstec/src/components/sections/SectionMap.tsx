@@ -6,7 +6,6 @@ import {PortableText} from "next-sanity";
 import {useMemo, useState} from "react";
 import MapFilter, {MapFilterId} from "@/components/items/map/MapFilter";
 import StripesBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
-import Image from "next/image";
 
 type SectionMapProps = {
     section: SectionMapType;

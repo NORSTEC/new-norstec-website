@@ -11,10 +11,6 @@ export interface SectionTextImage {
         image: Image;
         imageAlt: string;
     }[];
-
-    link?: {
-        _type: "link";
-        href: string;
-        label?: string;
-    };
+    threeImageLayout?: "equal" | "featured";
+    featuredPosition?: "left" | "middle" | "right";
 }

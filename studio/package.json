@@ -11,6 +11,9 @@
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy"
   },
+  "engines": {
+    "node": ">=22.12 <23"
+  },
   "keywords": [
     "sanity"
   ],

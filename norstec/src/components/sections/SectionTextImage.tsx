@@ -1,14 +1,18 @@
 import { PortableText } from "next-sanity";
 import type { SectionTextImage as SectionTextImageType } from "@/types/sections/sectionTextImage";
-import ImageCarousel from "@/components/items/ImageCarousel";
+import ImageCarousel from "@/components/items/images/ImageCarousel";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
+import ImageContainer from "@/components/items/images/ImageContainer";
 
 type SectionTextImageProps = {
     section: SectionTextImageType;
 };
 
-export default function SectionTextImage2({ section }: SectionTextImageProps) {
-    const { title, body, images, mirrored } = section;
+export default function SectionTextImage({ section }: SectionTextImageProps) {
+    const { title, body, images, mirrored, threeImageLayout, featuredPosition } = section;
+
+    const total = images?.length ?? 0;
+    const useContainer = total > 0 && total <= 3;
 
     return (
         <section className="section relative mobile-container">
@@ -44,7 +48,16 @@ export default function SectionTextImage2({ section }: SectionTextImageProps) {
                 </div>
 
                 <div className="md:flex-1 flex items-center h-full pb-5 lg:pb-0">
-                    <ImageCarousel images={images} className="w-full" />
+                    {useContainer ? (
+                        <ImageContainer
+                            images={images}
+                            className="w-full"
+                            threeImageLayout={threeImageLayout}
+                            featuredPosition={featuredPosition}
+                        />
+                    ) : (
+                        <ImageCarousel images={images} className="w-full" />
+                    )}
                 </div>
                 <div className="block lg:hidden lg:py-0">
                     <PortableText

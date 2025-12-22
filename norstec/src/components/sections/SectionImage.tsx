@@ -1,5 +1,5 @@
 import type { SectionImage as SectionImageType } from "@/types/sections/sectionImage";
-import ImageCarousel from "@/components/items/ImageCarousel";
+import ImageCarousel from "@/components/items/images/ImageCarousel";
 import ChemtrailsLeft from "@/components/items/stripes/chemtrails/ChemtrailsLeft";
 
 type SectionImageProps = {
