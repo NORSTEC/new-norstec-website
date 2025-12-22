@@ -3,7 +3,7 @@
 import React from "react";
 
 type ButtonPillProps = {
-    active: boolean;
+    active?: boolean;
     children: React.ReactNode;
     onClick: () => void;
 };

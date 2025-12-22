@@ -93,6 +93,10 @@
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
     }
 
+    .btn {
+
+    }
+
     #error-message {
         @apply  text-red-700 bg-red-100 border border-red-300 rounded-md p-3 mb-4;
     }
