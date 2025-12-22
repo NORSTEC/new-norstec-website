@@ -31,6 +31,21 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     const [open, setOpen] = useState(false);
     const isDesktop = useIsDesktop(768);
     const pathname = usePathname();
+    const overlayVariants = {
+        open: { opacity: 1, pointerEvents: "auto" as const },
+        closed: { opacity: 0, pointerEvents: "none" as const },
+    };
+
+    const panelBackVariants = {
+        open: { x: 0 },
+        closed: { x: "-110%" },
+    };
+
+    const panelFrontVariants = {
+        open: { x: 0 },
+        closed: { x: "-110%" },
+    };
+
 
     // Lås body-scroll når menyen er åpen
     useEffect(() => {
@@ -61,8 +76,8 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     return (
         <>
             {/* TOP BAR */}
-            <header className="fixed inset-x-0 top-0 z-50 bg-egg md:bg-transparent">
-                <div className="mx-auto w-full px-5 lg:px-8">
+            <header className="fixed inset-x-0 top-0 z-50 bg-egg md:bg-transparent 3xl:px-[15rem]">
+                <div className="mx-auto w-full px-5 lg:px-8 max-w-[2000px]">
                     <div className="flex h-16 items-center justify-between">
                         <Link href={logoHref} className="inline-flex items-center" aria-label="Go to homepage">
                             <LogoToggle open={open} />
@@ -93,84 +108,75 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
             </header>
 
 
-            <AnimatePresence>
-                {open && (
-                    <motion.aside
-                        id="site-menu"
-                        className="fixed inset-0 z-40"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        <button
-                            type="button"
-                            className="absolute inset-0 cursor-default"
-                            onClick={() => setOpen(false)}
-                            aria-label="Close menu backdrop"
-                        />
+                <motion.aside
+                    id="site-menu"
+                    className="fixed inset-0 z-40"
+                    initial={false}
+                    animate={open ? "open" : "closed"}
+                    variants={overlayVariants}
+                    transition={{ duration: 0.2 }}
+                >
+                    <button
+                        type="button"
+                        className="absolute inset-0 cursor-default"
+                        onClick={() => setOpen(false)}
+                        aria-label="Close menu backdrop"
+                    />
 
-                        <div className="absolute inset-0 overflow-hidden">
-                            {/* DESKTOP: 2 layers fra VENSTRE */}
-                            {isDesktop ? (
-                                <>
-                                    <motion.div
-                                        className="absolute left-0 top-0 h-screen pl-[30vw] w-[70vw] bg-[#98C0D9] shadow-2xl pt-20"
-                                        initial={{ x: "-110%" }}
-                                        animate={{ x: "0%" }}
-                                        exit={{ x: "-110%" }}
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 260,
-                                            damping: 32,
-                                            mass: 0.9,
-                                            delay: 0.06,
-                                        }}
-                                        style={{
-                                            filter: "none",
-                                        }}>
-                                        <div className="px-5 lg:px-8">
-                                            <NewsletterForm />
-                                        </div>
-                                    </motion.div>
-                                    {/* Layer 1 (foran): mørk */}
-                                    <motion.div
-                                        className="absolute left-0 top-0 h-screen w-[30vw] bg-moody"
-                                        initial={{ x: "-110%" }}
-                                        animate={{ x: "0%" }}
-                                        exit={{ x: "-110%" }}
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 280,
-                                            damping: 30,
-                                            mass: 0.9,
-                                        }}
-                                    >
-
-                                        <MenuContent onNavigate={() => setOpen(false)} />
-                                    </motion.div>
-                                </>
-                            ) : (
-                                /* MOBIL: kun layer 1 fra VENSTRE */
+                    <div className="absolute inset-0 overflow-hidden">
+                        {isDesktop ? (
+                            <>
+                                {/* BAK (lyseblå) */}
                                 <motion.div
-                                    className="absolute left-0 top-0 h-screen w-[75vw] bg-moody overflow-y-scroll"
-                                    initial={{ x: "-110%" }}
-                                    animate={{ x: "0%" }}
-                                    exit={{ x: "-110%" }}
+                                    className="absolute left-0 top-0 h-screen pl-[30vw] w-[70vw] bg-[#98C0D9] pt-20"
+                                    variants={panelBackVariants}
+                                    transition={{
+                                        type: "tween",
+                                        ease: [0.22, 0.9, 0.2, 1],
+                                        duration: 0.55,
+                                        delay: open ? 0.06 : 0, // valgfritt: litt “etterheng” kun når den åpner
+                                    }}
+                                    style={{ willChange: "transform", transform: "translateZ(0)" }}
+                                >
+                                    <div className="px-5 lg:px-8">
+                                        <NewsletterForm />
+                                    </div>
+                                </motion.div>
+
+                                {/* FORAN (mørk) */}
+                                <motion.div
+                                    className="absolute left-0 top-0 h-screen w-[30vw] bg-moody"
+                                    variants={panelFrontVariants}
                                     transition={{
                                         type: "spring",
                                         stiffness: 280,
                                         damping: 30,
                                         mass: 0.9,
                                     }}
+                                    style={{ willChange: "transform", transform: "translateZ(0)" }}
                                 >
                                     <MenuContent onNavigate={() => setOpen(false)} />
-                                    <NewsletterForm />
                                 </motion.div>
-                            )}
-                        </div>
-                    </motion.aside>
-                )}
-            </AnimatePresence>
+                            </>
+                        ) : (
+                            <motion.div
+                                className="absolute left-0 top-0 h-screen w-[75vw] bg-moody overflow-y-scroll"
+                                variants={panelFrontVariants}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 280,
+                                    damping: 30,
+                                    mass: 0.9,
+                                }}
+                                style={{ willChange: "transform", transform: "translateZ(0)" }}
+                            >
+                                <MenuContent onNavigate={() => setOpen(false)} />
+                                <NewsletterForm />
+                            </motion.div>
+                        )}
+                    </div>
+                </motion.aside>
+
         </>
     );
 }

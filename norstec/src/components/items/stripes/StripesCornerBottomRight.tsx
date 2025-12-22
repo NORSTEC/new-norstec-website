@@ -38,9 +38,9 @@ const CONFIG: Record<"base" | "xl" | "3xl", Config> = {
         size: 500,
         strokeWidth: 80,
         gap: 65,
-        offsetX: 87,
+        offsetX: 0,
         offsetY: 0,
-        baseR: 780,
+        baseR: 952,
     },
 } as const;
 

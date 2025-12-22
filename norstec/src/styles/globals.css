@@ -93,16 +93,27 @@
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
     }
 
-    .btn {
-
+    .sib-form .sib-form-message-panel#error-message,
+    .sib-form .sib-form-message-panel#success-message {
+        border-radius: 1rem !important;
+        border-width: 2px !important;
+        margin: 0 0 1rem 0 !important;
+        color: var(--color-moody) !important;
+        background: var(--color-egg) !important;
     }
 
-    #error-message {
-        @apply  text-red-700 bg-red-100 border border-red-300 rounded-md p-3 mb-4;
+    .sib-form .sib-form-message-panel#error-message {
+        background: #F5E6DD !important;
+        border-color: var(--color-copper) !important;
     }
 
-    #success-message {
-        @apply hidden text-green-800 bg-green-100 border border-green-300 rounded-md p-3 mb-4;
+    .sib-form .sib-form-message-panel#success-message {
+        background: #DFF1F2 !important;
+        border-color: var(--color-beachball) !important;
+    }
+    .sib-form .sib-form-message-panel#error-message *,
+    .sib-form .sib-form-message-panel#success-message * {
+        color: var(--color-moody) !important;
     }
 
     .sib-form .input_replaced:checked+.checkbox_tick_positive {
