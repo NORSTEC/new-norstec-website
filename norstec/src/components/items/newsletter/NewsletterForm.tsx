@@ -1,8 +1,13 @@
 "use client";
 
+import BrevoScripts from "@/components/items/newsletter/BrevoScripts";
+import Link from "next/link";
+
 export default function NewsletterForm() {
     return (
-        <div className="sib-form w-full flex justify-center font-barlow!">
+        <>
+        <BrevoScripts />
+        <div className="sib-form flex p-0! justify-center font-barlow!">
             <div id="sib-form-container" className="sib-form-container max-w-xl w-full bg-transparent">
                 <div id="error-message" className="sib-form-message-panel m-0!">
                     <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
@@ -20,7 +25,7 @@ export default function NewsletterForm() {
                     </div>
                 </div>
 
-                <div id="sib-container" className="sib-container--large sib-container--vertical bg-transparent!">
+                <div id="sib-container" className="sib-container--large sib-container--vertical bg-transparent! p-0!">
                     <form
                         id="sib-form"
                         method="POST"
@@ -28,7 +33,7 @@ export default function NewsletterForm() {
                         data-type="subscription"
                         noValidate
                     >
-                        <div className="py-2">
+                        <div className="pb-2">
                             <div className="sib-form-block">
                                 <p className="text-h2">Newsletter</p>
                             </div>
@@ -46,9 +51,6 @@ export default function NewsletterForm() {
                             <div className="sib-input sib-form-block">
                                 <div className="form__entry entry_block">
                                     <div className="form__label-row">
-                                        <label className="entry__label" htmlFor="EMAIL" data-required="*">
-                                            Enter your email address to subscribe
-                                        </label>
 
                                         <div className="entry__field border-0! rounded-md! ">
                                             <input
@@ -77,7 +79,7 @@ export default function NewsletterForm() {
                                             <label>
                                                 <input type="checkbox" className="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required/>
                                                 <span className="checkbox checkbox_tick_positive"
-                                                ></span><span className="text-base! font-barlow!" >  I agree to receive newsletters from NORSTEC.
+                                                ></span><span className="text-sm! font-barlow!" >  I agree to receive newsletters from NORSTEC.
                                                   <span
                                                       data-required="*"
                                                       className="entry__label entry__label_optin inline!"
@@ -88,46 +90,21 @@ export default function NewsletterForm() {
                                     </div>
                                     <label className="entry__error entry__error--primary">
                                     </label>
-                                    <label className="entry__specification text-sm text-moody/70!">
-                                        You may unsubscribe at any time using the link in our newsletter.
-                                    </label>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="pt-4">
-                            <div className="sib-form__declaration">
-                                <div className="text-xs text-moody/70!">
-                                    <p>We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-moody/70!">Brevos Privacy Policy.</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="px-[16px]">
+                        <div className="px-[16px] pt-2">
                             <div className="g-recaptcha-v3" data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}></div>
                             <p className="text-xs text-moody/70 leading-snug">
-                                This site is protected by reCAPTCHA and the Google{" "}
-                                <a
-                                    href="https://policies.google.com/privacy"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="underline text-moody/70!"
-                                >
+                                By subscribing, you agree to our{" "}
+                                <Link href="/privacy" className="underline text-moody/70!">
                                     Privacy Policy
-                                </a>{" "}
-                                and{" "}
-                                <a
-                                    href="https://policies.google.com/terms"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="underline text-moody/70!"
-                                >
-                                    Terms of Service
-                                </a>{" "}
-                                apply.
+                                </Link>
+                                .
                             </p>
                         </div>
 
-                        <div className="py-4">
+                        <div className="py-6">
                             <div className="sib-form-block text-left">
                                 <button
                                     className="sib-form-block__button sib-form-block__button-with-loader cursor-pointer inline-flex items-center justify-center  border-2! border-moody! rounded-xl hover:bg-moody hover:text-white transition"
@@ -151,5 +128,6 @@ export default function NewsletterForm() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

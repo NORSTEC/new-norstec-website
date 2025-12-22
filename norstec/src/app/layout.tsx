@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css"
 import React from "react";
 import { oughter, barlow } from "@/assets/fonts"
-import BrevoScripts from "@/components/items/newsletter/BrevoScripts";
+import Navbar from "@/components/static/Navbar/Navbar";
 
 export const metadata: Metadata = {
     title: "NORSTEC",
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <title>NORSTEC</title>
         </head>
         <body>
-            <BrevoScripts />
+            <Navbar />
             {children}
         </body>
         </html>
