@@ -116,7 +116,7 @@ export default function Table({ columns, rows }: TableProps) {
                 {sortedRows.map((row, rowIndex) => (
                     <tr
                         key={rowIndex}
-                        className="border-b-2 border-moody"
+                        className="border-b-2 border-moody borded-dotted"
                     >
                         {row.cells.map((cell, cellIndex) => {
                             const column = columns[cellIndex];
