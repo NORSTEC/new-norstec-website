@@ -89,6 +89,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                                     sizes="(min-width: 1280px) 33vw, 100vw"
                                     className="object-cover"
                                     priority={isMain}
+                                    unoptimized
                                 />
                             </motion.div>
                         );
