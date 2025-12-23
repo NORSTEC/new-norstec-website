@@ -8,12 +8,13 @@ import { usePathname } from "next/navigation";
 import HamburgerSpin from "@/components/static/Navbar/HamburgerSpin";
 import LogoToggle from "@/components/static/Navbar/LogoToggle";
 import NewsletterForm from "@/components/items/newsletter/NewsletterForm";
+import {useHideOnScrollMobile} from "@/utils/useHideOnScrollMobile";
 
 type NavbarProps = {
     logoHref?: string;
 };
 
-function useIsDesktop(breakpointPx = 768) {
+function useIsDesktop(breakpointPx = 1024) {
     const [isDesktop, setIsDesktop] = useState(false);
 
     useEffect(() => {
@@ -29,7 +30,7 @@ function useIsDesktop(breakpointPx = 768) {
 
 export default function Navbar({ logoHref = "/" }: NavbarProps) {
     const [open, setOpen] = useState(false);
-    const isDesktop = useIsDesktop(768);
+    const isDesktop = useIsDesktop(1024);
     const pathname = usePathname();
     const overlayVariants = {
         open: { opacity: 1, pointerEvents: "auto" as const },
@@ -46,7 +47,13 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         closed: { x: "-110%" },
     };
 
-
+    const mobileHeaderVisible = useHideOnScrollMobile({
+        enabled: !isDesktop && !open,
+        hideAfterPx: 1,
+        hideDeltaPx: 400,
+        showDeltaPx: 10,
+        topSafePx: 8,
+    });
     // Lås body-scroll når menyen er åpen
     useEffect(() => {
         if (!open) return;
@@ -76,7 +83,14 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     return (
         <>
             {/* TOP BAR */}
-            <header className="fixed inset-x-0 top-0 z-50 bg-egg md:bg-transparent 3xl:px-[15rem]">
+            <motion.header
+                className="fixed inset-x-0 top-0 z-50 bg-egg lg:bg-transparent 3xl:px-[15rem] overflow-y-scroll"
+                animate={{
+                    y: !isDesktop && !mobileHeaderVisible ? -72 : 0,
+                }}
+                transition={{ type: "tween", duration: 0.22, ease: [0.22, 0.9, 0.2, 1] }}
+                style={{ willChange: "transform" }}
+            >
                 <div className="mx-auto w-full px-5 lg:px-8 max-w-[2000px]">
                     <div className="flex h-16 items-center justify-between">
                         <Link href={logoHref} className="inline-flex items-center" aria-label="Go to homepage">
@@ -105,7 +119,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
                     </div>
                 </div>
-            </header>
+            </motion.header>
 
 
                 <motion.aside
@@ -160,7 +174,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                             </>
                         ) : (
                             <motion.div
-                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] bg-moody overflow-y-auto space-y-20"
+                                className="absolute left-0 top-0 min-h-screen px-5 w-[80vw] bg-moody overflow-y-auto space-y-16"
                                 variants={panelFrontVariants}
                                 transition={{
                                     type: "spring",
@@ -183,7 +197,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
 function MenuContent({ onNavigate }: { onNavigate: () => void }) {
     return (
-        <div className="flex h-full flex-col pt-20 md:px-5 lg:px-8 ">
+        <div className="flex h-full flex-col pt-20 lg:px-8 ">
             <nav className="space-y-5">
                 {NAV_ITEMS.map((item) => (
                     <Link

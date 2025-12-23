@@ -43,7 +43,7 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
                         >
                             <div className="pb-2">
                                 <div className="sib-form-block p-0!">
-                                    <p className="text-h2 font-normal hidden md:block">Newsletter</p>
+                                    <p className="text-h2 font-normal hidden lg:block">Newsletter</p>
                                 </div>
                             </div>
 
@@ -61,7 +61,7 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
                                         <div className="form__label-row">
                                             <div className="entry__field border-0! rounded-md! ">
                                                 <input
-                                                    className="input focus:outline-2! w-full rounded-md px-4 py-2"
+                                                    className="input focus:outline-2! w-full rounded-md px-4 py-2 text-moody!"
                                                     type="text"
                                                     id="EMAIL"
                                                     name="EMAIL"
@@ -128,7 +128,7 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
                             <div className="py-6">
                                 <div className="sib-form-block text-left p-0!">
                                     <button
-                                        className="sib-form-block__button sib-form-block__button-with-loader cursor-pointer inline-flex items-center justify-center border-2! rounded-xl transition bg-egg! text-moody! md:bg-transparent! md:hover:bg-moody! md:hover:text-egg! md:hover:border-moody! text-[clamp(1rem,1rem+0.3vw,1.2rem)] "
+                                        className="sib-form-block__button sib-form-block__button-with-loader cursor-pointer inline-flex items-center justify-center border-2! rounded-xl transition bg-egg! text-moody! lg:bg-transparent! lg:hover:bg-moody! lg:hover:text-egg! lg:hover:border-moody! text-[clamp(1rem,1rem+0.3vw,1.2rem)] "
                                         form="sib-form"
                                         type="submit"
                                     >
