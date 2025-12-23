@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
             title,
             images: [
                 {
-                    url: `/og/summit?days=${days}`,
+                    url: '/images/summitTest.png',
                     width: 1200,
                     height: 630,
                 },
@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
         twitter: {
             card: "summary_large_image",
             title,
-            images: [`/og/summit?days=${days}`],
+            images: ['/images/summitTest.png'],
         },
     };
 }
