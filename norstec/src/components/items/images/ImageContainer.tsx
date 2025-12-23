@@ -40,8 +40,8 @@ export default function ImageContainer({
         if (!src) return null;
 
         return (
-            <div className={`w-full ${className ?? ""}`}>
-                <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl bg-egg">
+            <div className={`w-full h-full flex justify-center ${className ?? ""}`}>
+                <div className="relative w-full h-full overflow-hidden aspect-[4/3] xl:aspect-auto">
                     <NextImage
                         src={src}
                         alt={item.imageAlt || "Image"}

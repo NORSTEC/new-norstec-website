@@ -24,8 +24,8 @@ export default function SectionMap({ section }: SectionMapProps) {
         <section className="section">
             <StripesBottomRight startDelay={0.3}/>
 
-            <div className="flex flex-col lg:flex-row h-full w-full justify-between stripes-left lg:pl-[1rem]! mobile-container lg:gap-5 xl:gap-0">
-                <div className="w-full h-full flex-1 order-2 lg:order-1">
+            <div className="flex flex-col lg:flex-row h-full w-full justify-between stripes-left lg:pl-[1rem]! mobile-container lg:gap-5">
+                <div className="w-full h-full flex-1 order-2 lg:order-1 mt-5 ld:mt-0">
                     <Map organizations={filteredOrgs} />
                 </div>
                 <aside className="flex flex-col flex-1 order-1 lg:order-2">

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { NAV_ITEMS } from "@/config/navigation";
 import { usePathname } from "next/navigation";
 import HamburgerSpin from "@/components/static/Navbar/HamburgerSpin";
@@ -84,7 +84,11 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         <>
             {/* TOP BAR */}
             <motion.header
-                className="fixed inset-x-0 top-0 z-50 bg-egg lg:bg-transparent 3xl:px-[15rem] overflow-y-scroll"
+                className={[
+                    "fixed inset-x-0 top-0 z-50 3xl:px-[15rem]",
+                    "bg-egg lg:bg-transparent",
+                    open && !isDesktop ? "!bg-moody" : "",
+                ].join(" ")}
                 animate={{
                     y: !isDesktop && !mobileHeaderVisible ? -72 : 0,
                 }}
@@ -106,7 +110,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                         >
                             <HamburgerSpin
                                 open={open}
-                                lineClassName="bg-moody"
+                                lineClassName={open && !isDesktop ? "bg-egg" : "bg-moody"}
                                 className="shrink-0"
                                 thickness={2}
                                 gap={5}
@@ -174,7 +178,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                             </>
                         ) : (
                             <motion.div
-                                className="absolute left-0 top-0 min-h-screen px-5 w-[80vw] bg-moody overflow-y-auto space-y-16"
+                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] bg-moody overflow-y-auto space-y-16"
                                 variants={panelFrontVariants}
                                 transition={{
                                     type: "spring",
