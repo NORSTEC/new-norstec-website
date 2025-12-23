@@ -7,10 +7,10 @@ import Navbar from "@/components/static/Navbar/Navbar";
 export const metadata: Metadata = {
     icons: {
         icon: [
-            { url: "/NORSTEC.png", sizes: "32x32", type: "image/png" },
-            { url: "/NORSTECVECTOR.svg", type: "image/svg+xml" },
+            { url: "/public/NORSTEC.png", sizes: "32x32", type: "image/png" },
+            { url: "/public/NORSTECVECTOR.svg", type: "image/svg+xml" },
         ],
-        apple: "/NORSTECIOS.png",
+        apple: "/public/NORSTECIOS.png",
     },
 };
 
