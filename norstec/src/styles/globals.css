@@ -92,7 +92,7 @@
         }
     }
 
-    /* ----- Newsletter ----- */
+    /* ----- NEWSLETTER ----- */
     .sib-dark .sib-form-block {
         border-color: var(--color-egg) !important;
         color: var(--color-egg) !important;
@@ -132,7 +132,6 @@
         @apply relative flex flex-row-reverse items-center gap-3 text-egg font-light w-fit;
     }
 
-    /* stjerne på høyre side */
     .nav-item::after {
         content: "";
         display: inline-block;
@@ -155,7 +154,6 @@
         @apply text-copper italic;
     }
 
-    /* Active: samme plass (høyre), men annen fil og alltid synlig */
     .nav-item--active::after {
         opacity: 1;
         transform: translateX(0);

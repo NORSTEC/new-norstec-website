@@ -8,35 +8,26 @@ import { usePathname } from "next/navigation";
 import HamburgerSpin from "@/components/static/Navbar/HamburgerSpin";
 import LogoToggle from "@/components/static/Navbar/LogoToggle";
 import NewsletterForm from "@/components/items/newsletter/NewsletterForm";
-import {useHideOnScrollMobile} from "@/utils/useHideOnScrollMobile";
 import { useReducedMotion } from "motion/react";
+import {useHideOnScrollMobile} from "../../../../hooks/useHideOnScrollMobile";
+import {useMediaQuery} from "../../../../hooks/useMediaQuery";
+import Countdown from "@/components/static/Countdown";
+
 
 type NavbarProps = {
     logoHref?: string;
 };
 
-function useIsDesktop(breakpointPx = 1024) {
-    const [isDesktop, setIsDesktop] = useState(false);
-
-    useEffect(() => {
-        const mq = window.matchMedia(`(min-width: ${breakpointPx}px)`);
-        const update = () => setIsDesktop(mq.matches);
-        update();
-        mq.addEventListener("change", update);
-        return () => mq.removeEventListener("change", update);
-    }, [breakpointPx]);
-
-    return isDesktop;
-}
-
 export default function Navbar({ logoHref = "/" }: NavbarProps) {
     const [open, setOpen] = useState(false);
-    const isDesktop = useIsDesktop(1024);
     const pathname = usePathname();
-
     const prefersReducedMotion = useReducedMotion();
-    const shouldDelayOnMount = !isDesktop && pathname === "/" && !prefersReducedMotion;
     const ENTRY_DELAY_MS = 1100;
+    const DESKTOP_TINT_DELAY_MS = 300;
+    const [desktopMenuTintOn, setDesktopMenuTintOn] = useState(false);
+    const isDesktop = useMediaQuery("(min-width: 1024px)");
+    const is3xl = useMediaQuery("(min-width: 2000px)");
+    const shouldDelayOnMount = !isDesktop && pathname === "/" && !prefersReducedMotion;
     const [allowHeader, setAllowHeader] = useState(() => !shouldDelayOnMount);
 
     const overlayVariants = {
@@ -100,7 +91,28 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         return () => window.clearTimeout(t);
     }, [shouldDelayOnMount, ENTRY_DELAY_MS]);
 
+    useEffect(() => {
+        if (!isDesktop || is3xl) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setDesktopMenuTintOn(false);
+            return;
+        }
+
+        if (!open) {
+            setDesktopMenuTintOn(false);
+            return;
+        }
+
+        const t = window.setTimeout(() => setDesktopMenuTintOn(true), DESKTOP_TINT_DELAY_MS);
+        return () => window.clearTimeout(t);
+    }, [open, isDesktop, is3xl, DESKTOP_TINT_DELAY_MS]);
+
+
     const toggle = () => setOpen((v) => !v);
+    const headerFgIsLight =
+        (open && !isDesktop) ||
+        (open && isDesktop && desktopMenuTintOn && !is3xl);
+
 
     return (
         <>
@@ -130,13 +142,18 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                         >
                             <HamburgerSpin
                                 open={open}
-                                lineClassName={open && !isDesktop ? "bg-egg" : "bg-moody"}
+                                lineClassName={headerFgIsLight ? "bg-egg" : "bg-moody"}
                                 className="shrink-0"
                                 thickness={2}
                                 gap={5}
                             />
 
-                            <span className="hidden lg:inline-block w-[4ch]">
+                            <span
+                                className={[
+                                    "hidden lg:inline-block w-[4ch] transition-colors duration-200",
+                                    headerFgIsLight ? "text-egg" : "text-moody",
+                                ].join(" ")}
+                            >
                                 {open ? "CLOSE" : "MENU"}
                               </span>
                         </button>
@@ -155,12 +172,32 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                     transition={{ duration: 0.2 }}
                 >
 
-                    <div className="absolute inset-0 overflow-x-hidden overflow-y-auto">
+                    <div className="absolute inset-0 overflow-x-hidden overflow-y-auto md:bg-transparent overscroll-contain">
                         {isDesktop ? (
                             <>
+                                <motion.div
+                                    className="absolute left-0 top-0 h-screen pl-[67vw] 3xl:pl-[40vw] w-[100vw] 3xl:w-[64vw] bg-[#3D5B81] pt-20 text-egg"
+                                    variants={panelBackVariants}
+                                    transition={{
+                                        type: "tween",
+                                        ease: [0.22, 0.9, 0.2, 1],
+                                        duration: 0.55,
+                                        delay: open ? 0.12 : 0,
+                                    }}
+                                    style={{ willChange: "transform", transform: "translateZ(0)" }}
+                                >
+                                    <div className="px-5 lg:px-8 flex flex-col gap-3">
+                                        <h2 className="text-h2 font-light">summit</h2>
+                                        <p className="font-normal text-[1.25rem]! 2xl:text-[1.5rem]! italic">Securing our future in space.</p>
+                                        <Countdown
+                                            targetDate={new Date(2026, 3, 12, 0, 0, 0)}
+                                        />
+                                    </div>
+                                </motion.div>
+
                                 {/* BAK (lyseblå) */}
                                 <motion.div
-                                    className="absolute left-0 top-0 h-screen pl-[30vw] 3xl:pl-[15vw] w-[70vw] 3xl:w-[50vw] bg-[#98C0D9] pt-20"
+                                    className="absolute left-0 top-0 h-screen pl-[33vw] 3xl:pl-[16vw] w-[67vw] 3xl:w-[40vw] bg-[#98C0D9] pt-20"
                                     variants={panelBackVariants}
                                     transition={{
                                         type: "tween",
@@ -177,7 +214,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
                                 {/* FORAN (mørk) */}
                                 <motion.div
-                                    className="absolute left-0 top-0 h-screen w-[30vw] 3xl:w-[15vw] 3xl:min-w-[20rem] bg-moody"
+                                    className="absolute left-0 top-0 h-screen w-[33vw] 3xl:w-[16vw] 3xl:min-w-[20rem] bg-moody"
                                     variants={panelFrontVariants}
                                     transition={{
                                         type: "spring",
@@ -192,7 +229,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                             </>
                         ) : (
                             <motion.div
-                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] bg-moody overscroll-y-auto space-y-10"
+                                className="absolute left-0 top-0 px-5 min-h-[100vh] w-[100vw] bg-moody overscroll-y-auto space-y-10"
                                 variants={panelFrontVariants}
                                 transition={{
                                     type: "spring",
