@@ -9,6 +9,7 @@ import HamburgerSpin from "@/components/static/Navbar/HamburgerSpin";
 import LogoToggle from "@/components/static/Navbar/LogoToggle";
 import NewsletterForm from "@/components/items/newsletter/NewsletterForm";
 import {useHideOnScrollMobile} from "@/utils/useHideOnScrollMobile";
+import { useReducedMotion } from "motion/react";
 
 type NavbarProps = {
     logoHref?: string;
@@ -32,6 +33,12 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     const [open, setOpen] = useState(false);
     const isDesktop = useIsDesktop(1024);
     const pathname = usePathname();
+
+    const prefersReducedMotion = useReducedMotion();
+    const shouldDelayOnMount = !isDesktop && pathname === "/" && !prefersReducedMotion;
+    const ENTRY_DELAY_MS = 1100;
+    const [allowHeader, setAllowHeader] = useState(() => !shouldDelayOnMount);
+
     const overlayVariants = {
         open: { opacity: 1, pointerEvents: "auto" as const },
         closed: { opacity: 0, pointerEvents: "none" as const },
@@ -54,15 +61,24 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         showDeltaPx: 10,
         topSafePx: 8,
     });
+
+    const headerBg = isDesktop
+        ? "transparent"
+        : open
+            ? "var(--color-moody)"
+            : "var(--color-egg)";
+
+    const headerHidden = (!isDesktop && !open && !allowHeader) || (!isDesktop && !mobileHeaderVisible);
+
     // Lås body-scroll når menyen er åpen
     useEffect(() => {
-        if (!open) return;
+        if (!open || isDesktop) return;
         const prev = document.body.style.overflow;
         document.body.style.overflow = "hidden";
         return () => {
             document.body.style.overflow = prev;
         };
-    }, [open]);
+    }, [isDesktop, open]);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -78,22 +94,26 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         return () => window.removeEventListener("keydown", onKeyDown);
     }, [open]);
 
+    useEffect(() => {
+        if (!shouldDelayOnMount) return;
+        const t = window.setTimeout(() => setAllowHeader(true), ENTRY_DELAY_MS);
+        return () => window.clearTimeout(t);
+    }, [shouldDelayOnMount, ENTRY_DELAY_MS]);
+
     const toggle = () => setOpen((v) => !v);
 
     return (
         <>
             {/* TOP BAR */}
             <motion.header
-                className={[
-                    "fixed inset-x-0 top-0 z-50 3xl:px-[15rem]",
-                    "bg-egg lg:bg-transparent",
-                    open && !isDesktop ? "!bg-moody" : "",
-                ].join(" ")}
+                className="fixed inset-x-0 top-0 z-50 3xl:px-[15rem]"
+                initial={false}
                 animate={{
-                    y: !isDesktop && !mobileHeaderVisible ? -72 : 0,
+                    y: headerHidden ? -72 : 0,
+                    backgroundColor: headerBg,
                 }}
                 transition={{ type: "tween", duration: 0.22, ease: [0.22, 0.9, 0.2, 1] }}
-                style={{ willChange: "transform" }}
+                style={{ willChange: "transform, background-color" }}
             >
                 <div className="mx-auto w-full px-5 lg:px-8 max-w-[2000px]">
                     <div className="flex h-16 items-center justify-between">
@@ -134,12 +154,6 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                     variants={overlayVariants}
                     transition={{ duration: 0.2 }}
                 >
-                    <button
-                        type="button"
-                        className="absolute inset-0 cursor-default"
-                        onClick={() => setOpen(false)}
-                        aria-label="Close menu backdrop"
-                    />
 
                     <div className="absolute inset-0 overflow-hidden">
                         {isDesktop ? (
@@ -178,7 +192,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                             </>
                         ) : (
                             <motion.div
-                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] bg-moody overflow-y-auto space-y-16"
+                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] pb-44 bg-moody overflow-y-auto space-y-10"
                                 variants={panelFrontVariants}
                                 transition={{
                                     type: "spring",

@@ -15,8 +15,8 @@ const TAGLINE_LETTER_DELAY = 0.04;
 
 // fuck hydration errors
 const HERO_TITLE_CLASSES =
-    "whitespace-nowrap text-[20.5vh] md:text-[22vw] 3xl:text-[19rem] " +
-    "absolute right-0 top-[88.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
+    "whitespace-nowrap text-[18vh] md:text-[22vw] 3xl:text-[19rem] " +
+    "absolute right-0 top-[85vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
     "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-barlow font-bold";
 
 export default function Hero({
