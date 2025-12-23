@@ -128,7 +128,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                             <>
                                 {/* BAK (lyseblå) */}
                                 <motion.div
-                                    className="absolute left-0 top-0 h-screen pl-[30vw] w-[70vw] bg-[#98C0D9] pt-20"
+                                    className="absolute left-0 top-0 h-screen pl-[30vw] w-[70vw] 3xl:w-[50vw] bg-[#98C0D9] pt-20"
                                     variants={panelBackVariants}
                                     transition={{
                                         type: "tween",

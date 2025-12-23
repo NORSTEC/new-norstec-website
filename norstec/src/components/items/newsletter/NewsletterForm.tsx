@@ -15,7 +15,7 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
           Hvis du allerede har den i RootLayout: fjern BrevoScripts her. */}
             <BrevoScripts />
 
-            <div className={["sib-form flex p-0! justify-center font-barlow!", tone === "dark" ? "sib-dark" : "sib-light"].join(" ")}>
+            <div className={["sib-form flex p-0!  font-barlow!", tone === "dark" ? "sib-dark" : "sib-light"].join(" ")}>
                 <div id="sib-form-container" className="sib-form-container max-w-xl w-full bg-transparent">
                     <div id="error-message" className="sib-form-message-panel m-0!">
                         <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
