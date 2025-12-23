@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 const SUMMIT_DATE = "2026-03-12T00:00:00Z";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
     const now = new Date();
