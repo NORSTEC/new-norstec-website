@@ -5,7 +5,17 @@ export default defineType({
     title: 'Home page',
     type: 'document',
     fields: [
-
+        defineField({
+            name: "metadata",
+            title: "Metadata",
+            type: "metadata",
+            description:
+                "SEO, Open Graph, Twitter, robots osv. Gjelder hele siden. Trenger som regel ikke å bli endret på.",
+            options: {
+                collapsible: true,
+                collapsed: true,
+            },
+        }),
         defineField({
             name: 'sections',
             title: 'Sections',
