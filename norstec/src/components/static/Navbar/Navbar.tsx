@@ -190,7 +190,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                                         <h2 className="text-h2 font-light">summit</h2>
                                         <p className="font-normal text-[1.25rem]! 2xl:text-[1.5rem]! italic">Securing our future in space.</p>
                                         <Countdown
-                                            targetDate={new Date(2026, 4, 12, 0, 0, 0)}
+                                            targetDate={new Date(2026, 2, 12, 0, 0, 0)}
                                         />
                                     </div>
                                 </motion.div>
