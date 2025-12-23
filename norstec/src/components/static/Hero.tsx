@@ -24,7 +24,8 @@ export default function Hero({
                                  tagline = "Securing our future in space.",
                              }: HeroProps) {
     const titleStart = stripeTransition.duration;
-    const taglineStart = titleStart + title.length * TITLE_LETTER_DELAY * 1.5;
+    const taglineStart = stripeTransition.duration;
+    const typeSpeed = TAGLINE_LETTER_DELAY;
 
     return (
         <header className="md:h-screen w-full relative overflow-hidden snap-start">
@@ -72,17 +73,18 @@ export default function Hero({
                     ))}
                 </h1>
 
+
                 <h2 className="hidden md:block text-[3vw] 3xl:text-[3rem] italic font-barlow font-semibold">
                     {tagline.split("").map((char, i) => (
                         <motion.span
                             key={i}
                             className="inline-block"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
                             transition={{
-                                delay: taglineStart + i * TAGLINE_LETTER_DELAY,
-                                duration: 0.25,
-                                ease: "easeOut",
+                                delay: taglineStart + i * typeSpeed,
+                                duration: 0.01,
+                                ease: "linear",
                             }}
                         >
                             {char === " " ? "\u00A0" : char}
