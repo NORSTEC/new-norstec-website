@@ -1,5 +1,4 @@
 import type { SectionTable as SectionTableType } from "@/types/sections/sectionTable";
-import StripesVertical from "@/components/items/stripes/StripesVertical";
 import Table from "@/components/items/table/Table";
 import CollapsibleList from "@/components/items/table/CollapsibleList";
 import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
@@ -13,13 +12,17 @@ export default function SectionTable({ section }: SectionTableProps) {
     const { title, columns, rows } = section;
 
     return (
-        <section className="flex flex-col justify-between section stripes-right">
+        <section className="flex flex-col gap-5 lg:gap-20 section mobile-container stripes-right">
             <StripesCornerBottomRight startDelay={0.5} />
             <StripesCornerTopRight />
 
             <div>
-                <h2 className="text-h2 italic">
+                <h2 className="text-h2 uppercase">
                     {title}
+                    <span
+                        aria-hidden
+                        className="star-inline"
+                    />
                 </h2>
             </div>
             <div className="hidden lg:flex">

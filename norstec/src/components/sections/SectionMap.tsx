@@ -21,15 +21,20 @@ export default function SectionMap({ section }: SectionMapProps) {
     }, [section.organizations, filter]);
 
     return (
-        <section className="section md:px-[40px]">
-            <StripesBottomRight />
+        <section className="section">
+            <StripesBottomRight startDelay={0.3}/>
 
-            <div className="flex h-full w-full justify-between stripes-left pl-0!">
-                <div className="w-full h-full flex-1">
+            <div className="flex flex-col lg:flex-row h-full w-full justify-between stripes-left lg:pl-[1rem]! mobile-container lg:gap-5">
+                <div className="w-full h-full flex-1 order-2 lg:order-1 mt-5 ld:mt-0">
                     <Map organizations={filteredOrgs} />
                 </div>
-                <aside className="flex flex-col flex-1 ">
-                    <h2 className="text-h2 italic">{section.title}</h2>
+                <aside className="flex flex-col flex-1 order-1 lg:order-2">
+                    <h2 className="text-h2 pb-2">{section.title}
+                        <span
+                            aria-hidden
+                            className="star-inline"
+                        />
+                    </h2>
                     <div className="md:pb-10">
                         <PortableText
                             value={section.body}
@@ -46,8 +51,15 @@ export default function SectionMap({ section }: SectionMapProps) {
                     <MapFilter
                         value={filter}
                         onChange={setFilter}
-                        className="mt-2 md:mt-4"
+                        className="mt-2 md:pb-10"
                     />
+                    <div>
+
+                    <p className="italic font-[400] hidden lg:flex items-center">
+                        <span className="icon icon-24 md:icon-40 icon-400 rotate-[180deg]">trending_flat</span>
+                        Hover over each dot to read more
+                    </p>
+                    </div>
                 </aside>
             </div>
         </section>

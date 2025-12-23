@@ -28,11 +28,6 @@ const listVariants = {
     },
 };
 
-const lineVariants = {
-    closed: { opacity: 0 },
-    open: { opacity: 1 },
-};
-
 
 export default function CollapsibleList({ columns, rows }: CollapsibleListProps) {
     if (!rows || rows.length === 0) return null;
@@ -107,9 +102,8 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
                         if (!col) return null;
 
                         return (
-                            <motion.div
+                            <div
                                 key={i}
-                                variants={lineVariants}
                                 className="flex flex-col gap-[2px] "
                             >
                                 <span className="text-sm font-semibold">
@@ -144,7 +138,7 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
                                 ) : (
                                     <span>{cell || "—"}</span>
                                 )}
-                            </motion.div>
+                            </div>
                         );
                     })}
                 </motion.div>

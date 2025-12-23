@@ -20,64 +20,106 @@
 @layer base {
 {/*
     html {
-        @apply xl:scroll-smooth;
+        @apply xl:scroll-smooth overflow-x-hidden
     }
-    */}
+*/}
     html {
-        @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth;
+        @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth
     }
 
     body {
-        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem] ;
+        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem]
     }
 
     p {
-        @apply leading-8 2xl:leading-9 font-medium;
+        @apply leading-7 md:leading-8 2xl:leading-9 font-medium
     }
 }
 
 @layer utilities {
     .section {
-        @apply relative h-[clamp(650px,100vh,900px)] xl:h-screen snap-start
+        @apply relative overflow-x-hidden xl:h-screen snap-start overflow-y-hidden
     }
 
     .desktop-container {
-        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] md:py-20
+        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] lg:py-20
     }
 
     .mobile-container {
-        @apply px-[1rem]
+        @apply px-[1rem] pt-16 md:pt-28 xl:py-0
     }
 
     .chemtrails-right {
-        @apply xl:pr-[45rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
+        @apply xl:pr-[45rem] lg:pr-[30rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] lg:py-20
     }
 
     .chemtrails-left {
-        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
+        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
     }
 
     .stripes-right {
-        @apply xl:pr-[22rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] md:py-20
+        @apply lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] lg:py-20
     }
 
     .stripes-left {
-        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] md:py-20
+        @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
     }
+
+    .star-inline {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-image: url("/images/star.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-left: 0.5rem;
+        vertical-align: -0.1em;
+    }
+
+    @media (min-width: 768px) {
+        .star-inline {
+            width: 2rem;
+            height: 2rem;
+            vertical-align: -0.1em;
+        }
+    }
+
 
 }
 
 @layer components {
     .text-h2 {
-        @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-oughter;
+        @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
     }
 
-    #error-message {
-        @apply  text-red-700 bg-red-100 border border-red-300 rounded-md p-3 mb-4;
+    .sib-dark .sib-form-block {
+        border-color: var(--color-egg) !important;
+        color: var(--color-egg) !important;
+        background: transparent !important;
     }
 
-    #success-message {
-        @apply hidden text-green-800 bg-green-100 border border-green-300 rounded-md p-3 mb-4;
+    .sib-form .sib-form-message-panel#error-message,
+    .sib-form .sib-form-message-panel#success-message {
+        border-radius: 1rem !important;
+        border-width: 2px !important;
+        margin: 0 0 1rem 0 !important;
+        color: var(--color-moody) !important;
+        background: var(--color-egg) !important;
+    }
+
+    .sib-form .sib-form-message-panel#error-message {
+        background: #F5E6DD !important;
+        border-color: var(--color-copper) !important;
+    }
+
+    .sib-form .sib-form-message-panel#success-message {
+        background: #DFF1F2 !important;
+        border-color: var(--color-beachball) !important;
+    }
+    .sib-form .sib-form-message-panel#error-message *,
+    .sib-form .sib-form-message-panel#success-message * {
+        color: var(--color-moody) !important;
     }
 
     .sib-form .input_replaced:checked+.checkbox_tick_positive {

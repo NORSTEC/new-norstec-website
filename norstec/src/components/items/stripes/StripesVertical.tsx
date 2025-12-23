@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 type StripesVerticalProps = {
     className?: string;
     side?: "left" | "right";
+    duration?: number;
 };
 
 const COLORS = ["bg-sky", "bg-beachball", "bg-sun", "bg-copper"];
@@ -13,6 +14,7 @@ const COLORS = ["bg-sky", "bg-beachball", "bg-sun", "bg-copper"];
 export default function StripesVertical({
                                             className = "",
                                             side = "left",
+                                            duration = 0.35,
                                         }: StripesVerticalProps) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
     const [show, setShow] = React.useState(false);
@@ -49,7 +51,7 @@ export default function StripesVertical({
             : "pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem]";
 
     const containerClass =
-        `flex absolute inset-y-0 px-[20px] -z-10 h-full ` +
+        `hidden lg:flex absolute inset-y-0 px-[20px] -z-10 h-full ` +
         `gap-[0.5rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] ` +
         `${padding} ${side === "left" ? "left-0" : "right-0"} ${className}`;
 
@@ -68,7 +70,7 @@ export default function StripesVertical({
                         animate={{ scaleY: show ? 1 : 0 }}
                         transition={{
                             delay: delayIndex * 0.1,
-                            duration: 0.35,
+                            duration,
                             ease: "easeOut",
                         }}
                     />

@@ -1,27 +1,37 @@
 import { PortableText } from "next-sanity";
 import type { SectionTextImage as SectionTextImageType } from "@/types/sections/sectionTextImage";
-import ImageCarousel from "@/components/items/ImageCarousel";
+import ImageCarousel from "@/components/items/images/ImageCarousel";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
+import ImageContainer from "@/components/items/images/ImageContainer";
 
 type SectionTextImageProps = {
     section: SectionTextImageType;
 };
 
-export default function SectionTextImage2({ section }: SectionTextImageProps) {
-    const { title, body, images, mirrored } = section;
+export default function SectionTextImage({ section }: SectionTextImageProps) {
+    const { title, body, images, mirrored, threeImageLayout, featuredPosition } = section;
+
+    const total = images?.length ?? 0;
+    const useContainer = total > 0 && total <= 3;
 
     return (
-        <section className="section relative h-full">
+        <section className="section relative mobile-container">
 
             <StripesVertical
                 side="left"
             />
-            <div className="flex flex-col justify-center h-full stripes-left gap-10">
+            <div className="flex flex-col justify-center h-full stripes-left lg:gap-10">
 
                 <div>
-                    {title && <h2 className="text-h2 italic">{title}</h2>}
+                    {title && <h2 className="order-1 text-h2 pb-2 uppercase">
+                        {title}
+                        <span
+                            aria-hidden
+                            className="star-inline"
+                        />
+                    </h2>}
 
-                    <div className="order-2 md:order-1 md:py-0">
+                    <div className="hidden lg:block lg:py-0">
                         <PortableText
                             value={body}
                             components={{
@@ -37,8 +47,31 @@ export default function SectionTextImage2({ section }: SectionTextImageProps) {
                     </div>
                 </div>
 
-                <div className="md:flex-1 flex items-center h-full order-1 md:order-2">
-                    <ImageCarousel images={images} className="w-full" />
+                <div className="md:flex-1 flex items-center h-full pb-2 lg:pb-0">
+                    {useContainer ? (
+                        <ImageContainer
+                            images={images}
+                            className="w-full"
+                            threeImageLayout={threeImageLayout}
+                            featuredPosition={featuredPosition}
+                        />
+                    ) : (
+                        <ImageCarousel images={images} className="w-full" />
+                    )}
+                </div>
+                <div className="block lg:hidden lg:py-0">
+                    <PortableText
+                        value={body}
+                        components={{
+                            block: {
+                                normal: ({ children }) => (
+                                    <p className="mb-[1rem] last:mb-0">
+                                        {children}
+                                    </p>
+                                ),
+                            },
+                        }}
+                    />
                 </div>
             </div>
 

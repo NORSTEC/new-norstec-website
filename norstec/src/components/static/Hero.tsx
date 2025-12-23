@@ -15,9 +15,9 @@ const TAGLINE_LETTER_DELAY = 0.04;
 
 // fuck hydration errors
 const HERO_TITLE_CLASSES =
-    "whitespace-nowrap text-[16.5vh] md:text-[17vw] 3xl:text-[19rem] " +
-    "absolute right-0 top-[88.5vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
-    "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-oughter";
+    "whitespace-nowrap text-[18vh] md:text-[22vw] 3xl:text-[19rem] " +
+    "absolute right-0 top-[85vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
+    "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-barlow font-bold";
 
 export default function Hero({
                                  title = "NORSTEC",
@@ -31,7 +31,7 @@ export default function Hero({
             <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 flex z-0"
             >
-                <div className="flex h-full gap-[0.5rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]">
+                <div className="flex h-full gap-[0.75rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] pl-[1rem] md:pl-[3rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem]">
                     {[
                         "bg-sky",
                         "bg-beachball",
@@ -40,7 +40,7 @@ export default function Hero({
                     ].map((color, i) => (
                         <motion.span
                             key={i}
-                            className={`h-full w-[.5rem] md:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
+                            className={`h-full w-[1rem] md:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
                             initial={{ scaleY: 0 }}
                             animate={{ scaleY: 1 }}
                             transition={{
@@ -72,7 +72,7 @@ export default function Hero({
                     ))}
                 </h1>
 
-                <h2 className="hidden md:block text-[2.25vw] 3xl:text-[3rem] italic font-oughter">
+                <h2 className="hidden md:block text-[3vw] 3xl:text-[3rem] italic font-barlow font-semibold">
                     {tagline.split("").map((char, i) => (
                         <motion.span
                             key={i}

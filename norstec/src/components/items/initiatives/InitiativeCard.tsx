@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { imageBuilder } from "@/utils/imageBuilder";
-import { PortableText } from "next-sanity";
 import {Initiative} from "@/types/items/initiative";
 
 type InitiativeCardProps = Pick<
@@ -11,7 +10,6 @@ type InitiativeCardProps = Pick<
 
 export default function InitiativeCard({
                                            title,
-                                           summary,
                                            cover,
                                            coverAlt,
                                            slug,
@@ -27,39 +25,19 @@ export default function InitiativeCard({
     const href = slug ? `/initiatives/${slug.current}` : undefined;
 
     const card = (
-        <div className="md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-t-2xl bg-egg hover:shadow-lg hover:scale-95 rounded-2xl transition-all duration-200 cursor-pointer overflow-hidden border-moody border-3">
-            <div className="relative w-full md:h-[40vh] h-[20rem] md:max-h-[25rem] 3xl:max-h-[35rem]">
+        <div className="md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-3xl  hover:scale-95  transition-all duration-200 cursor-pointer overflow-hidden">
+            <div className="relative w-full md:h-[60vh] h-[20rem] md:max-h-[25rem] 3xl:max-h-[35rem]">
                 {imageUrl ? (
                     <Image
                         src={imageUrl}
                         alt={altText}
                         fill
+                        sizes="(min-width: 1280px) 15vw, 80vw"
                         className="object-cover"
                     />
                 ) : (
                     <div className="flex items-center justify-center w-full h-full text-sm text-gray-500">
                         No image
-                    </div>
-                )}
-            </div>
-
-            <div className="p-3 rounded-b-2xl">
-                <h3 className="font-semibold">{title}</h3>
-
-                {summary && (
-                    <div className="mt-2 text-sm">
-                        <PortableText
-                            value={summary}
-                            components={{
-                                block: {
-                                    normal: ({ children }) => (
-                                        <p className="leading-6">
-                                            {children}
-                                        </p>
-                                    ),
-                                },
-                            }}
-                        />
                     </div>
                 )}
             </div>

@@ -42,19 +42,8 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
 
     return (
         <section
-            className={`relative flex items-center w-full xl:h-full  ${className ?? ""}`}
+            className={`relative items-center w-full xl:h-full  ${className ?? ""}`}
         >
-            <button
-                type="button"
-                onClick={handlePrev}
-                className="flex items-center justify-center text-moody cursor-pointer md:pr-2"
-                aria-label="Previous image"
-            >
-                <span className="icon icon-rounded icon-40 md:icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200">
-                  arrow_circle_left
-                </span>
-            </button>
-
             {/* DESKTOP */}
             <div className="relative flex-1 h-full hidden xl:block">
                 <div className="flex h-full gap-4 sm:gap-3">
@@ -108,7 +97,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
             </div>
 
             {/* MOBIL */}
-            <div className="px-[2vw] relative flex-1 xl:h-full xl:hidden">
+            <div className="relative flex-1 xl:h-full xl:hidden">
                 {(() => {
                     const current = images[startIndex];
 
@@ -132,7 +121,7 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                             transition={{
                                 opacity: { duration: 0.25 },
                             }}
-                            className="relative h-full w-full overflow-hidden aspect-[4/3] rounded-xl bg-egg"
+                            className="relative h-full max-h-[90vh] w-full overflow-hidden aspect-[4/3] rounded-xl bg-egg"
                         >
                             <NextImage
                                 src={src}
@@ -146,17 +135,29 @@ export default function ImageCarousel({ images, className }: ImageCarouselProps)
                     );
                 })()}
             </div>
+            <div className="flex gap-2 pt-2">
+                <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-moody hover:text-egg bg-moody lg:bg-transparent text-egg lg:text-moody transition-all duration-200"
+                    aria-label="Previous image"
+                >
+                    <span className="icon icon-24 md:icon-40 icon-400 icon-filled transition-all duration-200 rotate-[180deg]">
+                      trending_flat
+                    </span>
+                </button>
 
-            <button
-                type="button"
-                onClick={handleNext}
-                className="flex items-center justify-center text-moody cursor-pointer md:pl-2"
-                aria-label="Next image"
-            >
-                <span className="icon icon-rounded icon-40 md:icon-48 icon-300 icon-nofill hover:icon-filled transition-all duration-200 ">
-                  arrow_circle_right
-                </span>
-            </button>
+                <button
+                    type="button"
+                    onClick={handleNext}
+                    className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-moody hover:text-egg bg-moody lg:bg-transparent text-egg lg:text-moody transition-all duration-200"
+                    aria-label="Next image"
+                >
+                    <span className="icon icon-24 md:icon-40 icon-400 icon-filled transition-all duration-200 ">
+                      trending_flat
+                    </span>
+                </button>
+            </div>
         </section>
     );
 }
