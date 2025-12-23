@@ -5,6 +5,7 @@ import { oughter, barlow } from "@/assets/fonts"
 import Navbar from "@/components/static/Navbar/Navbar";
 
 export const metadata: Metadata = {
+    title:"SECURING OUR FUTURE IN SPACE",
     icons: {
         icon: [
             { url: "/images/NORSTEC.png", sizes: "32x32", type: "image/png" },
