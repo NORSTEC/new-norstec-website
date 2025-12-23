@@ -46,7 +46,7 @@
     }
 
     .mobile-container {
-        @apply px-[1rem] pt-16 md:pt-28 xl:py-0
+        @apply px-[1rem] pt-28 md:pt-28 xl:py-0
     }
 
     .chemtrails-right {
@@ -63,6 +63,13 @@
 
     .stripes-left {
         @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
+    }
+
+}
+
+@layer components {
+    .text-h2 {
+        @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
     }
 
     .star-inline {
@@ -85,14 +92,7 @@
         }
     }
 
-
-}
-
-@layer components {
-    .text-h2 {
-        @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
-    }
-
+    /* ----- Newsletter ----- */
     .sib-dark .sib-form-block {
         border-color: var(--color-egg) !important;
         color: var(--color-egg) !important;
@@ -125,6 +125,48 @@
     .sib-form .input_replaced:checked+.checkbox_tick_positive {
         background: #282733 !important;
         border-color: #282733 !important;
+    }
+
+    /* ----- NAVBAR ----- */
+    .nav-item {
+        @apply relative flex flex-row-reverse items-center gap-3 text-egg font-light w-fit;
+    }
+
+    /* stjerne på høyre side */
+    .nav-item::after {
+        content: "";
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-image: url("/images/star-outline.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .nav-item:hover::after {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .nav-item--active {
+        @apply text-copper italic;
+    }
+
+    /* Active: samme plass (høyre), men annen fil og alltid synlig */
+    .nav-item--active::after {
+        opacity: 1;
+        transform: translateX(0);
+        background-image: url("/images/star-orange.png");
+    }
+
+    @media (min-width: 768px) {
+        .nav-item::after {
+            width: 2rem;
+            height: 2rem;
+        }
     }
 
     .grecaptcha-badge {

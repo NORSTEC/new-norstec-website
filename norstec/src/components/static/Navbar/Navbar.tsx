@@ -214,20 +214,30 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 }
 
 function MenuContent({ onNavigate }: { onNavigate: () => void }) {
+    const pathname = usePathname();
+
     return (
-        <div className="flex h-full flex-col pt-20 lg:px-8 ">
+        <div className="flex h-full flex-col pt-20 lg:px-8">
             <nav className="space-y-5">
-                {NAV_ITEMS.map((item) => (
-                    <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={onNavigate}
-                        className="block text-h2 text-egg transition-colors font-light"
-                    >
-                        {item.label}
-                    </Link>
-                ))}
+                {NAV_ITEMS.map((item) => {
+                    const isActive = pathname === item.href;
+
+                    return (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={onNavigate}
+                            className={[
+                                "nav-item text-h2",
+                                isActive ? "nav-item--active" : "",
+                            ].join(" ")}
+                        >
+                            <span className="order-1">{item.label}</span>
+                        </Link>
+                    );
+                })}
             </nav>
         </div>
     );
 }
+

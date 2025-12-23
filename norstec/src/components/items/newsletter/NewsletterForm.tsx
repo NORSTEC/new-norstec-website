@@ -11,8 +11,6 @@ type NewsletterFormProps = {
 export default function NewsletterForm({ tone = "light", onNavigate }: NewsletterFormProps) {
     return (
         <>
-            {/* NB: Du bør ha BrevoScripts kun én gang globalt (i layout).
-          Hvis du allerede har den i RootLayout: fjern BrevoScripts her. */}
             <BrevoScripts />
 
             <div className={["sib-form flex p-0!  font-barlow!", tone === "dark" ? "sib-dark" : "sib-light"].join(" ")}>
