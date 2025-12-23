@@ -155,7 +155,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                     transition={{ duration: 0.2 }}
                 >
 
-                    <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute inset-0 overflow-x-hidden overflow-y-auto">
                         {isDesktop ? (
                             <>
                                 {/* BAK (lyseblå) */}
@@ -192,7 +192,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                             </>
                         ) : (
                             <motion.div
-                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] pb-44 bg-moody overflow-y-auto space-y-10"
+                                className="absolute left-0 top-0 min-h-screen px-5 w-[100vw] bg-moody overscroll-y-auto space-y-10"
                                 variants={panelFrontVariants}
                                 transition={{
                                     type: "spring",
