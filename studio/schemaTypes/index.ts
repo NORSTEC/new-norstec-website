@@ -33,6 +33,7 @@ import organization from "./items/organization";
 import mapPosition from './items/mapPosition'
 import sectionBarList from './sections/sectionBarList'
 import barListItem from './items/barListItem'
+import {metadata} from "./sections/sectionMetadata";
 
 export const schemaTypes = [
     // Pages
@@ -40,6 +41,7 @@ export const schemaTypes = [
     aboutPage,
     teamPage,
     initiativesPage,
+    metadata,
 
     // Globals
     contactInfo,

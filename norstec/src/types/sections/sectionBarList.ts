@@ -1,9 +1,12 @@
+import type { PortableTextBlock } from "next-sanity";
+
 export interface SectionBarList {
-    _type: "sectionStats";
+    _type: "sectionBarList";
     _id: string;
     title?: string;
     items: Array<{
-        _type: "reference";
-        _ref: string;
+        _id: string;
+        value: string;
+        caption?: PortableTextBlock[];
     }>;
 }

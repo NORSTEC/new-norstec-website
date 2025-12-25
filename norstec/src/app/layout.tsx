@@ -5,9 +5,16 @@ import { oughter, barlow } from "@/assets/fonts"
 import Navbar from "@/components/static/Navbar/Navbar";
 
 export const metadata: Metadata = {
-    title: "NORSTEC",
-    description: "NORSTEC website",
+    title:"SECURING OUR FUTURE IN SPACE",
+    icons: {
+        icon: [
+            { url: "/images/NORSTEC.png", sizes: "32x32", type: "image/png" },
+            { url: "/images/NORSTECVECTOR.svg", type: "image/svg+xml" },
+        ],
+        apple: "/images/NORSTECIOS.png",
+    },
 };
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (

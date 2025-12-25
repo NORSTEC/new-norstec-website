@@ -3,6 +3,7 @@
 import {AboutPage, AboutPageSection} from "@/types/pages/aboutPage";
 import SectionHero from "@/components/sections/SectionHero";
 import SectionTextImage from "@/components/sections/SectionTextImage";
+import SectionBarList from "@/components/sections/SectionBarList";
 
 interface AboutPageProps {
     data: AboutPage;
@@ -15,6 +16,9 @@ function renderAboutSection(section: AboutPageSection) {
 
         case "sectionTextImage":
             return <SectionTextImage key={section._id} section={section} />;
+
+        case "sectionBarList":
+            return <SectionBarList key={section._id} section={section} />;
 
         default:
             return null;
