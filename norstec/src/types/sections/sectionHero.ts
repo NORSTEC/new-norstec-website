@@ -7,4 +7,5 @@ export interface SectionHero {
     title: string;
     image: Image;
     subtitle?: string;
+    imageMobile?: Image;
 }

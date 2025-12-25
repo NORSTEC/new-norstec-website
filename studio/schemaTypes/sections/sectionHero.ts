@@ -19,10 +19,17 @@ export default defineType({
     }),
     defineField({
       name: "image",
-      title: "Hero Image",
+      title: "Hero Image (Desktop)",
       type: "image",
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "imageMobile",
+      title: "Hero Image (Mobile)",
+      type: "image",
+      options: { hotspot: true },
+      description: "Optional. Used below lg breakpoint.",
     }),
   ],
   preview: {

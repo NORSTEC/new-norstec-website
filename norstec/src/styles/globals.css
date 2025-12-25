@@ -90,21 +90,30 @@
 
     .star-inline-orange {
         display: inline-block;
-        width: 4rem;
-        height: 4rem;
+        width: 2rem;
+        height: 2rem;
         background-image: url("/images/star-orange.svg");
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
-        margin-left: 1rem;
-        vertical-align: -0.2em;
+        margin-left: 0.5rem;
+        vertical-align: -0.1em;
     }
 
     @media (min-width: 768px) {
-        .star-inline .star-inline-orange {
+        .star-inline {
             width: 2rem;
             height: 2rem;
             vertical-align: -0.1em;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .star-inline-orange {
+            width: 4rem;
+            height: 4rem;
+            margin-left: 1rem;
+            vertical-align: -0.2em;
         }
     }
 
