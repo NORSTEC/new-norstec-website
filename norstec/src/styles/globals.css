@@ -42,27 +42,27 @@
     }
 
     .desktop-container {
-        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] pt-28 md:pt-28 lg:py-20
+        @apply px-[1rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] pt-28 md:pt-52 xl:py-20
     }
 
     .mobile-container {
-        @apply px-[1rem] pt-28 md:pt-28 lg:py-20
+        @apply px-[1rem] pt-28 md:pt-52 xl:py-20
     }
 
     .chemtrails-right {
-        @apply xl:pr-[45rem] lg:pr-[30rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] lg:py-20
+        @apply xl:pr-[45rem] lg:pr-[30rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] xl:py-20
     }
 
     .chemtrails-left {
-        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
+        @apply xl:pl-[22rem] pr-[1rem] md:pr-[3rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] xl:py-20
     }
 
     .stripes-right {
-        @apply lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] lg:py-20
+        @apply lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] xl:py-20
     }
 
     .stripes-left {
-        @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] lg:py-20
+        @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] xl:py-20
     }
 
 }

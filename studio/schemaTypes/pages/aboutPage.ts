@@ -17,6 +17,7 @@ export default defineType({
                         {type: 'sectionTextImage'},
                         {type: 'sectionNapkin'},
                         {type: 'sectionBarList'},
+                        {type: 'sectionStats'},
                         {type: 'sectionTable'},
                     ],
                 },

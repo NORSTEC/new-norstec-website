@@ -7,11 +7,23 @@ export const ABOUT_PAGE_QUERY = defineQuery(`
       _id,
       _type,
       ...,
-      "items": items[]->{
-        _id,
-        value,
-        caption
-      }
+      "items": select(
+        _type == "sectionBarList" => items[]->{
+          _id,
+          value,
+          caption
+        },
+        _type == "sectionStats" => items[]{
+          _key,
+          numberValue,
+          textValue,
+          prefix,
+          suffix,
+          captionTitle,
+          caption
+        },
+        items
+      )
     }
   }
 `);

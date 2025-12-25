@@ -40,8 +40,8 @@ export default function SectionBarList({ section }: SectionBarListProps) {
             <div className="h-full w-full flex flex-col">
                 {section.title && (
                     <div className="mobile-container pb-0!">
-                        <h2 className="text-h1 hidden md:block">{section.title}</h2>
-                        <h2 className="text-h2 block md:hidden">
+                        <h2 className="text-h1 font-normal hidden lg:block">{section.title}</h2>
+                        <h2 className="text-h2 block lg:hidden">
                             {section.title}
                             <span aria-hidden className="star-inline" />
                         </h2>
@@ -49,7 +49,7 @@ export default function SectionBarList({ section }: SectionBarListProps) {
                 )}
 
                 {/* Mobil */}
-                <div className="md:hidden relative flex-1 mobile-container pt-5! pb-0!">
+                <div className="lg:hidden relative flex-1 mobile-container pt-5! pb-0!">
                     <div className="flex flex-col gap-10">
                         {section.items.map((item, index) => {
                             const bg = BAR_BG[index % BAR_BG.length];
@@ -61,7 +61,7 @@ export default function SectionBarList({ section }: SectionBarListProps) {
                             return (
                                 <div key={item._id} className="flex items-stretch">
                                     {/* Stripe */}
-                                    <div className="w-5 shrink-0 self-stretch">
+                                    <div className="w-3 shrink-0 self-stretch">
                                         <motion.div
                                             className={`${bg} h-full w-full`}
                                             style={{ transformOrigin: "top" }}
@@ -123,7 +123,7 @@ export default function SectionBarList({ section }: SectionBarListProps) {
                 </div>
 
                 {/* Desktop*/}
-                <div className="hidden md:block ">
+                <div className="hidden lg:block">
                     <div className="flex flex-col gap-5">
                         {section.items.map((item, index) => {
                             const bg = BAR_BG[index % BAR_BG.length];
@@ -148,7 +148,7 @@ export default function SectionBarList({ section }: SectionBarListProps) {
                                     />
 
                                     <motion.div
-                                        className="overflow-hidden pl-6 pr-6 md:pl-10 md:pr-10"
+                                        className="overflow-hidden pl-6 pr-6 lg:pl-10 lg:pr-10"
                                         initial={{
                                             opacity: 0,
                                             x: -8,
