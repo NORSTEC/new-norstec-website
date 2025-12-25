@@ -42,11 +42,11 @@
     }
 
     .desktop-container {
-        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] lg:py-20
+        @apply px-[1rem] md:px-[3rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem]
     }
 
     .mobile-container {
-        @apply px-[1rem] pt-28 md:pt-28 xl:py-0
+        @apply px-[1rem] pt-28 md:pt-28 lg:py-20
     }
 
     .chemtrails-right {
@@ -68,6 +68,10 @@
 }
 
 @layer components {
+    .text-h1 {
+        @apply text-[3rem] md:text-[5rem] xl:text-[7rem] 2xl:text-[8rem] font-extrabold font-barlow uppercase;
+    }
+
     .text-h2 {
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
     }
@@ -84,8 +88,20 @@
         vertical-align: -0.1em;
     }
 
+    .star-inline-orange {
+        display: inline-block;
+        width: 4rem;
+        height: 4rem;
+        background-image: url("/images/star-orange.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-left: 1rem;
+        vertical-align: -0.2em;
+    }
+
     @media (min-width: 768px) {
-        .star-inline {
+        .star-inline .star-inline-orange {
             width: 2rem;
             height: 2rem;
             vertical-align: -0.1em;
@@ -157,7 +173,7 @@
     .nav-item--active::after {
         opacity: 1;
         transform: translateX(0);
-        background-image: url("/images/star-orange.png");
+        background-image: url("/images/star-orange.svg");
     }
 
     @media (min-width: 768px) {

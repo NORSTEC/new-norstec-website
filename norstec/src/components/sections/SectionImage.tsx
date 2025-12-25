@@ -6,7 +6,7 @@ type SectionImageProps = {
     section: SectionImageType;
 };
 
-export default function SectionTextImage2({ section }: SectionImageProps) {
+export default function SectionImage({ section }: SectionImageProps) {
     const { images } = section;
 
     return (
@@ -15,7 +15,6 @@ export default function SectionTextImage2({ section }: SectionImageProps) {
                     <div className="h-full w-full flex justify-center items-center lg:pb-16! lg:pt-[4rem]! mobile-container">
                         <ImageCarousel images={images}  />
                     </div>
-
         </section>
     );
 }

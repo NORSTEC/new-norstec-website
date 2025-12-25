@@ -1,13 +1,12 @@
-import { SectionTextImage } from "@/types/sections/sectionTextImage";
-import { SectionNapkin } from "@/types/sections/sectionNapkin";
 import { SectionBarList } from "@/types/sections/sectionBarList";
-import { SectionTable } from "@/types/sections/sectionTable";
+import {SectionHero} from "@/types/sections/sectionHero";
+import {SectionTextImage} from "@/types/sections/sectionTextImage";
 
 export type AboutPageSection =
-    | SectionTextImage
-    | SectionNapkin
+    | SectionHero
     | SectionBarList
-    | SectionTable
+    | SectionTextImage
+
 export interface AboutPage {
     _type: "aboutPage";
     _id: string;

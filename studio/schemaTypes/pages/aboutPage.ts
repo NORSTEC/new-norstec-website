@@ -13,6 +13,7 @@ export default defineType({
                 {
                     type: 'reference',
                     to: [
+                        {type: 'sectionHero'},
                         {type: 'sectionTextImage'},
                         {type: 'sectionNapkin'},
                         {type: 'sectionBarList'},

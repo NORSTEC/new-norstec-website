@@ -40,8 +40,8 @@ export default function ImageContainer({
         if (!src) return null;
 
         return (
-            <div className={`w-full h-full flex justify-center ${className ?? ""}`}>
-                <div className="relative w-full h-full overflow-hidden aspect-[4/3] xl:aspect-auto">
+            <div className={`w-full h-full flex justify-between ${className ?? ""}`}>
+                <div className="relative w-full h-full overflow-hidden aspect-[4/3] max-h-[40vh]">
                     <NextImage
                         src={src}
                         alt={item.imageAlt || "Image"}
@@ -117,7 +117,7 @@ export default function ImageContainer({
                         return (
                             <div
                                 key={idx}
-                                className={`relative w-full ${basisClass} aspect-[4/3] overflow-hidden rounded-xl bg-egg`}
+                                className={`relative w-full ${basisClass} aspect-square overflow-hidden rounded-xl bg-egg`}
                             >
                                 <NextImage
                                     src={src}

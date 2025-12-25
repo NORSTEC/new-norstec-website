@@ -5,7 +5,7 @@ import type { HomePageSection } from "@/types/pages/homePage";
 
 import SectionTextImage from "@/components/sections/SectionTextImage";
 import SectionImage from "@/components/sections/SectionImage";
-import Hero from "@/components/static/Hero";
+import HeroLanding from "@/components/static/HeroLanding";
 import SectionTable from "@/components/sections/SectionTable";
 import SectionInitiatives from "@/components/sections/SectionInitiatives";
 import SectionMap from "@/components/sections/SectionMap";
@@ -43,7 +43,7 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
 
     return (
         <>
-            <Hero />
+            <HeroLanding />
             <main>
                 {data.sections?.map((section) => renderHomeSection(section))}
             </main>

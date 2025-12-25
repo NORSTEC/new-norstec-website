@@ -9,7 +9,7 @@ export default async function AboutPage() {
         return (<p></p>);
     }
 
-    return <ClientAboutPage page={aboutPage}/>;
+    return <ClientAboutPage data={aboutPage}/>;
 }
 
 
