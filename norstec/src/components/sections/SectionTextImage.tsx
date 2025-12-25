@@ -14,13 +14,14 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
     const total = images?.length ?? 0;
     const useContainer = total > 0 && total <= 3;
 
+    const stripesSide: "left" | "right" = mirrored ? "right" : "left";
+    const stripesClass = mirrored ? "stripes-right" : "stripes-left";
+
     return (
         <section className="section relative mobile-container h-full">
 
-            <StripesVertical
-                side="left"
-            />
-            <div className="flex flex-col h-full stripes-left lg:gap-10 py-0!">
+            <StripesVertical side={stripesSide} />
+            <div className={`flex flex-col h-full ${stripesClass} lg:gap-10 py-0!`}>
 
                 <div>
                     {title && <h2 className="order-1 text-h2 pb-2 uppercase">
