@@ -6,15 +6,7 @@ export const ABOUT_PAGE_QUERY = defineQuery(`
     sections[]->{
       _id,
       _type,
-      title,
-
-      _type == "sectionBarList" => {
-        items[]->{
-            _id,
-            value,
-            caption
-        }
-      }
+        ...
     }
   }
 `);

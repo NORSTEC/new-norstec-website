@@ -69,7 +69,7 @@
 
 @layer components {
     .text-h1 {
-        @apply text-[3rem] md:text-[5rem] xl:text-[7rem] 2xl:text-[8rem] font-extrabold font-barlow uppercase;
+        @apply text-[2rem] md:text-[4rem] xl:text-[7rem] 2xl:text-[8rem] font-extrabold font-barlow uppercase;
     }
 
     .text-h2 {

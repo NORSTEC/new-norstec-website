@@ -13,7 +13,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
 
     const src = imageBuilder(image, {
         width: 2400,
-        quality: 90,
+        quality: 100,
         fit: "max",
     });
 
