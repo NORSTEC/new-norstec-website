@@ -21,6 +21,8 @@ import sectionPodcast from './sections/sectionPodcast'
 import sectionNapkin from './sections/sectionNapkin'
 import sectionFaq from './sections/sectionFaq'
 import sectionImage from './sections/sectionImage'
+import sectionStats from './sections/sectionStats'
+import sectionBarList from './sections/sectionBarList'
 
 
 // Items
@@ -31,9 +33,9 @@ import mediaItem from './items/mediaItem'
 import teamRole from "./items/teamRole";
 import organization from "./items/organization";
 import mapPosition from './items/mapPosition'
-import sectionBarList from './sections/sectionBarList'
 import barListItem from './items/barListItem'
 import {metadata} from "./sections/sectionMetadata";
+import statItem from './items/statItem'
 
 export const schemaTypes = [
     // Pages
@@ -53,6 +55,7 @@ export const schemaTypes = [
     sectionTextImage,
     sectionTeam,
     sectionBarList,
+    sectionStats,
     sectionMap,
     sectionTable,
     sectionInitiatives,
@@ -66,6 +69,7 @@ export const schemaTypes = [
     teamMember,
     initiative,
     barListItem,
+    statItem,
     faqItem,
     mediaItem,
     teamRole,

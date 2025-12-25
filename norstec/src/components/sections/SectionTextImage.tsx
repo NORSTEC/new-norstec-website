@@ -21,7 +21,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
         <section className="section relative mobile-container h-full">
 
             <StripesVertical side={stripesSide} />
-            <div className={`flex flex-col h-full ${stripesClass} lg:gap-10 py-0!`}>
+            <div className={`flex flex-col h-full ${stripesClass} gap-5 lg:gap-10 py-0!`}>
 
                 <div>
                     {title && <h2 className="order-1 text-h2 pb-2 uppercase">

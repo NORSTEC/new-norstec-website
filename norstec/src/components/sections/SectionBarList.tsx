@@ -1,58 +1,180 @@
 "use client";
 
+import React from "react";
+import { motion } from "motion/react";
 import { PortableText } from "next-sanity";
-import { SectionBarList as SectionBarListType } from "@/types/sections/sectionBarList";
+import type { SectionBarList as SectionBarListType } from "@/types/sections/sectionBarList";
 
-const rowColors = [
-    "bg-[var(--color-copper)]",
-    "bg-[var(--color-sun)]",
-    "bg-[var(--color-beachball)]",
-    "bg-[var(--color-sky)]",
-];
+type SectionBarListProps = {
+    section: SectionBarListType;
+};
 
-export default function SectionBarList({ section }: { section: SectionBarListType }) {
+const BAR_BG = ["bg-copper", "bg-sun", "bg-beachball", "bg-sky"] as const;
+const TEXT_COLOR = ["text-copper", "text-sun", "text-beachball", "text-sky"] as const;
+const BAR_WIDTHS = ["18%", "36%", "54%", "72%"] as const;
+
+export default function SectionBarList({ section }: SectionBarListProps) {
+    const rootRef = React.useRef<HTMLElement | null>(null);
+    const [show, setShow] = React.useState(false);
+
+    React.useEffect(() => {
+        const el = rootRef.current;
+        if (!el) return;
+
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShow(true);
+                    io.disconnect();
+                }
+            },
+            { threshold: 0.25, rootMargin: "0px 0px -10% 0px" }
+        );
+
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
+
     return (
-        <section className="h-screen">
-            <ul className="grid grid-rows-4 h-full">
-                {section.items.map((item, index) => (
-                    <li
-                        key={item._id}
-                        className={`flex items-center text-white ${rowColors[index]} px-10 md:px-24`}
-                    >
-                        <article className="flex w-full items-center gap-12">
-                            {/* LEFT */}
-                            <div className="shrink-0">
-                                <strong className="block text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                                    {item.value}
-                                </strong>
-                            </div>
+        <section ref={rootRef} className="section h-full">
+            <div className="h-full w-full flex flex-col">
+                {section.title && (
+                    <div className="mobile-container pb-0!">
+                        <h2 className="text-h1 hidden md:block">{section.title}</h2>
+                        <h2 className="text-h2 block md:hidden">
+                            {section.title}
+                            <span aria-hidden className="star-inline" />
+                        </h2>
+                    </div>
+                )}
 
-                            {/* RIGHT */}
-                            {item.caption && (
-                                <div className="flex-1">
-                                    <PortableText
-                                        value={item.caption}
-                                        components={{
-                                            block: {
-                                                h2: ({ children }) => (
-                                                    <h3 className="text-3xl md:text-4xl mb-4 font-semibold">
-                                                        {children}
-                                                    </h3>
-                                                ),
-                                                normal: ({ children }) => (
-                                                    <p className="text-lg md:text-xl lg:text-2xl leading-relaxed opacity-95">
-                                                        {children}
-                                                    </p>
-                                                ),
-                                            },
+                {/* Mobil */}
+                <div className="md:hidden relative flex-1 mobile-container pt-5! pb-0!">
+                    <div className="flex flex-col gap-10">
+                        {section.items.map((item, index) => {
+                            const bg = BAR_BG[index % BAR_BG.length];
+                            const text = TEXT_COLOR[index % TEXT_COLOR.length];
+
+                            const delay = index * 0.22;
+                            const barDuration = 0.5;
+
+                            return (
+                                <div key={item._id} className="flex items-stretch">
+                                    {/* Stripe */}
+                                    <div className="w-5 shrink-0 self-stretch">
+                                        <motion.div
+                                            className={`${bg} h-full w-full`}
+                                            style={{ transformOrigin: "top" }}
+                                            initial={{ scaleY: 0 }}
+                                            animate={{ scaleY: show ? 1 : 0 }}
+                                            transition={{
+                                                duration: barDuration,
+                                                ease: "easeOut",
+                                                delay,
+                                            }}
+                                        />
+                                    </div>
+
+                                    <motion.div
+                                        className="overflow-hidden pl-5"
+                                        initial={{
+                                            opacity: 0,
+                                            x: -8,
+                                            clipPath: "inset(0 100% 0 0)",
+                                        }}
+                                        animate={{
+                                            opacity: show ? 1 : 0,
+                                            x: show ? 0 : -8,
+                                            clipPath: show ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+                                        }}
+                                        transition={{
+                                            delay: delay + barDuration * 0.75,
+                                            duration: 0.35,
+                                            ease: "easeOut",
+                                        }}
+                                    >
+                                        <div className="flex flex-col">
+                                            <span className={`${text} text-h2 leading-tight`}>
+                                                {item.value}
+                                              </span>
+
+                                            {item.caption && (
+                                                <div className="mt-2">
+                                                    <PortableText
+                                                        value={item.caption as never}
+                                                        components={{
+                                                            block: {
+                                                                normal: ({ children }) => (
+                                                                    <p>
+                                                                        {children}
+                                                                    </p>
+                                                                ),
+                                                            },
+                                                        }}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Desktop*/}
+                <div className="hidden md:block ">
+                    <div className="flex flex-col gap-5">
+                        {section.items.map((item, index) => {
+                            const bg = BAR_BG[index % BAR_BG.length];
+                            const text = TEXT_COLOR[index % TEXT_COLOR.length];
+                            const width = BAR_WIDTHS[index % BAR_WIDTHS.length];
+
+                            const delay = index * 0.22;
+                            const barDuration = 0.5;
+
+                            return (
+                                <div key={item._id} className="flex items-center">
+                                    <motion.div
+                                        className={`${bg} h-12 lg:h-14`}
+                                        style={{ width, transformOrigin: "left" }}
+                                        initial={{ scaleX: 0 }}
+                                        animate={{ scaleX: show ? 1 : 0 }}
+                                        transition={{
+                                            duration: barDuration,
+                                            ease: "easeOut",
+                                            delay,
                                         }}
                                     />
+
+                                    <motion.div
+                                        className="overflow-hidden pl-6 pr-6 md:pl-10 md:pr-10"
+                                        initial={{
+                                            opacity: 0,
+                                            x: -8,
+                                            clipPath: "inset(0 100% 0 0)",
+                                        }}
+                                        animate={{
+                                            opacity: show ? 1 : 0,
+                                            x: show ? 0 : -8,
+                                            clipPath: show ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+                                        }}
+                                        transition={{
+                                            delay: delay + barDuration * 0.75,
+                                            duration: 0.35,
+                                            ease: "easeOut",
+                                        }}
+                                    >
+                                        <span className={`${text} text-[3.2rem] lg:text-[4.2rem] font-semibold italic whitespace-nowrap`}>
+                                          {item.value}
+                                        </span>
+                                    </motion.div>
                                 </div>
-                            )}
-                        </article>
-                    </li>
-                ))}
-            </ul>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
         </section>
     );
 }

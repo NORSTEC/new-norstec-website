@@ -13,16 +13,15 @@ export default  defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'caption',
-            title: 'Caption',
-            type: 'portableText',
-            description: 'Short explanation of the item.',
+          name: 'caption',
+          title: 'Caption',
+          type: 'portableText',
+          description: 'Short explanation of the item (Only shown on mobile).',
         }),
     ],
     preview: {
         select: {
-            title: 'subtitle',
-            subtitle: 'value',
+            title: 'value',
         },
     },
 })
