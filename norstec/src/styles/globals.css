@@ -24,7 +24,7 @@
     }
 */}
     html {
-        @apply xl:snap-y xl:snap-mandatory xl:scroll-smooth
+        @apply xl:snap-y xl:snap-mandatory
     }
 
     body {
