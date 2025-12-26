@@ -60,6 +60,7 @@ export default function SectionNapkin({ section }: SectionNapkinProps) {
                             height={2000}
                             className="h-full w-auto object-contain rounded-2xl"
                             priority
+                            unoptimized
                         />
                     ) : null}
                 </div>

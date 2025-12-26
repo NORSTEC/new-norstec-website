@@ -34,6 +34,7 @@ export default function InitiativeCard({
                         fill
                         sizes="(min-width: 1280px) 15vw, 80vw"
                         className="object-cover"
+                        unoptimized
                     />
                 ) : (
                     <div className="flex items-center justify-center w-full h-full text-sm text-gray-500">
