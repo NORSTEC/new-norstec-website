@@ -40,14 +40,14 @@ export default function ImageContainer({
         if (!src) return null;
 
         return (
-            <div className={`w-full h-full flex justify-between ${className ?? ""}`}>
-                <div className="relative w-full h-full overflow-hidden aspect-[4/3] max-h-[40vh]">
+            <div className={`w-full ${className ?? ""}`}>
+                <div className="relative w-full aspect-[4/3] max-h-[40vh] rounded-2xl overflow-hidden bg-egg">
                     <NextImage
                         src={src}
                         alt={item.imageAlt || "Image"}
                         fill
                         sizes="(min-width: 1024px) 950px, 100vw"
-                        className="object-contain"
+                        className=""
                         priority
                     />
                 </div>

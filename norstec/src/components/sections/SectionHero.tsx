@@ -36,9 +36,9 @@ export default function SectionHero({ section }: SectionHeroProps) {
 
     return (
         <section className="section mobile-container">
-            <h1 className="text-h1">
+            <h1 className="text-h1 flex items-center">
                 {title}
-                {!subtitle && <span aria-hidden className="star-inline-orange" />}
+                {!subtitle && <span aria-hidden className="star-inline-orange md:w-[4rem]! md:h-[4rem]! xl:w-[6rem]! xl:h-[6rem]!" />}
             </h1>
 
             <div className="relative w-full overflow-hidden rounded-2xl">

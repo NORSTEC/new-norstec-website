@@ -3,7 +3,7 @@ import {HomePage} from "@/types/pages/homePage";
 import {InitiativesPage} from "@/types/pages/initiativesPage";
 import {HOME_PAGE_QUERY} from "@/sanity/queries/homePage";
 import {INITIATIVE_BY_SLUG_QUERY, INITIATIVES_PAGE_QUERY} from "@/sanity/queries/initiativesPage";
-import {Initiative} from "@/types/items/initiative";
+import {InitiativePage} from "@/types/pages/initiativePage";
 import {AboutPage} from "@/types/pages/aboutPage";
 import {ABOUT_PAGE_QUERY} from "@/sanity/queries/aboutPage";
 
@@ -29,10 +29,14 @@ export const getInitiativesPage = async (): Promise<InitiativesPage | null> => {
     }
 };
 
-export const getInitiativeBySlug = async (slug: string): Promise<Initiative | null> => {
+export const getInitiativeBySlug = async (slug: string): Promise<InitiativePage | null> => {
+    if (!slug) {
+        return null;
+    }
+
     try {
         const { data } = await sanityFetch({ query: INITIATIVE_BY_SLUG_QUERY, params: { slug } });
-        return (data as Initiative) ?? null;
+        return (data as InitiativePage) ?? null;
     } catch (e) {
         console.error("Error fetching initiative:", e);
         return null;
