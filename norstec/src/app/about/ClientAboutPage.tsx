@@ -5,6 +5,7 @@ import SectionHero from "@/components/sections/SectionHero";
 import SectionTextImage from "@/components/sections/SectionTextImage";
 import SectionBarList from "@/components/sections/SectionBarList";
 import SectionStats from "@/components/sections/SectionStats";
+import SectionTable from "@/components/sections/SectionTable";
 
 interface AboutPageProps {
     data: AboutPage;
@@ -23,6 +24,9 @@ function renderAboutSection(section: AboutPageSection) {
 
         case "sectionStats":
             return <SectionStats key={section._id} section={section} />;
+
+        case "sectionTable":
+            return <SectionTable key={section._id} section={section} />;
 
         default:
             return null;

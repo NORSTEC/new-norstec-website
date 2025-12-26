@@ -169,14 +169,17 @@ export default function SectionStats({ section }: SectionStatsProps) {
                         return (
                             <li
                                 key={item._key}
-                                className={`flex items-center text-white ${c.bar} px-10 md:px-24`}
+                                className={`flex flex-col items-center ${c.bar}`}
                             >
                                 <article className="flex w-full items-center gap-12">
                                     {/* LEFT */}
-                                    <div className="shrink-0">
-                                        <strong className="block text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                                    <div>
+                                        <h3 className="text-h1">
                                             {value}
-                                        </strong>
+                                        </h3>
+                                        <p>
+                                            {item.captionTitle}
+                                        </p>
                                     </div>
 
                                     {/* RIGHT */}
@@ -187,7 +190,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
                                                 components={{
                                                     block: {
                                                         normal: ({ children }) => (
-                                                            <p className="text-lg md:text-xl lg:text-2xl leading-relaxed opacity-95">
+                                                            <p>
                                                                 {children}
                                                             </p>
                                                         ),
@@ -230,7 +233,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
                 )}
 
                 {/* Content area */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-10 flex-1 desktop-container pt-5! xl:pt-20">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-10 flex-1 desktop-container pt-5! xl:pt-20 items-center">
                     {items.map((item, index) => {
                         const c = COLORS[index % COLORS.length];
 

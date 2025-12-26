@@ -72,7 +72,12 @@ export default defineType({
               options: { list: PREFIX_SUFFIX_OPTIONS.map((o) => ({ title: o.title, value: o.value })) },
               initialValue: "none",
             }),
-
+            defineField({
+              name: "captionTitle",
+              title: "Caption title",
+              type: "string",
+              description: "Optional title over caption.",
+            }),
             defineField({
               name: "caption",
               title: "Caption",
