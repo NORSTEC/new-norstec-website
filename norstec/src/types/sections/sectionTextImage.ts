@@ -13,4 +13,5 @@ export interface SectionTextImage {
     }[];
     threeImageLayout?: "equal" | "featured";
     featuredPosition?: "left" | "middle" | "right";
+    singleImageCover?: boolean;
 }

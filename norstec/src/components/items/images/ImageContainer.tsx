@@ -15,9 +15,9 @@ export type FeaturedPosition = "left" | "middle" | "right";
 type ImageContainerProps = {
     images: CarouselImage[];
     className?: string;
-
     threeImageLayout?: ThreeImageLayout;
     featuredPosition?: FeaturedPosition;
+    singleImageCover?: boolean;
 };
 
 export default function ImageContainer({
@@ -25,8 +25,10 @@ export default function ImageContainer({
                                            className,
                                            threeImageLayout = "equal",
                                            featuredPosition = "left",
+                                           singleImageCover = false,
                                        }: ImageContainerProps) {
     const total = images?.length ?? 0;
+
     if (total === 0) return null;
 
     if (total === 1) {
@@ -39,6 +41,8 @@ export default function ImageContainer({
         });
         if (!src) return null;
 
+        const cover = singleImageCover ?? true;
+
         return (
             <div className={`w-full ${className ?? ""}`}>
                 <div className="relative w-full aspect-[4/3] max-h-[40vh] rounded-2xl overflow-hidden bg-egg">
@@ -47,7 +51,7 @@ export default function ImageContainer({
                         alt={item.imageAlt || "Image"}
                         fill
                         sizes="(min-width: 1024px) 950px, 100vw"
-                        className=""
+                        className={cover ? "object-cover" : "object-contain"}
                         priority
                     />
                 </div>

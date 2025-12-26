@@ -9,7 +9,7 @@ type SectionTextImageProps = {
 };
 
 export default function SectionTextImage({ section }: SectionTextImageProps) {
-    const { title, body, images, mirrored, threeImageLayout, featuredPosition } = section;
+    const { title, body, images, mirrored, threeImageLayout, featuredPosition, singleImageCover } = section;
 
     const total = images?.length ?? 0;
     const useContainer = total > 0 && total <= 3;
@@ -55,6 +55,7 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
                             className="w-full"
                             threeImageLayout={threeImageLayout}
                             featuredPosition={featuredPosition}
+                            singleImageCover={singleImageCover}
                         />
                     ) : (
                         <ImageCarousel images={images} className="w-full" />

@@ -87,6 +87,15 @@ export default defineType({
       hidden: ({ parent }) =>
         (parent?.images?.length ?? 0) !== 3 || parent?.threeImageLayout !== "featured",
     }),
+
+    defineField({
+      name: "singleImageCover",
+      title: "Single image: fill frame (cover)?",
+      type: "boolean",
+      description: "If enabled, the single image will fill the frame (cropped). If disabled, it will fit inside (contain).",
+      initialValue: true,
+      hidden: ({ parent }) => (parent?.images?.length ?? 0) !== 1,
+    }),
   ],
 
   preview: {
