@@ -49,7 +49,7 @@ export default function SectionBarList({ section }: SectionBarListProps) {
                 )}
 
                 {/* Mobil */}
-                <div className="lg:hidden relative flex-1 mobile-container pt-5! pb-0!">
+                <div className="lg:hidden relative flex-1 mobile-container pt-5! ">
                     <div className="flex flex-col gap-10">
                         {section.items.map((item, index) => {
                             const bg = BAR_BG[index % BAR_BG.length];

@@ -3,6 +3,7 @@
 import React from "react";
 import { PortableText } from "next-sanity";
 import type { SectionStats as SectionStatsType } from "@/types/sections/sectionStats";
+import { motion } from "motion/react";
 
 type SectionStatsProps = {
     section: SectionStatsType;
@@ -159,47 +160,63 @@ export default function SectionStats({ section }: SectionStatsProps) {
     // FULL STRIPES LAYOUT
     // =========================
     if (isFull) {
+        const rowDuration = 0.55;
+        const stagger = 0.12;
+
         return (
-            <section ref={rootRef} className="section">
-                <ul className="grid grid-rows-4 h-full">
-                    {(section.items ?? []).filter(Boolean).map((item, index) => {
+            <section ref={rootRef} className="section relative overflow-hidden lg:h-screen!">
+                <ul className="grid grid-rows-4 h-full py-28 md:py-52 lg:py-0!">
+                    {items.map((item, index) => {
                         const c = COLORS[index % COLORS.length];
                         const value = formatValue(item);
 
                         return (
-                            <li
-                                key={item._key}
-                                className={`flex flex-col items-center ${c.bar}`}
-                            >
-                                <article className="flex w-full items-center gap-12">
-                                    {/* LEFT */}
-                                    <div>
-                                        <h3 className="text-h1">
-                                            {value}
-                                        </h3>
-                                        <p>
-                                            {item.captionTitle}
-                                        </p>
-                                    </div>
+                            <li key={item._key} className="relative overflow-hidden">
+                                <motion.div
+                                    className={`absolute inset-0 ${c.bar}`}
+                                    initial={{ x: "-105%" }}
+                                    animate={show ? { x: "0%" } : { x: "-105%" }}
+                                    transition={{
+                                        duration: rowDuration,
+                                        ease: "easeOut",
+                                        delay: index * stagger,
+                                    }}
+                                />
 
-                                    {/* RIGHT */}
-                                    {item.caption && (
-                                        <div className="flex-1">
-                                            <PortableText
-                                                value={item.caption}
-                                                components={{
-                                                    block: {
-                                                        normal: ({ children }) => (
-                                                            <p>
-                                                                {children}
-                                                            </p>
-                                                        ),
-                                                    },
-                                                }}
-                                            />
+                                {/* Innhold */}
+                                <div className="relative h-full w-full desktop-container py-5! lg:py-0!">
+                                    <div className="h-full flex gap-10 justify-center items-start flex-col lg:flex-row lg:items-center">
+                                        <div className="min-w-[25vw]">
+                                            <h3 className="text-[3rem] md:text-[4rem] xl:text-[4rem] 2xl:text-[6rem] text-egg leading-none">
+                                                {value}
+                                            </h3>
+
+                                            {item.captionTitle && (
+                                                <p className=" text-egg italic text-[1.35rem] md:text-[1.75rem] xl:text-[1.5rem] 2xl:text-[2.5rem] mt-2">
+                                                    {item.captionTitle}
+                                                </p>
+                                            )}
                                         </div>
-                                    )}
-                                </article>
+
+                                        {/* Under: caption */}
+                                        {item.caption && (
+                                            <div className="text-egg">
+                                                <PortableText
+                                                    value={item.caption}
+                                                    components={{
+                                                        block: {
+                                                            normal: ({ children }) => (
+                                                                <p>
+                                                                    {children}
+                                                                </p>
+                                                            ),
+                                                        },
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             </li>
                         );
                     })}
@@ -207,6 +224,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
             </section>
         );
     }
+
 
 
 

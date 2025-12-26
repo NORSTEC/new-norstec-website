@@ -118,7 +118,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         <>
             {/* TOP BAR */}
             <motion.header
-                className="fixed inset-x-0 top-0 z-50 3xl:px-[15rem]"
+                className="fixed inset-x-0 top-0 z-50 "
                 initial={false}
                 animate={{
                     y: headerHidden ? -72 : 0,
@@ -127,7 +127,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                 transition={{ type: "tween", duration: 0.22, ease: [0.22, 0.9, 0.2, 1] }}
                 style={{ willChange: "transform, background-color" }}
             >
-                <div className="mx-auto w-full px-5 lg:px-8 max-w-[2000px]">
+                <div className="mx-auto w-full px-5 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <Link href={logoHref} className="inline-flex items-center" aria-label="Go to homepage">
                             <LogoToggle open={open} />

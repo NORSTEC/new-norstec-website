@@ -28,7 +28,7 @@
     }
 
     body {
-        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto max-w-[2000px] text-[1rem] 2xl:text-[1.25rem]
+        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto  text-[1rem] 2xl:text-[1.25rem]
     }
 
     p {
@@ -42,11 +42,11 @@
     }
 
     .desktop-container {
-        @apply px-[1rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] pt-28 md:pt-52 xl:py-20
+        @apply px-[1rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] py-28 md:py-52 xl:py-20
     }
 
     .mobile-container {
-        @apply px-[1rem] pt-28 md:pt-52 xl:py-20
+        @apply px-[1rem] py-28 md:py-52 xl:py-20
     }
 
     .chemtrails-right {
