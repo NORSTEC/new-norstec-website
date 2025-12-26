@@ -17,7 +17,7 @@ export default defineType({
         defineField({
             name: 'subtitle',
             title: 'Subtitle',
-            type: 'string',
+            type: 'portableText',
             description: 'Optional short text displayed under the title. Can be used for context.',
         }),
 

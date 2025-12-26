@@ -3,6 +3,7 @@ import {SectionHero} from "@/types/sections/sectionHero";
 import {SectionTextImage} from "@/types/sections/sectionTextImage";
 import {SectionStats} from "@/types/sections/sectionStats";
 import {SectionTable} from "@/types/sections/sectionTable";
+import {SectionNapkin} from "@/types/sections/sectionNapkin";
 
 export type AboutPageSection =
     | SectionHero
@@ -10,6 +11,7 @@ export type AboutPageSection =
     | SectionStats
     | SectionTextImage
     | SectionTable
+    | SectionNapkin
 
 export interface AboutPage {
     _type: "aboutPage";

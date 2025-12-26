@@ -96,6 +96,7 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
                     variants={listVariants}
                     initial={false}
                     animate={open ? "open" : "closed"}
+                    style={{ willChange: "transform, height" }}
                 >
                     {cells.slice(1).map((cell, i) => {
                         const col = columns[i + 1];
