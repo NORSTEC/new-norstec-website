@@ -270,12 +270,12 @@ export default function SectionStats({ section }: SectionStatsProps) {
                                 <div className="flex items-start gap-5">
                                     {/* Vertikal linje */}
                                     <div className="shrink-0">
-                                        <div className={`${c.bar} w-3 h-full min-h-[4rem]`} />
+                                        <div className={`${c.bar} w-3 h-full min-h-[4rem] 3xl:min-h-[6rem]`} />
                                     </div>
 
                                     {/* Value */}
                                     <div>
-                                      <span className="text-[3.5rem] lg:text-[4rem] leading-none font-extrabold text-moody whitespace-nowrap">
+                                      <span className="text-[3.5rem] lg:text-[4rem] 3xl:text-[6rem] leading-none font-extrabold text-moody whitespace-nowrap">
                                         {formatCompactValue(item, displayNumber, phase)}
                                       </span>
                                     </div>

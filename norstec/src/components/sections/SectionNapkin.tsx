@@ -5,6 +5,7 @@ import { PortableText } from "next-sanity";
 import { imageBuilder } from "@/utils/imageBuilder";
 import type { SectionNapkin as SectionNapkinType } from "@/types/sections/sectionNapkin";
 import ChemtrailsRight from "@/components/items/stripes/chemtrails/ChemtrailsRight";
+import React from "react";
 
 type SectionNapkinProps = {
     section: SectionNapkinType;
@@ -26,7 +27,12 @@ export default function SectionNapkin({ section }: SectionNapkinProps) {
             <div className="flex flex-col lg:flex-row lg:items-stretch h-full lg:gap-16 xl:gap-32">
                 {/* LEFT */}
                 <div className="min-w-0 lg:flex-1">
-                    <h2 className="text-h2">{title}</h2>
+                    <h2 className="text-h2">{title}
+                        <span
+                            aria-hidden
+                            className="star-inline"
+                        />
+                    </h2>
 
                     {subtitle?.length ? (
                         <div className="mt-4">
