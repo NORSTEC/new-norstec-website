@@ -16,9 +16,9 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "@next/next/google-font-display": "off",
-      "@next/next/no-page-custom-font": "off"
-    }
-  }
+      "@next/next/no-page-custom-font": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

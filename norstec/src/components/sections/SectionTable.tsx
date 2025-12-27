@@ -5,38 +5,35 @@ import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBo
 import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRight";
 
 type SectionTableProps = {
-    section: SectionTableType;
+  section: SectionTableType;
 };
 
 export default function SectionTable({ section }: SectionTableProps) {
-    const {
-        title,
-        columns,
-        rows,
-        showStripesCornerBottomRight = true,
-        showStripesCornerTopRight = true,
-    } = section;
+  const {
+    title,
+    columns,
+    rows,
+    showStripesCornerBottomRight = true,
+    showStripesCornerTopRight = true,
+  } = section;
 
-    return (
-        <section className="flex flex-col gap-5 lg:gap-20 section mobile-container stripes-right">
-            {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.5} />}
-            {showStripesCornerTopRight && <StripesCornerTopRight />}
+  return (
+    <section className="flex flex-col gap-5 lg:gap-20 section mobile-container stripes-right">
+      {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.5} />}
+      {showStripesCornerTopRight && <StripesCornerTopRight />}
 
-            <div>
-                <h2 className="text-h2 uppercase">
-                    {title}
-                    <span
-                        aria-hidden
-                        className="star-inline"
-                    />
-                </h2>
-            </div>
-            <div className="hidden lg:flex">
-                <Table columns={columns} rows={rows} />
-            </div>
-            <div className="lg:hidden">
-                <CollapsibleList columns={columns} rows={rows} />
-            </div>
-        </section>
-    );
+      <div>
+        <h2 className="text-h2 uppercase">
+          {title}
+          <span aria-hidden className="star-inline" />
+        </h2>
+      </div>
+      <div className="hidden lg:flex">
+        <Table columns={columns} rows={rows} />
+      </div>
+      <div className="lg:hidden">
+        <CollapsibleList columns={columns} rows={rows} />
+      </div>
+    </section>
+  );
 }

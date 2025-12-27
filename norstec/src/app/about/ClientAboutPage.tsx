@@ -1,6 +1,6 @@
 "use client";
 
-import {AboutPage, AboutPageSection} from "@/types/pages/aboutPage";
+import { AboutPage, AboutPageSection } from "@/types/pages/aboutPage";
 import SectionHero from "@/components/sections/SectionHero";
 import SectionTextImage from "@/components/sections/SectionTextImage";
 import SectionBarList from "@/components/sections/SectionBarList";
@@ -9,38 +9,34 @@ import SectionTable from "@/components/sections/SectionTable";
 import SectionNapkin from "@/components/sections/SectionNapkin";
 
 interface AboutPageProps {
-    data: AboutPage;
+  data: AboutPage;
 }
 
 function renderAboutSection(section: AboutPageSection) {
-    switch (section._type) {
-        case "sectionHero":
-            return <SectionHero key={section._id} section={section} />;
+  switch (section._type) {
+    case "sectionHero":
+      return <SectionHero key={section._id} section={section} />;
 
-        case "sectionTextImage":
-            return <SectionTextImage key={section._id} section={section} />;
+    case "sectionTextImage":
+      return <SectionTextImage key={section._id} section={section} />;
 
-        case "sectionBarList":
-            return <SectionBarList key={section._id} section={section} />;
+    case "sectionBarList":
+      return <SectionBarList key={section._id} section={section} />;
 
-        case "sectionStats":
-            return <SectionStats key={section._id} section={section} />;
+    case "sectionStats":
+      return <SectionStats key={section._id} section={section} />;
 
-        case "sectionTable":
-            return <SectionTable key={section._id} section={section} />;
+    case "sectionTable":
+      return <SectionTable key={section._id} section={section} />;
 
-        case "sectionNapkin":
-            return <SectionNapkin key={section._id} section={section} />;
+    case "sectionNapkin":
+      return <SectionNapkin key={section._id} section={section} />;
 
-        default:
-            return null;
-    }
+    default:
+      return null;
+  }
 }
 
 export default function ClientAboutPage({ data }: AboutPageProps) {
-    return (
-        <main>
-            {data.sections.map((section) => renderAboutSection(section))}
-        </main>
-    );
+  return <main>{data.sections.map((section) => renderAboutSection(section))}</main>;
 }

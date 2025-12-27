@@ -11,42 +11,40 @@ import SectionInitiatives from "@/components/sections/SectionInitiatives";
 import SectionMap from "@/components/sections/SectionMap";
 
 interface ClientHomePageProps {
-    data: HomePage;
+  data: HomePage;
 }
 
 function renderHomeSection(section: HomePageSection) {
-    switch (section._type) {
-        case "sectionTextImage":
-            return <SectionTextImage key={section._id} section={section} />;
+  switch (section._type) {
+    case "sectionTextImage":
+      return <SectionTextImage key={section._id} section={section} />;
 
-        case "sectionImage":
-            return <SectionImage key={section._id} section={section} />;
+    case "sectionImage":
+      return <SectionImage key={section._id} section={section} />;
 
-        case "sectionMap":
-            return <SectionMap key={section._id} section={section} />;
+    case "sectionMap":
+      return <SectionMap key={section._id} section={section} />;
 
-        case "sectionTable":
-            return <SectionTable key={section._id} section={section} />;
+    case "sectionTable":
+      return <SectionTable key={section._id} section={section} />;
 
-        case "sectionInitiatives":
-            return <SectionInitiatives key={section._id} section={section} />;
+    case "sectionInitiatives":
+      return <SectionInitiatives key={section._id} section={section} />;
 
-        default:
-            return null;
-    }
+    default:
+      return null;
+  }
 }
 
 export default function ClientHomePage({ data }: ClientHomePageProps) {
-    if (!data) {
-        return <p>Failed to load homepage.</p>;
-    }
+  if (!data) {
+    return <p>Failed to load homepage.</p>;
+  }
 
-    return (
-        <>
-            <HeroLanding />
-            <main>
-                {data.sections?.map((section) => renderHomeSection(section))}
-            </main>
-        </>
-    );
+  return (
+    <>
+      <HeroLanding />
+      <main>{data.sections?.map((section) => renderHomeSection(section))}</main>
+    </>
+  );
 }

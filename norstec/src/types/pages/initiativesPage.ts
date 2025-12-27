@@ -1,8 +1,8 @@
-import {SectionInitiatives} from "@/types/sections/sectionInitiatives";
+import { SectionInitiatives } from "@/types/sections/sectionInitiatives";
 
 export interface InitiativesPage {
-    _type: "initiativesPage";
-    _id: string;
-    title?: string;
-    sections: SectionInitiatives[];
+  _type: "initiativesPage";
+  _id: string;
+  title?: string;
+  sections: SectionInitiatives[];
 }

@@ -9,15 +9,15 @@ import { SectionQuote } from "@/types/sections/sectionQuote";
 import { SectionFaq } from "@/types/sections/sectionFaq";
 
 export type InitiativePageSection =
-    | SectionHero
-    | SectionTextImage
-    | SectionBarList
-    | SectionTable
-    | SectionStats
-    | SectionImage
-    | SectionQuote
-    | SectionFaq;
+  | SectionHero
+  | SectionTextImage
+  | SectionBarList
+  | SectionTable
+  | SectionStats
+  | SectionImage
+  | SectionQuote
+  | SectionFaq;
 
 export interface InitiativePage extends Omit<Initiative, "sections"> {
-    sections: InitiativePageSection[];
+  sections: InitiativePageSection[];
 }

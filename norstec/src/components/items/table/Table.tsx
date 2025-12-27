@@ -4,165 +4,147 @@ import { useMemo, useState } from "react";
 import type { SectionTable } from "@/types/sections/sectionTable";
 
 type TableProps = {
-    columns: SectionTable["columns"];
-    rows: SectionTable["rows"];
+  columns: SectionTable["columns"];
+  rows: SectionTable["rows"];
 };
 
 type SortDirection = "asc" | "desc";
 
 export default function Table({ columns, rows }: TableProps) {
-    const [sortIndex, setSortIndex] = useState<number | null>(null);
-    const [direction, setDirection] = useState<SortDirection>("asc");
+  const [sortIndex, setSortIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState<SortDirection>("asc");
 
-    const handleHeaderClick = (index: number) => {
-        if (sortIndex === index) {
-            setDirection((prev) => (prev === "asc" ? "desc" : "asc"));
-        } else {
-            setSortIndex(index);
-            setDirection("asc");
+  const handleHeaderClick = (index: number) => {
+    if (sortIndex === index) {
+      setDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+    } else {
+      setSortIndex(index);
+      setDirection("asc");
+    }
+  };
+
+  const sortedRows = useMemo(() => {
+    if (sortIndex === null) return rows;
+
+    const col = columns[sortIndex];
+    if (!col) return rows;
+
+    const sorted = [...rows];
+
+    sorted.sort((a, b) => {
+      const aVal = a.cells[sortIndex] ?? "";
+      const bVal = b.cells[sortIndex] ?? "";
+
+      // tall-kolonne
+      if (col.type === "number") {
+        const aNum = Number(aVal);
+        const bNum = Number(bVal);
+
+        if (!Number.isNaN(aNum) && !Number.isNaN(bNum)) {
+          return direction === "asc" ? aNum - bNum : bNum - aNum;
         }
-    };
 
-    const sortedRows = useMemo(() => {
-        if (sortIndex === null) return rows;
+        const aStr = String(aVal);
+        const bStr = String(bVal);
+        return direction === "asc" ? aStr.localeCompare(bStr) : bStr.localeCompare(aStr);
+      }
 
-        const col = columns[sortIndex];
-        if (!col) return rows;
+      // url-kolonne
+      if (col.type === "url") {
+        const aHref = (aVal || col.urlFallback || "").trim();
+        const bHref = (bVal || col.urlFallback || "").trim();
+        const aHas = !!aHref;
+        const bHas = !!bHref;
 
-        const sorted = [...rows];
+        if (aHas !== bHas) {
+          if (direction === "asc") {
+            return aHas ? 1 : -1;
+          } else {
+            return aHas ? -1 : 1;
+          }
+        }
 
-        sorted.sort((a, b) => {
-            const aVal = a.cells[sortIndex] ?? "";
-            const bVal = b.cells[sortIndex] ?? "";
+        if (!aHas && !bHas) return 0;
 
-            // tall-kolonne
-            if (col.type === "number") {
-                const aNum = Number(aVal);
-                const bNum = Number(bVal);
+        return direction === "asc" ? aHref.localeCompare(bHref) : bHref.localeCompare(aHref);
+      }
 
-                if (!Number.isNaN(aNum) && !Number.isNaN(bNum)) {
-                    return direction === "asc" ? aNum - bNum : bNum - aNum;
-                }
+      // string-kolonne
+      const aStr = String(aVal);
+      const bStr = String(bVal);
+      return direction === "asc" ? aStr.localeCompare(bStr) : bStr.localeCompare(aStr);
+    });
 
-                const aStr = String(aVal);
-                const bStr = String(bVal);
-                return direction === "asc"
-                    ? aStr.localeCompare(bStr)
-                    : bStr.localeCompare(aStr);
-            }
+    return sorted;
+  }, [rows, columns, sortIndex, direction]);
 
-            // url-kolonne
-            if (col.type === "url") {
-                const aHref = (aVal || col.urlFallback || "").trim();
-                const bHref = (bVal || col.urlFallback || "").trim();
-                const aHas = !!aHref;
-                const bHas = !!bHref;
-
-                if (aHas !== bHas) {
-                    if (direction === "asc") {
-                        return aHas ? 1 : -1;
-                    } else {
-                        return aHas ? -1 : 1;
-                    }
-                }
-
-                if (!aHas && !bHas) return 0;
-
-                return direction === "asc"
-                    ? aHref.localeCompare(bHref)
-                    : bHref.localeCompare(aHref);
-            }
-
-            // string-kolonne
-            const aStr = String(aVal);
-            const bStr = String(bVal);
-            return direction === "asc"
-                ? aStr.localeCompare(bStr)
-                : bStr.localeCompare(aStr);
-        });
-
-        return sorted;
-    }, [rows, columns, sortIndex, direction]);
-
-    return (
-        <table className="w-full border-collapse h-full">
-            <thead>
-            <tr className="font-medium">
-                {columns.map((column, index) => {
-                    const isActive = sortIndex === index;
-                    return (
-                        <th
-                            key={column.label}
-                            className="text-left pb-2 font-semibold italic cursor-pointer select-none"
-                            onClick={() => handleHeaderClick(index)}
-                        >
-                                <span className="inline-flex items-center gap-[2px]">
-                                    {column.label}
-                                    {isActive && (
-                                        <span className={`icon icon-20 icon-500 transition-transform duration-150 text-moody
-                                         ${direction === "desc" ? "rotate-0" : "rotate-180"}`}>
-                                            arrow_upward
-                                        </span>
-                                    )}
-                                </span>
-                        </th>
-                    );
-                })}
-            </tr>
-            </thead>
-
-            <tbody
-            >
-                {sortedRows.map((row, rowIndex) => (
-                    <tr
-                        key={rowIndex}
-                        className="border-b-1 border-moody"
+  return (
+    <table className="w-full border-collapse h-full">
+      <thead>
+        <tr className="font-medium">
+          {columns.map((column, index) => {
+            const isActive = sortIndex === index;
+            return (
+              <th
+                key={column.label}
+                className="text-left pb-2 font-semibold italic cursor-pointer select-none"
+                onClick={() => handleHeaderClick(index)}
+              >
+                <span className="inline-flex items-center gap-[2px]">
+                  {column.label}
+                  {isActive && (
+                    <span
+                      className={`icon icon-20 icon-500 transition-transform duration-150 text-moody
+                                         ${direction === "desc" ? "rotate-0" : "rotate-180"}`}
                     >
-                        {row.cells.map((cell, cellIndex) => {
-                            const column = columns[cellIndex];
-                            if (!column) return null;
+                      arrow_upward
+                    </span>
+                  )}
+                </span>
+              </th>
+            );
+          })}
+        </tr>
+      </thead>
 
-                            if (column.type === "url") {
-                                const raw = (cell || "").trim();
-                                const fallbackText = column.urlFallback?.trim();
+      <tbody>
+        {sortedRows.map((row, rowIndex) => (
+          <tr key={rowIndex} className="border-b-1 border-moody">
+            {row.cells.map((cell, cellIndex) => {
+              const column = columns[cellIndex];
+              if (!column) return null;
 
-                                const href =
-                                    raw && (raw.startsWith("http://") || raw.startsWith("https://"))
-                                        ? raw
-                                        : "";
+              if (column.type === "url") {
+                const raw = (cell || "").trim();
+                const fallbackText = column.urlFallback?.trim();
 
-                                return (
-                                    <td key={cellIndex} className="py-2">
-                                        {href ? (
-                                            <a
-                                                href={href}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="underline"
-                                            >
-                                                {href}
-                                            </a>
-                                        ) : fallbackText ? (
-                                            <span>{fallbackText}</span>
-                                        ) : (
-                                            <span>—</span>
-                                        )}
-                                    </td>
-                                );
-                            }
+                const href =
+                  raw && (raw.startsWith("http://") || raw.startsWith("https://")) ? raw : "";
 
-                            return (
-                                <td
-                                    key={cellIndex}
-                                    className="py-1 pr-3"
-                                >
-                                    {cell}
-                                </td>
-                            );
-                        })}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
+                return (
+                  <td key={cellIndex} className="py-2">
+                    {href ? (
+                      <a href={href} target="_blank" rel="noreferrer" className="underline">
+                        {href}
+                      </a>
+                    ) : fallbackText ? (
+                      <span>{fallbackText}</span>
+                    ) : (
+                      <span>—</span>
+                    )}
+                  </td>
+                );
+              }
+
+              return (
+                <td key={cellIndex} className="py-1 pr-3">
+                  {cell}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }

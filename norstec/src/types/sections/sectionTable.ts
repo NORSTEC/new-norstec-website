@@ -1,19 +1,19 @@
 export interface SectionTable {
-    _type: "sectionTable";
-    _id: string;
+  _type: "sectionTable";
+  _id: string;
 
-    title: string;
+  title: string;
 
-    columns: Array<{
-        label: string;
-        type: "string" | "number" | "url";
-        urlFallback?: string;
-    }>;
+  columns: Array<{
+    label: string;
+    type: "string" | "number" | "url";
+    urlFallback?: string;
+  }>;
 
-    rows: Array<{
-        cells: string[];
-    }>;
+  rows: Array<{
+    cells: string[];
+  }>;
 
-    showStripesCornerTopRight?: boolean;
-    showStripesCornerBottomRight?: boolean;
+  showStripesCornerTopRight?: boolean;
+  showStripesCornerBottomRight?: boolean;
 }

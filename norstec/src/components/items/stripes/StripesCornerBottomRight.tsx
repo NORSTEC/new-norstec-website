@@ -9,169 +9,169 @@ const STRIPE_DELAY = 0.1;
 const DURATION = 0.45;
 
 type Config = {
-    size: number;
-    strokeWidth: number;
-    gap: number;
-    offsetX: number;
-    offsetY: number;
-    baseR: number;
+  size: number;
+  strokeWidth: number;
+  gap: number;
+  offsetX: number;
+  offsetY: number;
+  baseR: number;
 };
 
 const CONFIG: Record<"base" | "xl" | "3xl", Config> = {
-    base: {
-        size: 400,
-        strokeWidth: 80,
-        gap: 40,
-        offsetX: -20,
-        offsetY: 0,
-        baseR: 650,
-    },
-    xl: {
-        size: 500,
-        strokeWidth: 72,
-        gap: 40,
-        offsetX: -26,
-        offsetY: 0,
-        baseR: 650,
-    },
-    "3xl": {
-        size: 500,
-        strokeWidth: 80,
-        gap: 65,
-        offsetX: 0,
-        offsetY: 0,
-        baseR: 952,
-    },
+  base: {
+    size: 400,
+    strokeWidth: 80,
+    gap: 40,
+    offsetX: -20,
+    offsetY: 0,
+    baseR: 650,
+  },
+  xl: {
+    size: 500,
+    strokeWidth: 72,
+    gap: 40,
+    offsetX: -26,
+    offsetY: 0,
+    baseR: 650,
+  },
+  "3xl": {
+    size: 500,
+    strokeWidth: 80,
+    gap: 65,
+    offsetX: 0,
+    offsetY: 0,
+    baseR: 952,
+  },
 } as const;
 
 function pickConfig() {
-    if (typeof window === "undefined") return CONFIG.base;
+  if (typeof window === "undefined") return CONFIG.base;
 
-    const is3xl = window.matchMedia("(min-width: 2000px)").matches;
-    if (is3xl) return CONFIG["3xl"];
+  const is3xl = window.matchMedia("(min-width: 2000px)").matches;
+  if (is3xl) return CONFIG["3xl"];
 
-    const isXl = window.matchMedia("(min-width: 1280px)").matches;
-    if (isXl) return CONFIG.xl;
+  const isXl = window.matchMedia("(min-width: 1280px)").matches;
+  if (isXl) return CONFIG.xl;
 
-    return CONFIG.base;
+  return CONFIG.base;
 }
 
 function ArcStripe({
-                       r,
-                       color,
-                       show,
-                       delay,
-                       duration,
-                       strokeWidth,
-                   }: {
-    r: number;
-    color: string;
-    show: boolean;
-    delay: number;
-    duration: number;
-    strokeWidth: number;
+  r,
+  color,
+  show,
+  delay,
+  duration,
+  strokeWidth,
+}: {
+  r: number;
+  color: string;
+  show: boolean;
+  delay: number;
+  duration: number;
+  strokeWidth: number;
 }) {
-    const S = 1000;
+  const S = 1000;
 
-    const startX = S;
-    const startY = S - r;
-    const endX = S - r;
-    const endY = S;
+  const startX = S;
+  const startY = S - r;
+  const endX = S - r;
+  const endY = S;
 
-    const d = `M ${startX} ${startY} A ${r} ${r} 0 0 0 ${endX} ${endY}`;
+  const d = `M ${startX} ${startY} A ${r} ${r} 0 0 0 ${endX} ${endY}`;
 
-    return (
-        <motion.path
-            d={d}
-            fill="none"
-            stroke={color}
-            strokeWidth={strokeWidth}
-            strokeLinecap="butt"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: show ? 1 : 0 }}
-            transition={{ delay, duration, ease: "easeOut" }}
-        />
-    );
+  return (
+    <motion.path
+      d={d}
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="butt"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: show ? 1 : 0 }}
+      transition={{ delay, duration, ease: "easeOut" }}
+    />
+  );
 }
 
 export default function StripesCornerBottomRight({
-                                                     className = "",
-                                                     startDelay = 0,
-                                                 }: {
-    className?: string;
-    startDelay?: number;
+  className = "",
+  startDelay = 0,
+}: {
+  className?: string;
+  startDelay?: number;
 }) {
-    const rootRef = React.useRef<HTMLDivElement | null>(null);
-    const [show, setShow] = React.useState(false);
-    const [cfg, setCfg] = React.useState(() => CONFIG.base);
+  const rootRef = React.useRef<HTMLDivElement | null>(null);
+  const [show, setShow] = React.useState(false);
+  const [cfg, setCfg] = React.useState(() => CONFIG.base);
 
-    React.useEffect(() => {
-        const apply = () => setCfg(pickConfig());
-        apply();
+  React.useEffect(() => {
+    const apply = () => setCfg(pickConfig());
+    apply();
 
-        window.addEventListener("resize", apply);
-        return () => window.removeEventListener("resize", apply);
-    }, []);
+    window.addEventListener("resize", apply);
+    return () => window.removeEventListener("resize", apply);
+  }, []);
 
-    React.useEffect(() => {
-        const el = rootRef.current;
-        if (!el) return;
+  React.useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
 
-        const target = el.closest("section") || el.closest(".section") || el.parentElement;
+    const target = el.closest("section") || el.closest(".section") || el.parentElement;
 
-        const start = () => {
-            if (startDelay > 0) {
-                window.setTimeout(() => setShow(true), startDelay * 1000);
-            } else {
-                setShow(true);
-            }
-        };
+    const start = () => {
+      if (startDelay > 0) {
+        window.setTimeout(() => setShow(true), startDelay * 1000);
+      } else {
+        setShow(true);
+      }
+    };
 
-        if (!target) {
-            start();
-            return;
+    if (!target) {
+      start();
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          start();
+          io.disconnect();
         }
-
-        const io = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    start();
-                    io.disconnect();
-                }
-            },
-            { threshold: 0.6, rootMargin: "0px 0px -10% 0px" }
-        );
-
-        io.observe(target);
-        return () => io.disconnect();
-    }, [startDelay]);
-
-    const step = cfg.strokeWidth + cfg.gap;
-
-    return (
-        <div
-            ref={rootRef}
-            aria-hidden="true"
-            className={`hidden lg:block absolute right-0 bottom-0 pointer-events-none -z-10 ${className}`}
-            style={{
-                width: cfg.size,
-                height: cfg.size,
-                transform: `translate(${-cfg.offsetX}px, ${-cfg.offsetY}px)`,
-            }}
-        >
-            <svg viewBox="0 0 1000 1000" width="100%" height="100%">
-                {COLORS.map((c, i) => (
-                    <ArcStripe
-                        key={c}
-                        r={cfg.baseR - i * step}
-                        color={c}
-                        show={show}
-                        delay={i * STRIPE_DELAY}
-                        duration={DURATION}
-                        strokeWidth={cfg.strokeWidth}
-                    />
-                ))}
-            </svg>
-        </div>
+      },
+      { threshold: 0.6, rootMargin: "0px 0px -10% 0px" }
     );
+
+    io.observe(target);
+    return () => io.disconnect();
+  }, [startDelay]);
+
+  const step = cfg.strokeWidth + cfg.gap;
+
+  return (
+    <div
+      ref={rootRef}
+      aria-hidden="true"
+      className={`hidden lg:block absolute right-0 bottom-0 pointer-events-none -z-10 ${className}`}
+      style={{
+        width: cfg.size,
+        height: cfg.size,
+        transform: `translate(${-cfg.offsetX}px, ${-cfg.offsetY}px)`,
+      }}
+    >
+      <svg viewBox="0 0 1000 1000" width="100%" height="100%">
+        {COLORS.map((c, i) => (
+          <ArcStripe
+            key={c}
+            r={cfg.baseR - i * step}
+            color={c}
+            show={show}
+            delay={i * STRIPE_DELAY}
+            duration={DURATION}
+            strokeWidth={cfg.strokeWidth}
+          />
+        ))}
+      </svg>
+    </div>
+  );
 }

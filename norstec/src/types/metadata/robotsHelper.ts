@@ -3,8 +3,8 @@
  * (Next.js does not export this type publicly)
  */
 export interface GoogleBotRobots {
-    noimageindex?: boolean;
-    maxSnippet?: number;
-    maxImagePreview?: "none" | "standard" | "large";
-    maxVideoPreview?: number;
+  noimageindex?: boolean;
+  maxSnippet?: number;
+  maxImagePreview?: "none" | "standard" | "large";
+  maxVideoPreview?: number;
 }

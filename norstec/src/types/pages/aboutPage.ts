@@ -1,20 +1,20 @@
 import { SectionBarList } from "@/types/sections/sectionBarList";
-import {SectionHero} from "@/types/sections/sectionHero";
-import {SectionTextImage} from "@/types/sections/sectionTextImage";
-import {SectionStats} from "@/types/sections/sectionStats";
-import {SectionTable} from "@/types/sections/sectionTable";
-import {SectionNapkin} from "@/types/sections/sectionNapkin";
+import { SectionHero } from "@/types/sections/sectionHero";
+import { SectionTextImage } from "@/types/sections/sectionTextImage";
+import { SectionStats } from "@/types/sections/sectionStats";
+import { SectionTable } from "@/types/sections/sectionTable";
+import { SectionNapkin } from "@/types/sections/sectionNapkin";
 
 export type AboutPageSection =
-    | SectionHero
-    | SectionBarList
-    | SectionStats
-    | SectionTextImage
-    | SectionTable
-    | SectionNapkin
+  | SectionHero
+  | SectionBarList
+  | SectionStats
+  | SectionTextImage
+  | SectionTable
+  | SectionNapkin;
 
 export interface AboutPage {
-    _type: "aboutPage";
-    _id: string;
-    sections: AboutPageSection[];
+  _type: "aboutPage";
+  _id: string;
+  sections: AboutPageSection[];
 }

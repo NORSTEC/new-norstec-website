@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "embla-carousel-auto-scroll": "^8.6.0",
@@ -31,6 +32,7 @@
     "eslint": "^9.39.1",
     "eslint-config-next": "16.0.10",
     "postcss": "^8.5.6",
+    "prettier": "^3.7.4",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }
