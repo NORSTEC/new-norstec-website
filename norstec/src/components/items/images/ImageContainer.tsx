@@ -53,6 +53,7 @@ export default function ImageContainer({
                         sizes="(min-width: 1024px) 950px, 100vw"
                         className={cover ? "object-cover" : "object-contain"}
                         priority
+                        unoptimized
                     />
                 </div>
             </div>
@@ -83,6 +84,7 @@ export default function ImageContainer({
                                     fill
                                     sizes="(min-width: 768px) 50vw, 100vw"
                                     className="object-cover"
+                                    unoptimized
                                 />
                             </div>
                         );
@@ -129,6 +131,7 @@ export default function ImageContainer({
                                     fill
                                     sizes="(min-width: 768px) 33vw, 100vw"
                                     className="object-cover"
+                                    unoptimized
                                 />
                             </div>
                         );

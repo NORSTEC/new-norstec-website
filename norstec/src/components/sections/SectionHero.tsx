@@ -53,6 +53,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
                                 sizes="100vw"
                                 className="object-cover"
                                 priority
+                                unoptimized
                             />
                             {SubtitleOverlay}
                         </>
@@ -72,6 +73,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
                                 sizes="100vw"
                                 className="object-cover"
                                 priority
+                                unoptimized
                             />
                             {SubtitleOverlay}
                         </>
