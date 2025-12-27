@@ -13,4 +13,7 @@ export interface SectionTable {
     rows: Array<{
         cells: string[];
     }>;
+
+    showStripesCornerTopRight?: boolean;
+    showStripesCornerBottomRight?: boolean;
 }

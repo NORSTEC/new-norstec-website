@@ -9,12 +9,18 @@ type SectionTableProps = {
 };
 
 export default function SectionTable({ section }: SectionTableProps) {
-    const { title, columns, rows } = section;
+    const {
+        title,
+        columns,
+        rows,
+        showStripesCornerBottomRight = true,
+        showStripesCornerTopRight = true,
+    } = section;
 
     return (
         <section className="flex flex-col gap-5 lg:gap-20 section mobile-container stripes-right">
-            <StripesCornerBottomRight startDelay={0.5} />
-            <StripesCornerTopRight />
+            {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.5} />}
+            {showStripesCornerTopRight && <StripesCornerTopRight />}
 
             <div>
                 <h2 className="text-h2 uppercase">

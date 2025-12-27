@@ -51,6 +51,12 @@ export const INITIATIVE_BY_SLUG_QUERY = defineQuery(`
           captionTitle,
           caption
         },
+        _type == "sectionFaq" => items[]->{
+          _id,
+          _type,
+          question,
+          answer
+        },
         items
       )
     }

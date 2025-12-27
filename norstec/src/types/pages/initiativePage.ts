@@ -6,6 +6,7 @@ import { SectionTable } from "@/types/sections/sectionTable";
 import { SectionStats } from "@/types/sections/sectionStats";
 import { SectionImage } from "@/types/sections/sectionImage";
 import { SectionQuote } from "@/types/sections/sectionQuote";
+import { SectionFaq } from "@/types/sections/sectionFaq";
 
 export type InitiativePageSection =
     | SectionHero
@@ -14,7 +15,8 @@ export type InitiativePageSection =
     | SectionTable
     | SectionStats
     | SectionImage
-    | SectionQuote;
+    | SectionQuote
+    | SectionFaq;
 
 export interface InitiativePage extends Omit<Initiative, "sections"> {
     sections: InitiativePageSection[];

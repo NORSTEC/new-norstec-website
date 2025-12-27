@@ -23,6 +23,20 @@ export default defineType({
             validation: Rule =>
                 Rule.min(1).warning('FAQ sections normally contain at least one question.'),
         }),
+
+        defineField({
+            name: 'showStripesCornerTopRight',
+            title: 'Show top-right corner stripes',
+            type: 'boolean',
+            description: 'Display the animated corner stripes in the top-right.',
+        }),
+
+        defineField({
+            name: 'showStripesCornerBottomRight',
+            title: 'Show bottom-right corner stripes',
+            type: 'boolean',
+            description: 'Display the animated corner stripes in the bottom-right.',
+        }),
     ],
 
     preview: {

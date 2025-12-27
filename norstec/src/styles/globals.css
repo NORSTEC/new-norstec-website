@@ -76,6 +76,10 @@
         @apply text-[1.35rem] md:text-[1.75rem] xl:text-[2rem] 2xl:text-[2.5rem] font-medium font-barlow uppercase;
     }
 
+    .text-h3 {
+        @apply text-[1.15rem] md:text-[1.25rem] xl:text-[1.5rem] 2xl:text-[2rem] font-medium font-barlow ;
+    }
+
     .star-inline {
         display: inline-block;
         width: 1.5rem;

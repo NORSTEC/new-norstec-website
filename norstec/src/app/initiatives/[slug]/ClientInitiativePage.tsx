@@ -7,6 +7,7 @@ import SectionTable from "@/components/sections/SectionTable";
 import SectionStats from "@/components/sections/SectionStats";
 import SectionImage from "@/components/sections/SectionImage";
 import SectionQuote from "@/components/sections/SectionQuote";
+import SectionFaq from "@/components/sections/SectionFaq";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 
 function renderInitiativeSection(section: InitiativePageSection) {
@@ -25,6 +26,8 @@ function renderInitiativeSection(section: InitiativePageSection) {
             return <SectionImage key={section._id} section={section} />;
         case "sectionQuote":
             return <SectionQuote key={section._id} section={section} />;
+        case "sectionFaq":
+            return <SectionFaq key={section._id} section={section} />;
         default:
             return null;
     }
