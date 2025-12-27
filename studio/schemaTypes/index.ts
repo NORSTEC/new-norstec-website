@@ -23,6 +23,7 @@ import sectionFaq from './sections/sectionFaq'
 import sectionImage from './sections/sectionImage'
 import sectionStats from './sections/sectionStats'
 import sectionBarList from './sections/sectionBarList'
+import sectionQuote from "./sections/sectionQuote";
 
 
 // Items
@@ -64,6 +65,7 @@ export const schemaTypes = [
     sectionNapkin,
     sectionFaq,
     sectionImage,
+    sectionQuote,
 
     // Items
     teamMember,

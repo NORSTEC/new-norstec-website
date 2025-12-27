@@ -6,6 +6,7 @@ import SectionBarList from "@/components/sections/SectionBarList";
 import SectionTable from "@/components/sections/SectionTable";
 import SectionStats from "@/components/sections/SectionStats";
 import SectionImage from "@/components/sections/SectionImage";
+import SectionQuote from "@/components/sections/SectionQuote";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 
 function renderInitiativeSection(section: InitiativePageSection) {
@@ -22,6 +23,8 @@ function renderInitiativeSection(section: InitiativePageSection) {
             return <SectionStats key={section._id} section={section} />;
         case "sectionImage":
             return <SectionImage key={section._id} section={section} />;
+        case "sectionQuote":
+            return <SectionQuote key={section._id} section={section} />;
         default:
             return null;
     }

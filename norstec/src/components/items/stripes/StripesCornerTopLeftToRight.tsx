@@ -28,25 +28,11 @@ type Config = {
 
 const CONFIG: Record<"base" | "xl" | "3xl", Config> = {
     base: {
-        heightPx: 520,
-        offsetX: 0,
-        offsetY: 0,
-        strokeWidth: 80,
-        gap: 40,
-        cornerR: 140,
-        viewBoxW: 2400,
-        viewBoxH: 1100,
-        startX: 220,
-        startY: 0,
-        turnY: 620,
-        endX: 4200,
-    },
-    xl: {
         heightPx: 800,
-        offsetX: -36.5,
+        offsetX: -94.5,
         offsetY: 0,
-        strokeWidth: 36,
-        gap: 53,
+        strokeWidth: 32,
+        gap: 33.5,
         cornerR: 150,
         viewBoxW: 2600,
         viewBoxH: 1200,
@@ -55,19 +41,33 @@ const CONFIG: Record<"base" | "xl" | "3xl", Config> = {
         turnY: 900,
         endX: 4600,
     },
-    "3xl": {
-        heightPx: 620,
-        offsetX: 0,
+    xl: {
+        heightPx: 800,
+        offsetX: -61,
         offsetY: 0,
-        strokeWidth: 80,
-        gap: 65,
-        cornerR: 170,
-        viewBoxW: 3200,
-        viewBoxH: 1300,
-        startX: 320,
+        strokeWidth: 36,
+        gap: 42,
+        cornerR: 150,
+        viewBoxW: 2600,
+        viewBoxH: 1200,
+        startX: 260,
         startY: 0,
-        turnY: 720,
-        endX: 5600,
+        turnY: 800,
+        endX: 4600,
+    },
+    "3xl": {
+        heightPx: 800,
+        offsetX: 70,
+        offsetY: 0,
+        strokeWidth: 40,
+        gap: 58,
+        cornerR: 150,
+        viewBoxW: 2600,
+        viewBoxH: 1200,
+        startX: 260,
+        startY: 0,
+        turnY: 800,
+        endX: 4600,
     },
 } as const;
 
@@ -127,7 +127,7 @@ function ElbowStripe({
     );
 }
 
-export default function StripesElbowDownRight({
+export default function StripesCornerTopLeftToRight({
                                                   className = "",
                                                   startDelay = 0,
                                               }: {
@@ -187,7 +187,7 @@ export default function StripesElbowDownRight({
         >
             <svg
                 viewBox={`0 0 ${cfg.viewBoxW} ${cfg.viewBoxH}`}
-                width="110%"
+                width="3500px"
                 height="110%"
                 preserveAspectRatio="xMinYMin meet"
                 style={{ visibility: show ? "visible" : "hidden" }}

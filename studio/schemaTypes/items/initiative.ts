@@ -67,6 +67,7 @@ export default defineType({
                         {type: 'sectionTeam'},
                         {type: 'sectionMedia'},
                         {type: 'sectionPodcast'},
+                        {type: 'sectionQuote'},
                     ],
                 },
             ],

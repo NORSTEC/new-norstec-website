@@ -20,9 +20,9 @@
 @layer base {
 {/*
     html {
-        @apply xl:scroll-smooth overflow-x-hidden
-    }
-*/}
+        @apply overflow-x-hidden
+    }*/}
+
     html {
         @apply xl:snap-y xl:snap-mandatory
     }
@@ -69,7 +69,7 @@
 
 @layer components {
     .text-h1 {
-        @apply text-[2rem] sm:text-[3rem] md:text-[4rem] xl:text-[7rem] 2xl:text-[8rem] font-extrabold font-barlow uppercase;
+        @apply text-[1.75rem] sm:text-[3rem] md:text-[4rem] xl:text-[7rem] 2xl:text-[8rem] font-extrabold font-barlow uppercase;
     }
 
     .text-h2 {
