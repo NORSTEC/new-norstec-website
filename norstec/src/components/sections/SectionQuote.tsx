@@ -12,10 +12,10 @@ export default function SectionQuote({ section }: SectionQuoteProps) {
     const { header, body } = section;
 
     return (
-        <section className="section relative lg:min-h-screen mobile-container lg:py-0!">
+        <section className="section relative lg:h-[clamp(500px,100vh,1000px)]  mobile-container lg:py-0!">
             <StripesCornerTopLeftToRight />
 
-            <div className="h-[550px] stripes-left lg:py-0!">
+            <div className="lg:h-[550px] stripes-left ">
                     <div className="flex h-full justify-center items-center">
                         <div className="flex gap-5 xl:gap-20 xl:flex-row flex-col">
                                 <h2 className="text-h2 lg:font-bold lg:text-nowrap">
