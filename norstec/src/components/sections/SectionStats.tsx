@@ -77,6 +77,7 @@ function getTargetNumber(item: SectionStatsType["items"][number]) {
 export default function SectionStats({ section }: SectionStatsProps) {
     const rootRef = React.useRef<HTMLElement | null>(null);
     const [show, setShow] = React.useState(false);
+    const [startAnim, setStartAnim] = React.useState(false);
     const items = (section.items ?? []).filter(
         (it): it is NonNullable<typeof it> => it != null
     );
@@ -86,9 +87,15 @@ export default function SectionStats({ section }: SectionStatsProps) {
     const [counts, setCounts] = React.useState<number[]>(
         () => items.map(() => 0)
     );
+    const isFull = !!section.fullStripes;
+    const countUp = !isFull && section.countUp !== false;
+    const STRIPE_COUNT = 4;
+    const START_DELAY_MS = 450;
 
     React.useEffect(() => {
-        if (!show) return;
+        if (!countUp) return;
+        if (isFull) return;
+        if (!startAnim) return;
         if (items.length === 0) return;
 
         let raf = 0;
@@ -132,8 +139,13 @@ export default function SectionStats({ section }: SectionStatsProps) {
 
         raf = requestAnimationFrame(tick);
         return () => cancelAnimationFrame(raf);
-    }, [show, activeIndex, items]);
+    }, [startAnim, activeIndex, items, countUp, isFull]);
 
+    React.useEffect(() => {
+        setCounts(items.map(() => 0));
+        setActiveIndex(0);
+        setProgress(0);
+    }, [items, countUp, isFull]);
 
     React.useEffect(() => {
         const el = rootRef.current;
@@ -153,7 +165,13 @@ export default function SectionStats({ section }: SectionStatsProps) {
         return () => io.disconnect();
     }, []);
 
-    const isFull = !!section.fullStripes;
+    React.useEffect(() => {
+        if (!show) return;
+        const id = window.setTimeout(() => setStartAnim(true), START_DELAY_MS);
+        return () => window.clearTimeout(id);
+    }, [show, START_DELAY_MS]);
+
+    const gridColsClass = items.length === 3 ? "md:grid-cols-3" : "md:grid-cols-4";
 
 
     // =========================
@@ -251,7 +269,8 @@ export default function SectionStats({ section }: SectionStatsProps) {
                 )}
 
                 {/* Content area */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-10 flex-1 desktop-container pt-5! xl:pt-20 items-center">
+                <div className="h-full flex items-center">
+                <div className={`grid grid-cols-1 ${gridColsClass} gap-10 flex-1 desktop-container pt-5! xl:pt-20`}>
                     {items.map((item, index) => {
                         const c = COLORS[index % COLORS.length];
 
@@ -259,10 +278,22 @@ export default function SectionStats({ section }: SectionStatsProps) {
                         const current = counts[index] ?? 0;
 
                         const phase: "pending" | "running" | "done" =
-                            index < activeIndex ? "done" : index === activeIndex ? "running" : "pending";
+                            !countUp
+                                ? "done"
+                                : index < activeIndex
+                                    ? "done"
+                                    : index === activeIndex
+                                        ? "running"
+                                        : "pending";
 
                         const displayNumber =
-                            phase === "done" ? target : phase === "running" ? current : 0;
+                            !countUp
+                                ? target
+                                : phase === "done"
+                                    ? target
+                                    : phase === "running"
+                                        ? current
+                                        : 0;
 
 
                         return (
@@ -299,18 +330,40 @@ export default function SectionStats({ section }: SectionStatsProps) {
                         );
                     })}
                 </div>
+                </div>
 
                 {/* Bottom horizontal stripes (loader-sekvens) */}
                 <div className="mt-10 space-y-4 lg:pb-20 hidden md:block">
-                    {items.map((_, i) => {
+                    {Array.from({ length: STRIPE_COUNT }).map((_, i) => {
                         const c = COLORS[i % COLORS.length];
-                        const p = i < activeIndex ? 1 : i === activeIndex ? progress : 0;
+
+                        if (countUp) {
+                            const p = i < items.length
+                                ? (i < activeIndex ? 1 : i === activeIndex ? progress : 0)
+                                : 0;
+
+                            return (
+                                <div key={i} className="relative h-12 w-full overflow-hidden">
+                                    <div
+                                        className={`${c.bar} absolute inset-y-0 left-0`}
+                                        style={{ width: `${p * 100}%` }}
+                                    />
+                                </div>
+                            );
+                        }
 
                         return (
                             <div key={i} className="relative h-12 w-full overflow-hidden">
-                                <div
-                                    className={`${c.bar} absolute inset-y-0 left-0`}
-                                    style={{ width: `${p * 100}%` }}
+                                <motion.div
+                                    className={`${c.bar} absolute inset-0`}
+                                    initial={{ scaleX: 0 }}
+                                    animate={{ scaleX: startAnim ? 1 : 0 }}
+                                    transition={{
+                                        delay: i * 0.15,
+                                        duration: 0.5,
+                                        ease: "easeOut",
+                                    }}
+                                    style={{ transformOrigin: "left" }}
                                 />
                             </div>
                         );

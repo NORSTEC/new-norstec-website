@@ -21,7 +21,7 @@ export default function SectionNapkin({ section }: SectionNapkinProps) {
     });
 
     return (
-        <section className="section desktop-container min-h-screen">
+        <section className="section desktop-container ">
             <ChemtrailsRight />
 
             <div className="flex flex-col lg:flex-row lg:items-stretch h-full lg:gap-16 xl:gap-32">
@@ -58,7 +58,7 @@ export default function SectionNapkin({ section }: SectionNapkinProps) {
                             alt={imageAlt}
                             width={900}
                             height={2000}
-                            className="h-full w-auto object-contain rounded-2xl"
+                            className="h-full max-h-[800px]! w-auto object-contain rounded-2xl"
                             priority
                             unoptimized
                         />

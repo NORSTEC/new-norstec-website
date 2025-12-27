@@ -5,12 +5,13 @@ export interface SectionStats {
     _id: string;
     title?: string;
     fullStripes?: boolean;
+    countUp?: boolean;
     items: Array<{
         _key: string;
         numberValue?: number;
         textValue?: string;
-        prefix?: "none" | "$" | "€" | "+" | "%";
-        suffix?: "none" | "$" | "€" | "+" | "%";
+        prefix?: "none" | "$" | "€" | "+" | "%" | "T" | "B";
+        suffix?: "none" | "$" | "€" | "+" | "%" | "T" | "B";
         captionTitle?: string;
         caption?: PortableTextBlock[];
     }>;

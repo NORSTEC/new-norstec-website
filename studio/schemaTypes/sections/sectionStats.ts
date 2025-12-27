@@ -32,10 +32,19 @@ export default defineType({
     }),
 
     defineField({
+      name: "countUp",
+      title: "Animate numbers (count up)?",
+      type: "boolean",
+      description:
+        "ON: Compact layout counts up with loader stripes. OFF: Compact layout shows static numbers with simple stripe reveal (allows 3–4 items).",
+      initialValue: true,
+    }),
+
+    defineField({
       name: "items",
       title: "Items",
       type: "array",
-      description: "Exactly 4 items.",
+      description: "3–4 items depending on layout.",
       of: [
         defineField({
           name: "item",
@@ -106,39 +115,48 @@ export default defineType({
         }),
       ],
       validation: (Rule) =>
-        Rule.required()
-          .length(4)
-          .warning("A section has to contain four items.")
-          .custom((items, context) => {
-            const fullStripes = Boolean((context?.parent as any)?.fullStripes);
+        Rule.required().custom((items, context) => {
+          const parent = context?.parent as any;
+          const fullStripes = Boolean(parent?.fullStripes);
+          const countUp = parent?.countUp !== false;
 
-            if (!Array.isArray(items)) return true;
+          if (!Array.isArray(items)) return "Add at least one stat item.";
 
-            // Compact: numberValue må finnes, textValue skal ikke brukes
-            if (!fullStripes) {
-              for (const it of items as any[]) {
-                if (typeof it?.numberValue !== "number") {
-                  return "Compact layout requires Number on every item.";
-                }
-                if (it?.textValue && String(it.textValue).trim() !== "") {
-                  return "Compact layout does not allow Text value. Use Number + prefix/suffix instead.";
-                }
+          const len = items.length;
+
+          if (fullStripes) {
+            if (len !== 4) return "Full stripes layout requires exactly 4 items.";
+          } else if (countUp) {
+            if (len !== 4) return "Compact count-up layout requires exactly 4 items.";
+          } else {
+            if (len < 3 || len > 4) return "Static compact layout allows 3 or 4 items.";
+          }
+
+          // Compact: numberValue må finnes, textValue skal ikke brukes
+          if (!fullStripes) {
+            for (const it of items as any[]) {
+              if (typeof it?.numberValue !== "number") {
+                return "Compact layout requires Number on every item.";
+              }
+              if (it?.textValue && String(it.textValue).trim() !== "") {
+                return "Compact layout does not allow Text value. Use Number + prefix/suffix instead.";
               }
             }
+          }
 
-            // Full stripes: må ha enten textValue eller numberValue
-            if (fullStripes) {
-              for (const it of items as any[]) {
-                const hasNumber = typeof it?.numberValue === "number";
-                const hasText = it?.textValue && String(it.textValue).trim() !== "";
-                if (!hasNumber && !hasText) {
-                  return "Full stripes layout requires either a Number or a Text value on each item.";
-                }
+          // Full stripes: må ha enten textValue eller numberValue
+          if (fullStripes) {
+            for (const it of items as any[]) {
+              const hasNumber = typeof it?.numberValue === "number";
+              const hasText = it?.textValue && String(it.textValue).trim() !== "";
+              if (!hasNumber && !hasText) {
+                return "Full stripes layout requires either a Number or a Text value on each item.";
               }
             }
+          }
 
-            return true;
-          }),
+          return true;
+        }),
     }),
   ],
 
