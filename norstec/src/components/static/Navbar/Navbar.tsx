@@ -9,9 +9,10 @@ import HamburgerSpin from "@/components/static/Navbar/HamburgerSpin";
 import LogoToggle from "@/components/static/Navbar/LogoToggle";
 import NewsletterForm from "@/components/items/newsletter/NewsletterForm";
 import { useReducedMotion } from "motion/react";
-import { useHideOnScrollMobile } from "../../../../hooks/useHideOnScrollMobile";
-import { useMediaQuery } from "../../../../hooks/useMediaQuery";
+import { useHideOnScrollMobile } from "@/hooks/useHideOnScrollMobile";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Countdown from "@/components/static/Countdown";
+import { useTheme } from "@/hooks/useTheme";
 
 type NavbarProps = {
   logoHref?: string;
@@ -28,6 +29,8 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const is3xl = useMediaQuery("(min-width: 2000px)");
   const shouldDelayOnMount = !isDesktop && pathname === "/" && !prefersReducedMotion;
   const [allowHeader, setAllowHeader] = useState(() => !shouldDelayOnMount);
+  const { resolvedTheme, toggleTheme } = useTheme();
+  const themeIcon = resolvedTheme === "dark" ? "dark_mode" : "light_mode";
 
   const overlayVariants = {
     open: { opacity: 1, pointerEvents: "auto" as const },
@@ -52,7 +55,13 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     topSafePx: 8,
   });
 
-  const headerBg = isDesktop ? "transparent" : open ? "var(--color-moody)" : "var(--color-egg)";
+  const headerBg = isDesktop
+    ? "transparent"
+    : resolvedTheme === "dark"
+      ? "#0f1118"
+      : open
+        ? "#0f1118"
+        : "#EDE8DA";
 
   const headerHidden =
     (!isDesktop && !open && !allowHeader) || (!isDesktop && !mobileHeaderVisible);
@@ -106,6 +115,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const toggle = () => setOpen((v) => !v);
   const headerFgIsLight =
     (open && !isDesktop) || (open && isDesktop && desktopMenuTintOn && !is3xl);
+  const controlsLight = resolvedTheme === "dark" ? true : headerFgIsLight;
 
   return (
     <>
@@ -125,31 +135,61 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
             <Link href={logoHref} className="inline-flex items-center" aria-label="Go to homepage">
               <LogoToggle open={open} />
             </Link>
-            <button
-              type="button"
-              onClick={toggle}
-              className="inline-flex items-center gap-3 cursor-pointer"
-              aria-expanded={open}
-              aria-controls="site-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
-            >
-              <HamburgerSpin
-                open={open}
-                lineClassName={headerFgIsLight ? "bg-egg" : "bg-moody"}
-                className="shrink-0"
-                thickness={2}
-                gap={5}
-              />
-
-              <span
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={toggleTheme}
                 className={[
-                  "hidden lg:inline-block w-[4ch] transition-colors duration-200",
-                  headerFgIsLight ? "text-egg" : "text-moody",
+                  "h-8 w-8 rounded-full cursor-pointer flex items-center justify-center transition-colors duration-200",
+                  resolvedTheme === "dark"
+                    ? "border-egg-static text-egg-static"
+                    : controlsLight
+                      ? "border-egg text-egg"
+                      : "border-moody text-moody",
                 ].join(" ")}
+                aria-label="Toggle color theme"
               >
-                {open ? "CLOSE" : "MENU"}
-              </span>
-            </button>
+                <span className="icon icon-24">
+                  {themeIcon}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={toggle}
+                className="inline-flex items-center gap-3 cursor-pointer"
+                aria-expanded={open}
+                aria-controls="site-menu"
+                aria-label={open ? "Close menu" : "Open menu"}
+              >
+                <HamburgerSpin
+                  open={open}
+                  lineClassName={
+                    resolvedTheme === "dark"
+                      ? "bg-egg-static"
+                      : controlsLight
+                        ? "bg-egg"
+                        : "bg-moody"
+                  }
+                  lineClassNameActive={resolvedTheme === "dark" ? "bg-egg-static" : undefined}
+                  className="shrink-0"
+                  thickness={2}
+                  gap={5}
+                />
+
+                <span
+                  className={[
+                    "hidden lg:inline-block w-[4ch] transition-colors duration-200",
+                    resolvedTheme === "dark"
+                      ? "text-egg-static"
+                      : controlsLight
+                        ? "text-egg"
+                        : "text-moody",
+                  ].join(" ")}
+                >
+                  {open ? "CLOSE" : "MENU"}
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </motion.header>
@@ -176,7 +216,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                 }}
                 style={{ willChange: "transform", transform: "translateZ(0)" }}
               >
-                <div className="px-5 lg:px-8 flex flex-col gap-3">
+                <div className="px-5 lg:px-8 flex flex-col gap-3 text-egg-static">
                   <h2 className="text-h2 font-light">summit</h2>
                   <p className="font-normal text-[1.25rem]! 2xl:text-[1.5rem]! italic">
                     Securing our future in space.
@@ -204,7 +244,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
               {/* FORAN (mørk) */}
               <motion.div
-                className="absolute left-0 top-0 h-screen w-[33vw] 3xl:w-[16vw] 3xl:min-w-[20rem] bg-moody"
+                className="absolute left-0 top-0 h-screen w-[33vw] 3xl:w-[16vw] 3xl:min-w-[20rem] bg-[#0f1118]"
                 variants={panelFrontVariants}
                 transition={{
                   type: "spring",
@@ -219,7 +259,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
             </>
           ) : (
             <motion.div
-              className="absolute left-0 top-0 px-5 min-h-[100vh] w-[100vw] bg-moody overscroll-y-auto space-y-10"
+              className="absolute left-0 top-0 px-5 min-h-[100vh] w-[100vw] bg-[#0f1118] overscroll-y-auto space-y-10"
               variants={panelFrontVariants}
               transition={{
                 type: "spring",
@@ -255,7 +295,7 @@ function MenuContent({ onNavigate }: { onNavigate: () => void }) {
               onClick={onNavigate}
               className={[
                 "nav-item text-h2",
-                item.variant === "summit" ? "text-sky nav-item--summit" : "",
+                item.variant === "summit" ? "text-sky nav-item--summit" : "text-egg-static",
                 isActive ? "nav-item--active" : "",
                 isActive && item.variant === "summit" ? "nav-item--summit-active" : "",
               ].join(" ")}

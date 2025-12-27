@@ -94,7 +94,7 @@ export default function Map({ organizations }: MapProps) {
                 transform: "translate(20%, -50%)",
               }}
             >
-              <div className="rounded-xl bg-moody text-egg px-4 py-3 shadow-lg max-w-[260px] text-sm">
+              <div className="rounded-xl bg-moody-static text-egg-static px-4 py-3 shadow-lg max-w-[260px] text-sm">
                 <h3 className="font-semibold mb-1">{hovered.name}</h3>
                 <p className="text-xs leading-relaxed">{hovered.description}</p>
               </div>

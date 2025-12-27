@@ -6,6 +6,7 @@ type HamburgerSpinProps = {
   open: boolean;
   className?: string;
   lineClassName?: string;
+  lineClassNameActive?: string;
 
   lineWidth?: number; // px
   thickness?: number; // px
@@ -16,6 +17,7 @@ export default function HamburgerSpin({
   open,
   className,
   lineClassName,
+  lineClassNameActive,
   lineWidth = 28,
   thickness = 2,
   gap = 7,
@@ -28,6 +30,7 @@ export default function HamburgerSpin({
   const yBot = (thickness + gap) * 2;
 
   const commonLine = ["absolute left-0", lineClassName ?? ""].join(" ");
+  const activeLineClass = ["absolute left-0", lineClassNameActive ?? lineClassName ?? ""].join(" ");
 
   return (
     <span
@@ -43,7 +46,7 @@ export default function HamburgerSpin({
       >
         {/* Top */}
         <motion.span
-          className={commonLine}
+          className={open ? activeLineClass : commonLine}
           style={{ width: lineWidth, height: thickness, top: yTop }}
           animate={{
             top: open ? yMid : yTop,
@@ -54,7 +57,7 @@ export default function HamburgerSpin({
 
         {/* Mid */}
         <motion.span
-          className={commonLine}
+          className={open ? activeLineClass : commonLine}
           style={{ width: lineWidth, height: thickness, top: yMid }}
           animate={{ opacity: open ? 0 : 1 }}
           transition={{ duration: 0.12 }}
@@ -62,7 +65,7 @@ export default function HamburgerSpin({
 
         {/* Bottom */}
         <motion.span
-          className={commonLine}
+          className={open ? activeLineClass : commonLine}
           style={{ width: lineWidth, height: thickness, top: yBot }}
           animate={{
             top: open ? yMid : yBot,

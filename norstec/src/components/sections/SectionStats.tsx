@@ -197,12 +197,12 @@ export default function SectionStats({ section }: SectionStatsProps) {
                 <div className="relative h-full w-full desktop-container py-5! lg:py-0!">
                   <div className="h-full flex gap-10 justify-center items-start flex-col lg:flex-row lg:items-center">
                     <div className="min-w-[25vw]">
-                      <h3 className="text-[2rem] md:text-[3rem] xl:text-[3rem] 2xl:text-[5rem] text-egg leading-none">
+                      <h3 className="text-[2rem] md:text-[3rem] xl:text-[3rem] 2xl:text-[5rem] text-moody leading-none">
                         {value}
                       </h3>
 
                       {item.captionTitle && (
-                        <p className=" text-egg italic text-[1.35rem] md:text-[1.75rem] xl:text-[1.5rem] 2xl:text-[2.5rem] mt-2">
+                        <p className=" text-moody italic text-[1.35rem] md:text-[1.75rem] xl:text-[1.5rem] 2xl:text-[2.5rem] mt-2">
                           {item.captionTitle}
                         </p>
                       )}
@@ -210,7 +210,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
 
                     {/* Under: caption */}
                     {item.caption && (
-                      <div className="text-egg">
+                      <div className="text-moody">
                         <PortableText
                           value={item.caption}
                           components={{

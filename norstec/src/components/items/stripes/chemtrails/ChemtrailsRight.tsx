@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { motion } from "motion/react";
+import { useTheme } from "@/hooks/useTheme";
 
-const MASK_COLOR = "#EDE8DA";
 const STRIPE_DELAY = 0.1;
 const DURATION = 0.5;
 
@@ -22,10 +22,13 @@ function Line({ className, color }: { className: string; color: string }) {
 }
 
 function RevealMask({ show, delay }: { show: boolean; delay: number }) {
+  const { resolvedTheme } = useTheme();
+  const maskColor = resolvedTheme === "dark" ? "#0f1118" : "#EDE8DA";
+
   return (
     <motion.div
       className="absolute inset-0"
-      style={{ background: MASK_COLOR, zIndex: 999 }}
+      style={{ background: maskColor, zIndex: 999 }}
       initial={{ y: "0%" }}
       animate={{ y: show ? "100%" : "0%" }}
       transition={{ delay, duration: DURATION, ease: "easeOut" }}

@@ -9,6 +9,8 @@ type NewsletterFormProps = {
 };
 
 export default function NewsletterForm({ tone = "light", onNavigate }: NewsletterFormProps) {
+  const toneTextClass = tone === "dark" ? "text-egg-static" : "text-moody-static";
+
   return (
     <>
       <BrevoScripts />
@@ -17,6 +19,8 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
         className={[
           "sib-form flex p-0!  font-barlow!",
           tone === "dark" ? "sib-dark" : "sib-light",
+          "newsletter-tone",
+          `newsletter-tone-${tone}`,
         ].join(" ")}
       >
         <div id="sib-form-container" className="sib-form-container max-w-xl w-full bg-transparent">
@@ -49,14 +53,14 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
             >
               <div className="pb-2">
                 <div className="sib-form-block p-0!">
-                  <p className="text-h2 font-normal hidden lg:block">Newsletter</p>
+                  <p className={`text-h2 font-normal hidden lg:block ${toneTextClass}`}>Newsletter</p>
                 </div>
               </div>
 
               <div className="py-2">
                 <div className="sib-form-block p-0!">
                   <div className="sib-text-form-block">
-                    <p className="font-normal text-text-[1rem]! 2xl:text-[1.25rem]!">
+                    <p className={`font-normal text-text-[1rem]! 2xl:text-[1.25rem]! ${toneTextClass}`}>
                       Subscribe to our newsletter and stay updated.
                     </p>
                   </div>
@@ -100,7 +104,7 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
                             required
                           />
                           <span className="checkbox checkbox_tick_positive"></span>
-                          <span className="text-[clamp(0.85rem,0.7rem+0.4vw,1.1rem)] font-barlow!">
+                          <span className={`text-[clamp(0.85rem,0.7rem+0.4vw,1.1rem)] font-barlow! ${toneTextClass}`}>
                             {" "}
                             I agree to receive newsletters from NORSTEC.
                           </span>

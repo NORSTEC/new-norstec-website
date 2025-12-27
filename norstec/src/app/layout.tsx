@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import React from "react";
 import { oughter, barlow } from "@/assets/fonts";
 import Navbar from "@/components/static/Navbar/Navbar";
+import { ThemeProvider } from "../hooks/useTheme";
 
 export const metadata: Metadata = {
   title: "SECURING OUR FUTURE IN SPACE",
@@ -15,9 +16,23 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `
+  (() => {
+    try {
+      const stored = localStorage.getItem("theme-preference");
+      const preference = stored === "light" || stored === "dark" ? stored : "system";
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const resolved = preference === "dark" ? "dark" : preference === "light" ? "light" : (systemDark ? "dark" : "light");
+      document.documentElement.dataset.theme = resolved;
+    } catch (_) {
+      document.documentElement.dataset.theme = "light";
+    }
+  })();
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${oughter.variable} ${barlow.variable}`}>
+    <html lang="en" className={`${oughter.variable} ${barlow.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -25,10 +40,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
         <title>NORSTEC</title>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
-        <Navbar />
-        {children}
+        <ThemeProvider>
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
