@@ -20,7 +20,7 @@ type NavbarProps = {
 
 export default function Navbar({ logoHref = "/" }: NavbarProps) {
     const [open, setOpen] = useState(false);
-    const pathname = usePathname();
+    const pathname = usePathname() ?? "/";
     const prefersReducedMotion = useReducedMotion();
     const ENTRY_DELAY_MS = 1100;
     const DESKTOP_TINT_DELAY_MS = 300;
@@ -266,7 +266,9 @@ function MenuContent({ onNavigate }: { onNavigate: () => void }) {
                             onClick={onNavigate}
                             className={[
                                 "nav-item text-h2",
+                                item.variant === "summit" ? "text-sky nav-item--summit" : "",
                                 isActive ? "nav-item--active" : "",
+                                isActive && item.variant === "summit" ? "nav-item--summit-active" : "",
                             ].join(" ")}
                         >
                             <span className="order-1">{item.label}</span>
@@ -277,4 +279,3 @@ function MenuContent({ onNavigate }: { onNavigate: () => void }) {
         </div>
     );
 }
-

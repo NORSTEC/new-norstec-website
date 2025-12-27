@@ -1,6 +1,7 @@
 export type NavItem = {
     label: string;
     href: string;
+    variant?: "summit";
 };
 
 export const NAV_ITEMS: NavItem[] = [
@@ -9,5 +10,5 @@ export const NAV_ITEMS: NavItem[] = [
     { label: "ABOUT", href: "/about" },
     { label: "TEAM", href: "/team" },
     { label: "INITIATIVES", href: "/initiatives" },
-    { label: "INTERNAL", href: "/internal" },
+    { label: "SUMMIT", href: "/summit", variant: "summit" },
 ];

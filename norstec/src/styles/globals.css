@@ -188,6 +188,30 @@
         background-image: url("/images/star-orange.svg");
     }
 
+    .nav-item--summit {
+        color: var(--color-sky);
+    }
+
+    .nav-item--summit::after {
+        background-image: url("/images/star-outline-sky.png");
+    }
+
+    .nav-item--summit:hover::after {
+        opacity: 1;
+        transform: translateX(0);
+        background-image: url("/images/star-outline-sky.png");
+    }
+
+    .nav-item--summit.nav-item--summit-active {
+        color: var(--color-sky);
+    }
+
+    .nav-item--summit.nav-item--summit-active::after {
+        opacity: 1;
+        transform: translateX(0);
+        background-image: url("/images/star-sky.png");
+    }
+
     @media (min-width: 768px) {
         .nav-item::after {
             width: 2rem;
@@ -199,4 +223,3 @@
         visibility: hidden;
     }
 }
-
