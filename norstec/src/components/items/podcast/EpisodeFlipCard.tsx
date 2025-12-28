@@ -55,7 +55,14 @@ function formatDescriptionHtml(html?: string) {
     .replace(/<\/p>\s*<p>/gi, "<br/><br/>")
     .replace(/<br\s*\/?>/gi, "<br/>");
 
-  return withBreaks.replace(/<a\b([^>]*)>/gi, (_match, attrs) => {
+  const collapsed = withBreaks
+    // Collapse long runs of breaks to a maximum of two (single blank line)
+    .replace(/(<br\s*\/?>\s*){3,}/gi, "<br/><br/>")
+    // Remove trailing breaks/whitespace
+    .replace(/(<br\s*\/?>\s*)+$/i, "")
+    .trim();
+
+  return collapsed.replace(/<a\b([^>]*)>/gi, (_match, attrs) => {
     const hasTarget = /target\s*=/.test(attrs);
     const hasRel = /rel\s*=/.test(attrs);
     const classAttr = /class\s*=/.test(attrs)
