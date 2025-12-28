@@ -115,6 +115,14 @@
 }
 
 @layer components {
+    :root {
+        --star-inline-url: url("/images/star.svg");
+    }
+
+    [data-theme="dark"] {
+        --star-inline-url: url("/images/star-egg.png");
+    }
+
     .text-h1 {
         @apply text-[1.75rem] sm:text-[3rem] md:text-[4rem] xl:text-[7rem] 2xl:text-[8rem] font-extrabold font-barlow uppercase;
     }
@@ -131,12 +139,13 @@
         display: inline-block;
         width: 1.5rem;
         height: 1.5rem;
-        background-image: url("/images/star.svg");
+        background-image: var(--star-inline-url);
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
         margin-left: 0.5rem;
         vertical-align: -0.1em;
+        transition: background-image 200ms ease;
     }
 
     .star-inline-orange {
