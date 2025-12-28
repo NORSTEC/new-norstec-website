@@ -25,11 +25,11 @@ export default function SectionHero({ section }: SectionHeroProps) {
 
   const SubtitleOverlay = subtitle ? (
     <div className="absolute left-0 top-0 rounded-br-2xl bg-egg pr-5 py-2 md:py-0 transition-colors duration-200">
-      <div className="flex items-center gap-2">
-        <span className="text-[1.25rem] sm:text-[2rem] md:text-[3rem] xl:text-[4rem] 2xl:text-[6rem] italic font-barlow uppercase">
+      <div className="flex items-center gap-3">
+        <span className="text-[1.25rem] sm:text-[2rem] md:text-[3rem] xl:text-[4rem] 2xl:text-[6rem] italic font-barlow uppercase z-20">
           {subtitle}
         </span>
-        <span aria-hidden className="star-inline-orange" />
+        <span aria-hidden className="star-inline-orange z-10!" />
       </div>
     </div>
   ) : null;
