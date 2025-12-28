@@ -37,7 +37,11 @@
     }
 
     body {
-        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto  text-[1rem] 2xl:text-[1.25rem]
+        @apply bg-egg text-moody font-barlow overflow-x-hidden mx-auto  text-[1rem] 2xl:text-[1.25rem];
+    }
+
+    .theme-transition {
+        transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
     }
 
     p {

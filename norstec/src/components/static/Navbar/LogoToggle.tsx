@@ -19,7 +19,7 @@ export default function LogoToggle({
   className,
 }: LogoToggleProps) {
   const { resolvedTheme } = useTheme();
-  const [forceColor, setForceColor] = React.useState(false);
+  const [forceColor, setForceColor] = React.useState(resolvedTheme === "dark" || open);
 
   React.useEffect(() => {
     setForceColor(resolvedTheme === "dark" || open);
