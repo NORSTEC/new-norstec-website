@@ -1,4 +1,4 @@
-import {defineType, defineField} from 'sanity'
+import { defineType, defineField } from 'sanity'
 
 export default defineType({
     name: 'sectionPodcast',
@@ -7,54 +7,23 @@ export default defineType({
 
     fields: [
         defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string',
-            description: 'Heading shown above the podcast list.',
-            validation: Rule => Rule.required(),
-        }),
-
-        defineField({
             name: 'limit',
-            title: 'Number of episodes to show',
+            title: 'Number of latest episodes',
             type: 'number',
-            description: 'How many latest episodes to display. Leave empty to show all episodes.',
-        }),
-
-        defineField({
-            name: 'showSpotifyLink',
-            title: 'Show Spotify link',
-            type: 'boolean',
-            initialValue: true,
-            description: 'Toggle if text “(Only available in Norwegian)” and Spotify icon/link should be shown.',
-        }),
-
-        defineField({
-            name: 'spotifyUrl',
-            title: 'Spotify URL',
-            type: 'url',
-            description: 'Link to the podcast on Spotify.',
-            hidden: ({parent}) => !parent?.showSpotifyLink,
-            validation: Rule =>
-                Rule.custom((value, context) => {
-                    const parent = context.parent as any
-                    if (parent?.showSpotifyLink && !value) {
-                        return 'Spotify URL is required when “Show Spotify link” is enabled.'
-                    }
-                    return true
-                }),
+            description: 'How many of the latest episodes should be visible in the section.',
+            validation: (Rule) => Rule.min(1).max(30).integer(),
+            initialValue: 4,
         }),
     ],
 
     preview: {
         select: {
-            title: 'title',
             limit: 'limit',
         },
-        prepare({title, limit}) {
+        prepare({ limit }) {
             return {
-                title: title || 'Podcast Section',
-                subtitle: limit ? `Shows latest ${limit} episode(s)` : 'No limit set',
+                title: 'Podcast Section',
+                subtitle: limit ? `Shows latest ${limit} episode(s)` : 'Shows latest episodes',
             }
         },
     },
