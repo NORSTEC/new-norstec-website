@@ -21,26 +21,10 @@ function resolveTheme(theme: ThemeSetting) {
   return theme;
 }
 
-function getInitialTheme(): ThemeSetting {
-  if (typeof document !== "undefined") {
-    const attr = document.documentElement.dataset.theme;
-    if (attr === "light" || attr === "dark") return attr;
-  }
-  return "system";
-}
-
-function getInitialResolved(): "light" | "dark" {
-  if (typeof document !== "undefined") {
-    const attr = document.documentElement.dataset.theme;
-    if (attr === "dark") return "dark";
-    if (attr === "light") return "light";
-  }
-  return "light";
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = React.useState<ThemeSetting>(getInitialTheme);
-  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark">(getInitialResolved);
+  // Start with SSR-safe defaults; sync to stored/system preference after mount.
+  const [theme, setTheme] = React.useState<ThemeSetting>("system");
+  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark">("light");
 
   // Load persisted preference
   React.useEffect(() => {
@@ -48,9 +32,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem("theme-preference");
     if (stored === "light" || stored === "dark") {
       setTheme(stored);
-    } else {
-      setTheme("system");
+      return;
     }
+
+    const attr = document.documentElement.dataset.theme;
+    if (attr === "light" || attr === "dark") {
+      setTheme(attr);
+      return;
+    }
+
+    setTheme("system");
   }, []);
 
   // React to system changes when on "system"

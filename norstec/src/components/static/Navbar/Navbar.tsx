@@ -287,6 +287,11 @@ function MenuContent({ onNavigate }: { onNavigate: () => void }) {
       <nav className="space-y-5">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href;
+          const colorClass = item.variant === "summit"
+            ? "text-sky"
+            : isActive
+              ? "text-copper"
+              : "text-egg-static";
 
           return (
             <Link
@@ -295,7 +300,8 @@ function MenuContent({ onNavigate }: { onNavigate: () => void }) {
               onClick={onNavigate}
               className={[
                 "nav-item text-h2",
-                item.variant === "summit" ? "text-sky nav-item--summit" : "text-egg-static",
+                colorClass,
+                item.variant === "summit" ? "nav-item--summit" : "",
                 isActive ? "nav-item--active" : "",
                 isActive && item.variant === "summit" ? "nav-item--summit-active" : "",
               ].join(" ")}
