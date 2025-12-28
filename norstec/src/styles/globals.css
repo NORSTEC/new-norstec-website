@@ -78,14 +78,6 @@
         @apply lg:pl-[20rem] xl:pl-[22rem] 3xl:pl-[35rem] lg:pr-[5rem] xl:pr-[7rem] 3xl:pr-[15rem] xl:py-20
     }
 
-    .newsletter-tone {
-        --color-egg: #EDE8DA;
-        --color-moody: #282733;
-        --color-copper: #E8804C;
-        --color-sun: #F3AD78;
-        --color-beachball: #30C3CD;
-        --color-sky: #1697B7;
-    }
 
     /* ----- DARK MODE ----- */
     .bg-moody-static {
@@ -208,6 +200,81 @@
     .sib-form .input_replaced:checked+.checkbox_tick_positive {
         background: #282733 !important;
         border-color: #282733 !important;
+    }
+
+    .newsletter-tone {
+        --color-egg: #EDE8DA;
+        --color-moody: #282733;
+        --color-copper: #E8804C;
+        --color-sun: #F3AD78;
+        --color-beachball: #30C3CD;
+        --color-sky: #1697B7;
+        --newsletter-line-color: var(--color-moody);
+    }
+
+    .newsletter-tone-dark {
+        --newsletter-line-color: var(--color-egg);
+    }
+
+    .newsletter-tone-light {
+        --newsletter-line-color: var(--color-moody);
+    }
+
+
+    .newsletter-field {
+        position: relative;
+        width: 100%;
+        border: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+
+    .newsletter-field::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background-color: var(--newsletter-line-color);
+        opacity: 0.5;
+        transition: opacity 200ms ease;
+    }
+
+    .newsletter-field:focus-within::after {
+        opacity: 1;
+    }
+
+    .newsletter-input {
+        border: 0 !important;
+        background: transparent !important;
+        padding: 0.2rem 0 !important;
+        color: var(--newsletter-line-color) !important;
+        caret-color: var(--newsletter-line-color) !important;
+        width: 100%;
+        font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+        outline: none !important;
+    }
+
+    .newsletter-input::placeholder {
+        color: var(--newsletter-line-color);
+        opacity: 0.9;
+    }
+
+    .newsletter-input:focus,
+    .newsletter-input:focus-visible {
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .newsletter-tone-light .newsletter-input::placeholder {
+        color: var(--color-moody) !important;
+        opacity: 0.3 !important;
+    }
+
+    .newsletter-tone-dark .newsletter-input::placeholder {
+        color: var(--color-egg) !important;
+        opacity: 1 !important;
     }
 
     /* ----- NAVBAR ----- */
