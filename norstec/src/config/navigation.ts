@@ -10,5 +10,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "ABOUT", href: "/about" },
   { label: "TEAM", href: "/team" },
   { label: "INITIATIVES", href: "/initiatives" },
+  { label: "SPONSORS", href: "/sponsors" },
   { label: "SUMMIT", href: "/summit", variant: "summit" },
+
 ];

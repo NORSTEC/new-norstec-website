@@ -6,6 +6,8 @@ import { INITIATIVE_BY_SLUG_QUERY, INITIATIVES_PAGE_QUERY } from "@/sanity/queri
 import { InitiativePage } from "@/types/pages/initiativePage";
 import { AboutPage } from "@/types/pages/aboutPage";
 import { ABOUT_PAGE_QUERY } from "@/sanity/queries/aboutPage";
+import {SponsorPage} from "@/types/sections/sectionSponsor";
+import {SPONSOR_PAGE_QUERY} from "@/sanity/queries/sponsorPage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -52,3 +54,16 @@ export const getAboutPage = async (): Promise<AboutPage | null> => {
     return null;
   }
 };
+
+// ============== SPONSOR ============== //
+export const getSponsorPage = async (): Promise<SponsorPage | null> => {
+  try {
+    const { data } = await sanityFetch({ query: SPONSOR_PAGE_QUERY });
+    return (data as SponsorPage) ?? null;
+  } catch (e) {
+    console.error("Error fetching sponsor page:", e);
+    return null;
+  }
+};
+
+

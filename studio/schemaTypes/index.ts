@@ -3,6 +3,7 @@ import homePage from './pages/homePage'
 import aboutPage from './pages/aboutPage'
 import teamPage from './pages/teamPage'
 import initiativesPage from './pages/initiativesPage'
+import {sponsorPage} from "./pages/sponsorPage";
 
 // Globals
 import contactInfo from './globals/contactInfo'
@@ -24,6 +25,7 @@ import sectionImage from './sections/sectionImage'
 import sectionStats from './sections/sectionStats'
 import sectionBarList from './sections/sectionBarList'
 import sectionQuote from "./sections/sectionQuote";
+import {sectionSponsor} from "./sections/sectionSponsor";
 
 
 // Items
@@ -38,6 +40,8 @@ import barListItem from './items/barListItem'
 import {metadata} from "./sections/sectionMetadata";
 import statItem from './items/statItem'
 
+
+
 export const schemaTypes = [
     // Pages
     homePage,
@@ -45,6 +49,7 @@ export const schemaTypes = [
     teamPage,
     initiativesPage,
     metadata,
+    sponsorPage,
 
     // Globals
     contactInfo,
@@ -66,6 +71,7 @@ export const schemaTypes = [
     sectionFaq,
     sectionImage,
     sectionQuote,
+    sectionSponsor,
 
     // Items
     teamMember,
