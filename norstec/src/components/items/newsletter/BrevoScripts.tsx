@@ -30,11 +30,19 @@ export default function BrevoScripts() {
     };
 
     window.AUTOHIDE = true;
+
+    const script = document.createElement("script");
+    script.src = "https://sibforms.com/forms/end-form/build/main.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
   }, []);
 
   return (
     <>
-      <Script src="https://sibforms.com/forms/end-form/build/main.js" strategy="afterInteractive" />
       <Script
         src={`https://www.google.com/recaptcha/api.js?render=${SITEKEY}&hl=en`}
         strategy="afterInteractive"

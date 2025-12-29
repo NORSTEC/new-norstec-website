@@ -61,7 +61,7 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
                 <div className="sib-form-block p-0!">
                   <div className="sib-text-form-block">
                     <p className={`font-normal text-text-[1rem]! 2xl:text-[1.25rem]! ${toneTextClass}`}>
-                      Subscribe to our newsletter and stay updated.
+                      Subscribe to our newsletter and stay updated!
                     </p>
                   </div>
                 </div>
@@ -71,14 +71,16 @@ export default function NewsletterForm({ tone = "light", onNavigate }: Newslette
                 <div className="sib-input sib-form-block p-0!">
                   <div className="form__entry entry_block">
                     <div className="form__label-row">
-                      <div className="entry__field border-0! rounded-md! ">
+                      <div className="entry__field border-0! rounded-none! bg-transparent! newsletter-field">
                         <input
-                          className="input focus:outline-2! w-full rounded-md px-4 py-2 text-moody!"
-                          type="text"
+                          className={[
+                            "input newsletter-input w-full font-normal caret-current",
+                          ].join(" ")}
+                          type="email"
                           id="EMAIL"
                           name="EMAIL"
                           autoComplete="email"
-                          placeholder="EMAIL"
+                          placeholder="Email"
                           data-required="true"
                           required
                         />

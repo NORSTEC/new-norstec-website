@@ -56,7 +56,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
                 alt={title}
                 fill
                 sizes="100vw"
-                className="object-cover"
+                className="object-cover rounded-2xl"
                 priority
                 unoptimized
               />
@@ -68,7 +68,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
         </div>
 
         {/* Desktop */}
-        <div className="relative hidden w-full aspect-[16/6] lg:block">
+        <div className="relative hidden w-full aspect-[16/6] lg:block ">
           {desktopSrc ? (
             <>
               <NextImage
@@ -76,7 +76,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
                 alt={title}
                 fill
                 sizes="100vw"
-                className="object-cover"
+                className="object-cover rounded-2xl"
                 priority
                 unoptimized
               />
