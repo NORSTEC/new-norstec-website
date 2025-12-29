@@ -1,0 +1,62 @@
+import { defineQuery } from "next-sanity";
+
+export const SPONSOR_PAGE_QUERY = defineQuery(`
+  *[_type == "sponsorPage"][0]{
+    _id,
+    _type,
+    title,
+    description,
+    sectionOne{
+      _type,
+      title,
+      images[]{
+        _key,
+        alt,
+        url,
+        image{
+          _type,
+          asset->
+        }
+      }
+    },
+    sectionTwo{
+      _type,
+      title,
+      images[]{
+        _key,
+        alt,
+        url,
+        image{
+          _type,
+          asset->
+        }
+      }
+    },
+    sectionThree{
+      _type,
+      title,
+      images[]{
+        _key,
+        alt,
+        url,
+        image{
+          _type,
+          asset->
+        }
+      }
+    },
+    sectionFour{
+      _type,
+      title,
+      images[]{
+        _key,
+        alt,
+        url,
+        image{
+          _type,
+          asset->
+        }
+      }
+    }
+  }
+`);
