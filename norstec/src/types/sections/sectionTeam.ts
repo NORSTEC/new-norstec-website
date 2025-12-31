@@ -13,4 +13,6 @@ export interface SectionTeam {
   title: string;
   body?: PortableTextBlock[];
   members?: SectionTeamMember[];
+  showStripesCornerTopRight?: boolean;
+  showStripesCornerBottomRight?: boolean;
 }

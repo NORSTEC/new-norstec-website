@@ -1,16 +1,29 @@
 import { PortableText } from "next-sanity";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
+import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRight";
+import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
 import TeamMemberCard from "@/components/items/team/TeamMemberCard";
+import TeamCarousel from "@/components/items/team/TeamCarousel";
 import { SectionTeam as SectionTeamType } from "@/types/sections/sectionTeam";
 
 export default function SectionTeam({ section }: { section: SectionTeamType }) {
-  const members = section.members ?? [];
+  const {
+    members = [],
+    showStripesCornerBottomRight = true,
+    showStripesCornerTopRight = true,
+  } = section;
+
+  const hasCarousel = members.length > 3;
+  const gridClass = "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-10";
+  const contentClass = `${hasCarousel ? "" : "stripes-right py-0!"} flex flex-col gap-8 lg:gap-12`;
+  const headingClass = hasCarousel ? "stripes-right py-0!" : "";
 
   return (
-    <section className="relative section h-auto! mobile-container lg:px-0!">
-      <StripesVertical side="right" />
-      <div className="stripes-right py-0! flex flex-col gap-8 lg:gap-12">
-        <div className="max-w-4xl space-y-3 lg:space-y-4">
+    <section className="relative section mobile-container xl:px-0!">
+      {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.5} />}
+      {showStripesCornerTopRight && <StripesCornerTopRight />}
+      <div className={contentClass}>
+        <div className={headingClass}>
           {section.title ? (
             <h2 className="text-h2 uppercase">
               {section.title}
@@ -31,11 +44,19 @@ export default function SectionTeam({ section }: { section: SectionTeamType }) {
         </div>
 
         {members.length ? (
-          <div className="grid gap-x-5 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
-            {members.map((entry) => (
-              <TeamMemberCard key={entry._key} entry={entry} />
-            ))}
-          </div>
+          <>
+            <div className={`${gridClass} ${hasCarousel ? "xl:hidden" : ""} lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] lg:pl-[5rem] xl:px-0!`}>
+              {members.map((entry) => (
+                <TeamMemberCard key={entry._key} entry={entry} />
+              ))}
+            </div>
+
+            {hasCarousel ? (
+              <div className="hidden xl:block">
+                <TeamCarousel members={members} />
+              </div>
+            ) : null}
+          </>
         ) : (
           <p className="text-moody/60">No team members published yet.</p>
         )}
