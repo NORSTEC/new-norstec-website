@@ -58,6 +58,26 @@ export const INITIATIVE_BY_SLUG_QUERY = defineQuery(`
           answer
         },
         items
+      ),
+      "members": select(
+        _type == "sectionTeam" => members[]{
+          _key,
+          member->{
+            _id,
+            _type,
+            name,
+            photo,
+            photoAlt,
+            phone,
+            email,
+            linkedin
+          },
+          role->{
+            _id,
+            _type,
+            title
+          }
+        }
       )
     }
   }

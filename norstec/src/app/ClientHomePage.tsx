@@ -1,7 +1,8 @@
+
 "use client";
 
-import type { HomePage } from "@/types/pages/homePage";
-import type { HomePageSection } from "@/types/pages/homePage";
+import React from "react";
+import type { HomePage, HomePageSection } from "@/types/pages/homePage";
 
 import SectionTextImage from "@/components/sections/SectionTextImage";
 import SectionImage from "@/components/sections/SectionImage";
@@ -37,6 +38,11 @@ function renderHomeSection(section: HomePageSection) {
 }
 
 export default function ClientHomePage({ data }: ClientHomePageProps) {
+  React.useEffect(() => {
+    document.body.classList.add("snap-page");
+    return () => document.body.classList.remove("snap-page");
+  }, []);
+
   if (!data) {
     return <p>Failed to load homepage.</p>;
   }
@@ -44,7 +50,7 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
   return (
     <>
       <HeroLanding />
-      <main>{data.sections?.map((section) => renderHomeSection(section))}</main>
+      <main className="snap-page">{data.sections?.map((section) => renderHomeSection(section))}</main>
     </>
   );
 }

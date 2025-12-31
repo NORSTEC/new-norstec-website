@@ -162,7 +162,7 @@ export default function SectionPodcast({ section }: SectionPodcastProps) {
             </div>
 
             {/* Center active card (flip on click) */}
-            <div className=" w-[400px] 3xl:w-[550px] transition-transform duration-300 transform-gpu">
+            <div className=" w-[25vw] min-w-[350px] 3xl:w-[550px] transition-transform duration-300 transform-gpu">
               <AnimatePresence mode="popLayout" initial={false}>
                 {activeEpisode ? (
                   <motion.div
