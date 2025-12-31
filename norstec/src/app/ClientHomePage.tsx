@@ -50,7 +50,7 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
   return (
     <>
       <HeroLanding />
-      <main className="snap-page">{data.sections?.map((section) => renderHomeSection(section))}</main>
+      <main>{data.sections?.map((section) => renderHomeSection(section))}</main>
     </>
   );
 }
