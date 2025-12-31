@@ -41,7 +41,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
         {!subtitle && (
           <span
             aria-hidden
-            className="star-inline-orange md:w-[4rem]! md:h-[4rem]! xl:w-[6rem]! xl:h-[6rem]!"
+            className="star-inline-orange md:w-[4rem]! md:h-[4rem]! xl:w-[6rem]! xl:h-[6rem]! ml-2"
           />
         )}
       </h1>
