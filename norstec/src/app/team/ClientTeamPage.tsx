@@ -3,6 +3,7 @@
 import SectionTeam from "@/components/sections/SectionTeam";
 import SectionTextImage from "@/components/sections/SectionTextImage";
 import { TeamPage, TeamPageSection } from "@/types/pages/teamPage";
+import SectionHero from "@/components/sections/SectionHero";
 
 interface ClientTeamPageProps {
   data: TeamPage;
@@ -10,6 +11,8 @@ interface ClientTeamPageProps {
 
 function renderTeamSection(section: TeamPageSection) {
   switch (section._type) {
+    case "sectionHero":
+      return <SectionHero key={section._id} section={section} />;
     case "sectionTextImage":
       return <SectionTextImage key={section._id} section={section} />;
     case "sectionTeam":
