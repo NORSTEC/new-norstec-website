@@ -7,9 +7,9 @@ export default function SectionTeam({ section }: { section: SectionTeamType }) {
   const members = section.members ?? [];
 
   return (
-    <section className="relative section h-auto!">
+    <section className="relative section h-auto! mobile-container lg:px-0!">
       <StripesVertical side="right" />
-      <div className="stripes-right flex flex-col gap-8 lg:gap-12">
+      <div className="stripes-right py-0! flex flex-col gap-8 lg:gap-12">
         <div className="max-w-4xl space-y-3 lg:space-y-4">
           {section.title ? (
             <h2 className="text-h2 uppercase">
@@ -31,7 +31,7 @@ export default function SectionTeam({ section }: { section: SectionTeamType }) {
         </div>
 
         {members.length ? (
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-x-5 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
             {members.map((entry) => (
               <TeamMemberCard key={entry._key} entry={entry} />
             ))}
