@@ -104,7 +104,7 @@ export default function EpisodeFlipCard({
 
   return (
     <div
-      className={`relative h-[65vh] max-h-[750px] w-full ${interactive ? "cursor-pointer" : "cursor-default"} select-none ${className}`}
+      className={`relative h-[70vh] max-h-[750px] w-full ${interactive ? "cursor-pointer" : "cursor-default"} select-none ${className}`}
       style={{ perspective: "1400px" }}
       onClick={toggle}
     >
@@ -121,7 +121,7 @@ export default function EpisodeFlipCard({
           style={{ backfaceVisibility: "hidden" }}
         >
           {coverSrc ? (
-            <div className="relative h-[60%] w-full overflow-hidden bg-moody/5">
+            <div className="relative h-[65%] w-full overflow-hidden bg-moody/5">
               <Image
                 src={coverSrc}
                 alt={episode.title}

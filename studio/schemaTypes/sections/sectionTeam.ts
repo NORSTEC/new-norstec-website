@@ -19,6 +19,21 @@ export default defineType({
             type: 'portableText',
             description: 'Optional introduction text shown above the team members.',
         }),
+        defineField({
+            name: 'showStripesCornerTopRight',
+            title: 'Show top-right corner stripes',
+            type: 'boolean',
+            initialValue: true,
+            description: 'Display the animated corner stripes in the top-right.',
+        }),
+
+        defineField({
+            name: 'showStripesCornerBottomRight',
+            title: 'Show bottom-right corner stripes',
+            type: 'boolean',
+            initialValue: true,
+            description: 'Display the animated corner stripes in the bottom-right.',
+        }),
 
         defineField({
             name: 'members',

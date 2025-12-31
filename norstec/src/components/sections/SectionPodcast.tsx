@@ -125,7 +125,7 @@ export default function SectionPodcast({ section }: SectionPodcastProps) {
         {error ? (
           <p className="text-copper text-lg">{error}</p>
         ) : isDesktop ? (
-          <div className="relative flex items-center justify-center gap-4 xl:gap-16 h-full">
+          <div className="relative flex 3xl:items-center justify-center gap-4 xl:gap-16 h-full">
             <div className="hidden lg:flex items-center xl:gap-3">
               <div
                 className="hidden lg:block w-[225px] xl:w-[300px] 3xl:w-[400px] transition-transform duration-300 hover:scale-95"
@@ -162,7 +162,7 @@ export default function SectionPodcast({ section }: SectionPodcastProps) {
             </div>
 
             {/* Center active card (flip on click) */}
-            <div className=" w-[25vw] min-w-[350px] 3xl:w-[550px] transition-transform duration-300 transform-gpu">
+            <div className=" w-[29vw] min-w-[350px] 3xl:w-[550px] transition-transform duration-300 transform-gpu">
               <AnimatePresence mode="popLayout" initial={false}>
                 {activeEpisode ? (
                   <motion.div

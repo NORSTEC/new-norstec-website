@@ -251,7 +251,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
         {/* Content area */}
         <div className="h-full flex items-center">
           <div
-            className={`grid grid-cols-1 ${gridColsClass} gap-10 flex-1 desktop-container pt-5! xl:pt-20`}
+            className={`grid grid-cols-1 ${gridColsClass} gap-10 flex-1 desktop-container pt-5! xl:pb-5! xl:pt-20`}
           >
             {items.map((item, index) => {
               const c = COLORS[index % COLORS.length];
@@ -311,7 +311,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
         </div>
 
         {/* Bottom horizontal stripes (loader-sekvens) */}
-        <div className="mt-10 space-y-4 lg:pb-20 hidden md:block">
+        <div className="space-y-4 lg:pb-20 hidden md:block">
           {Array.from({ length: STRIPE_COUNT }).map((_, i) => {
             const c = COLORS[i % COLORS.length];
 
@@ -330,7 +330,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
             }
 
             return (
-              <div key={i} className="relative h-12 w-full overflow-hidden">
+              <div key={i} className="relative h-10 w-full overflow-hidden">
                 <motion.div
                   className={`${c.bar} absolute inset-0`}
                   initial={{ scaleX: 0 }}
