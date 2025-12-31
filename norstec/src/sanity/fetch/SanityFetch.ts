@@ -8,6 +8,8 @@ import { AboutPage } from "@/types/pages/aboutPage";
 import { ABOUT_PAGE_QUERY } from "@/sanity/queries/aboutPage";
 import {SponsorPage} from "@/types/sections/sectionSponsor";
 import {SPONSOR_PAGE_QUERY} from "@/sanity/queries/sponsorPage";
+import { TeamPage } from "@/types/pages/teamPage";
+import { TEAM_PAGE_QUERY } from "@/sanity/queries/teamPage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -66,4 +68,14 @@ export const getSponsorPage = async (): Promise<SponsorPage | null> => {
   }
 };
 
+// ============== TEAM ============== //
+export const getTeamPage = async (): Promise<TeamPage | null> => {
+  try {
+    const { data } = await sanityFetch({ query: TEAM_PAGE_QUERY });
+    return (data as TeamPage) ?? null;
+  } catch (e) {
+    console.error("Error fetching team page:", e);
+    return null;
+  }
+};
 

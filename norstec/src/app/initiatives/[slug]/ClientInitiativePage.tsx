@@ -9,6 +9,7 @@ import SectionImage from "@/components/sections/SectionImage";
 import SectionQuote from "@/components/sections/SectionQuote";
 import SectionFaq from "@/components/sections/SectionFaq";
 import SectionPodcast from "@/components/sections/SectionPodcast";
+import SectionTeam from "@/components/sections/SectionTeam";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 
 function renderInitiativeSection(section: InitiativePageSection) {
@@ -31,6 +32,8 @@ function renderInitiativeSection(section: InitiativePageSection) {
       return <SectionFaq key={section._id} section={section} />;
     case "sectionPodcast":
       return <SectionPodcast key={section._id} section={section} />;
+    case "sectionTeam":
+      return <SectionTeam key={section._id} section={section} />;
     default:
       return null;
   }
