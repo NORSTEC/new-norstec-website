@@ -10,7 +10,11 @@ export default function InitiativeCard({ title, cover, coverAlt, slug }: Initiat
 
   const altText = (coverAlt && coverAlt.trim().length > 0 ? coverAlt : title) || "Initiative cover";
 
-  const href = slug ? `/initiatives/${slug.current}` : undefined;
+  const href = slug
+    ? slug.current === "summit"
+      ? "/summit"
+      : `/initiatives/${slug.current}`
+    : undefined;
 
   const card = (
     <div className="md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-3xl  hover:scale-95  transition-all duration-200 cursor-pointer overflow-hidden">

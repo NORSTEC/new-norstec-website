@@ -6,9 +6,10 @@ import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRi
 
 type SectionTableProps = {
   section: SectionTableType;
+  className?: string;
 };
 
-export default function SectionTable({ section }: SectionTableProps) {
+export default function SectionTable({ section, className = "" }: SectionTableProps) {
   const {
     title,
     columns,
@@ -18,7 +19,7 @@ export default function SectionTable({ section }: SectionTableProps) {
   } = section;
 
   return (
-    <section className="flex flex-col gap-5 lg:gap-20 section mobile-container stripes-right">
+    <section className={`flex flex-col gap-5 lg:gap-20 section mobile-container stripes-right ${className}`}>
       {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.5} />}
       {showStripesCornerTopRight && <StripesCornerTopRight />}
 

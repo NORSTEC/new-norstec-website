@@ -11,12 +11,13 @@ import ChemtrailsRight from "@/components/items/stripes/chemtrails/ChemtrailsRig
 
 type SectionPodcastProps = {
   section: SectionPodcastType;
+  className?: string;
 };
 
 const API_URL = "/api/spacepodden";
 const AUTO_LIMIT_ALL = 200; // fallback when limit is not set in schema
 const ACCENTS = ["sun", "beachball", "copper", "sky"] as const;
-export default function SectionPodcast({ section }: SectionPodcastProps) {
+export default function SectionPodcast({ section, className = "" }: SectionPodcastProps) {
   const [episodes, setEpisodes] = React.useState<PodcastEpisode[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -108,11 +109,11 @@ export default function SectionPodcast({ section }: SectionPodcastProps) {
   };
 
   return (
-    <section className="section relative overflow-hidden mobile-container xl:py-0!">
+    <section className={`section relative overflow-hidden mobile-container xl:py-0! ${className}`}>
       <ChemtrailsRight />
 
       <div className="relative flex flex-col h-full">
-        <div className="flex flex-col gap-2 chemtrails-right lg:pb-5! xl:pb-0!">
+        <div className="flex flex-col gap-2 chemtrails-right lg:pb-5! xl:pb-2!">
           <div className="flex items-center">
             <h2 className="text-h2">Spacepodden</h2>
             <span aria-hidden className="star-inline" />

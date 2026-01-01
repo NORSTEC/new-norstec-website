@@ -1,8 +1,12 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import ClientSummitPage from "@/app/summit/ClientSummitPage";
+import { getInitiativeBySlug } from "@/sanity/fetch/SanityFetch";
 
+const SUMMIT_SLUG = "summit";
 const SUMMIT_DATE = "2026-03-12T00:00:00Z";
 
-export const revalidate = 86400;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const now = new Date();
@@ -17,7 +21,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title,
-
     openGraph: {
       title,
       images: [
@@ -28,7 +31,6 @@ export async function generateMetadata(): Promise<Metadata> {
         },
       ],
     },
-
     twitter: {
       card: "summary_large_image",
       title,
@@ -37,6 +39,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Page() {
-  return <></>;
+export default async function SummitPage() {
+  const initiative = await getInitiativeBySlug(SUMMIT_SLUG);
+  if (!initiative) {
+    notFound();
+  }
+
+  return <ClientSummitPage initiative={initiative} />;
 }

@@ -9,9 +9,10 @@ import React from "react";
 
 type SectionNapkinProps = {
   section: SectionNapkinType;
+  className?: string;
 };
 
-export default function SectionNapkin({ section }: SectionNapkinProps) {
+export default function SectionNapkin({ section, className = "" }: SectionNapkinProps) {
   const { title, subtitle, image, imageAlt } = section;
 
   const src = imageBuilder(image, {
@@ -21,7 +22,7 @@ export default function SectionNapkin({ section }: SectionNapkinProps) {
   });
 
   return (
-    <section className="section desktop-container ">
+    <section className={`section desktop-container ${className}`}>
       <ChemtrailsRight />
 
       <div className="flex flex-col lg:flex-row lg:items-stretch h-full lg:gap-16 xl:gap-32">

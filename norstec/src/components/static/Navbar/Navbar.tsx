@@ -27,6 +27,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const [desktopMenuTintOn, setDesktopMenuTintOn] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const is3xl = useMediaQuery("(min-width: 2000px)");
+  const forceDark = pathname?.startsWith("/summit");
   const shouldDelayOnMount = !isDesktop && pathname === "/" && !prefersReducedMotion;
   const [allowHeader, setAllowHeader] = useState(() => !shouldDelayOnMount);
   const { resolvedTheme, toggleTheme } = useTheme();
@@ -136,23 +137,23 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
               <LogoToggle open={open} />
             </Link>
             <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className={[
-                  "h-8 w-8 rounded-full cursor-pointer flex items-center justify-center transition-colors duration-200",
-                  resolvedTheme === "dark"
-                    ? "border-egg-static text-egg-static"
-                    : controlsLight
-                      ? "border-egg text-egg"
-                      : "border-moody text-moody",
-                ].join(" ")}
-                aria-label="Toggle color theme"
-              >
-                <span className="icon icon-24">
-                  {themeIcon}
-                </span>
-              </button>
+              {!forceDark && (
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  className={[
+                    "h-8 w-8 rounded-full cursor-pointer flex items-center justify-center transition-colors duration-200",
+                    resolvedTheme === "dark"
+                      ? "border-egg-static text-egg-static"
+                      : controlsLight
+                        ? "border-egg text-egg"
+                        : "border-moody text-moody",
+                  ].join(" ")}
+                  aria-label="Toggle color theme"
+                >
+                  <span className="icon icon-24">{themeIcon}</span>
+                </button>
+              )}
               <button
                 type="button"
                 onClick={toggle}

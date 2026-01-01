@@ -6,13 +6,14 @@ import React from "react";
 
 type SectionQuoteProps = {
   section: SectionQuoteType;
+  className?: string;
 };
 
-export default function SectionQuote({ section }: SectionQuoteProps) {
+export default function SectionQuote({ section, className = "" }: SectionQuoteProps) {
   const { header, body } = section;
 
   return (
-    <section className="section relative lg:h-[clamp(500px,100vh,1000px)]  mobile-container lg:py-0!">
+    <section className={`section relative lg:h-[clamp(500px,100vh,1000px)]  mobile-container lg:py-0! ${className}`}>
       <StripesCornerTopLeftToRight />
 
       <div className="lg:h-[550px] stripes-left ">

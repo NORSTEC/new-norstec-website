@@ -9,6 +9,7 @@ import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBo
 
 type SectionFaqProps = {
   section: SectionFaqType;
+  className?: string;
 };
 
 type FaqItemProps = {
@@ -86,7 +87,7 @@ function FaqItem({ item, isLast }: FaqItemProps) {
   );
 }
 
-export default function SectionFaq({ section }: SectionFaqProps) {
+export default function SectionFaq({ section, className = "" }: SectionFaqProps) {
   const {
     items = [],
     showStripesCornerTopRight = false,
@@ -96,7 +97,7 @@ export default function SectionFaq({ section }: SectionFaqProps) {
   if (!items.length) return null;
 
   return (
-    <section className="section flex flex-col gap-6 stripes-right mobile-container">
+    <section className={`section flex flex-col gap-6 stripes-right mobile-container ${className}`}>
       {showStripesCornerTopRight && <StripesCornerTopRight />}
       {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.4} />}
       <div>
