@@ -6,9 +6,10 @@ import type { SectionHero as SectionHeroType } from "@/types/sections/sectionHer
 
 type SectionHeroProps = {
   section: SectionHeroType;
+  className?: string;
 };
 
-export default function SectionHero({ section }: SectionHeroProps) {
+export default function SectionHero({ section, className = "" }: SectionHeroProps) {
   const { title, subtitle, image, imageMobile } = section;
 
   const desktopSrc = imageBuilder(image, {
@@ -35,7 +36,7 @@ export default function SectionHero({ section }: SectionHeroProps) {
   ) : null;
 
   return (
-    <section className="section mobile-container">
+    <section className={`section mobile-container ${className}`}>
       <h1 className="text-h1 flex items-center">
         {title}
         {!subtitle && (

@@ -9,9 +9,10 @@ import StripesBottomRight from "@/components/items/stripes/StripesCornerBottomRi
 
 type SectionMapProps = {
   section: SectionMapType;
+  className?: string;
 };
 
-export default function SectionMap({ section }: SectionMapProps) {
+export default function SectionMap({ section, className = "" }: SectionMapProps) {
   const [filter, setFilter] = useState<MapFilterId>("all");
 
   const filteredOrgs = useMemo(() => {
@@ -21,7 +22,7 @@ export default function SectionMap({ section }: SectionMapProps) {
   }, [section.organizations, filter]);
 
   return (
-    <section className="section">
+    <section className={`section ${className}`}>
       <StripesBottomRight startDelay={0.3} />
 
       <div className="flex flex-col lg:flex-row h-full w-full justify-between stripes-left lg:pl-[1rem]! mobile-container lg:gap-5">

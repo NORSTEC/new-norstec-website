@@ -103,8 +103,8 @@ export default function TeamMemberCard({ entry }: TeamMemberCardProps) {
   ].filter(Boolean) as Array<{ href: string; icon: string; label: string }>;
 
   return (
-    <article className="group w-full md:min-w-[17rem] md:w-[20vw] w-[17rem]">
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+    <article className="group w-full md:min-w-[17rem] md:w-[20vw]">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl snap">
         {photoUrl ? (
           <Image
             src={photoUrl}

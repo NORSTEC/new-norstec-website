@@ -7,13 +7,14 @@ import type { SectionBarList as SectionBarListType } from "@/types/sections/sect
 
 type SectionBarListProps = {
   section: SectionBarListType;
+  className?: string;
 };
 
 const BAR_BG = ["bg-copper", "bg-sun", "bg-beachball", "bg-sky"] as const;
 const TEXT_COLOR = ["text-copper", "text-sun", "text-beachball", "text-sky"] as const;
 const BAR_WIDTHS = ["18%", "36%", "54%", "72%"] as const;
 
-export default function SectionBarList({ section }: SectionBarListProps) {
+export default function SectionBarList({ section, className = "" }: SectionBarListProps) {
   const rootRef = React.useRef<HTMLElement | null>(null);
   const [show, setShow] = React.useState(false);
 
@@ -36,7 +37,7 @@ export default function SectionBarList({ section }: SectionBarListProps) {
   }, []);
 
   return (
-    <section ref={rootRef} className="section h-full">
+    <section ref={rootRef} className={`section h-full ${className}`}>
       <div className="h-full w-full flex flex-col">
         {section.title && (
           <div className="mobile-container pb-0!">

@@ -6,20 +6,30 @@ import ImageContainer from "@/components/items/images/ImageContainer";
 
 type SectionTextImageProps = {
   section: SectionTextImageType;
+  className?: string;
 };
 
-export default function SectionTextImage({ section }: SectionTextImageProps) {
-  const { title, body, images, mirrored, threeImageLayout, featuredPosition, singleImageCover } =
-    section;
+export default function SectionTextImage({ section, className = "" }: SectionTextImageProps) {
+  const {
+    title,
+    body,
+    images,
+    mirrored,
+    threeImageLayout,
+    featuredPosition,
+    singleImageCover,
+  } = section;
 
-  const total = images?.length ?? 0;
+  const normalizedImages = images ?? [];
+
+  const total = normalizedImages.length;
   const useContainer = total > 0 && total <= 3;
 
   const stripesSide: "left" | "right" = mirrored ? "right" : "left";
   const stripesClass = mirrored ? "stripes-right" : "stripes-left";
 
   return (
-    <section className="section relative mobile-container h-full">
+    <section className={`section relative mobile-container h-full ${className}`}>
       <StripesVertical side={stripesSide} />
       <div className={`flex flex-col h-full ${stripesClass} gap-5 lg:gap-10 py-0!`}>
         <div>
@@ -45,14 +55,14 @@ export default function SectionTextImage({ section }: SectionTextImageProps) {
         <div className="md:flex-1 flex items-center h-full pb-2 lg:pb-0">
           {useContainer ? (
             <ImageContainer
-              images={images}
+              images={normalizedImages}
               className="w-full"
               threeImageLayout={threeImageLayout}
               featuredPosition={featuredPosition}
               singleImageCover={singleImageCover}
             />
           ) : (
-            <ImageCarousel images={images} className="w-full" />
+            <ImageCarousel images={normalizedImages} className="w-full" />
           )}
         </div>
         <div className="block lg:hidden lg:py-0">

@@ -3,11 +3,17 @@ import InitiativesCarousel from "@/components/items/initiatives/InitiativesCarou
 import { SectionInitiatives as SectionInitiativesType } from "@/types/sections/sectionInitiatives";
 import ChemtrailsRight from "@/components/items/stripes/chemtrails/ChemtrailsRight";
 
-export default function SectionInitiatives({ section }: { section: SectionInitiativesType }) {
+export default function SectionInitiatives({
+  section,
+  className = "",
+}: {
+  section: SectionInitiativesType;
+  className?: string;
+}) {
   const { title, body, initiatives } = section;
 
   return (
-    <section className="section">
+    <section className={`section ${className}`}>
       <ChemtrailsRight />
       <div className="flex flex-col h-full gap-5 ">
         <div className="chemtrails-right mobile-container pb-5! lg:pb-0!">

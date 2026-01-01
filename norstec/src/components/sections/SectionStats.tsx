@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 
 type SectionStatsProps = {
   section: SectionStatsType;
+  className?: string;
 };
 
 const COLORS = [
@@ -71,7 +72,7 @@ function getTargetNumber(item: SectionStatsType["items"][number]) {
   return typeof item.numberValue === "number" ? item.numberValue : 0;
 }
 
-export default function SectionStats({ section }: SectionStatsProps) {
+export default function SectionStats({ section, className = "" }: SectionStatsProps) {
   const rootRef = React.useRef<HTMLElement | null>(null);
   const [show, setShow] = React.useState(false);
   const [startAnim, setStartAnim] = React.useState(false);
@@ -174,7 +175,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
     const stagger = 0.12;
 
     return (
-      <section ref={rootRef} className="section relative overflow-hidden lg:h-screen!">
+      <section ref={rootRef} className={`section relative overflow-hidden lg:h-screen! ${className}`}>
         <ul className="grid grid-rows-4 h-full py-28 md:py-52 lg:py-0!">
           {items.map((item, index) => {
             const c = COLORS[index % COLORS.length];
@@ -235,7 +236,7 @@ export default function SectionStats({ section }: SectionStatsProps) {
   // COMPACT LAYOUT
   // =========================
   return (
-    <section ref={rootRef} className="section">
+    <section ref={rootRef} className={`section ${className}`}>
       <div className="h-full w-full flex flex-col">
         {/* Title */}
 

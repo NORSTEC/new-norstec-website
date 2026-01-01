@@ -54,6 +54,14 @@
         @apply relative overflow-x-hidden xl:h-screen snap-start overflow-y-hidden
     }
 
+    .section.no-snap {
+        scroll-snap-align: unset !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
     .desktop-container {
         @apply px-[1rem] lg:px-[5rem] xl:px-[7rem] 3xl:px-[15rem] py-20 md:py-40 xl:py-20
     }

@@ -33,7 +33,6 @@ export default defineType({
       title: "Images",
       type: "array",
       description: "1–3 images show images in grid. 4+ uses Image Carousel.",
-      validation: (Rule) => Rule.min(1).required(),
       of: [
         {
           type: "object",

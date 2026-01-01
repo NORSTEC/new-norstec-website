@@ -6,7 +6,13 @@ import TeamMemberCard from "@/components/items/team/TeamMemberCard";
 import TeamCarousel from "@/components/items/team/TeamCarousel";
 import { SectionTeam as SectionTeamType } from "@/types/sections/sectionTeam";
 
-export default function SectionTeam({ section }: { section: SectionTeamType }) {
+export default function SectionTeam({
+  section,
+  className = "",
+}: {
+  section: SectionTeamType;
+  className?: string;
+}) {
   const {
     members = [],
     showStripesCornerBottomRight = true,
@@ -19,7 +25,7 @@ export default function SectionTeam({ section }: { section: SectionTeamType }) {
   const headingClass = hasCarousel ? "stripes-right py-0!" : "";
 
   return (
-    <section className="relative section mobile-container xl:px-0!">
+    <section className={`relative section mobile-container xl:px-0! ${className}`}>
       {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.5} />}
       {showStripesCornerTopRight && <StripesCornerTopRight />}
       <div className={contentClass}>
