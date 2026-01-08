@@ -4,6 +4,7 @@ import React from "react";
 import { oughter, barlow } from "@/assets/fonts";
 import Navbar from "@/components/static/Navbar/Navbar";
 import { ThemeProvider } from "../hooks/useTheme";
+import Footer from "@/components/static/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "SECURING OUR FUTURE IN SPACE",
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <Navbar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
