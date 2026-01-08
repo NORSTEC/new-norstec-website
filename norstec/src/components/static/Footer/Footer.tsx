@@ -45,26 +45,22 @@ export default function Footer() {
                     </div>
 
                     {/* Social Media */}
-                    <div>
+                    <div className="flex flex-col">
                         <h1 className="font-semibold italic mb-8 md:mb-12">Social Media</h1>
                         {SOCIAL_MEDIA.map((item) => (
-                            <p key={item.href}>
-                                <a href={item.href} className="hover:underline">
-                                    {item.label}
-                                </a>
-                            </p>
+                            <a key={item.href} href={item.href} className="hover:underline">
+                                {item.label}
+                            </a>
                         ))}
                     </div>
 
                     {/* Navigation */}
-                    <div>
+                    <div className="flex flex-col">
                         <h1 className="font-semibold italic mb-8 md:mb-12">Navigation</h1>
                         {NAV_ITEMS.map((item) => (
-                            <p key={item.href}>
-                                <a href={item.href} className="hover:underline">
-                                    {item.label}
-                                </a>
-                            </p>
+                            <a key={item.href} href={item.href} className="hover:underline">
+                                {item.label}
+                            </a>
                         ))}
                     </div>
                 </div>
