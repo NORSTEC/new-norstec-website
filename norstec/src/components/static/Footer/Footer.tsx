@@ -20,7 +20,9 @@ export default function Footer() {
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 w-full">
                 {/* Left Column */}
                 <div className="w-full flex flex-col gap-8 md:gap-24">
-                    <h1 className="text-xl md:text-2xl lg:text-4xl xl:text-6xl font-semibold italic">Hold deg oppdatert med spacepodden, eller meld deg på vårt nyhetsbrev</h1>
+                    <h1 className="text-xl md:text-2xl lg:text-4xl xl:text-6xl font-semibold italic">
+                        Keep yourself updated with spacepodden, or sign up for our newsletter.
+                    </h1>
                     <FooterNewsletterForm />
                 </div>
 
@@ -78,14 +80,7 @@ export default function Footer() {
                         alt="Norstec Logo"
                         width={264}
                         height={264}
-                        className="
-                            object-contain
-                            w-64
-                            md:w-48
-                            lg:w-56
-                            xl:w-64
-                            h-auto
-                            "
+                        className="object-contain w-64 md:w-48 lg:w-56 xl:w-64 h-auto"
                     />
                 </div>
             </section>
