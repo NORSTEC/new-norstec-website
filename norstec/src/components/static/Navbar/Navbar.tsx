@@ -86,9 +86,9 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
       const rect = footer.getBoundingClientRect();
 
-      const fullyVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+      const atTop = rect.top <= 0;
 
-      setFooterInView(fullyVisible);
+      setFooterInView(atTop);
     };
 
     window.addEventListener("scroll", handleScroll);
