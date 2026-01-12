@@ -1,7 +1,6 @@
 "use client";
-
-import BrevoScripts from "@/components/items/newsletter/BrevoScripts";
 import Link from "next/link";
+import BrevoScripts from "./BrevoScripts";
 
 type NewsletterFormProps = {
   tone?: "light" | "dark";

@@ -20,6 +20,8 @@ type NavbarProps = {
 
 export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const [open, setOpen] = useState(false);
+  const [footerInView, setFooterInView] = useState(false);
+
   const pathname = usePathname() ?? "/";
   const prefersReducedMotion = useReducedMotion();
   const ENTRY_DELAY_MS = 1100;
@@ -78,6 +80,24 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   }, [isDesktop, open]);
 
   useEffect(() => {
+    const handleScroll = () => {
+      const footer = document.getElementById("footer");
+      if (!footer) return;
+
+      const rect = footer.getBoundingClientRect();
+
+      const fullyVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+      setFooterInView(fullyVisible);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(false);
   }, [pathname]);
@@ -122,7 +142,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     <>
       {/* TOP BAR */}
       <motion.header
-        className="fixed inset-x-0 top-0 z-50 "
+        className={["fixed inset-x-0 top-0 z-50", footerInView && "hidden"].join(" ")}
         initial={false}
         animate={{
           y: headerHidden ? -72 : 0,
