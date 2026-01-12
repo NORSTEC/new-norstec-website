@@ -11,7 +11,7 @@ export default function FooterNewsletterForm() {
     >
       <button
         type="submit"
-        className="group flex w-full items-center justify-between border-b border-current py-2 text-left"
+        className="cursor-pointer group flex w-full items-center justify-between border-b border-current py-2 text-left"
       >
         <span className="text-lg font-normal opacity-70">Email</span>
 
