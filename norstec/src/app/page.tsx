@@ -7,7 +7,8 @@ import { imageBuilder } from "@/utils/imageBuilder";
 import mapGoogleBot from "@/utils/mapGoogleBot";
 import mapAlternates from "@/utils/mapAlternates";
 
-export const revalidate = 5; // midlertidig, skal sette opp webhooks.
+export const dynamic = 'force-dynamic'
+ // midlertidig, skal sette opp webhooks.
 
 /* =========================================================
    METADATA
