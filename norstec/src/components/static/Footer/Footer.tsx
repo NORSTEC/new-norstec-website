@@ -16,7 +16,7 @@ export default function Footer() {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="mt-20 snap-start min-h-screen xl:h-screen w-full bg-moody text-egg flex flex-col items-center py-12 p-4 md:p-12 xl:p-24 gap-24 lg:gap-0 justify-between">
+        <footer id="footer" className="mt-20 snap-start min-h-screen xl:h-screen w-full bg-moody text-egg flex flex-col items-center py-12 p-4 md:p-12 xl:p-24 gap-24 lg:gap-0 justify-between">
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 w-full">
                 {/* Left Column */}
                 <div className="w-full flex flex-col gap-8 md:gap-24">
