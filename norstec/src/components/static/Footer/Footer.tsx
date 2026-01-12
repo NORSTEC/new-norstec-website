@@ -5,6 +5,7 @@ import { CREDITS } from "@/config/credits";
 import { NAV_ITEMS } from "@/config/navigation";
 import { SOCIAL_MEDIA } from "@/config/socialMedia";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Footer() {
@@ -15,8 +16,10 @@ export default function Footer() {
 
     const year = new Date().getFullYear();
 
+    const pathname = usePathname();
+
     return (
-        <footer id="footer" className="mt-20 snap-start min-h-screen xl:h-screen w-full bg-moody text-egg flex flex-col items-center py-12 p-4 md:p-12 xl:p-24 gap-24 lg:gap-0 justify-between">
+        <footer id="footer" className="mt-20 snap-start min-h-screen w-full bg-moody text-egg flex flex-col items-center py-12 p-4 md:p-12 xl:p-24 gap-24 lg:gap-0 justify-between">
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 w-full">
                 {/* Left Column */}
                 <div className="w-full flex flex-col gap-8 md:gap-24">
@@ -60,8 +63,17 @@ export default function Footer() {
                     <div className="flex flex-col">
                         <h1 className="font-semibold italic mb-8 md:mb-12">Navigation</h1>
                         {NAV_ITEMS.map((item) => (
-                            <a key={item.href} href={item.href} className="hover:underline">
+                            <a key={item.href} href={item.href} className={["group flex flex-row gap-2",
+                                pathname === item.href ? "italic text-copper" : "", item.variant === "summit" ? "text-sky" : ""].join(" ")}
+                            >
                                 {item.label}
+                                    <Image
+                                        src={item.variant === "summit" ? "/images/star-sky.png" : "/images/star-orange.svg"}
+                                        alt="NORSTEC star"
+                                        width={16}
+                                        height={16}
+                                        className={["object-contain", pathname !== item.href && "opacity-0 group-hover:opacity-100 transition-opacity duration-200"].join(" ")}
+                                    />
                             </a>
                         ))}
                     </div>
