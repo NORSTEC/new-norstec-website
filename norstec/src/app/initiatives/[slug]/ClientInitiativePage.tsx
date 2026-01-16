@@ -10,6 +10,7 @@ import SectionQuote from "@/components/sections/SectionQuote";
 import SectionFaq from "@/components/sections/SectionFaq";
 import SectionPodcast from "@/components/sections/SectionPodcast";
 import SectionTeam from "@/components/sections/SectionTeam";
+import SectionSummitTextImage from "@/components/summit/SectionSummitTextImage";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 import {
   StripePaletteName,
@@ -38,6 +39,10 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
       return <SectionPodcast key={section._id} section={section} className={className} />;
     case "sectionTeam":
       return <SectionTeam key={section._id} section={section} className={className} />;
+    case "sectionSummitTextImage":
+      return (
+        <SectionSummitTextImage key={section._id} section={section} className={className} />
+      );
     default:
       return null;
   }

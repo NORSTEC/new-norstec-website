@@ -68,6 +68,15 @@ export default defineType({
                         {type: 'sectionMedia'},
                         {type: 'sectionPodcast'},
                         {type: 'sectionQuote'},
+                        {
+                            type: 'sectionSummitTextImage',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
                     ],
                 },
             ],
