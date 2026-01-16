@@ -27,6 +27,7 @@ import sectionBarList from './sections/sectionBarList'
 import sectionQuote from "./sections/sectionQuote";
 import {sectionSponsor} from "./sections/sectionSponsor";
 import sectionSummitTextImage from "./summit/sectionSummitTextImage";
+import sectionSummitTimer from "./summit/sectionSummitTimer";
 
 
 // Items
@@ -74,6 +75,7 @@ export const schemaTypes = [
     sectionQuote,
     sectionSponsor,
     sectionSummitTextImage,
+    sectionSummitTimer,
 
     // Items
     teamMember,

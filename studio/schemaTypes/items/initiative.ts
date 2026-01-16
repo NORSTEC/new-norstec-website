@@ -77,6 +77,15 @@ export default defineType({
                                 },
                             },
                         },
+                        {
+                            type: 'sectionSummitTimer',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
                     ],
                 },
             ],
