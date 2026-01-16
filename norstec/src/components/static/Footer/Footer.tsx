@@ -7,8 +7,14 @@ import { SOCIAL_MEDIA } from "@/config/socialMedia";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import type { CSSProperties } from "react";
 
-export default function Footer() {
+type FooterProps = {
+  backgroundColor?: string;
+  logoStyle?: CSSProperties;
+};
+
+export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     useEffect(() => {
         document.body.classList.add("snap-page");
         return () => document.body.classList.remove("snap-page");
@@ -24,8 +30,11 @@ export default function Footer() {
     }
 
     return (
-      <footer id="footer" className="py-20 md:py-40 lg:py-0">
-        <div className="snap-start section w-full bg-moody text-egg flex flex-col items-center py-12 p-4 md:p-12 xl:p-24 gap-24 lg:gap-0 justify-between">
+      <footer id="footer" className="pt-20 md:pt-40 lg:py-0">
+        <div
+          className="snap-start section w-full bg-moody text-egg flex flex-col items-center py-12 p-4 md:p-12 xl:p-24 gap-24 lg:gap-0 justify-between"
+          style={backgroundColor ? { backgroundColor } : undefined}
+        >
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 w-full">
             {/* Left Column */}
             <div className="w-full flex flex-col gap-8 md:gap-24">
@@ -119,6 +128,7 @@ export default function Footer() {
                 width={264}
                 height={264}
                 className="object-contain w-64 md:w-48 lg:w-56 xl:w-64 h-auto"
+                style={logoStyle}
               />
             </div>
           </section>
@@ -126,4 +136,3 @@ export default function Footer() {
       </footer>
     );
 }
-

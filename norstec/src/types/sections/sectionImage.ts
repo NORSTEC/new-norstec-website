@@ -7,4 +7,5 @@ export interface SectionImage {
     image: Image;
     imageAlt: string;
   }[];
+  mirrored?: boolean;
 }

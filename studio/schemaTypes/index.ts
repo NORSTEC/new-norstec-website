@@ -26,6 +26,7 @@ import sectionStats from './sections/sectionStats'
 import sectionBarList from './sections/sectionBarList'
 import sectionQuote from "./sections/sectionQuote";
 import {sectionSponsor} from "./sections/sectionSponsor";
+import sectionSummitTextImage from "./summit/sectionSummitTextImage";
 
 
 // Items
@@ -72,6 +73,7 @@ export const schemaTypes = [
     sectionImage,
     sectionQuote,
     sectionSponsor,
+    sectionSummitTextImage,
 
     // Items
     teamMember,

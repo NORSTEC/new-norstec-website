@@ -9,6 +9,7 @@ import { SectionQuote } from "@/types/sections/sectionQuote";
 import { SectionFaq } from "@/types/sections/sectionFaq";
 import { SectionPodcast } from "@/types/sections/sectionPodcast";
 import { SectionTeam } from "@/types/sections/sectionTeam";
+import { SectionSummitTextImage } from "@/types/sections/summit/sectionSummitTextImage";
 
 export type InitiativePageSection =
   | SectionHero
@@ -20,7 +21,8 @@ export type InitiativePageSection =
   | SectionQuote
   | SectionFaq
   | SectionPodcast
-  | SectionTeam;
+  | SectionTeam
+  | SectionSummitTextImage;
 
 export interface InitiativePage extends Omit<Initiative, "sections"> {
   sections: InitiativePageSection[];
