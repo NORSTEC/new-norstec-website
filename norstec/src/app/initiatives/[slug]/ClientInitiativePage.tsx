@@ -11,6 +11,10 @@ import SectionFaq from "@/components/sections/SectionFaq";
 import SectionPodcast from "@/components/sections/SectionPodcast";
 import SectionTeam from "@/components/sections/SectionTeam";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
+import {
+  StripePaletteName,
+  StripePaletteProvider,
+} from "@/components/items/stripes/stripePalette";
 
 function renderInitiativeSection(section: InitiativePageSection, className?: string) {
   switch (section._type) {
@@ -42,9 +46,11 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
 export default function ClientInitiativePage({
   initiative,
   sectionClassName,
+  stripePalette = "default",
 }: {
   initiative: InitiativePage;
   sectionClassName?: string;
+  stripePalette?: StripePaletteName;
 }) {
   const sections = initiative.sections ?? [];
 
@@ -54,5 +60,9 @@ export default function ClientInitiativePage({
     );
   }
 
-  return <main>{sections.map((section) => renderInitiativeSection(section, sectionClassName))}</main>;
+  return (
+    <StripePaletteProvider palette={stripePalette}>
+      <main>{sections.map((section) => renderInitiativeSection(section, sectionClassName))}</main>
+    </StripePaletteProvider>
+  );
 }

@@ -4,18 +4,12 @@ import React from "react";
 import { PortableText } from "next-sanity";
 import type { SectionStats as SectionStatsType } from "@/types/sections/sectionStats";
 import { motion } from "motion/react";
+import { useStripePalette } from "@/components/items/stripes/stripePalette";
 
 type SectionStatsProps = {
   section: SectionStatsType;
   className?: string;
 };
-
-const COLORS = [
-  { bar: "bg-sky", text: "text-sky" },
-  { bar: "bg-beachball", text: "text-beachball" },
-  { bar: "bg-sun", text: "text-sun" },
-  { bar: "bg-copper", text: "text-copper" },
-] as const;
 
 function fmtAffix(v?: string) {
   return v && v !== "none" ? v : "";
@@ -77,6 +71,11 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
   const [show, setShow] = React.useState(false);
   const [startAnim, setStartAnim] = React.useState(false);
   const items = (section.items ?? []).filter((it): it is NonNullable<typeof it> => it != null);
+  const { colors } = useStripePalette();
+  const getColor = React.useCallback(
+    (index: number) => colors[index % colors.length],
+    [colors]
+  );
 
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
@@ -178,13 +177,14 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
       <section ref={rootRef} className={`section relative overflow-hidden lg:h-screen! ${className}`}>
         <ul className="grid grid-rows-4 h-full py-28 md:py-52 lg:py-0!">
           {items.map((item, index) => {
-            const c = COLORS[index % COLORS.length];
+            const color = getColor(index);
             const value = formatValue(item);
 
             return (
               <li key={item._key} className="relative overflow-hidden">
                 <motion.div
-                  className={`absolute inset-0 ${c.bar}`}
+                  className="absolute inset-0"
+                  style={{ backgroundColor: color }}
                   initial={{ x: "-105%" }}
                   animate={show ? { x: "0%" } : { x: "-105%" }}
                   transition={{
@@ -255,7 +255,7 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
             className={`grid grid-cols-1 ${gridColsClass} gap-10 flex-1 desktop-container pt-5! xl:pb-5! xl:pt-20`}
           >
             {items.map((item, index) => {
-              const c = COLORS[index % COLORS.length];
+              const color = getColor(index);
 
               const target = getTargetNumber(item);
               const current = counts[index] ?? 0;
@@ -281,7 +281,10 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
                   <div className="flex items-start gap-5">
                     {/* Vertikal linje */}
                     <div className="shrink-0">
-                      <div className={`${c.bar} w-3 h-full min-h-[4rem] 3xl:min-h-[6rem]`} />
+                      <div
+                        className="w-3 h-full min-h-[4rem] 3xl:min-h-[6rem]"
+                        style={{ backgroundColor: color }}
+                      />
                     </div>
 
                     {/* Value */}
@@ -314,7 +317,7 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
         {/* Bottom horizontal stripes (loader-sekvens) */}
         <div className="space-y-4 lg:pb-20 hidden md:block">
           {Array.from({ length: STRIPE_COUNT }).map((_, i) => {
-            const c = COLORS[i % COLORS.length];
+            const color = getColor(i);
 
             if (countUp) {
               const p =
@@ -323,8 +326,8 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
               return (
                 <div key={i} className="relative h-12 w-full overflow-hidden">
                   <div
-                    className={`${c.bar} absolute inset-y-0 left-0`}
-                    style={{ width: `${p * 100}%` }}
+                    className="absolute inset-y-0 left-0"
+                    style={{ width: `${p * 100}%`, backgroundColor: color }}
                   />
                 </div>
               );
@@ -333,7 +336,7 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
             return (
               <div key={i} className="relative h-10 w-full overflow-hidden">
                 <motion.div
-                  className={`${c.bar} absolute inset-0`}
+                  className="absolute inset-0"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: startAnim ? 1 : 0 }}
                   transition={{
@@ -341,7 +344,7 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
                     duration: 0.5,
                     ease: "easeOut",
                   }}
-                  style={{ transformOrigin: "left" }}
+                  style={{ transformOrigin: "left", backgroundColor: color }}
                 />
               </div>
             );
