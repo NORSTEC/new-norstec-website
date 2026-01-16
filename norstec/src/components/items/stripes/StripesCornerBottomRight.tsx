@@ -2,8 +2,7 @@
 
 import React from "react";
 import { motion } from "motion/react";
-
-const COLORS = ["#1697B7", "#30C3CD", "#F3AD78", "#E8804C"];
+import { useStripePalette } from "./stripePalette";
 
 const STRIPE_DELAY = 0.1;
 const DURATION = 0.45;
@@ -104,6 +103,8 @@ export default function StripesCornerBottomRight({
   const rootRef = React.useRef<HTMLDivElement | null>(null);
   const [show, setShow] = React.useState(false);
   const [cfg, setCfg] = React.useState(() => CONFIG.base);
+  const { colors } = useStripePalette();
+  const paletteColors = colors;
 
   React.useEffect(() => {
     const apply = () => setCfg(pickConfig());
@@ -160,7 +161,7 @@ export default function StripesCornerBottomRight({
       }}
     >
       <svg viewBox="0 0 1000 1000" width="100%" height="100%">
-        {COLORS.map((c, i) => (
+        {paletteColors.map((c, i) => (
           <ArcStripe
             key={c}
             r={cfg.baseR - i * step}

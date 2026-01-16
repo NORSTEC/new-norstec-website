@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { useTheme } from "@/hooks/useTheme";
+import { useStripePalette } from "../stripePalette";
 
 const STRIPE_DELAY = 0.1;
 const DURATION = 0.5;
@@ -39,6 +40,8 @@ function RevealMask({ show, delay }: { show: boolean; delay: number }) {
 export default function ChemtrailsRight() {
   const rootRef = React.useRef<HTMLDivElement | null>(null);
   const [show, setShow] = React.useState(false);
+  const { colorsReversed } = useStripePalette();
+  const paletteColors = colorsReversed;
 
   React.useEffect(() => {
     const el = rootRef.current;
@@ -82,7 +85,7 @@ export default function ChemtrailsRight() {
             }}
           >
             <Line
-              color="#E8804C"
+              color={paletteColors[0]}
               className="[--trap-width:262px] [--trap-cut:230px] xl:[--trap-width:510px] xl:[--trap-cut:474px] 3xl:[--trap-width:600px] 3xl:[--trap-cut:560px]"
             />
           </div>
@@ -99,7 +102,7 @@ export default function ChemtrailsRight() {
             }}
           >
             <Line
-              color="#F3AD78"
+              color={paletteColors[1]}
               className="[--trap-width:490px] [--trap-cut:458px] xl:[--trap-width:644px] xl:[--trap-cut:610px] 3xl:[--trap-width:743px] 3xl:[--trap-cut:704px]"
             />
           </div>
@@ -116,7 +119,7 @@ export default function ChemtrailsRight() {
             }}
           >
             <Line
-              color="#30C3CD"
+              color={paletteColors[2]}
               className="[--trap-width:498px] [--trap-cut:468px] xl:[--trap-width:661px] xl:[--trap-cut:632px] 3xl:[--trap-width:751px] 3xl:[--trap-cut:717px]"
             />
           </div>
@@ -133,7 +136,7 @@ export default function ChemtrailsRight() {
             }}
           >
             <Line
-              color="#1697B7"
+              color={paletteColors[3]}
               className="[--trap-width:500px] [--trap-cut:473px] xl:[--trap-width:483.5px] xl:[--trap-cut:460px] 3xl:[--trap-width:759px] 3xl:[--trap-cut:731px]"
             />
           </div>
