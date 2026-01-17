@@ -1,7 +1,7 @@
 import ClientTeamPage from "@/app/team/ClientTeamPage";
 import { getTeamPage } from "@/sanity/fetch/SanityFetch";
 
-export const revalidate = 5;
+export const dynamic = 'force-dynamic'
 
 export default async function TeamPage() {
   const teamPage = await getTeamPage();
