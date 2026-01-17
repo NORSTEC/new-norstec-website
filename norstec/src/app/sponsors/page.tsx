@@ -2,7 +2,7 @@ import { getSponsorPage } from "@/sanity/fetch/SanityFetch";
 import ClientSponsorPage from "@/app/sponsors/ClientSponsorPage";
 
 
-export const revalidate = 5; // midlertidig, skal sette opp webhooks.
+export const dynamic = 'force-dynamic'
 
 export default async function SponsorPage() {
     const sponsorPage = await getSponsorPage();

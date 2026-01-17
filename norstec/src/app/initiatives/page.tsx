@@ -1,7 +1,7 @@
 import ClientInitiativesPage from "@/app/initiatives/ClientInitiativesPage";
 import { getInitiativesPage } from "@/sanity/fetch/SanityFetch";
 
-export const revalidate = 5;
+export const dynamic = 'force-dynamic'
 
 export default async function InitiativesPage() {
   const initiativesPage = await getInitiativesPage();
