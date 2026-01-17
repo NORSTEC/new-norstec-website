@@ -6,7 +6,7 @@ import { getInitiativeBySlug } from "@/sanity/fetch/SanityFetch";
 const SUMMIT_SLUG = "summit";
 const SUMMIT_DATE = "2026-03-12T00:00:00Z";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const now = new Date();
