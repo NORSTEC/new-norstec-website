@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { useTheme } from "@/hooks/useTheme";
-import { useStripePalette } from "../stripePalette";
+import { useStripePalette } from "@/hooks/useStripePalette";
 
 const STRIPE_DELAY = 0.1;
 const DURATION = 0.5;

@@ -25,7 +25,7 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-10">
-          <div className="space-y-4 text-base md:text-lg">
+          <div>
             {body ? (
               <PortableText
                 value={body}
