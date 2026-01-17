@@ -9,10 +9,10 @@ type Props = {
 };
 
 export default function SectionSummitInfo({ section, className = "" }: Props) {
-  const { title, body, image, imageAlt, captionName, captionEmail, captionPhone } = section;
+  const { title, body, image, imageAlt, captionTitle, captionName, captionEmail, captionPhone } = section;
   const imageSrc = imageBuilder(image, { width: 1400, quality: 95, fit: "max" });
 
-  const hasCaption = captionName || captionEmail || captionPhone;
+  const hasCaption = captionTitle || captionName || captionEmail || captionPhone;
 
   return (
     <section className={`section desktop-container ${className}`}>
@@ -24,8 +24,8 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
           </h2>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-10">
+          <div className="space-y-4 text-base md:text-lg">
             {body ? (
               <PortableText
                 value={body}
@@ -40,9 +40,9 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
             )}
           </div>
 
-          <div className="flex flex-col gap-4 lg:items-end">
+          <div className="flex flex-col gap-2 lg:items-start">
             {imageSrc ? (
-              <div className="relative w-full lg:w-[90%] xl:w-[80%] aspect-[3/5] max-h-[60vh] max-w-[45rem] overflow-hidden rounded-2xl bg-moody/5">
+              <div className="relative w-full md:w-[50vw] lg:w-[90%] xl:w-[80%] aspect-[3/5] max-h-[50vh] max-w-[45rem] overflow-hidden rounded-2xl bg-moody/5">
                 <img
                   src={imageSrc}
                   alt={imageAlt || captionName || title || "Summit profile image"}
@@ -55,15 +55,16 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
             )}
 
             {hasCaption && (
-              <div className=" space-y-1 text-sm md:text-base">
-                {captionName && <p className="font-semibold">{captionName}</p>}
+              <div className="w-full lg:w-[90%] xl:w-[80%] text-sm md:text-base text-left">
+                {captionName && <p className="font-bold">{captionName}</p>}
+                {captionTitle && <p className="font-semibold">{captionTitle}</p>}
                 {captionEmail && (
-                  <a className="block w-fit" href={`mailto:${captionEmail}`}>
+                  <a className="block w-fit pb-1 underline" href={`mailto:${captionEmail}`}>
                     {captionEmail}
                   </a>
                 )}
                 {captionPhone && (
-                  <a className="block w-fit" href={`tel:${captionPhone}`}>
+                  <a className="block w-fit underline" href={`tel:${captionPhone}`}>
                     {captionPhone}
                   </a>
                 )}
