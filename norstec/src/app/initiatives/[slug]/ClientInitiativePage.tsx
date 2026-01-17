@@ -10,7 +10,12 @@ import SectionQuote from "@/components/sections/SectionQuote";
 import SectionFaq from "@/components/sections/SectionFaq";
 import SectionPodcast from "@/components/sections/SectionPodcast";
 import SectionTeam from "@/components/sections/SectionTeam";
+import SectionSummitTextImage from "@/components/summit/SectionSummitTextImage";
+import SectionSummitTimer from "@/components/summit/SectionSummitTimer";
+import SectionSummitHost from "@/components/summit/SectionSummitHost";
+import SectionSummitInfo from "@/components/summit/SectionSummitInfo";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
+import { StripePaletteName, StripePaletteProvider } from "@/hooks/useStripePalette";
 
 function renderInitiativeSection(section: InitiativePageSection, className?: string) {
   switch (section._type) {
@@ -34,6 +39,16 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
       return <SectionPodcast key={section._id} section={section} className={className} />;
     case "sectionTeam":
       return <SectionTeam key={section._id} section={section} className={className} />;
+    case "sectionSummitTextImage":
+      return (
+        <SectionSummitTextImage key={section._id} section={section} className={className} />
+      );
+    case "sectionSummitTimer":
+      return <SectionSummitTimer key={section._id} section={section} className={className} />;
+    case "sectionSummitHost":
+      return <SectionSummitHost key={section._id} section={section} className={className} />;
+    case "sectionSummitInfo":
+      return <SectionSummitInfo key={section._id} section={section} className={className} />;
     default:
       return null;
   }
@@ -42,9 +57,11 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
 export default function ClientInitiativePage({
   initiative,
   sectionClassName,
+  stripePalette = "default",
 }: {
   initiative: InitiativePage;
   sectionClassName?: string;
+  stripePalette?: StripePaletteName;
 }) {
   const sections = initiative.sections ?? [];
 
@@ -54,5 +71,9 @@ export default function ClientInitiativePage({
     );
   }
 
-  return <main>{sections.map((section) => renderInitiativeSection(section, sectionClassName))}</main>;
+  return (
+    <StripePaletteProvider palette={stripePalette}>
+      <main>{sections.map((section) => renderInitiativeSection(section, sectionClassName))}</main>
+    </StripePaletteProvider>
+  );
 }

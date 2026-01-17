@@ -56,7 +56,7 @@
 
     .section.no-snap {
         scroll-snap-align: unset !important;
-        height: auto !important;
+
         min-height: auto !important;
         max-height: none !important;
         overflow: visible !important;

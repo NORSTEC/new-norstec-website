@@ -68,6 +68,42 @@ export default defineType({
                         {type: 'sectionMedia'},
                         {type: 'sectionPodcast'},
                         {type: 'sectionQuote'},
+                        {
+                            type: 'sectionSummitTextImage',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
+                        {
+                            type: 'sectionSummitTimer',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
+                        {
+                            type: 'sectionSummitHost',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
+                        {
+                            type: 'sectionSummitInfo',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
                     ],
                 },
             ],

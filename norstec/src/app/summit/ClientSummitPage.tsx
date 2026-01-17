@@ -39,7 +39,8 @@ export default function ClientSummitPage({ initiative }: { initiative: Initiativ
   return (
     <ClientInitiativePage
       initiative={initiative}
-      sectionClassName="no-snap xl:pb-60!"
+      sectionClassName=""
+      stripePalette="summit"
     />
   );
 }

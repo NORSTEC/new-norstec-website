@@ -81,12 +81,17 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!isDesktop) {
+        setFooterInView(false);
+        return;
+      }
+
       const footer = document.getElementById("footer");
       if (!footer) return;
 
       const rect = footer.getBoundingClientRect();
 
-      const atTop = rect.top <= 0;
+      const atTop = rect.top <= 72;
 
       setFooterInView(atTop);
     };
@@ -95,7 +100,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isDesktop]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

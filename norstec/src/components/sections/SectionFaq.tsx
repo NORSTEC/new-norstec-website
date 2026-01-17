@@ -97,7 +97,7 @@ export default function SectionFaq({ section, className = "" }: SectionFaqProps)
   if (!items.length) return null;
 
   return (
-    <section className={`section flex flex-col gap-6 stripes-right mobile-container ${className}`}>
+    <section className={`section h-auto! xl:min-h-screen flex flex-col gap-6 stripes-right mobile-container ${className}`}>
       {showStripesCornerTopRight && <StripesCornerTopRight />}
       {showStripesCornerBottomRight && <StripesCornerBottomRight startDelay={0.4} />}
       <div>

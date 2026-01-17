@@ -2,14 +2,13 @@
 
 import React from "react";
 import { motion } from "motion/react";
+import { useStripePalette } from "@/hooks/useStripePalette";
 
 type StripesVerticalProps = {
   className?: string;
   side?: "left" | "right";
   duration?: number;
 };
-
-const COLORS = ["bg-sky", "bg-beachball", "bg-sun", "bg-copper"];
 
 export default function StripesVertical({
   className = "",
@@ -18,6 +17,7 @@ export default function StripesVertical({
 }: StripesVerticalProps) {
   const rootRef = React.useRef<HTMLDivElement | null>(null);
   const [show, setShow] = React.useState(false);
+  const { colors } = useStripePalette();
 
   React.useEffect(() => {
     const el = rootRef.current;
@@ -54,17 +54,18 @@ export default function StripesVertical({
     `gap-[0.5rem] md:gap-[1rem] xl:gap-[1.3rem] 3xl:gap-[2rem] ` +
     `${padding} ${side === "left" ? "left-0" : "right-0"} ${className}`;
 
-  const n = COLORS.length;
+  const n = colors.length;
 
   return (
     <div ref={rootRef} className={containerClass} aria-hidden="true">
-      {COLORS.map((color, i) => {
+      {colors.map((color, i) => {
         const delayIndex = side === "right" ? n - 1 - i : i;
 
         return (
           <motion.span
             key={`${side}-${i}`}
-            className={`h-full w-[.5rem] md:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem]  origin-top ${color}`}
+            className="h-full w-[.5rem] md:w-[2rem] xl:w-[2.25rem] 3xl:w-[2.5rem] origin-top"
+            style={{ backgroundColor: color }}
             initial={{ scaleY: 0 }}
             animate={{ scaleY: show ? 1 : 0 }}
             transition={{

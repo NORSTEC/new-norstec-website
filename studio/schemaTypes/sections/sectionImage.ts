@@ -33,6 +33,13 @@ export default defineType({
         }
       ]
     }),
+    defineField({
+      name: 'mirrored',
+      title: 'Mirror layout?',
+      type: 'boolean',
+      description: 'Switches the chemtrails to the right side.',
+      initialValue: false,
+    }),
   ],
 
   preview: {

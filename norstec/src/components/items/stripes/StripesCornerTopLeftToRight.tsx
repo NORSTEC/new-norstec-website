@@ -2,8 +2,8 @@
 
 import React from "react";
 import { motion } from "motion/react";
+import { useStripePalette } from "@/hooks/useStripePalette";
 
-const COLORS = ["#1697B7", "#30C3CD", "#F3AD78", "#E8804C"];
 const STRIPE_DELAY = 0.1;
 const DURATION = 1;
 
@@ -137,6 +137,8 @@ export default function StripesCornerTopLeftToRight({
   const rootRef = React.useRef<HTMLDivElement | null>(null);
   const [show, setShow] = React.useState(false);
   const [cfg, setCfg] = React.useState<Config>(() => CONFIG.base);
+  const { colors } = useStripePalette();
+  const paletteColors = colors;
 
   React.useEffect(() => {
     const apply = () => setCfg(pickConfig());
@@ -192,7 +194,7 @@ export default function StripesCornerTopLeftToRight({
         preserveAspectRatio="xMinYMin meet"
         style={{ visibility: show ? "visible" : "hidden" }}
       >
-        {COLORS.map((c, i) => (
+        {paletteColors.map((c, i) => (
           <ElbowStripe
             key={c}
             i={i}
@@ -201,7 +203,7 @@ export default function StripesCornerTopLeftToRight({
             delay={i * STRIPE_DELAY}
             duration={DURATION}
             cfg={cfg}
-            count={COLORS.length}
+            count={paletteColors.length}
           />
         ))}
       </svg>
