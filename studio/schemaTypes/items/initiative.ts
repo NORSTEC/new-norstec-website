@@ -86,6 +86,15 @@ export default defineType({
                                 },
                             },
                         },
+                        {
+                            type: 'sectionSummitHost',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
                     ],
                 },
             ],

@@ -12,6 +12,7 @@ import SectionPodcast from "@/components/sections/SectionPodcast";
 import SectionTeam from "@/components/sections/SectionTeam";
 import SectionSummitTextImage from "@/components/summit/SectionSummitTextImage";
 import SectionSummitTimer from "@/components/summit/SectionSummitTimer";
+import SectionSummitHost from "@/components/summit/SectionSummitHost";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 import {
   StripePaletteName,
@@ -46,6 +47,8 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
       );
     case "sectionSummitTimer":
       return <SectionSummitTimer key={section._id} section={section} className={className} />;
+    case "sectionSummitHost":
+      return <SectionSummitHost key={section._id} section={section} className={className} />;
     default:
       return null;
   }
