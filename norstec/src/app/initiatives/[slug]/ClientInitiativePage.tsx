@@ -15,10 +15,7 @@ import SectionSummitTimer from "@/components/summit/SectionSummitTimer";
 import SectionSummitHost from "@/components/summit/SectionSummitHost";
 import SectionSummitInfo from "@/components/summit/SectionSummitInfo";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
-import {
-  StripePaletteName,
-  StripePaletteProvider,
-} from "@/components/items/stripes/stripePalette";
+import { StripePaletteName, StripePaletteProvider } from "@/hooks/useStripePalette";
 
 function renderInitiativeSection(section: InitiativePageSection, className?: string) {
   switch (section._type) {

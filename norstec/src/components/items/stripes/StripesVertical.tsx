@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import { useStripePalette } from "./stripePalette";
+import { useStripePalette } from "@/hooks/useStripePalette";
 
 type StripesVerticalProps = {
   className?: string;

@@ -4,7 +4,7 @@ import React from "react";
 import { PortableText } from "next-sanity";
 import type { SectionStats as SectionStatsType } from "@/types/sections/sectionStats";
 import { motion } from "motion/react";
-import { useStripePalette } from "@/components/items/stripes/stripePalette";
+import { useStripePalette } from "@/hooks/useStripePalette";
 
 type SectionStatsProps = {
   section: SectionStatsType;
