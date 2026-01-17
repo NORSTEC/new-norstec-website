@@ -4,6 +4,7 @@ import { imageBuilder } from "@/utils/imageBuilder";
 import type { SectionSummitHost } from "@/types/sections/summit/sectionSummitHost";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { AnimatePresence, motion } from "motion/react";
+import ChemtrailsRight from "@/components/items/stripes/chemtrails/ChemtrailsRight";
 
 type Props = {
   section: SectionSummitHost;
@@ -66,6 +67,7 @@ export default function SectionSummitHost({ section, className = "" }: Props) {
 
   return (
     <section className={`section desktop-container ${className}`}>
+      <ChemtrailsRight />
       {title && (
         <h2 className="text-h2 uppercase">
           {title}

@@ -26,9 +26,10 @@ import sectionStats from './sections/sectionStats'
 import sectionBarList from './sections/sectionBarList'
 import sectionQuote from "./sections/sectionQuote";
 import {sectionSponsor} from "./sections/sectionSponsor";
-import sectionSummitTextImage from "./summit/sectionSummitTextImage";
-import sectionSummitTimer from "./summit/sectionSummitTimer";
-import sectionSummitHost from "./summit/sectionSummitHost";
+import sectionSummitTextImage from "./sections/summit/sectionSummitTextImage";
+import sectionSummitTimer from "./sections/summit/sectionSummitTimer";
+import sectionSummitHost from "./sections/summit/sectionSummitHost";
+import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
 
 
 // Items
@@ -78,6 +79,7 @@ export const schemaTypes = [
     sectionSummitTextImage,
     sectionSummitTimer,
     sectionSummitHost,
+    sectionSummitInfo,
 
     // Items
     teamMember,
