@@ -24,8 +24,8 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
           </h2>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-10">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-start gap-10">
+          <div className="space-y-4 text-base md:text-lg">
             {body ? (
               <PortableText
                 value={body}
@@ -40,9 +40,9 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
             )}
           </div>
 
-          <div className="flex flex-col gap-2 lg:items-start">
+          <div className="flex flex-col gap-2 lg:items-end">
             {imageSrc ? (
-              <div className="relative w-full md:w-[50vw] lg:w-[90%] xl:w-[80%] aspect-[3/5] max-h-[50vh] max-w-[45rem] overflow-hidden rounded-2xl bg-moody/5">
+              <div className="relative w-full md:w-[50vw] lg:w-[22rem] xl:w-[26rem] 3xl:w-[30rem] aspect-[3/5] max-h-[50vh] max-w-[45rem] overflow-hidden rounded-2xl bg-moody/5">
                 <img
                   src={imageSrc}
                   alt={imageAlt || captionName || title || "Summit profile image"}
@@ -51,11 +51,11 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
                 />
               </div>
             ) : (
-              <div className="w-full lg:w-[90%] xl:w-[80%] aspect-[4/5] max-h-[28rem] rounded-2xl bg-moody/10" />
+              <div className="w-full lg:w-[22rem] xl:w-[26rem] 3xl:w-[30rem] aspect-[4/5] max-h-[28rem] rounded-2xl bg-moody/10" />
             )}
 
             {hasCaption && (
-              <div className="w-full lg:w-[90%] xl:w-[80%] text-sm md:text-base text-left">
+              <div className="w-full lg:w-[22rem] xl:w-[26rem] 3xl:w-[30rem] text-sm md:text-base text-left">
                 {captionName && <p className="font-bold">{captionName}</p>}
                 {captionTitle && <p className="font-semibold">{captionTitle}</p>}
                 {captionEmail && (
