@@ -27,10 +27,10 @@ export default function SectionSummitTimer({
     <section className={`section relative flex items-center justify-center ${className}`}>
       <div className="mobile-container w-full flex flex-col items-center gap-20 ">
         <div className="flex flex-nowrap w-full justify-between gap-2 sm:gap-4 md:w-auto md:justify-center md:gap-6 lg:gap-10">
-          <TimeBlock value={timeLeft.days} label="dager" />
-          <TimeBlock value={timeLeft.hours} label="timer" pad />
-          <TimeBlock value={timeLeft.minutes} label="minutter" pad />
-          <TimeBlock value={timeLeft.seconds} label="sekunder" pad />
+          <TimeBlock value={timeLeft.days} label="Days" />
+          <TimeBlock value={timeLeft.hours} label="Hours" pad />
+          <TimeBlock value={timeLeft.minutes} label="Minutes" pad />
+          <TimeBlock value={timeLeft.seconds} label="Seconds" pad />
         </div>
 
         {buttonHref && buttonLabel && (
