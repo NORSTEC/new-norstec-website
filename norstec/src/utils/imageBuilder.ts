@@ -7,28 +7,49 @@ type ImageBuilderOptions = {
 };
 
 export const imageBuilder = (
-  source?: string | { asset?: { _ref?: string; _id?: string; url?: string | null } } | null,
-  opts: ImageBuilderOptions = {}
+    source?: string | { asset?: { _ref?: string; _id?: string; url?: string | null } } | null,
+    opts: ImageBuilderOptions = {}
 ): string => {
   if (!source) return "";
 
-  const ref: string | undefined =
-    typeof source === "string" ? source : source.asset?._ref || source.asset?._id || undefined;
+  const ref =
+      typeof source === "string"
+          ? source
+          : source.asset?._ref || source.asset?._id || undefined;
 
-  const directUrl = typeof source !== "string" && source.asset?.url ? source.asset.url : undefined;
+  const directUrl =
+      typeof source !== "string" && source.asset?.url
+          ? source.asset.url
+          : undefined;
+
+  const hasTransforms =
+      opts.width !== undefined ||
+      opts.height !== undefined ||
+      opts.fit !== undefined ||
+      opts.format !== undefined ||
+      opts.quality !== undefined;
 
   const applyParams = (url: URL) => {
-    const width = opts.width ?? 1920;
-    const height = opts.height ?? undefined;
-    const quality = opts.quality ?? 90;
-    const format = opts.format ?? "webp";
+    if (!hasTransforms) return url.toString();
 
-    url.searchParams.set("w", String(width));
-    if (height) url.searchParams.set("h", String(height));
-    if (opts.fit) url.searchParams.set("fit", opts.fit);
-    if (format !== false) {
-      url.searchParams.set("fm", format);
-      url.searchParams.set("q", String(quality));
+    if (opts.width !== undefined) {
+      url.searchParams.set("w", String(opts.width));
+    }
+
+    if (opts.height !== undefined) {
+      url.searchParams.set("h", String(opts.height));
+    }
+
+    if (opts.fit !== undefined) {
+      url.searchParams.set("fit", opts.fit);
+    }
+
+    if (opts.format !== undefined && opts.format !== false) {
+      url.searchParams.set("fm", opts.format);
+    }
+
+    if (opts.quality !== undefined) {
+      url.searchParams.set("q", String(opts.quality));
     }
 
     return url.toString();
@@ -38,13 +59,11 @@ export const imageBuilder = (
     try {
       return applyParams(new URL(directUrl));
     } catch {
-      console.warn("Invalid direct image URL:", directUrl);
       return "";
     }
   }
 
   if (!ref || !ref.startsWith("image-")) {
-    console.warn("Invalid Sanity image reference:", ref);
     return "";
   }
 
@@ -58,11 +77,12 @@ export const imageBuilder = (
   const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 
   if (!projectId || !dataset) {
-    console.warn("Missing Sanity project info for imageBuilder");
     return "";
   }
 
-  const url = new URL(`https://cdn.sanity.io/images/${projectId}/${dataset}/${filename}`);
+  const url = new URL(
+      `https://cdn.sanity.io/images/${projectId}/${dataset}/${filename}`
+  );
 
   return applyParams(url);
 };
