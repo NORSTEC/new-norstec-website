@@ -26,7 +26,7 @@ export default function SectionHero({ section, className = "" }: SectionHeroProp
 
     const TextOverlay = (
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] xl:text-[4rem] 2xl:text-[6rem] flex items-center justify-center ">
+        <h1 className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] xl:text-[7rem] 2xl:text-[8rem] font-thin font-barlow uppercase flex items-center justify-center ">
           {title}
           {!subtitle && (
             <span
