@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "motion/react";
 import { PortableText } from "next-sanity";
 import type { SectionBarList as SectionBarListType } from "@/types/sections/sectionBarList";
+import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRight";
 
 type SectionBarListProps = {
   section: SectionBarListType;
@@ -38,10 +39,11 @@ export default function SectionBarList({ section, className = "" }: SectionBarLi
 
   return (
     <section ref={rootRef} className={`section h-full ${className}`}>
+      <StripesCornerTopRight />
       <div className="h-full w-full flex flex-col">
         {section.title && (
-          <div className="mobile-container pb-0!">
-            <h2 className="text-h1 font-normal hidden lg:block">{section.title}</h2>
+          <div className="mobile-container pb-0! lg:pt-10!">
+            <h2 className="text-h1 font-light hidden lg:block">{section.title}</h2>
             <h2 className="text-h2 block lg:hidden">
               {section.title}
               <span aria-hidden className="star-inline" />
