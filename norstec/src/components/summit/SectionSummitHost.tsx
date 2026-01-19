@@ -87,7 +87,7 @@ export default function SectionSummitHost({ section, className = "" }: Props) {
             direction={direction}
           />
         ) : (
-          <div className="flex flex-col gap-20">
+          <div className="flex flex-col gap-10">
             {normalizedHosts.map((host) => (
               <HostListCard key={host._key} host={host} />
             ))}
@@ -212,7 +212,7 @@ function DesktopCarousel({
 function HostListCard({ host }: { host: HostCardData }) {
   return (
     <article className="group relative overflow-hidden bg-egg text-moody transition duration-300 ">
-      <div className="relative flex gap-5 items-start pb-5">
+      <div className="relative flex gap-5 items-start py-5">
         {host.imageSrc ? (
           <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-moody/10 bg-moody/5">
             <img
