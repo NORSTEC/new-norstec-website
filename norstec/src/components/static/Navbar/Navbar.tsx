@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { NAV_ITEMS } from "@/config/navigation";
 import { usePathname } from "next/navigation";
@@ -22,6 +22,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [footerInView, setFooterInView] = useState(false);
   const [heroInView, setHeroInView] = useState(false);
+  const heroVisibilityRef = useRef(false);
 
   const pathname = usePathname() ?? "/";
   const prefersReducedMotion = useReducedMotion();
@@ -58,14 +59,6 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     showDeltaPx: 10,
     topSafePx: 8,
   });
-
-  const headerBg = isDesktop
-    ? "transparent"
-    : resolvedTheme === "dark"
-      ? "#0f1118"
-      : open
-        ? "#0f1118"
-        : "#EDE8DA";
 
   const headerHidden =
     (!isDesktop && !open && !allowHeader) || (!isDesktop && !mobileHeaderVisible);
@@ -140,19 +133,19 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   }, [open, isDesktop, is3xl, DESKTOP_TINT_DELAY_MS]);
 
   useEffect(() => {
-    if (!isDesktop) {
-      setHeroInView(false);
-      return;
-    }
-
     const heroes = Array.from(
       document.querySelectorAll<HTMLElement>("[data-section-hero]")
     );
 
     if (!heroes.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHeroInView(false);
       return;
     }
+
+    let latest = heroVisibilityRef.current;
+    const enterThreshold = isDesktop ? 0.35 : 0.05;
+    const exitThreshold = isDesktop ? 0.25 : 0.15;
 
     const computeHeroVisibility = () => {
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1;
@@ -161,29 +154,46 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         const visibleHeight =
           Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
         const ratio = visibleHeight / Math.min(rect.height || viewportHeight, viewportHeight);
-        return ratio >= 0.35;
+        const threshold = latest ? exitThreshold : enterThreshold;
+        return ratio >= threshold;
       });
     };
 
-    const updateHeroInView = () => setHeroInView(computeHeroVisibility());
+    const updateHeroInView = () => {
+      const next = computeHeroVisibility();
+      latest = next;
+      heroVisibilityRef.current = next;
+      setHeroInView(next);
+    };
 
     const observer = new IntersectionObserver(updateHeroInView, {
-      threshold: [0, 0.2, 0.35, 0.5, 0.75, 1],
+      threshold: [0, 0.1, 0.2, 0.35, 0.5, 0.75, 1],
     });
 
     heroes.forEach((hero) => observer.observe(hero));
     updateHeroInView();
 
     return () => observer.disconnect();
-  }, [isDesktop, pathname]);
+  }, [pathname, isDesktop]);
+
+  useEffect(() => {
+    heroVisibilityRef.current = heroInView;
+  }, [heroInView]);
 
   const toggle = () => setOpen((v) => !v);
   const headerFgIsLight =
     (open && !isDesktop) || (open && isDesktop && desktopMenuTintOn && !is3xl);
-  const heroForcesDarkNav = isDesktop && heroInView;
+  const heroForcesDarkNav = heroInView;
   const navTheme = heroForcesDarkNav ? "dark" : resolvedTheme;
   const controlsLight = navTheme === "dark" ? true : headerFgIsLight;
-  const lineTransitionClass = isDesktop ? "transition-colors duration-200 lg:duration-300" : "";
+  const lineTransitionClass = "transition-colors duration-200 lg:duration-300";
+  const mobileHeaderBg =
+    heroForcesDarkNav && !open
+      ? "rgba(15,17,24,0)"
+      : navTheme === "dark" || open
+        ? "#0f1118"
+        : "#EDE8DA";
+  const headerBg = isDesktop ? "transparent" : mobileHeaderBg;
 
   return (
     <>
@@ -195,7 +205,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
           y: headerHidden ? -72 : 0,
           backgroundColor: headerBg,
         }}
-        transition={{ type: "tween", duration: 0.22, ease: [0.22, 0.9, 0.2, 1] }}
+        transition={{ type: "tween", duration: 0.35, ease: [0.22, 0.9, 0.2, 1] }}
         style={{ willChange: "transform, background-color" }}
       >
         <div className="mx-auto w-full px-5 lg:px-8">
