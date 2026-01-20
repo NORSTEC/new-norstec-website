@@ -43,7 +43,10 @@ export default function SectionHero({ section, className = "" }: SectionHeroProp
   );
 
     return (
-      <section className={`section mobile-container p-0!  ${className}`}>
+      <section
+        className={`section mobile-container p-0!  ${className}`}
+        data-section-hero
+      >
         <div className="relative w-full overflow-hidden">
           <div className="relative w-screen h-screen overflow-hidden">
             {hasMobileImage && (

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import React from "react";
 import { useTheme } from "@/hooks/useTheme";
 
 type LogoToggleProps = {
@@ -10,6 +9,7 @@ type LogoToggleProps = {
   src?: string;
   alt?: string;
   className?: string;
+  forceDark?: boolean;
 };
 
 export default function LogoToggle({
@@ -17,19 +17,17 @@ export default function LogoToggle({
   src = "/images/logo.png",
   alt = "NORSTEC logo",
   className,
+  forceDark = false,
 }: LogoToggleProps) {
   const { resolvedTheme } = useTheme();
-  const [forceColor, setForceColor] = React.useState(resolvedTheme === "dark" || open);
-
-  React.useEffect(() => {
-    setForceColor(resolvedTheme === "dark" || open);
-  }, [resolvedTheme, open]);
+  const effectiveTheme = forceDark ? "dark" : resolvedTheme;
+  const forceColor = effectiveTheme === "dark" || open;
 
   return (
     <div className={["relative h-10 w-10", className ?? ""].join(" ")}>
       <motion.div
         animate={{ opacity: forceColor ? 0 : 1 }}
-        transition={{ duration: 0.25, ease: [0.25, 0.8, 0.5, 1] }}
+        transition={{ duration: 0.2, ease: [0.25, 0.8, 0.5, 1] }}
       >
         <Image
           src={src}
@@ -52,7 +50,7 @@ export default function LogoToggle({
       <motion.div
         initial={false}
         animate={{ opacity: forceColor ? 1 : 0 }}
-        transition={{ duration: 0.28, ease: [0.25, 0.8, 0.5, 1] }}
+        transition={{ duration: 0.2, ease: [0.25, 0.8, 0.5, 1] }}
       >
         <Image src={src} alt={alt} fill priority className="object-contain" />
       </motion.div>

@@ -21,6 +21,7 @@ type NavbarProps = {
 export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [footerInView, setFooterInView] = useState(false);
+  const [heroInView, setHeroInView] = useState(false);
 
   const pathname = usePathname() ?? "/";
   const prefersReducedMotion = useReducedMotion();
@@ -138,10 +139,51 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     return () => window.clearTimeout(t);
   }, [open, isDesktop, is3xl, DESKTOP_TINT_DELAY_MS]);
 
+  useEffect(() => {
+    if (!isDesktop) {
+      setHeroInView(false);
+      return;
+    }
+
+    const heroes = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-section-hero]")
+    );
+
+    if (!heroes.length) {
+      setHeroInView(false);
+      return;
+    }
+
+    const computeHeroVisibility = () => {
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1;
+      return heroes.some((hero) => {
+        const rect = hero.getBoundingClientRect();
+        const visibleHeight =
+          Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+        const ratio = visibleHeight / Math.min(rect.height || viewportHeight, viewportHeight);
+        return ratio >= 0.35;
+      });
+    };
+
+    const updateHeroInView = () => setHeroInView(computeHeroVisibility());
+
+    const observer = new IntersectionObserver(updateHeroInView, {
+      threshold: [0, 0.2, 0.35, 0.5, 0.75, 1],
+    });
+
+    heroes.forEach((hero) => observer.observe(hero));
+    updateHeroInView();
+
+    return () => observer.disconnect();
+  }, [isDesktop, pathname]);
+
   const toggle = () => setOpen((v) => !v);
   const headerFgIsLight =
     (open && !isDesktop) || (open && isDesktop && desktopMenuTintOn && !is3xl);
-  const controlsLight = resolvedTheme === "dark" ? true : headerFgIsLight;
+  const heroForcesDarkNav = isDesktop && heroInView;
+  const navTheme = heroForcesDarkNav ? "dark" : resolvedTheme;
+  const controlsLight = navTheme === "dark" ? true : headerFgIsLight;
+  const lineTransitionClass = isDesktop ? "transition-colors duration-200 lg:duration-300" : "";
 
   return (
     <>
@@ -159,7 +201,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         <div className="mx-auto w-full px-5 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href={logoHref} className="inline-flex items-center" aria-label="Go to homepage">
-              <LogoToggle open={open} />
+              <LogoToggle open={open} forceDark={navTheme === "dark"} />
             </Link>
             <div className="flex items-center gap-3">
               {!forceDark && (
@@ -167,8 +209,8 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
                   type="button"
                   onClick={toggleTheme}
                   className={[
-                    "h-8 w-8 rounded-full cursor-pointer flex items-center justify-center transition-colors duration-200",
-                    resolvedTheme === "dark"
+                    "h-8 w-8 rounded-full cursor-pointer flex items-center justify-center transition-colors duration-200 lg:duration-300",
+                    navTheme === "dark"
                       ? "border-egg-static text-egg-static"
                       : controlsLight
                         ? "border-egg text-egg"
@@ -182,21 +224,28 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
               <button
                 type="button"
                 onClick={toggle}
-                className="inline-flex items-center gap-3 cursor-pointer"
+                className="inline-flex items-center gap-3 cursor-pointer transition-colors duration-200 lg:duration-300"
                 aria-expanded={open}
                 aria-controls="site-menu"
                 aria-label={open ? "Close menu" : "Open menu"}
               >
                 <HamburgerSpin
                   open={open}
-                  lineClassName={
-                    resolvedTheme === "dark"
+                  lineClassName={[
+                    lineTransitionClass,
+                    navTheme === "dark"
                       ? "bg-egg-static"
                       : controlsLight
                         ? "bg-egg"
-                        : "bg-moody"
+                        : "bg-moody",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  lineClassNameActive={
+                    navTheme === "dark"
+                      ? [lineTransitionClass, "bg-egg-static"].filter(Boolean).join(" ")
+                      : undefined
                   }
-                  lineClassNameActive={resolvedTheme === "dark" ? "bg-egg-static" : undefined}
                   className="shrink-0"
                   thickness={2}
                   gap={5}
@@ -204,8 +253,8 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
                 <span
                   className={[
-                    "hidden lg:inline-block w-[4ch] transition-colors duration-200",
-                    resolvedTheme === "dark"
+                    "hidden lg:inline-block w-[4ch] transition-colors duration-200 lg:duration-300",
+                    navTheme === "dark"
                       ? "text-egg-static"
                       : controlsLight
                         ? "text-egg"
