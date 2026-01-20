@@ -50,21 +50,34 @@ export default function SectionTeam({
         </div>
 
         {members.length ? (
-          <>
-            <div
-              className={`${gridClass} ${hasCarousel ? "xl:hidden lg:pl-[5rem] lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem]" : ""}  xl:px-0!`}
-            >
-              {members.map((entry) => (
-                <TeamMemberCard key={entry._key} entry={entry} />
-              ))}
-            </div>
+          hasCarousel ? (
+            <>
+              {/* Mobile (single column) uses carousel */}
+              <div className="sm:hidden -mx-[1rem]" style={{ width: "calc(100% + 2rem)" }}>
+                <TeamCarousel members={members} />
+              </div>
 
-            {hasCarousel ? (
+              {/* Tablet/desktop grid until xl */}
+              <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-10 lg:pl-[5rem] lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] xl:px-0! xl:hidden">
+                {members.map((entry) => (
+                  <TeamMemberCard key={entry._key} entry={entry} variant="grid" />
+                ))}
+              </div>
+
+              {/* Large desktop carousel */}
               <div className="hidden xl:block">
                 <TeamCarousel members={members} />
               </div>
-            ) : null}
-          </>
+            </>
+          ) : (
+            <div
+              className={`${gridClass}  xl:px-0!`}
+            >
+              {members.map((entry) => (
+                <TeamMemberCard key={entry._key} entry={entry} variant="grid" />
+              ))}
+            </div>
+          )
         ) : (
           <p className="text-moody/60">No team members published yet.</p>
         )}
