@@ -5,7 +5,19 @@ export type CreditItem = {
 };
 
 export const CREDITS: CreditItem[] = [
-  { name: "A.S. Middelkoop", accreditation: "Developer & Design", href: "https://www.linkedin.com/in/august-solli-middelkoop/?originalSubdomain=no" },
-  { name: "E.E. Kvam", accreditation: "Developer & Design", href: "https://www.linkedin.com/in/eirik-engen-kvam/" },
-    { name: "M.A. Giverin", accreditation: "Developer & Design", href: "https://www.linkedin.com/in/magnus-giverin-5344b5188/" },
+  {
+    name: "Eirik Kvam",
+    accreditation: "Developer & Design",
+    href: "https://www.linkedin.com/in/eirik-engen-kvam/",
+  },
+  {
+    name: "August Middelkoop",
+    accreditation: "Developers & Design",
+    href: "https://www.linkedin.com/in/august-solli-middelkoop/?originalSubdomain=no",
+  },
+  {
+    name: "Magnus Giverin",
+    accreditation: "Developer & Design",
+    href: "https://www.linkedin.com/in/magnus-giverin-5344b5188/",
+  },
 ];

@@ -51,7 +51,9 @@ export default function SectionTeam({
 
         {members.length ? (
           <>
-            <div className={`${gridClass} ${hasCarousel ? "xl:hidden" : ""} lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] lg:pl-[5rem] xl:px-0!`}>
+            <div
+              className={`${gridClass} ${hasCarousel ? "xl:hidden lg:pl-[5rem] lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem]" : ""}  xl:px-0!`}
+            >
               {members.map((entry) => (
                 <TeamMemberCard key={entry._key} entry={entry} />
               ))}
