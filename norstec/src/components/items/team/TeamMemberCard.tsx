@@ -4,6 +4,7 @@ import { SectionTeamMember } from "@/types/sections/sectionTeam";
 
 type TeamMemberCardProps = {
   entry: SectionTeamMember;
+  variant?: "grid" | "carousel";
 };
 
 function ContactIcon({
@@ -63,7 +64,7 @@ function formatPhone(value: string) {
   return value.replace(/\s+/g, "");
 }
 
-export default function TeamMemberCard({ entry }: TeamMemberCardProps) {
+export default function TeamMemberCard({ entry, variant = "grid" }: TeamMemberCardProps) {
   const member = entry.member;
 
   if (!member) {
@@ -102,8 +103,13 @@ export default function TeamMemberCard({ entry }: TeamMemberCardProps) {
       : null,
   ].filter(Boolean) as Array<{ href: string; icon: string; label: string }>;
 
+  const articleClass =
+    variant === "carousel"
+      ? "md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-3xl overflow-hidden"
+      : "group w-full md:min-w-[17rem] md:w-[20vw]";
+
   return (
-    <article className="group w-full md:min-w-[17rem] md:w-[20vw]">
+    <article className={articleClass}>
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl snap">
         {photoUrl ? (
           <Image

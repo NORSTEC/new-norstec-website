@@ -81,7 +81,7 @@ export default function TeamCarousel({ members }: TeamCarouselProps) {
 
             return (
               <div className="embla__slide min-w-[20rem] w-[25vw]" key={key}>
-                <TeamMemberCard entry={entry} />
+                <TeamMemberCard entry={entry} variant="carousel" />
               </div>
             );
           })}
