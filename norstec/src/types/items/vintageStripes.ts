@@ -1,8 +1,4 @@
-export interface VintageStripesSection {
-    _id: string;
-    _type: "sectionDivider";
+export interface VintageStripe {
     color: string;
-    lineDensity: number;
-    paddingTop?: number;
-    paddingBottom?: number;
+    lineFactor?: number;
 }
