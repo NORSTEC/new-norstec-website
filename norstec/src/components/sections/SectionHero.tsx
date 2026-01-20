@@ -67,7 +67,7 @@ export default function SectionHero({ section, className = "" }: SectionHeroProp
               priority
               unoptimized
             />
-
+            <div className="absolute inset-0 z-5 bg-linear-to-b from-black/90 via-black/70 to-black/20" />
             {TextOverlay}
           </div>
         </div>
