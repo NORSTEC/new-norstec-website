@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import "../globals.css";
 import {VintageStripe} from "@/types/items/vintageStripes"
+import "../../../../styles/globals.css"
 
 
 
