@@ -282,14 +282,14 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
                     {/* Vertikal linje */}
                     <div className="shrink-0">
                       <div
-                        className="w-3 h-full min-h-[4rem] 3xl:min-h-[6rem]"
+                        className="w-3 h-full min-h-[3.5rem] lg:min-h-[6rem] 3xl:min-h-[8rem]"
                         style={{ backgroundColor: color }}
                       />
                     </div>
 
                     {/* Value */}
                     <div>
-                      <span className="text-[3.5rem] lg:text-[4rem] 3xl:text-[6rem] leading-none font-extrabold text-moody whitespace-nowrap">
+                      <span className="text-[3.5rem] lg:text-[6rem] 3xl:text-[8rem] leading-none font-light text-moody whitespace-nowrap">
                         {formatCompactValue(item, displayNumber, phase)}
                       </span>
                     </div>
