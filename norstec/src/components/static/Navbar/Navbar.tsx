@@ -28,6 +28,9 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const prefersReducedMotion = useReducedMotion();
   const ENTRY_DELAY_MS = 1100;
   const DESKTOP_TINT_DELAY_MS = 300;
+  const PANEL_STAGGER = 0.06;
+  const PANEL_ENTER_ORDER = ["front", "mid", "back"] as const;
+  const PANEL_EXIT_ORDER = [...PANEL_ENTER_ORDER].reverse() as const;
   const [desktopMenuTintOn, setDesktopMenuTintOn] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const is3xl = useMediaQuery("(min-width: 2000px)");
@@ -39,7 +42,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
 
   const overlayVariants = {
     open: { opacity: 1, pointerEvents: "auto" as const },
-    closed: { opacity: 0, pointerEvents: "none" as const },
+    closed: { opacity: 1, pointerEvents: "none" as const },
   };
 
   const panelBackVariants = {
@@ -187,6 +190,30 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const navTheme = heroForcesDarkNav ? "dark" : resolvedTheme;
   const controlsLight = navTheme === "dark" ? true : headerFgIsLight;
   const lineTransitionClass = "transition-colors duration-200 lg:duration-300";
+  const panelDelay = (isOpening: boolean, key: "front" | "mid" | "back") => {
+    const order = isOpening ? PANEL_ENTER_ORDER : PANEL_EXIT_ORDER;
+    const idx = order.indexOf(key);
+    return Math.max(0, idx) * PANEL_STAGGER;
+  };
+  const panelBackTransition = (isOpening: boolean) => ({
+    type: "tween" as const,
+    ease: [0.22, 0.9, 0.2, 1] as const,
+    duration: 0.55,
+    delay: panelDelay(isOpening, "back"),
+  });
+  const panelMidTransition = (isOpening: boolean) => ({
+    type: "tween" as const,
+    ease: [0.22, 0.9, 0.2, 1] as const,
+    duration: 0.55,
+    delay: panelDelay(isOpening, "mid"),
+  });
+  const panelFrontTransition = (isOpening: boolean) => ({
+    type: "spring" as const,
+    stiffness: 280,
+    damping: 30,
+    mass: 0.9,
+    delay: panelDelay(isOpening, "front"),
+  });
   const mobileHeaderBg =
     heroForcesDarkNav && !open
       ? "rgba(15,17,24,0)"
@@ -293,12 +320,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
               <motion.div
                 className="absolute left-0 top-0 h-screen pl-[67vw] 3xl:pl-[40vw] w-[100vw] 3xl:w-[64vw] bg-[#3D5B81] pt-20 text-egg"
                 variants={panelBackVariants}
-                transition={{
-                  type: "tween",
-                  ease: [0.22, 0.9, 0.2, 1],
-                  duration: 0.55,
-                  delay: open ? 0.12 : 0,
-                }}
+                transition={panelBackTransition(open)}
                 style={{ willChange: "transform", transform: "translateZ(0)" }}
               >
                 <div className="px-5 lg:px-8 flex flex-col gap-3 text-egg-static">
@@ -314,12 +336,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
               <motion.div
                 className="absolute left-0 top-0 h-screen pl-[33vw] 3xl:pl-[16vw] w-[67vw] 3xl:w-[40vw] bg-[#98C0D9] pt-20"
                 variants={panelBackVariants}
-                transition={{
-                  type: "tween",
-                  ease: [0.22, 0.9, 0.2, 1],
-                  duration: 0.55,
-                  delay: open ? 0.06 : 0,
-                }}
+                transition={panelMidTransition(open)}
                 style={{ willChange: "transform", transform: "translateZ(0)" }}
               >
                 <div className="px-5 lg:px-8">
@@ -331,12 +348,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
               <motion.div
                 className="absolute left-0 top-0 h-screen w-[33vw] 3xl:w-[16vw] 3xl:min-w-[20rem] bg-[#0f1118]"
                 variants={panelFrontVariants}
-                transition={{
-                  type: "spring",
-                  stiffness: 280,
-                  damping: 30,
-                  mass: 0.9,
-                }}
+                transition={panelFrontTransition(open)}
                 style={{ willChange: "transform", transform: "translateZ(0)" }}
               >
                 <MenuContent onNavigate={() => setOpen(false)} />
