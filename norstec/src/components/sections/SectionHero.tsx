@@ -12,17 +12,8 @@ type SectionHeroProps = {
 export default function SectionHero({ section, className = "" }: SectionHeroProps) {
     const { title, subtitle, image, imageMobile } = section;
 
-    const desktopSrc = imageBuilder(image, {
-        width: 2400,
-        quality: 100,
-        fit: "max",
-    });
-
-    const mobileSrc = imageBuilder(imageMobile ?? image, {
-        width: 1400,
-        quality: 100,
-        fit: "max",
-    });
+    const desktopSrc = imageBuilder(image);
+    const mobileSrc = imageBuilder(imageMobile ?? image);
 
     const TextOverlay = (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4">
