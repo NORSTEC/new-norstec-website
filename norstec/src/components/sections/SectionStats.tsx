@@ -198,12 +198,12 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
                 <div className="relative h-full w-full desktop-container py-5! lg:py-0!">
                   <div className="h-full flex gap-10 justify-center items-start flex-col lg:flex-row lg:items-center">
                     <div className="min-w-[25vw]">
-                      <h3 className="text-[2rem] md:text-[3rem] xl:text-[3rem] 2xl:text-[5rem] text-moody leading-none">
+                      <h3 className="text-[2rem] md:text-[3rem] xl:text-[3rem] 2xl:text-[5rem] text-moody leading-none font-light">
                         {value}
                       </h3>
 
                       {item.captionTitle && (
-                        <p className=" text-moody italic text-[1.35rem] md:text-[1.75rem] xl:text-[1.5rem] 2xl:text-[2.5rem] mt-2">
+                        <p className=" text-moody italic text-[1.35rem] md:text-[1.75rem] xl:text-[1.5rem] 2xl:text-[2.5rem] mt-2 font-light">
                           {item.captionTitle}
                         </p>
                       )}
