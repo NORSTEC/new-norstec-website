@@ -59,9 +59,16 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
   }
 
   return (
-    <>
-      <HeroLanding />
-      <main>{data.sections?.map((section) => renderHomeSection(section))}</main>
-    </>
+      <>
+        <HeroLanding/>
+        <main>
+          {data.sections?.map((section) => (
+              <React.Fragment key={section._id}>
+                {renderHomeSection(section)}
+              </React.Fragment>
+          ))}
+        </main>
+
+      </>
   );
 }
