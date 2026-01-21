@@ -163,7 +163,7 @@ export default function SectionBarList({ section, className = "" }: SectionBarLi
                     }}
                   >
                     <span
-                      className={`${text} text-[3.2rem] lg:text-[4.2rem] font-semibold italic whitespace-nowrap`}
+                      className={`${text} text-[3.2rem] lg:text-[4.2rem] font-thin italic whitespace-nowrap`}
                     >
                       {item.value}
                     </span>
