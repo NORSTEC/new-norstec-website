@@ -7,6 +7,8 @@ import SectionBarList from "@/components/sections/SectionBarList";
 import SectionStats from "@/components/sections/SectionStats";
 import SectionTable from "@/components/sections/SectionTable";
 import SectionNapkin from "@/components/sections/SectionNapkin";
+import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
+import React from "react";
 
 interface AboutPageProps {
   data: AboutPage;
@@ -31,6 +33,17 @@ function renderAboutSection(section: AboutPageSection) {
 
     case "sectionNapkin":
       return <SectionNapkin key={section._id} section={section} />;
+    case "sectionDivider": {
+      const lineFactor = 200 - section.lineDensity * 10;
+
+      return (
+          <VintageStripes
+              key={section._id}
+              color={section.color}
+              lineFactor={lineFactor}
+          />
+      );
+    }
 
     default:
       return null;
