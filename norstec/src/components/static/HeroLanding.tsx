@@ -66,7 +66,7 @@ export default function HeroLanding({
           ))}
         </h1>
 
-        <h2 className="hidden md:block text-[3vw] 3xl:text-[3rem] italic font-barlow font-semibold">
+        <h2 className="hidden md:block text-[3vw] 3xl:text-[3rem] italic font-barlow font-light">
           {tagline.split("").map((char, i) => (
             <motion.span
               key={i}
