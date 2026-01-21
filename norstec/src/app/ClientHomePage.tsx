@@ -10,6 +10,7 @@ import SectionInitiatives from "@/components/sections/SectionInitiatives";
 import SectionMap from "@/components/sections/SectionMap";
 import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
 import "../styles/globals.css"
+import Mountain from "@/components/sections/Mountain";
 
 interface ClientHomePageProps {
   data: HomePage;
