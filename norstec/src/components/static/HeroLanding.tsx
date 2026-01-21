@@ -17,7 +17,7 @@ const TAGLINE_LETTER_DELAY = 0.04;
 const HERO_TITLE_CLASSES =
   "whitespace-nowrap text-[18vh] md:text-[22vw] 3xl:text-[19rem] " +
   "absolute right-0 top-[85vh] -translate-y-1/2 -translate-x-[10%] rotate-90 origin-right " +
-  "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-barlow font-bold";
+  "md:static md:right-auto md:top-auto md:translate-y-0 md:translate-x-0 md:rotate-0 md:origin-center font-barlow font-thin";
 
 export default function HeroLanding({
   title = "NORSTEC",
