@@ -11,6 +11,13 @@ type Point = {
 
 const points = mountainPoints as Point[];
 
+const COLORS = [
+    "#E8804C", // copper
+    "#F3AD78", // sun
+    "#30C3CD", // beachball
+    "#1697B7", // sky
+];
+
 export default function Mountain() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rafRef = useRef<number | null>(null);
@@ -38,14 +45,14 @@ export default function Mountain() {
 
         const cx = w / 2;
         const cy = h / 2;
-        const scale = Math.min(w, h) * 0.35;
+        const scale = Math.min(w, h) * 0.45;
 
         const s = state.current;
         const dt = s.last ? (time - s.last) / 1000 : 0;
         s.last = time;
 
-        s.rotY += dt * 0.6;
-        s.rotX += dt * 0.4;
+        s.rotY += dt * 0.08;
+        s.rotX += dt * 0.04;
 
         const cosY = Math.cos(s.rotY);
         const sinY = Math.sin(s.rotY);
@@ -53,23 +60,27 @@ export default function Mountain() {
         const sinX = Math.sin(s.rotX);
 
         for (const p of points) {
-            // rotate Y
             let x = p.x * cosY - p.z * sinY;
             let z = p.x * sinY + p.z * cosY;
 
-            // rotate X
             let y = p.y * cosX - z * sinX;
             z = p.y * sinX + z * cosX;
 
-            const fov = 2;
+            const fov = 2.2;
             const persp = fov / (fov + z);
 
             const sx = cx + x * scale * persp;
             const sy = cy + y * scale * persp;
 
+            const yNorm = Math.min(1, Math.max(0, (y + 1) / 2));
+            const colorIndex = Math.min(
+                COLORS.length - 1,
+                Math.floor(yNorm * COLORS.length)
+            );
+
             ctx.beginPath();
-            ctx.fillStyle = `rgba(255,255,255,${0.3 + persp * 0.4})`;
-            ctx.arc(sx, sy, 0.8 * persp, 0, Math.PI * 2);
+            ctx.fillStyle = COLORS[colorIndex];
+            ctx.arc(sx, sy, 5 * persp, 0, Math.PI * 2);
             ctx.fill();
         }
 
@@ -84,8 +95,8 @@ export default function Mountain() {
     }, [draw]);
 
     return (
-        <div className="w-full h-full bg-black">
-            <canvas ref={canvasRef} className="w-full h-full block" />
+        <div className="w-full h-full section">
+            <canvas ref={canvasRef} className="w-full h-full block"/>
         </div>
     );
 }
