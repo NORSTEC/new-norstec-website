@@ -19,6 +19,7 @@ export default defineType({
                         {type: 'sectionBarList'},
                         {type: 'sectionStats'},
                         {type: 'sectionTable'},
+                        {type: 'sectionDivider'}
                     ],
                 },
             ],

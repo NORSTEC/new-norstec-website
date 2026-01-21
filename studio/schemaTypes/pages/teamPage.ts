@@ -16,6 +16,7 @@ export default defineType({
                         {type: 'sectionHero'},
                         {type: 'sectionTextImage'},
                         {type: 'sectionTeam'},
+                        {type: 'sectionDivider'}
                     ],
                 },
             ],

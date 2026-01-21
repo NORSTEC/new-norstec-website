@@ -352,3 +352,16 @@
         visibility: hidden;
     }
 }
+.line {
+    opacity: 0;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.line.animate {
+    animation: fadeIn 0.5s forwards;
+}
+

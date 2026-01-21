@@ -32,6 +32,7 @@ export default defineType({
                         {type: 'sectionMedia'},
                         {type: 'sectionPodcast'},
                         {type: 'sectionImage'},
+                        {type: 'sectionDivider'}
                     ],
                 },
             ],

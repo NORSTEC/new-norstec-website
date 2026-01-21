@@ -1,15 +1,15 @@
-
 "use client";
 
 import React from "react";
 import type { HomePage, HomePageSection } from "@/types/pages/homePage";
-
 import SectionTextImage from "@/components/sections/SectionTextImage";
 import SectionImage from "@/components/sections/SectionImage";
 import HeroLanding from "@/components/static/HeroLanding";
 import SectionTable from "@/components/sections/SectionTable";
 import SectionInitiatives from "@/components/sections/SectionInitiatives";
 import SectionMap from "@/components/sections/SectionMap";
+import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
+import "../styles/globals.css"
 
 interface ClientHomePageProps {
   data: HomePage;
@@ -31,6 +31,17 @@ function renderHomeSection(section: HomePageSection) {
 
     case "sectionInitiatives":
       return <SectionInitiatives key={section._id} section={section} />;
+    case "sectionDivider": {
+      const lineFactor = 200 - section.lineDensity * 10;
+
+      return (
+          <VintageStripes
+              key={section._id}
+              color={section.color}
+              lineFactor={lineFactor}
+          />
+      );
+    }
 
     default:
       return null;

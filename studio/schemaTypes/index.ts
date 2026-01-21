@@ -43,6 +43,7 @@ import mapPosition from './items/mapPosition'
 import barListItem from './items/barListItem'
 import {metadata} from "./sections/sectionMetadata";
 import statItem from './items/statItem'
+import {vintageStripes} from "./items/sectionDivider";
 
 
 
@@ -90,5 +91,6 @@ export const schemaTypes = [
     mediaItem,
     teamRole,
     organization,
-    mapPosition
+    mapPosition,
+    vintageStripes,
 ]
