@@ -4,6 +4,7 @@ import { SectionTextImage } from "@/types/sections/sectionTextImage";
 import { SectionStats } from "@/types/sections/sectionStats";
 import { SectionTable } from "@/types/sections/sectionTable";
 import { SectionNapkin } from "@/types/sections/sectionNapkin";
+import { VintageStripesSection} from "@/types/items/vintageStripes";
 
 export type AboutPageSection =
   | SectionHero
@@ -11,7 +12,9 @@ export type AboutPageSection =
   | SectionStats
   | SectionTextImage
   | SectionTable
-  | SectionNapkin;
+  | SectionNapkin
+  | VintageStripesSection;
+
 
 export interface AboutPage {
   _type: "aboutPage";

@@ -5,6 +5,8 @@ import { SectionTable } from "@/types/sections/sectionTable";
 import { SectionInitiatives } from "@/types/sections/sectionInitiatives";
 import { SectionImage } from "@/types/sections/sectionImage";
 import { MetadataSection } from "@/types/metadata/metadata";
+import { VintageStripesSection} from "@/types/items/vintageStripes";
+
 
 export type HomePageSection =
   | SectionTextImage
@@ -12,7 +14,8 @@ export type HomePageSection =
   | SectionBarList
   | SectionMap
   | SectionTable
-  | SectionInitiatives;
+  | SectionInitiatives
+  | VintageStripesSection;
 
 export interface HomePage {
   _type: "homePage";
