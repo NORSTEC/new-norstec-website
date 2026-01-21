@@ -1,40 +1,67 @@
 import fs from "fs";
 import path from "path";
 
-type Point = {
-    x: number;
-    y: number;
-    z: number;
-};
+/* ---------- simple 2D noise ---------- */
+function hash(x: number, y: number) {
+    return Math.sin(x * 127.1 + y * 311.7) * 43758.5453 % 1;
+}
 
-function generateMountainPoints(
-    radialSteps = 200,
-    heightSteps = 80
+function noise(x: number, y: number) {
+    const ix = Math.floor(x);
+    const iy = Math.floor(y);
+    const fx = x - ix;
+    const fy = y - iy;
+
+    const a = hash(ix, iy);
+    const b = hash(ix + 1, iy);
+    const c = hash(ix, iy + 1);
+    const d = hash(ix + 1, iy + 1);
+
+    const u = fx * fx * (3 - 2 * fx);
+    const v = fy * fy * (3 - 2 * fy);
+
+    return (
+        a * (1 - u) * (1 - v) +
+        b * u * (1 - v) +
+        c * (1 - u) * v +
+        d * u * v
+    );
+}
+
+/* ---------- mountain generation ---------- */
+
+type Point = { x: number; y: number; z: number };
+
+function generateMountain(
+    size = 32,
+    scale = 2
 ): Point[] {
     const points: Point[] = [];
 
-    for (let h = 0; h <= heightSteps; h++) {
-        const height = h / heightSteps; // 0 → 1
-        const radius = Math.exp(-height * height * 3);
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const x = (i / size - 0.5) * scale;
+            const z = (j / size - 0.5) * scale;
 
-        for (let a = 0; a < radialSteps; a++) {
-            const angle = (a / radialSteps) * Math.PI * 2;
+            const r = Math.sqrt(x * x + z * z);
+            const falloff = Math.exp(-r * r * 2);
 
-            const x = Math.cos(angle) * radius;
-            const z = Math.sin(angle) * radius;
+            let h = 0;
+            h += noise(x * 2, z * 2) * 0.6;
+            h += noise(x * 4, z * 4) * 0.3;
+            h += noise(x * 8, z * 8) * 0.1;
 
-            // top peak
-            points.push({ x, y: height, z });
+            const y = h * falloff;
 
-            // mirrored bottom peak
-            points.push({ x, y: -height, z });
+            points.push({ x, y, z });
+            points.push({ x, y: -y, z }); // mirrored peak
         }
     }
 
     return points;
 }
 
-const points = generateMountainPoints();
+const points = generateMountain();
 
 const outPath = path.join(
     process.cwd(),
@@ -43,4 +70,4 @@ const outPath = path.join(
 );
 
 fs.writeFileSync(outPath, JSON.stringify(points));
-console.log(`Mountain generated: ${points.length} points`);
+console.log(`Generated ${points.length} mountain points`);
