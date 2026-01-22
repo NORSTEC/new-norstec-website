@@ -80,7 +80,10 @@ export default function TeamCarousel({ members }: TeamCarouselProps) {
             const key = entry._key ?? entry.member?._id ?? `team-slide-${i}`;
 
             return (
-              <div className="embla__slide min-w-[20rem] w-[25vw]" key={key}>
+              <div
+                className="embla__slide min-w-[16rem] md:min-w-[20rem] md:w-[25vw]"
+                key={key}
+              >
                 <TeamMemberCard entry={entry} variant="carousel" />
               </div>
             );

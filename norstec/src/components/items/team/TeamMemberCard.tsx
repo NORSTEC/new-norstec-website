@@ -105,7 +105,7 @@ export default function TeamMemberCard({ entry, variant = "grid" }: TeamMemberCa
 
   const articleClass =
     variant === "carousel"
-      ? "md:min-w-[17rem] md:w-[20vw] w-[17rem] rounded-3xl overflow-hidden"
+      ? "md:min-w-[17rem] md:w-[20vw] w-[14rem] rounded-3xl overflow-hidden"
       : "group w-full md:min-w-[17rem] md:w-[20vw]";
 
   return (
@@ -127,7 +127,7 @@ export default function TeamMemberCard({ entry, variant = "grid" }: TeamMemberCa
         )}
 
         {roleTitle ? (
-          <span className="absolute left-3 top-3 rounded-full bg-moody px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-egg shadow-md backdrop-blur">
+          <span className="absolute left-1.5 md:left-3 top-3 rounded-full bg-moody px-2 md:px-3 py-1 text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.08em] text-egg shadow-md backdrop-blur">
             {roleTitle}
           </span>
         ) : null}
