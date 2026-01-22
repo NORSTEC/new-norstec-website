@@ -134,7 +134,7 @@ export default function TeamMemberCard({ entry, variant = "grid" }: TeamMemberCa
       </div>
 
       <div className="flex flex-col gap-3 py-2">
-          <h3 className="uppercase leading-tight">{member.name}</h3>
+          <h3 className="uppercase leading-tight font-medium">{member.name}</h3>
         <div className="flex flex-wrap items-center gap-3">
           {iconActions.map((action, idx) => (
             <ContactIcon key={`${action.label}-${idx}`} href={action.href} icon={action.icon} label={action.label} />
