@@ -14,5 +14,6 @@ export interface SectionSummitProgram {
   _type: "sectionSummitProgram";
   _id: string;
   title?: string;
+  subtitle?: string;
   items: SummitProgramItem[];
 }
