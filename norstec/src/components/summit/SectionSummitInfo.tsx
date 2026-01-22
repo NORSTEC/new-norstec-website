@@ -43,7 +43,7 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
 
           <div className="flex flex-row items-start gap-4 md:gap-6 lg:flex-col lg:items-end">
             {imageSrc ? (
-              <div className="relative w-[45vw] md:w-[10rem] lg:w-[22rem] xl:w-[20rem] 3xl:w-[30rem] aspect-[3/5] max-h-[50vh] max-w-[30vw] overflow-hidden rounded-2xl bg-moody/5">
+              <div className="relative w-[45vw] md:w-[10rem] lg:w-[11.5rem] xl:w-[13rem] 3xl:w-[20rem] aspect-[3/5] max-h-[40vh] max-w-[24vw] overflow-hidden rounded-2xl bg-moody/5">
                 <img
                   src={imageSrc}
                   alt={imageAlt || captionName || title || "Summit profile image"}
@@ -52,11 +52,11 @@ export default function SectionSummitInfo({ section, className = "" }: Props) {
                 />
               </div>
             ) : (
-              <div className="w-[45vw] max-w-[14rem] md:w-[50vw] lg:w-[22rem] xl:w-[26rem] 3xl:w-[30rem] aspect-[4/5] max-h-[28rem] rounded-2xl bg-moody/10" />
+              <div className="w-[45vw] max-w-[14rem] md:w-[50vw] lg:w-[18rem] xl:w-[16rem] 3xl:w-[22rem] aspect-[4/5] max-h-[24rem] rounded-2xl bg-moody/10" />
             )}
 
             {hasCaption && (
-              <div className="flex-1 w-auto lg:w-[22rem] xl:w-[20rem] 3xl:w-[30rem] text-left">
+              <div className="flex-1 w-auto md:w-[10rem] lg:w-[11.5rem] xl:w-[13rem] 3xl:w-[20rem]  text-left">
                 {captionName && <p className="font-bold">{captionName}</p>}
                 {captionTitle && <p className="font-semibold">{captionTitle}</p>}
                 {captionEmail && (
