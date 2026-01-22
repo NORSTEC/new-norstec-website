@@ -13,6 +13,7 @@ import { SectionSummitTextImage } from "@/types/sections/summit/sectionSummitTex
 import { SectionSummitTimer } from "@/types/sections/summit/sectionSummitTimer";
 import { SectionSummitHost } from "@/types/sections/summit/sectionSummitHost";
 import { SectionSummitInfo } from "@/types/sections/summit/sectionSummitInfo";
+import { SectionSummitProgram } from "@/types/sections/summit/sectionSummitProgram";
 
 export type InitiativePageSection =
   | SectionHero
@@ -28,7 +29,8 @@ export type InitiativePageSection =
   | SectionSummitTextImage
   | SectionSummitTimer
   | SectionSummitHost
-  | SectionSummitInfo;
+  | SectionSummitInfo
+  | SectionSummitProgram;
 
 export interface InitiativePage extends Omit<Initiative, "sections"> {
   sections: InitiativePageSection[];

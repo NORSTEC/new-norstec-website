@@ -30,6 +30,7 @@ import sectionSummitTextImage from "./sections/summit/sectionSummitTextImage";
 import sectionSummitTimer from "./sections/summit/sectionSummitTimer";
 import sectionSummitHost from "./sections/summit/sectionSummitHost";
 import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
+import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
 
 
 // Items
@@ -81,6 +82,7 @@ export const schemaTypes = [
     sectionSummitTimer,
     sectionSummitHost,
     sectionSummitInfo,
+    sectionSummitProgram,
 
     // Items
     teamMember,
