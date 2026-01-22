@@ -14,6 +14,7 @@ import SectionSummitTextImage from "@/components/summit/SectionSummitTextImage";
 import SectionSummitTimer from "@/components/summit/SectionSummitTimer";
 import SectionSummitHost from "@/components/summit/SectionSummitHost";
 import SectionSummitInfo from "@/components/summit/SectionSummitInfo";
+import SectionSummitProgram from "@/components/summit/SectionSummitProgram";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 import { StripePaletteName, StripePaletteProvider } from "@/hooks/useStripePalette";
 
@@ -49,6 +50,8 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
       return <SectionSummitHost key={section._id} section={section} className={className} />;
     case "sectionSummitInfo":
       return <SectionSummitInfo key={section._id} section={section} className={className} />;
+    case "sectionSummitProgram":
+      return <SectionSummitProgram key={section._id} section={section} className={className} />;
     default:
       return null;
   }
