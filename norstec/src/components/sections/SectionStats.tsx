@@ -197,7 +197,16 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
                 {/* Innhold */}
                 <div className="relative h-full w-full desktop-container py-5! lg:py-0!">
                   <div className="h-full flex gap-10 justify-center items-start flex-col lg:flex-row lg:items-center">
-                    <div className="min-w-[25vw]">
+                    <motion.div
+                      className="min-w-[25vw]"
+                      initial={{ opacity: 0, x: -24 }}
+                      animate={show ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}
+                      transition={{
+                        duration: rowDuration,
+                        ease: "easeOut",
+                        delay: index * stagger + rowDuration * 0.35,
+                      }}
+                    >
                       <h3 className="text-[2rem] md:text-[3rem] xl:text-[3rem] 2xl:text-[5rem] text-moody leading-none font-light">
                         {value}
                       </h3>
@@ -207,11 +216,20 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
                           {item.captionTitle}
                         </p>
                       )}
-                    </div>
+                    </motion.div>
 
                     {/* Under: caption */}
                     {item.caption && (
-                      <div className="text-moody">
+                      <motion.div
+                        className="text-moody"
+                        initial={{ opacity: 0, x: -16 }}
+                        animate={show ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
+                        transition={{
+                          duration: rowDuration,
+                          ease: "easeOut",
+                          delay: index * stagger + rowDuration * 0.45,
+                        }}
+                      >
                         <PortableText
                           value={item.caption}
                           components={{
@@ -220,7 +238,7 @@ export default function SectionStats({ section, className = "" }: SectionStatsPr
                             },
                           }}
                         />
-                      </div>
+                      </motion.div>
                     )}
                   </div>
                 </div>
