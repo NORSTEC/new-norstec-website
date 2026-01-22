@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import Mountain from "@/components/sections/Mountain";
+import Mountain from "@/components/items/Mountain";
 
 
 type HeroProps = {
