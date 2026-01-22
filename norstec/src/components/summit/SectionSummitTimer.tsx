@@ -3,7 +3,7 @@ import type { SectionSummitTimer } from "@/types/sections/summit/sectionSummitTi
 import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRight";
 import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
 
-const SUMMIT_DATE = "2026-03-12T00:00:00Z";
+const SUMMIT_DATE = new Date(2026, 2, 12, 0, 0, 0);
 
 export default function SectionSummitTimer({
   section,
@@ -15,7 +15,7 @@ export default function SectionSummitTimer({
   const { buttonHref, buttonLabel } = section;
   const isExternal = buttonHref?.startsWith("http");
 
-  const target = React.useMemo(() => new Date(SUMMIT_DATE), []);
+  const target = React.useMemo(() => SUMMIT_DATE, []);
   const [timeLeft, setTimeLeft] = React.useState(() => getTimeLeft(target));
 
   React.useEffect(() => {
