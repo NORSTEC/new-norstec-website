@@ -50,6 +50,7 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
   const [height, setHeight] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const timing = "cubic-bezier(0.24, 0.84, 0.42, 1)";
+  const heightTransition = { type: "tween" as const, duration: 0.3, ease: [0.24, 0.84, 0.42, 1] as const };
 
   const cells = row?.cells ?? [];
   const title = cells[0] ?? "—";
@@ -61,6 +62,20 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
       setHeight(0);
     }
   }, [open]);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const ro = typeof ResizeObserver !== "undefined"
+      ? new ResizeObserver(() => setHeight(node.scrollHeight))
+      : null;
+
+    if (ro) ro.observe(node);
+    setHeight(node.scrollHeight);
+
+    return () => ro?.disconnect();
+  }, [cells]);
 
   useEffect(() => {
     if (!open) return;
@@ -90,9 +105,12 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
       </div>
 
       {/* Collapsible innhold */}
-      <div
-        className="overflow-hidden transition-[max-height] duration-300"
-        style={{ maxHeight: `${height}px`, transitionTimingFunction: timing }}
+      <motion.div
+        className="overflow-hidden"
+        initial={false}
+        animate={{ height: open ? height : 0, opacity: open ? 1 : 0.9 }}
+        transition={heightTransition}
+        style={{ willChange: "height", transform: "translateZ(0)" }}
       >
         <motion.div
           ref={ref}
@@ -100,7 +118,7 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
           variants={listVariants}
           initial={false}
           animate={open ? "open" : "closed"}
-          style={{ willChange: "transform, height", transitionTimingFunction: timing }}
+          style={{ willChange: "transform" }}
           transition={{ duration: 0.24, ease: [0.24, 0.84, 0.42, 1] }}
         >
           {cells.slice(1).map((cell, i) => {
@@ -142,7 +160,7 @@ function CollapsibleItem({ row, columns, isLast }: CollapsibleItemProps) {
             );
           })}
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 }
