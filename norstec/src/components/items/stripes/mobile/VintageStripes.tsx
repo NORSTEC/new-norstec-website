@@ -56,22 +56,21 @@ const VintageStripes: React.FC<VintageStripesProps> = ({
     }, [lineCount, lineDelay]);
 
     return (
-        <div className="w-full h-16 flex items-center py-16 md:hidden" ref={containerRef} >
-      <span className="w-full mx-4 md:w-4/5 max-w-[1700px] md:mx-auto h-[70px] relative">
-        {[...Array(lineCount)].map((_, i) => (
+      <div className="w-full h-16 flex items-center lg:hidden mobile-container" ref={containerRef}>
+        <span className="w-full md:mx-auto h-[70px] relative">
+          {[...Array(lineCount)].map((_, i) => (
             <div
-                key={i}
-                className="absolute h-full w-4 line"
-                style={{
-                    left: `calc(${(i * 100) / lineCount}% + 21px)`,
-                    transform: "rotate(35deg) skewY(-35deg)",
-                    backgroundColor: color,
-                }}
-
+              key={i}
+              className="absolute h-full w-4 line rounded-sm"
+              style={{
+                left: `calc(${(i * 100) / lineCount}% + 21px)`,
+                transform: "rotate(35deg) skewY(-35deg)",
+                backgroundColor: color,
+              }}
             />
-        ))}
-      </span>
-        </div>
+          ))}
+        </span>
+      </div>
     );
 };
 

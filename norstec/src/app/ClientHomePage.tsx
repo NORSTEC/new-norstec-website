@@ -10,7 +10,8 @@ import SectionInitiatives from "@/components/sections/SectionInitiatives";
 import SectionMap from "@/components/sections/SectionMap";
 import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
 import "../styles/globals.css"
-import Mountain from "@/components/sections/Mountain";
+import Mountain from "@/components/items/Mountain";
+import Hero from "@/components/static/Hero";
 
 interface ClientHomePageProps {
   data: HomePage;
@@ -60,16 +61,18 @@ export default function ClientHomePage({ data }: ClientHomePageProps) {
   }
 
   return (
-      <>
-        <HeroLanding/>
-        <main>
-          {data.sections?.map((section) => (
-              <React.Fragment key={section._id}>
-                {renderHomeSection(section)}
-              </React.Fragment>
-          ))}
-        </main>
-
-      </>
+    <>
+      <div className="hidden lg:block">
+        <Hero />
+      </div>
+      <div className="block lg:hidden">
+        <HeroLanding />
+      </div>
+      <main>
+        {data.sections?.map((section) => (
+          <React.Fragment key={section._id}>{renderHomeSection(section)}</React.Fragment>
+        ))}
+      </main>
+    </>
   );
 }
