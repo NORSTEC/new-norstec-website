@@ -1,5 +1,7 @@
 import React from "react";
 import type { SectionSummitTimer } from "@/types/sections/summit/sectionSummitTimer";
+import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRight";
+import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
 
 const SUMMIT_DATE = "2026-03-12T00:00:00Z";
 
@@ -25,6 +27,7 @@ export default function SectionSummitTimer({
 
   return (
     <section className={`section relative flex items-center justify-center ${className}`}>
+      <StripesCornerTopRight />
       <div className="mobile-container w-full flex flex-col items-center gap-20 ">
         <div className="flex flex-nowrap w-full justify-between gap-2 sm:gap-4 md:w-auto md:justify-center md:gap-6 lg:gap-10">
           <TimeBlock value={timeLeft.days} label="Days" />

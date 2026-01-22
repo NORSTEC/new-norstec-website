@@ -2,6 +2,7 @@ import React from "react";
 import { PortableText } from "next-sanity";
 import { imageBuilder } from "@/utils/imageBuilder";
 import type { SectionSummitInfo } from "@/types/sections/summit/sectionSummitInfo";
+import StripesVertical from "@/components/items/stripes/StripesVertical";
 
 type Props = {
   section: SectionSummitInfo;
