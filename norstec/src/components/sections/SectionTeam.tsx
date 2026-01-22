@@ -17,12 +17,14 @@ export default function SectionTeam({
     members = [],
     showStripesCornerBottomRight = true,
     showStripesCornerTopRight = true,
+    mobileGrid = false,
   } = section;
 
-  const hasCarousel = members.length > 3;
+  const hasDesktopCarousel = members.length > 3;
+  const mobileCarousel = !mobileGrid && members.length > 0;
   const gridClass = "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-10";
-  const contentClass = `${hasCarousel ? "" : "stripes-right py-0!"} flex flex-col gap-8 lg:gap-12`;
-  const headingClass = hasCarousel ? "stripes-right py-0!" : "";
+  const contentClass = `${hasDesktopCarousel ? "" : "stripes-right py-0!"} flex flex-col gap-8 lg:gap-12`;
+  const headingClass = hasDesktopCarousel ? "stripes-right py-0!" : "";
 
   return (
     <section className={`relative section mobile-container xl:px-0! ${className}`}>
@@ -50,34 +52,34 @@ export default function SectionTeam({
         </div>
 
         {members.length ? (
-          hasCarousel ? (
-            <>
-              {/* Mobile (single column) uses carousel */}
+          <>
+            {/* Mobile */}
+            {mobileCarousel ? (
               <div className="sm:hidden -mx-[1rem]" style={{ width: "calc(100% + 2rem)" }}>
                 <TeamCarousel members={members} />
               </div>
-
-              {/* Tablet/desktop grid until xl */}
-              <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-10 lg:pl-[5rem] lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] xl:px-0! xl:hidden">
+            ) : (
+              <div className="grid grid-cols-1 gap-x-5 gap-y-10 sm:hidden">
                 {members.map((entry) => (
                   <TeamMemberCard key={entry._key} entry={entry} variant="grid" />
                 ))}
               </div>
+            )}
 
-              {/* Large desktop carousel */}
-              <div className="hidden xl:block">
-                <TeamCarousel members={members} />
-              </div>
-            </>
-          ) : (
-            <div
-              className={`${gridClass}  xl:px-0!`}
-            >
+            {/* Tablet/desktop grid until xl */}
+            <div className={`hidden sm:grid ${gridClass} lg:pl-[5rem] lg:pr-[20rem] xl:pr-[22rem] 3xl:pr-[35rem] xl:px-0! ${hasDesktopCarousel ? "xl:hidden" : ""}`}>
               {members.map((entry) => (
                 <TeamMemberCard key={entry._key} entry={entry} variant="grid" />
               ))}
             </div>
-          )
+
+            {/* Large desktop carousel */}
+            {hasDesktopCarousel ? (
+              <div className="hidden xl:block">
+                <TeamCarousel members={members} />
+              </div>
+            ) : null}
+          </>
         ) : (
           <p className="text-moody/60">No team members published yet.</p>
         )}

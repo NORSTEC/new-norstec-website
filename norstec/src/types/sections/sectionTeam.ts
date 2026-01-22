@@ -15,4 +15,5 @@ export interface SectionTeam {
   members?: SectionTeamMember[];
   showStripesCornerTopRight?: boolean;
   showStripesCornerBottomRight?: boolean;
+  mobileGrid?: boolean;
 }

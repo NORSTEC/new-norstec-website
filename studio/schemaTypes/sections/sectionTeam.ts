@@ -36,6 +36,15 @@ export default defineType({
         }),
 
         defineField({
+            name: 'mobileGrid',
+            title: 'Use grid on mobile (disable carousel)',
+            type: 'boolean',
+            initialValue: false,
+            description:
+                'If enabled, the mobile layout uses the grid instead of the carousel. Leave off to always use the carousel on mobile.',
+        }),
+
+        defineField({
             name: 'members',
             title: 'Team members',
             type: 'array',
