@@ -11,22 +11,30 @@ type Props = {
   className?: string;
 };
 
-type ColumnWidths = {
+type CompactColumns = {
   number: string;
   time: string;
   title: string;
+};
+
+type FullColumns = CompactColumns & {
   name: string;
 };
 
-// Column widths can be tweaked here for mobile and desktop layouts.
-const COLS_MOBILE: ColumnWidths = {
-  number: "2.5rem",
-  time: "10rem",
+// Column widths can be tweaked here for base (<sm), mid (>=md <xl), and full (>=xl) layouts.
+const COLS_BASE: CompactColumns = {
+  number: "0.5rem",
+  time: "6.5rem",
   title: "minmax(0,1fr)",
-  name: "8rem",
 };
 
-const COLS_DESKTOP: ColumnWidths = {
+const COLS_MD: CompactColumns = {
+  number: "2.75rem",
+  time: "10.5rem",
+  title: "minmax(0,1fr)",
+};
+
+const COLS_FULL: FullColumns = {
   number: "3rem",
   time: "10.5rem",
   title: "minmax(0,1fr)",
@@ -56,20 +64,24 @@ export default function SectionSummitProgram({ section, className = "" }: Props)
   };
 
   const rowBase =
-    "grid gap-3 items-center w-full text-left transition-colors duration-200 [grid-template-columns:var(--program-cols-mobile)] sm:[grid-template-columns:var(--program-cols-desktop)]";
+    "grid gap-3 items-center w-full text-left transition-colors duration-200 [grid-template-columns:var(--program-cols-base)] md:[grid-template-columns:var(--program-cols-md)] xl:[grid-template-columns:var(--program-cols-full)]";
   const rowGridStyle = {
-    "--program-cols-mobile": `${COLS_MOBILE.number} ${COLS_MOBILE.time} ${COLS_MOBILE.title} ${COLS_MOBILE.name}`,
-    "--program-cols-desktop": `${COLS_DESKTOP.number} ${COLS_DESKTOP.time} ${COLS_DESKTOP.title} ${COLS_DESKTOP.name}`,
+    "--program-cols-base": `${COLS_BASE.number} ${COLS_BASE.time} ${COLS_BASE.title}`,
+    "--program-cols-md": `${COLS_MD.number} ${COLS_MD.time} ${COLS_MD.title}`,
+    "--program-cols-full": `${COLS_FULL.number} ${COLS_FULL.time} ${COLS_FULL.title} ${COLS_FULL.name}`,
   } as CSSProperties;
 
   return (
     <section className={`section desktop-container ${className}`}>
-            {section.title ? (
-              <h2 className="text-h2 uppercase mb-6">
-                {section.title}
-                <span aria-hidden className="star-inline" />
-              </h2>
-            ) : null}
+      {section.title ? (
+        <div className="mb-6">
+          <h2 className="text-h2 uppercase">
+            {section.title}
+            <span aria-hidden className="star-inline" />
+          </h2>
+          {section.subtitle ? <p className="mt-2 text-moody text-base">{section.subtitle}</p> : null}
+        </div>
+      ) : null}
 
       <div className="flex flex-col divide-y divide-moody">
         {items.map((item, idx) => {
@@ -85,30 +97,33 @@ export default function SectionSummitProgram({ section, className = "" }: Props)
             <div key={item._key} className="py-1.5">
               <button
                 type="button"
-                onClick={() => toggle(item._key)}
-                className={`${rowBase} ${hoverClasses} px-3 py-1.5 cursor-pointer rounded-md w-full`}
+                onClick={() => {
+                  if (item.isBreak) return;
+                  toggle(item._key);
+                }}
+                className={`${rowBase} ${hoverClasses} pl-2 pr-1 md:px-3 py-1.5 ${item.isBreak ? "" : "cursor-pointer"} rounded-md w-full`}
                 data-open={isOpen}
                 aria-expanded={isOpen}
                 style={rowGridStyle}
               >
-                <span className="flex items-center justify-center font-light text-2xl sm:text-3xl">
+                <span className="flex items-center justify-center font-light text-xl md:text-3xl">
                   {number}.
                 </span>
-                <span className="relative flex items-center justify-center text-lg sm:text-xl md:text-2xl font-light pl-3">
+                <span className="relative flex items-center justify-center text-base md:text-2xl font-light pl-3 h-full">
                   <span
                     className="absolute left-0 top-[0.2px] bottom-[0.2px] w-px bg-moody"
                     aria-hidden
                   />
                   {timeRange}
                 </span>
-                <span className="relative flex items-center  font-light text-lg sm:text-xl md:text-2xl justify-center">
+                <span className="relative flex items-center  font-light text-base md:text-2xl xl:justify-center pl-3 ">
                   <span
                     className="absolute left-0 top-[0.2px] bottom-[0.2px] w-px bg-moody"
                     aria-hidden
                   />
                   {item.isBreak ? "Break" : item.title}
                 </span>
-                <span className="relative flex items-center h-full whitespace-nowrap pl-3 text-center justify-center">
+                <span className="relative hidden xl:flex items-center h-full whitespace-nowrap pl-3 text-center justify-center">
                   <span
                     className="absolute left-0 top-[0.2px] bottom-[0.2px] w-px bg-moody"
                     aria-hidden
@@ -118,7 +133,7 @@ export default function SectionSummitProgram({ section, className = "" }: Props)
               </button>
 
               <AnimatePresence initial={false}>
-                {isOpen && !item.isBreak && item.description?.length ? (
+                {isOpen && !item.isBreak && (item.description?.length || item.name) ? (
                   <motion.div
                     initial={{ height: 0, opacity: 0.9 }}
                     animate={{ height: "auto", opacity: 1 }}
@@ -133,11 +148,14 @@ export default function SectionSummitProgram({ section, className = "" }: Props)
                       exit={{ y: -6 }}
                       transition={{ duration: 0.22, ease: timing }}
                     >
+                      {item.name ? <p className="mb-2 text-sm xl:hidden font-semibold">{item.name}</p> : null}
                       <PortableText
-                        value={item.description}
+                        value={item.description ?? []}
                         components={{
                           block: {
-                            normal: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                            normal: ({ children }) => (
+                              <p className="mb-2 last:mb-0 text-sm md:text-base">{children}</p>
+                            ),
                           },
                         }}
                       />

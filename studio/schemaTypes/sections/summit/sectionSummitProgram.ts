@@ -11,6 +11,12 @@ export default defineType({
             type: "string",
         }),
         defineField({
+            name: "subtitle",
+            title: "Subtitle",
+            type: "string",
+            description: "Optional helper text under the section title (e.g. 'Click a row for more details').",
+        }),
+        defineField({
             name: "items",
             title: "Program items",
             type: "array",
