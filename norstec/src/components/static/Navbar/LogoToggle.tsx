@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useTheme } from "@/hooks/useTheme";
+import React from "react";
 
 type LogoToggleProps = {
   open: boolean;
@@ -21,7 +22,23 @@ export default function LogoToggle({
 }: LogoToggleProps) {
   const { resolvedTheme } = useTheme();
   const effectiveTheme = forceDark ? "dark" : resolvedTheme;
-  const forceColor = effectiveTheme === "dark" || open;
+  const [forceColor, setForceColor] = React.useState(effectiveTheme === "dark" || open);
+  const isDesktop = typeof window !== "undefined" ? window.matchMedia("(min-width: 1024px)").matches : false;
+
+  React.useEffect(() => {
+    if (!isDesktop) {
+      setForceColor(effectiveTheme === "dark" || open);
+      return;
+    }
+
+    if (open) {
+      setForceColor(true);
+      return;
+    }
+
+    const t = window.setTimeout(() => setForceColor(effectiveTheme === "dark"), 250);
+    return () => window.clearTimeout(t);
+  }, [effectiveTheme, open, isDesktop]);
 
   return (
     <div className={["relative h-10 w-10", className ?? ""].join(" ")}>
