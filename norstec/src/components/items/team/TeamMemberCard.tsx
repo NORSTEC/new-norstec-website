@@ -30,7 +30,7 @@ function ContactIcon({
       href={href}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
-      className="inline-flex h-8 w-8 items-center justify-center border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg transition-all duration-200"
+      className="inline-flex h-9 w-9 items-center justify-center border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg transition-all duration-200"
       aria-label={label}
       onClick={(e) => e.stopPropagation()}
     >
@@ -43,7 +43,7 @@ function LinkedInGlyph() {
   return (
     <svg
       aria-hidden
-      className="h-6 w-6 md:h-8 md:w-8"
+      className="h-7 w-7 md:h-8 md:w-8"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -134,8 +134,8 @@ export default function TeamMemberCard({ entry, variant = "grid" }: TeamMemberCa
       </div>
 
       <div className="flex flex-col gap-3 py-2">
-          <h3 className=" font-semibold uppercase leading-tight">{member.name}</h3>
-        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="uppercase leading-tight">{member.name}</h3>
+        <div className="flex flex-wrap items-center gap-3">
           {iconActions.map((action, idx) => (
             <ContactIcon key={`${action.label}-${idx}`} href={action.href} icon={action.icon} label={action.label} />
           ))}
