@@ -8,6 +8,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import type { CSSProperties } from "react";
+import { useTheme } from "@/hooks/useTheme";
 
 type FooterProps = {
   backgroundColor?: string;
@@ -23,17 +24,34 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     const year = new Date().getFullYear();
 
     const pathname = usePathname();
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
+    const isSummit = pathname?.startsWith("/summit");
 
-    const isActiveRoute = (pathname: string, href: string) => {
+  const isActiveRoute = (pathname: string, href: string) => {
         if (href === "/") return pathname === "/"
         return pathname === href || pathname.startsWith(`${href}/`)
     }
 
+    const logoTintStyle: CSSProperties | undefined =
+      isSummit
+        ? undefined
+        : isDark
+          ? {
+              filter:
+                "brightness(0) saturate(100%) invert(90%) sepia(10%) saturate(478%) hue-rotate(351deg) brightness(103%) contrast(95%)",
+            }
+          : undefined;
+    const mergedLogoStyle = { ...logoStyle, ...(logoTintStyle ?? {}) };
+
     return (
       <footer id="footer" className="pt-20 md:pt-40 lg:py-0">
         <div
-          className="snap-start section w-full bg-moody text-egg flex flex-col items-center desktop-container justify-between"
-          style={backgroundColor ? { backgroundColor } : undefined}
+          className={[
+            "snap-start section w-full flex flex-col items-center desktop-container justify-between",
+            isSummit ? "text-moody-static" : isDark ? "text-egg-static" : "text-egg",
+          ].join(" ")}
+          style={backgroundColor ? { backgroundColor } : isDark ? { backgroundColor: "#3D5B81" } : { backgroundColor: "#0f1118" }}
         >
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 w-full">
             {/* Left Column */}
@@ -142,7 +160,7 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
                 width={264}
                 height={264}
                 className="object-contain w-64 md:w-32 lg:w-48 xl:w-56 h-auto"
-                style={logoStyle}
+                style={mergedLogoStyle}
               />
             </div>
           </section>
