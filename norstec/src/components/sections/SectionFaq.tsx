@@ -34,6 +34,8 @@ function FaqItem({ item, isLast }: FaqItemProps) {
   const [open, setOpen] = useState(false);
   const [height, setHeight] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
+  const timing = [0.24, 0.84, 0.42, 1] as const;
+  const heightTransition = { type: "tween" as const, duration: 0.3, ease: timing };
 
   useEffect(() => {
     if (open && ref.current) {
@@ -42,6 +44,17 @@ function FaqItem({ item, isLast }: FaqItemProps) {
       setHeight(0);
     }
   }, [open, item]);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const ro = typeof ResizeObserver !== "undefined"
+      ? new ResizeObserver(() => setHeight(node.scrollHeight))
+      : null;
+    if (ro) ro.observe(node);
+    setHeight(node.scrollHeight);
+    return () => ro?.disconnect();
+  }, [item]);
 
   return (
     <div className={`border-moody ${isLast ? "border-b border-t" : "border-t"}`}>
@@ -54,16 +67,20 @@ function FaqItem({ item, isLast }: FaqItemProps) {
         <h3 className="text-h3 font-light">{item.question}</h3>
 
         <span
-          className={`icon icon-24 icon-400 transition-transform duration-100 text-moody ${open ? "rotate-90" : "rotate-0"}`}
+          className={`icon icon-24 icon-400 transition-transform duration-200 text-moody ${open ? "rotate-90" : "rotate-0"}`}
+          style={{ transitionTimingFunction: "cubic-bezier(0.24, 0.84, 0.42, 1)" }}
           aria-hidden
         >
           arrow_right_alt
         </span>
       </button>
 
-      <div
-        className="overflow-hidden transition-all duration-100 ease-in-out"
-        style={{ maxHeight: `${height}px` }}
+      <motion.div
+        className="overflow-hidden"
+        initial={false}
+        animate={{ height: open ? height : 0, opacity: open ? 1 : 0.9 }}
+        transition={heightTransition}
+        style={{ willChange: "height", transform: "translateZ(0)" }}
       >
         <motion.div
           ref={ref}
@@ -71,7 +88,8 @@ function FaqItem({ item, isLast }: FaqItemProps) {
           variants={listVariants}
           initial={false}
           animate={open ? "open" : "closed"}
-          style={{ willChange: "transform, height" }}
+          style={{ willChange: "transform" }}
+          transition={{ duration: 0.24, ease: timing }}
         >
           <PortableText
             value={item.answer}
@@ -82,7 +100,7 @@ function FaqItem({ item, isLast }: FaqItemProps) {
             }}
           />
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 }
