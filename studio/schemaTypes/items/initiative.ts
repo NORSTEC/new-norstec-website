@@ -68,6 +68,7 @@ export default defineType({
                         {type: 'sectionMedia'},
                         {type: 'sectionPodcast'},
                         {type: 'sectionQuote'},
+                        {type: 'sectionDivider'},
                         {
                             type: 'sectionSummitTextImage',
                             options: {

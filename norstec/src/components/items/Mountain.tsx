@@ -80,7 +80,7 @@ export default function Mountain() {
 
             ctx.beginPath();
             ctx.fillStyle = COLORS[colorIndex];
-            ctx.arc(sx, sy, 5 * persp, 0, Math.PI * 2);
+            ctx.arc(sx, sy, 3 * persp, 0, Math.PI * 2);
             ctx.fill();
         }
 

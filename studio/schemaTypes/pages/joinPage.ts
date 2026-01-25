@@ -17,6 +17,7 @@ export default defineType({
             {type: 'sectionTextImage'},
             {type: 'sectionJoin'},
             {type: 'sectionTeam'},
+            {type: 'sectionDivider'},
           ],
         },
       ],
