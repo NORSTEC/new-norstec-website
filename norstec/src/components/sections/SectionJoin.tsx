@@ -16,10 +16,10 @@ export default function SectionJoin({ section, className = "" }: SectionJoinProp
   const [message, setMessage] = useState("");
   const [organizationId, setOrganizationId] = useState("");
 
-  const organizationName = useMemo(
-    () => organizations.find((org) => org._id === organizationId)?.name ?? "Not specified",
-    [organizationId, organizations]
-  );
+  const organizationName = useMemo(() => {
+    if (!organizationId) return "Not a member / independent";
+    return organizations.find((org) => org._id === organizationId)?.name ?? "Not specified";
+  }, [organizationId, organizations]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,7 +55,9 @@ export default function SectionJoin({ section, className = "" }: SectionJoinProp
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-[80rem]">
           <label className="flex flex-col gap-2">
-            <span className="text-sm font-semibold uppercase tracking-wide text-moody">Full name</span>
+            <span className="text-sm font-semibold uppercase tracking-wide text-moody">
+              Full name <span aria-hidden className="text-copper">*</span>
+            </span>
             <input
               type="text"
               name="name"
@@ -76,7 +78,7 @@ export default function SectionJoin({ section, className = "" }: SectionJoinProp
               onChange={(e) => setOrganizationId(e.target.value)}
               className={`${inputClass} pr-10`}
             >
-              <option value="">Select organization</option>
+              <option value="">Not a member / independent</option>
               {organizations.map((org) => (
                 <option key={org._id} value={org._id}>
                   {org.name}
