@@ -5,10 +5,7 @@ export const INITIATIVES_PAGE_QUERY = defineQuery(`
     _id,
     title,
     sections[]->{
-      _id,
-      _type,
-      title,
-      body,
+      ...,
       initiatives[]->{
         _id,
         title,

@@ -12,7 +12,10 @@ export default defineType({
             of: [
                 {
                     type: 'reference',
-                    to: [{type: 'sectionInitiatives'}],
+                    to: [
+                        {type: 'sectionInitiatives'},
+                        {type: 'sectionDivider'},
+                    ],
                 },
             ],
         }),

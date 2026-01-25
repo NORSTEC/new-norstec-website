@@ -5,12 +5,16 @@ import "../../../../styles/globals.css";
 export interface VintageStripesProps {
     color: string;
     lineFactor: number;
+    paddingTop?: number;
+    paddingBottom?: number;
 }
 
 
 const VintageStripes: React.FC<VintageStripesProps> = ({
                                                            color,
                                                            lineFactor,
+                                                           paddingTop = 0,
+                                                           paddingBottom = 0,
                                                        }) => {
     const [lineCount, setLineCount] = useState(15);
     const [lineDelay, setLineDelay] = useState(0.05);
@@ -56,7 +60,14 @@ const VintageStripes: React.FC<VintageStripesProps> = ({
     }, [lineCount, lineDelay]);
 
     return (
-      <div className="w-full h-16 flex items-center lg:hidden mobile-container" ref={containerRef}>
+      <div
+        className="w-full h-16 flex items-center lg:hidden mobile-container"
+        ref={containerRef}
+        style={{
+          paddingTop,
+          paddingBottom,
+        }}
+      >
         <span className="w-full md:mx-auto h-[70px] relative">
           {[...Array(lineCount)].map((_, i) => (
             <div

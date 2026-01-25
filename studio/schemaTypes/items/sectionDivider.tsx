@@ -20,6 +20,10 @@ export const vintageStripes = defineType({
                     { title: "Beachball", value: "#30C3CD" },
                     { title: "Moody", value: "#0f1118" },
                     { title: "Sky", value: "#1697B7" },
+                    { title: "Summit Dark", value: "#3D5B81" },
+                    { title: "Summit Accent", value: "#7EA1E6" },
+                    { title: "Summit Warm", value: "#EE6B4D" },
+                    { title: "Summit Light", value: "#98C0D9" },
                 ],
                 layout: "radio",
             },
@@ -34,6 +38,22 @@ export const vintageStripes = defineType({
             initialValue: 8,
             validation: (Rule) =>
                 Rule.min(4).max(16).error("Line density must be between 4 and 16"),
+        }),
+        defineField({
+            name: "paddingTop",
+            title: "Padding top (px)",
+            type: "number",
+            description: "Optional extra padding above the stripes on mobile.",
+            initialValue: 0,
+            validation: (Rule) => Rule.min(0).max(200),
+        }),
+        defineField({
+            name: "paddingBottom",
+            title: "Padding bottom (px)",
+            type: "number",
+            description: "Optional extra padding below the stripes on mobile.",
+            initialValue: 0,
+            validation: (Rule) => Rule.min(0).max(200),
         }),
     ],
 

@@ -15,6 +15,7 @@ import SectionSummitTimer from "@/components/summit/SectionSummitTimer";
 import SectionSummitHost from "@/components/summit/SectionSummitHost";
 import SectionSummitInfo from "@/components/summit/SectionSummitInfo";
 import SectionSummitProgram from "@/components/summit/SectionSummitProgram";
+import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 import { StripePaletteName, StripePaletteProvider } from "@/hooks/useStripePalette";
 
@@ -52,6 +53,18 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
       return <SectionSummitInfo key={section._id} section={section} className={className} />;
     case "sectionSummitProgram":
       return <SectionSummitProgram key={section._id} section={section} className={className} />;
+    case "sectionDivider": {
+      const lineFactor = 200 - section.lineDensity * 10;
+      return (
+        <VintageStripes
+          key={section._id}
+          color={section.color}
+          lineFactor={lineFactor}
+          paddingTop={section.paddingTop}
+          paddingBottom={section.paddingBottom}
+        />
+      );
+    }
     default:
       return null;
   }
