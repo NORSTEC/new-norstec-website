@@ -10,6 +10,8 @@ import {SponsorPage} from "@/types/sections/sectionSponsor";
 import {SPONSOR_PAGE_QUERY} from "@/sanity/queries/sponsorPage";
 import { TeamPage } from "@/types/pages/teamPage";
 import { TEAM_PAGE_QUERY } from "@/sanity/queries/teamPage";
+import { JoinPage } from "@/types/pages/joinPage";
+import { JOIN_PAGE_QUERY } from "@/sanity/queries/joinPage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -79,3 +81,13 @@ export const getTeamPage = async (): Promise<TeamPage | null> => {
   }
 };
 
+// ============== JOIN ============== //
+export const getJoinPage = async (): Promise<JoinPage | null> => {
+  try {
+    const { data } = await sanityFetch({ query: JOIN_PAGE_QUERY });
+    return (data as JoinPage) ?? null;
+  } catch (e) {
+    console.error("Error fetching join page:", e);
+    return null;
+  }
+};

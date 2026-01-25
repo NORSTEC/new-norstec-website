@@ -4,6 +4,7 @@ import aboutPage from './pages/aboutPage'
 import teamPage from './pages/teamPage'
 import initiativesPage from './pages/initiativesPage'
 import {sponsorPage} from "./pages/sponsorPage";
+import joinPage from './pages/joinPage'
 
 // Globals
 import contactInfo from './globals/contactInfo'
@@ -31,6 +32,7 @@ import sectionSummitTimer from "./sections/summit/sectionSummitTimer";
 import sectionSummitHost from "./sections/summit/sectionSummitHost";
 import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
 import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
+import sectionJoin from "./sections/sectionJoin";
 
 
 // Items
@@ -56,6 +58,7 @@ export const schemaTypes = [
     initiativesPage,
     metadata,
     sponsorPage,
+    joinPage,
 
     // Globals
     contactInfo,
@@ -77,6 +80,7 @@ export const schemaTypes = [
     sectionFaq,
     sectionImage,
     sectionQuote,
+    sectionJoin,
     sectionSponsor,
     sectionSummitTextImage,
     sectionSummitTimer,

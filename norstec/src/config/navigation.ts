@@ -6,11 +6,11 @@ export type NavItem = {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "HOME", href: "/" },
-  { label: "ARTICLES", href: "/articles" },
+  //{ label: "ARTICLES", href: "/articles" },
   { label: "ABOUT", href: "/about" },
   { label: "TEAM", href: "/team" },
   { label: "INITIATIVES", href: "/initiatives" },
+  { label: "JOIN", href: "/join" },
   //{ label: "SPONSORS", href: "/sponsors" },
   { label: "SUMMIT", href: "/summit", variant: "summit" },
-
 ];
