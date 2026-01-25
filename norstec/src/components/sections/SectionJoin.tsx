@@ -106,6 +106,9 @@ export default function SectionJoin({ section, className = "" }: SectionJoinProp
             >
               Send message
             </button>
+            <p className="text-sm text-moody/70 mt-2">
+              This will open your email client and prefill an email to contact@norstec.no.
+            </p>
           </div>
         </form>
       </div>
