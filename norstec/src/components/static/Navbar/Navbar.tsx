@@ -239,7 +239,11 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
         <div className="mx-auto w-full px-5 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href={logoHref} className="inline-flex items-center" aria-label="Go to homepage">
-              <LogoToggle open={open} forceDark={navTheme === "dark"} />
+              <LogoToggle
+                open={open}
+                forceDark={navTheme === "dark"}
+                forceTintColor={forceDark ? "#EDE8DA" : undefined}
+              />
             </Link>
             <div className="flex items-center gap-3">
               {!forceDark && (

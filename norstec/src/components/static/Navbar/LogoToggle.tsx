@@ -11,6 +11,7 @@ type LogoToggleProps = {
   alt?: string;
   className?: string;
   forceDark?: boolean;
+  forceTintColor?: string;
 };
 
 export default function LogoToggle({
@@ -19,6 +20,7 @@ export default function LogoToggle({
   alt = "NORSTEC logo",
   className,
   forceDark = false,
+  forceTintColor,
 }: LogoToggleProps) {
   const { resolvedTheme } = useTheme();
   const effectiveTheme = forceDark ? "dark" : resolvedTheme;
@@ -40,37 +42,57 @@ export default function LogoToggle({
     return () => window.clearTimeout(t);
   }, [effectiveTheme, open, isDesktop]);
 
+  const useTint = !!forceTintColor;
+
   return (
     <div className={["relative h-10 w-10", className ?? ""].join(" ")}>
       <motion.div
-        animate={{ opacity: forceColor ? 0 : 1 }}
+        animate={{ opacity: useTint ? 1 : forceColor ? 0 : 1 }}
         transition={{ duration: 0.2, ease: [0.25, 0.8, 0.5, 1] }}
       >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority
-          className="object-contain"
-          style={
-            forceColor
-              ? undefined
-              : {
-                  filter:
-                    "brightness(0) saturate(100%) invert(13%) sepia(26%) saturate(453%) hue-rotate(206deg) brightness(96%) contrast(93%)",
-                }
-          }
-        />
+        {useTint ? (
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundColor: forceTintColor,
+              WebkitMaskImage: `url(${src})`,
+              maskImage: `url(${src})`,
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              maskPosition: "center",
+              WebkitMaskSize: "contain",
+              maskSize: "contain",
+            }}
+          />
+        ) : (
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            className="object-contain"
+            style={
+              forceColor
+                ? undefined
+                : {
+                    filter:
+                      "brightness(0) saturate(100%) invert(13%) sepia(26%) saturate(453%) hue-rotate(206deg) brightness(96%) contrast(93%)",
+                  }
+            }
+          />
+        )}
       </motion.div>
 
-      {/* Original (fullfarge) */}
-      <motion.div
-        initial={false}
-        animate={{ opacity: forceColor ? 1 : 0 }}
-        transition={{ duration: 0.2, ease: [0.25, 0.8, 0.5, 1] }}
-      >
-        <Image src={src} alt={alt} fill priority className="object-contain" />
-      </motion.div>
+      {!useTint && (
+        <motion.div
+          initial={false}
+          animate={{ opacity: forceColor ? 1 : 0 }}
+          transition={{ duration: 0.2, ease: [0.25, 0.8, 0.5, 1] }}
+        >
+          <Image src={src} alt={alt} fill priority className="object-contain" />
+        </motion.div>
+      )}
     </div>
   );
 }
