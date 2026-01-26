@@ -20,10 +20,10 @@ export const metadata: Metadata = {
     title: "Explore Our Initiatives | NORSTEC",
     description:
         "NORSTEC supports student-led space projects and develops the next generation of space professionals in Norway.",
-    url: "https://norstec.no/about",
+    url: "https://norstec.no/initiatives",
     images: [
       {
-        url: "/images/initiatives.jpeg",
+        url: "/images/initiatives.jpg",
         width: 1200,
         height: 630,
         alt: "Our Story | NORSTEC",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Explore Our Initiatives | NORSTEC",
     description:
         "Learn about NORSTEC’s mission to support student space projects in Norway.",
-    images: ["/images/initiatives.jpeg"],
+    images: ["/images/initiatives.jpg"],
   },
 };
 export default async function InitiativesPage() {
