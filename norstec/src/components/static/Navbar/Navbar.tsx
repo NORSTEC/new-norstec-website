@@ -39,7 +39,8 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const shouldDelayOnMount = !isDesktop && pathname === "/" && !prefersReducedMotion;
   const [allowHeader, setAllowHeader] = useState(() => !shouldDelayOnMount);
   const { resolvedTheme, toggleTheme } = useTheme();
-  const themeIcon = resolvedTheme === "dark" ? "dark_mode" : "light_mode";
+  // Invert icons: show sun when in dark mode and moon when in light mode
+  const themeIcon = resolvedTheme === "dark" ? "light_mode" : "dark_mode";
 
   const overlayVariants = {
     open: { opacity: 1, pointerEvents: "auto" as const },
