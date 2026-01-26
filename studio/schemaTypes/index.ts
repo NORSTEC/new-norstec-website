@@ -33,6 +33,7 @@ import sectionSummitHost from "./sections/summit/sectionSummitHost";
 import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
 import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
 import sectionJoin from "./sections/sectionJoin";
+import sectionInitiativeAdditionalPage from "./sections/summit/newPage/sectionInitiativeAdditionalPage";
 
 
 // Items
@@ -47,6 +48,7 @@ import barListItem from './items/barListItem'
 import {metadata} from "./sections/sectionMetadata";
 import statItem from './items/statItem'
 import {vintageStripes} from "./items/sectionDivider";
+import sectionBusinessContact from "./sections/summit/sectionBusinessContact";
 
 
 
@@ -87,6 +89,8 @@ export const schemaTypes = [
     sectionSummitHost,
     sectionSummitInfo,
     sectionSummitProgram,
+    sectionBusinessContact,
+    sectionInitiativeAdditionalPage,
 
     // Items
     teamMember,

@@ -2,7 +2,11 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { HomePage } from "@/types/pages/homePage";
 import { InitiativesPage } from "@/types/pages/initiativesPage";
 import { HOME_PAGE_QUERY } from "@/sanity/queries/homePage";
-import { INITIATIVE_BY_SLUG_QUERY, INITIATIVES_PAGE_QUERY } from "@/sanity/queries/initiativesPage";
+import {
+  INITIATIVE_BY_SLUG_QUERY,
+  INITIATIVE_SUBPAGE_BY_SLUG_QUERY,
+  INITIATIVES_PAGE_QUERY
+} from "@/sanity/queries/initiativesPage";
 import { InitiativePage } from "@/types/pages/initiativePage";
 import { AboutPage } from "@/types/pages/aboutPage";
 import { ABOUT_PAGE_QUERY } from "@/sanity/queries/aboutPage";
@@ -12,6 +16,7 @@ import { TeamPage } from "@/types/pages/teamPage";
 import { TEAM_PAGE_QUERY } from "@/sanity/queries/teamPage";
 import { JoinPage } from "@/types/pages/joinPage";
 import { JOIN_PAGE_QUERY } from "@/sanity/queries/joinPage";
+import {InitiativeSubPage} from "@/types/pages/initiativesSubPage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -48,6 +53,27 @@ export const getInitiativeBySlug = async (slug: string): Promise<InitiativePage 
     return null;
   }
 };
+
+export const getInitiativeSubPageBySlug = async (
+    pageSlug: string
+): Promise<InitiativeSubPage | null> => {
+  if (!pageSlug) {
+    return null;
+  }
+
+  try {
+    const { data } = await sanityFetch({
+      query: INITIATIVE_SUBPAGE_BY_SLUG_QUERY,
+      params: { pageSlug },
+    });
+
+    return (data as InitiativeSubPage) ?? null;
+  } catch (e) {
+    console.error("Error fetching initiative sub page:", e);
+    return null;
+  }
+};
+
 // ============== ABOUT ============== //
 export const getAboutPage = async (): Promise<AboutPage | null> => {
   try {

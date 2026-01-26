@@ -49,6 +49,17 @@ export default defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
+            name: 'childPages',
+            title: 'Sub pages',
+            type: 'array',
+            of: [
+                {
+                    type: 'reference',
+                    to: [{ type: 'initiativePage' }],
+                },
+            ],
+        }),
+        defineField({
             name: 'sections',
             title: 'Sections',
             type: 'array',
@@ -69,6 +80,7 @@ export default defineType({
                         {type: 'sectionPodcast'},
                         {type: 'sectionQuote'},
                         {type: 'sectionDivider'},
+                        {type: 'initiativePage'},
                         {
                             type: 'sectionSummitTextImage',
                             options: {
@@ -78,6 +90,7 @@ export default defineType({
                                 },
                             },
                         },
+
                         {
                             type: 'sectionSummitTimer',
                             options: {
@@ -119,6 +132,7 @@ export default defineType({
             ],
             validation: (Rule) => Rule.required(),
         }),
+
     ],
     preview: {
         select: {
