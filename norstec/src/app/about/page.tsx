@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "About NORSTEC",
+    title: "Our Story | NORSTEC",
     description:
         "Learn about NORSTEC’s mission to support student space projects in Norway.",
     images: ["/images/about.jpeg"],
