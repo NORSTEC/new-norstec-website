@@ -15,6 +15,8 @@ import SectionSummitTimer from "@/components/summit/SectionSummitTimer";
 import SectionSummitHost from "@/components/summit/SectionSummitHost";
 import SectionSummitInfo from "@/components/summit/SectionSummitInfo";
 import SectionSummitProgram from "@/components/summit/SectionSummitProgram";
+import SectionBusinessContact from "@/components/summit/SectionBusinessContact";
+import SectionInitiativeAdditionalPage from "@/components/summit/SectionInitiativeAdditionalPage";
 import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
 
 
@@ -65,6 +67,23 @@ function renderInitiativeSubPageSection(
             return <SectionSummitInfo key={section._id} section={section} className={className} />;
         case "sectionSummitProgram":
             return <SectionSummitProgram key={section._id} section={section} className={className} />;
+        case "sectionBusinessContact":
+            return (
+                <SectionBusinessContact
+                    key={section._id}
+                    section={section}
+                    className={className}
+                />
+            );
+        case "sectionInitiativeAdditionalPage":
+        case "initiativePage":
+            return (
+                <SectionInitiativeAdditionalPage
+                    key={section._id}
+                    section={section}
+                    className={className}
+                />
+            );
         case "sectionDivider": {
             const lineFactor = 200 - section.lineDensity * 10;
             return (
