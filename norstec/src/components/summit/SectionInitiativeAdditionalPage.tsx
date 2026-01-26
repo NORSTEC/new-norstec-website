@@ -1,9 +1,13 @@
 import { PortableText } from "next-sanity";
 import TeamMemberCard from "@/components/items/team/TeamMemberCard";
-import { SectionInitiativeAdditionalPage as SectionType } from "@/types/sections/summit/sectionInitiativeAdditionalPage";
+import {
+  SectionInitiativeAdditionalPage as SectionType,
+} from "@/types/sections/summit/sectionInitiativeAdditionalPage";
+
+type SectionAlias = SectionType | (Omit<SectionType, "_type"> & { _type: "initiativePage" });
 
 type Props = {
-  section: SectionType;
+  section: SectionAlias;
   className?: string;
 };
 
