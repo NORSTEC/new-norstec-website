@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const days = Math.max(0, Math.ceil(diffMs / MS_PER_DAY));
 
-  const title = days === 0 ? "Today | SUMMIT" : `${days} days | SUMMIT`;
+  const title = days === 0 ? "Today! | SUMMIT" : `${days} Days | SUMMIT`;
   const description = "Countdown to the NORSTEC Summit.";
 
   return {
