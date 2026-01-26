@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://norstec.no",
     images: [
       {
-        url: "/landing.jpeg",
+        url: "/images/landing.jpeg",
         width: 1200,
         height: 630,
         alt: "NORSTEC",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Securing Our Future In Space | NORSTEC",
     description: "NORSTEC supports student space projects across Norway.",
-    images: ["/landing.jpeg"],
+    images: ["/images/landing.jpeg"],
   },
 };
 
