@@ -15,6 +15,7 @@ import { SectionSummitInfo } from "@/types/sections/summit/sectionSummitInfo";
 import { SectionSummitProgram } from "@/types/sections/summit/sectionSummitProgram";
 import { VintageStripesSection } from "@/types/items/vintageStripes";
 import {SectionBusinessContact} from "@/types/sections/summit/sectionBusinessContact";
+import {SectionInitiativeAdditionalPage} from "@/types/sections/summit/sectionInitiativeAdditionalPage";
 
 export type InitiativeSubPageSection =
     | SectionHero
@@ -33,6 +34,7 @@ export type InitiativeSubPageSection =
     | SectionSummitInfo
     | SectionSummitProgram
     | SectionBusinessContact
+    | SectionInitiativeAdditionalPage
     | VintageStripesSection;
 
 export interface InitiativeSubPage {

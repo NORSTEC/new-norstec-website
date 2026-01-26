@@ -79,6 +79,37 @@ export const INITIATIVE_BY_SLUG_QUERY = defineQuery(`
             _type,
             title
           }
+        },
+        _type == "sectionBusinessContact" => members[]{
+          _key,
+          "member": @->{
+            _id,
+            _type,
+            name,
+            photo,
+            photoAlt,
+            phone,
+            email,
+            linkedin
+          }
+        },
+        _type == "sectionInitiativeAdditionalPage" => members[]{
+          _key,
+          member->{
+            _id,
+            _type,
+            name,
+            photo,
+            photoAlt,
+            phone,
+            email,
+            linkedin
+          },
+          role->{
+            _id,
+            _type,
+            title
+          }
         }
       )
     }
@@ -155,7 +186,7 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
         // Business contact section (member only)
         _type == "sectionBusinessContact" => members[]{
           _key,
-          member->{
+          "member": @->{
             _id,
             _type,
             name,
@@ -165,10 +196,28 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
             email,
             linkedin
           }
+        },
+
+        // Initiative additional page (member + role)
+        _type == "sectionInitiativeAdditionalPage" => members[]{
+          _key,
+          member->{
+            _id,
+            _type,
+            name,
+            photo,
+            photoAlt,
+            phone,
+            email,
+            linkedin
+          },
+          role->{
+            _id,
+            _type,
+            title
+          }
         }
       )
     }
   }
 `);
-
-

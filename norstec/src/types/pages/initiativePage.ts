@@ -15,6 +15,8 @@ import { SectionSummitHost } from "@/types/sections/summit/sectionSummitHost";
 import { SectionSummitInfo } from "@/types/sections/summit/sectionSummitInfo";
 import { SectionSummitProgram } from "@/types/sections/summit/sectionSummitProgram";
 import { VintageStripesSection } from "@/types/items/vintageStripes";
+import { SectionBusinessContact } from "@/types/sections/summit/sectionBusinessContact";
+import { SectionInitiativeAdditionalPage } from "@/types/sections/summit/sectionInitiativeAdditionalPage";
 
 export type InitiativePageSection =
   | SectionHero
@@ -32,6 +34,8 @@ export type InitiativePageSection =
   | SectionSummitHost
   | SectionSummitInfo
   | SectionSummitProgram
+  | SectionBusinessContact
+  | SectionInitiativeAdditionalPage
   | VintageStripesSection;
 
 export interface InitiativePage extends Omit<Initiative, "sections"> {
