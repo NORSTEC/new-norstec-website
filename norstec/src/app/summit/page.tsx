@@ -18,11 +18,18 @@ export async function generateMetadata(): Promise<Metadata> {
   const days = Math.max(0, Math.ceil(diffMs / MS_PER_DAY));
 
   const title = days === 0 ? "Today | SUMMIT" : `${days} days | SUMMIT`;
+  const description = "Countdown to the NORSTEC Summit.";
 
   return {
     title,
+    description,
+
+    metadataBase: new URL("https://norstec.no"),
+
     openGraph: {
+      type: "website",
       title,
+      description,
       images: [
         {
           url: "/images/summitTest.png",
@@ -31,13 +38,16 @@ export async function generateMetadata(): Promise<Metadata> {
         },
       ],
     },
+
     twitter: {
       card: "summary_large_image",
       title,
+      description,
       images: ["/images/summitTest.png"],
     },
   };
 }
+
 
 export default async function SummitPage() {
   const initiative = await getInitiativeBySlug(SUMMIT_SLUG);
