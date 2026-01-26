@@ -18,6 +18,7 @@ import SectionSummitProgram from "@/components/summit/SectionSummitProgram";
 import SectionBusinessContact from "@/components/summit/SectionBusinessContact";
 import SectionInitiativeAdditionalPage from "@/components/summit/SectionInitiativeAdditionalPage";
 import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
+import type { SectionInitiativeAdditionalPage as SectionInitiativeAdditionalPageType } from "@/types/sections/summit/sectionInitiativeAdditionalPage";
 
 
 import {
@@ -26,8 +27,11 @@ import {
 } from "@/hooks/useStripePalette";
 import {InitiativeSubPage, InitiativeSubPageSection} from "@/types/pages/initiativesSubPage";
 
+type InitiativePageAlias = Omit<SectionInitiativeAdditionalPageType, "_type"> & { _type: "initiativePage" };
+type InitiativeSubPageSectionWithAlias = InitiativeSubPageSection | InitiativePageAlias;
+
 function renderInitiativeSubPageSection(
-    section: InitiativeSubPageSection,
+    section: InitiativeSubPageSectionWithAlias,
     className?: string
 ) {
     switch (section._type) {
@@ -77,7 +81,7 @@ function renderInitiativeSubPageSection(
             );
         case "sectionInitiativeAdditionalPage":
         case "initiativePage":
-            return (
+          return (
                 <SectionInitiativeAdditionalPage
                     key={section._id}
                     section={section}
