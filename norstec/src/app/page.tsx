@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    title: "NORSTEC",
+    title: "Securing our future in space | NORSTEC",
     description: "NORSTEC supports student space projects across Norway.",
     url: "https://norstec.no",
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "NORSTEC",
+    title: "Securing our future in space | NORSTEC",
     description: "NORSTEC supports student space projects across Norway.",
     images: ["/landing.jpeg"],
   },
