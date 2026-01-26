@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    title: "Join NORSTEC",
+    title: "Build the Future of Space | NORSTEC",
     description:
         "Become part of Norway’s student-driven space community and help build the future of space.",
     url: "https://norstec.no/join",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Join NORSTEC",
+    title: "Build the Future of Space | NORSTEC",
     description:
         "Join Norway’s student-driven space community and work on real space missions.",
     images: ["/images/join.jpg"],

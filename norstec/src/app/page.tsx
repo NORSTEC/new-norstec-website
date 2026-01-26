@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
  // midlertidig, skal sette opp webhooks.
 
 export const metadata: Metadata = {
-  title: "Securing our future in space | NORSTEC",
+  title: "Securing Our Future In Space | NORSTEC",
   description: "NORSTEC supports student space projects across Norway.",
 
   metadataBase: new URL("https://norstec.no"),
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    title: "Securing our future in space | NORSTEC",
+    title: "Securing Our Future In Space | NORSTEC",
     description: "NORSTEC supports student space projects across Norway.",
     url: "https://norstec.no",
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Securing our future in space | NORSTEC",
+    title: "Securing Our Future In Space | NORSTEC",
     description: "NORSTEC supports student space projects across Norway.",
     images: ["/landing.jpeg"],
   },
