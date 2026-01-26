@@ -49,13 +49,20 @@ export default function SectionBusinessContact({ section, className = "" }: Prop
 
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 pt-5">
           {members.length ? (
-            members.map((entry) => (
-              <TeamMemberCard
-                key={entry._key ?? entry.member?._id ?? crypto.randomUUID()}
-                entry={{ member: entry.member, role: undefined }}
-                variant="grid"
-              />
-            ))
+            members.map((entry) => {
+              const entryWithKey = {
+                _key: entry._key ?? entry.member?._id ?? crypto.randomUUID(),
+                member: entry.member,
+              };
+
+              return (
+                <TeamMemberCard
+                  key={entryWithKey._key}
+                  entry={entryWithKey}
+                  variant="grid"
+                />
+              );
+            })
           ) : (
             <p className="col-span-full text-moody/60">No team members published yet.</p>
           )}
