@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getInitiativeSubPageBySlug } from "@/sanity/fetch/SanityFetch";
 import ClientInitiativeSubPage from "./ClientInitiativeSubPage";
-
+export const dynamic = 'force-dynamic'
 export default async function SummitSubPage({
                                                 params,
                                             }: {
