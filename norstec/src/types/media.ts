@@ -27,6 +27,7 @@ export interface JuicerPost {
   full_url: string;
   image: string;
   message: string;
+  description: string;
   external_created_at: Date;
   source: {source: MediaType};
 }

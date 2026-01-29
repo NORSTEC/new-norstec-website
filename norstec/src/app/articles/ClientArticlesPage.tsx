@@ -37,7 +37,8 @@ export default function ClientArticlesPage() {
         (post: JuicerPost) => ({
           id: post.id,
           type: post.source.source.toLowerCase() as MediaType,
-          description: post.message,
+          title: post.message,
+          description: post.description,
           image: post.image,
           url: post.full_url,
           createdAt: new Date(post.external_created_at),
@@ -80,7 +81,7 @@ export default function ClientArticlesPage() {
   }
 
   return (
-    <main className="normal-section min-h-screen w-full px-4 py-40 flex flex-col items-center gap-16">
+    <main className="normal-section min-h-screen w-full px-4 py-40 flex flex-col items-center gap-16 desktop-container">
       <section className="flex flex-wrap gap-3">
         {(["podcast", "linkedin", "youtube", "instagram"] as MediaType[]).map(
           (type) => (
@@ -94,7 +95,7 @@ export default function ClientArticlesPage() {
         )}
       </section>
 
-      <section className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="w-full max-w-[1700px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {feed.map((item) => (
           <FeedCard key={`${item.type}-${item.id}`} item={item} />
         ))}
