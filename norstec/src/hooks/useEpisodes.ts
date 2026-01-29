@@ -1,4 +1,4 @@
-import { Episode } from "@/types/media/episode";
+import { Episode } from "@/types/media";
 import { useEffect, useState } from "react";
 
 export function useEpisodes({ page = 1, limit = 6 }) {
