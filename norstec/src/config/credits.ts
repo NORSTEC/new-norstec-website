@@ -11,7 +11,7 @@ export const CREDITS: CreditItem[] = [
     href: "https://www.linkedin.com/in/eirik-engen-kvam/",
   },
   {
-    name: "August Middelkoop",
+    name: "August Solli Middelkoop",
     accreditation: "Developers & Design",
     href: "https://www.linkedin.com/in/august-solli-middelkoop/?originalSubdomain=no",
   },
