@@ -113,7 +113,7 @@ export default function ClientArticlesPage({ hero }: Props) {
   return (
     <main className="w-full">
       {hero && <SectionHero section={hero} className="no-snap" />}
-      <FilterSection />
+      <FilterSection selected={selected} setSelected={setSelected} />
       <div className="normal-section min-h-screen w-full px-4 py-40 flex flex-col items-center gap-16 desktop-container">
       {loading && (
         <p className="w-full text-center">Loading feed…</p>
