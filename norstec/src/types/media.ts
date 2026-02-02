@@ -10,7 +10,7 @@ export interface Episode {
   itunes_duration: number;
 }
 
-export type MediaType = "podcast" | "youtube" | "instagram" | "linkedin";
+export type MediaType = "article" | "podcast" | "youtube" | "instagram" | "linkedin";
 
 export interface FeedItem {
   id: string;

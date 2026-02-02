@@ -27,6 +27,9 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     const { resolvedTheme } = useTheme();
     const isDark = resolvedTheme === "dark";
     const isSummit = pathname?.startsWith("/summit");
+    const isPrivacyPage = pathname === "/privacy";
+    const isArticlesPage = pathname?.startsWith("/articles");
+    const shouldApplySectionClass = !(isPrivacyPage || isArticlesPage);
 
   const isActiveRoute = (pathname: string, href: string) => {
         if (href === "/") return pathname === "/"
@@ -48,7 +51,8 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
       <footer id="footer" className="pt-20 md:pt-40 lg:py-0">
         <div
           className={[
-            "snap-start section w-full flex flex-col items-center desktop-container justify-between",
+            "min-h-screen w-full flex flex-col items-center desktop-container justify-between",
+            shouldApplySectionClass ? "section" : "",
             isSummit ? "text-moody-static" : isDark ? "text-egg-static" : "text-egg",
           ].join(" ")}
           style={backgroundColor ? { backgroundColor } : isDark ? { backgroundColor: "#3D5B81" } : { backgroundColor: "#0f1118" }}
