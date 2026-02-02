@@ -101,11 +101,13 @@ export default function ChemtrailsFilter({ selected, setSelected }: Props) {
                 zIndex: stripe.zIndex,
                 width: "var(--trap-width)",
                 height: "300%",
-                background: color,
+                background: isActive ? color : "transparent",
+                border: "none",
+                boxShadow: isActive ? "none" : `inset 0 0 0 2px ${color}`,
                 clipPath: STRIPE_CLIP_PATH,
                 WebkitClipPath: STRIPE_CLIP_PATH,
-                opacity: isActive ? 1 : 0.35,
-                filter: isActive ? "saturate(1)" : "saturate(0.4)",
+                opacity: isActive ? 1 : 1,
+                filter: isActive ? "saturate(1)" : "saturate(1)",
               }}
             />
           );
