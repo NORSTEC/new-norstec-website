@@ -56,7 +56,7 @@ export default function StripesFilter({
 
   return (
     <div
-      className={`pointer-events-none absolute inset-0 hidden lg:flex -z-10 w-full justify-end items-stretch ${className}`}
+      className={`pointer-events-none xl:absolute inset-y-0 right-0 hidden lg:flex -z-10 justify-end items-stretch overflow-visible ${className}`}
       style={{ gap: `${currentGap}px` }}
     >
       {colors.map((color, idx) => {
@@ -65,7 +65,7 @@ export default function StripesFilter({
         return (
           <span
             key={mediaType}
-            className="h-full transition duration-150 ease-out"
+            className="h-full transition duration-150 ease-out flex-none"
             style={{
               background: color,
               width: `${currentWidths[idx]}px`,

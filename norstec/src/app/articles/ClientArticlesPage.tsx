@@ -126,7 +126,7 @@ export default function ClientArticlesPage({ hero }: Props) {
           selected={selected}
           setSelected={setSelected}
         />
-        <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 gap-2 py-20">
+        <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 py-20 min-h-screen gap-5 xl:gap-0">
           {feed.map((item) => (
             <FeedCard key={`${item.type}-${item.id}`} item={item} />
           ))}

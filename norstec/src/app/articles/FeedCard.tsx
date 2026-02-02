@@ -3,6 +3,7 @@
 import { FeedItem } from "@/types/media";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 export const FeedCard = ({ item }: { item: FeedItem }) => {
   const router = useRouter();
@@ -23,6 +24,19 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
     text: "text-sky",
   };
 
+  const [{ width }, setSize] = React.useState({ width: 0 });
+
+  React.useEffect(() => {
+    const setDims = () => setSize({ width: window.innerWidth });
+    setDims();
+    window.addEventListener("resize", setDims);
+    return () => window.removeEventListener("resize", setDims);
+  }, []);
+
+  const isXL = width >= 1280;
+  const borderClass = isXL ? "border-moody" : border;
+  const textClass = isXL ? "text-moody" : text;
+
   const cleanHTML = (htmlString: string) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = htmlString;
@@ -41,7 +55,7 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
 
   return (
     <article
-      className={`relative overflow-hidden rounded-4xl bg-egg hover:scale-103 transition-all duration-200 cursor-pointer p-5 flex flex-col gap-4 border border-2 ${border}`}
+      className={`relative overflow-hidden rounded-4xl bg-egg hover:scale-98 transition-all duration-200 cursor-pointer p-5 flex flex-col gap-4 border-2 xl:border ${borderClass}`}
       onClick={handleClick}
     >
       <div className="flex flex-col gap-1">
@@ -52,11 +66,10 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
             day: "numeric",
           })}
         </span>
-        <span className={`text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${text}`}>
+        <span className={`text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${textClass}`}>
           {item.type}
         </span>
       </div>
-
       <div className="flex items-center justify-center">
         <div className="w-full aspect-square overflow-hidden rounded-xl">
           {item.image ? (
@@ -65,7 +78,7 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
               alt=""
               className="w-full h-full object-cover"
               width={400}
-              height={400}
+              height={40}
             />
           ) : (
             <Image
