@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { FeedItem, JuicerPost, MediaType } from "@/types/media";
 import { MediaToggleButton } from "./MediaToggleButton";
 import { FeedCard } from "./FeedCard";
-import { imageBuilder } from "@/utils/imageBuilder";
 import SectionHero from "@/components/sections/SectionHero";
 import type { SectionHero as SectionHeroType } from "@/types/sections/sectionHero";
 
@@ -13,9 +12,14 @@ type ArticleApiItem = {
   title: string;
   slug: string;
   excerpt?: string;
-  coverImage?: any;
-  coverAlt?: string;
   publishedAt?: string;
+};
+
+type Covers = {
+  coverArticle?: string;
+  coverYoutube?: string;
+  coverInstagram?: string;
+  coverLinkedin?: string;
 };
 
 type Props = {
@@ -33,6 +37,7 @@ export default function ClientArticlesPage({ hero }: Props) {
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const fallbackCover = "/images/landing.jpeg";
 
   useEffect(() => {
     const loadFeed = async () => {
@@ -40,28 +45,37 @@ export default function ClientArticlesPage({ hero }: Props) {
       setError(null);
 
       try {
+        // ---- Fetch articles from Sanity
+        const articleRes = await fetch("/api/articles", { cache: "no-store" });
+        if (!articleRes.ok) throw new Error("Failed to fetch articles");
+        const articleData = await articleRes.json();
+        const covers: Covers = articleData.covers ?? {};
+        console.log("Article covers from API", covers);
+
         // ---- Fetch Juicer posts
-        const juicerRes = await fetch("https://www.juicer.io/api/feeds/norstec?per=50");
+        const juicerRes = await fetch("https://www.juicer.io/api/feeds/norstec?per=50", {
+          cache: "no-store",
+        });
         const juicerData = await juicerRes.json();
 
         const juicerItems: FeedItem[] = (juicerData.posts.items || [])
-          .map((post: JuicerPost) => ({
-            id: post.id,
-            type: post.source.source.toLowerCase() as MediaType,
-            title: post.message,
-            description: post.description,
-            image: post.image,
-            url: post.full_url,
-            createdAt: new Date(post.external_created_at),
-          }))
+          .map((post: JuicerPost) => {
+            const type = post.source.source.toLowerCase() as MediaType;
+            const coverKey = `cover${type.charAt(0).toUpperCase() + type.slice(1)}` as keyof Covers;
+            const coverUrl = (covers?.[coverKey] as string) || fallbackCover;
+            return {
+              id: post.id,
+              type,
+              title: post.message,
+              description: post.description,
+              image: coverUrl,
+              url: post.full_url,
+              createdAt: new Date(post.external_created_at),
+            };
+          })
           .filter((item: { type: string }) =>
             ["youtube", "instagram", "linkedin"].includes(item.type)
           );
-
-        // ---- Fetch articles from Sanity
-        const articleRes = await fetch("/api/articles");
-        if (!articleRes.ok) throw new Error("Failed to fetch articles");
-        const articleData = await articleRes.json();
 
         const articleItems: FeedItem[] = (articleData.articles || [])
           .filter((a: ArticleApiItem) => a.slug)
@@ -70,7 +84,7 @@ export default function ClientArticlesPage({ hero }: Props) {
             type: "article" as MediaType,
             title: a.title,
             description: a.excerpt,
-            image: imageBuilder(a.coverImage, { width: 800, height: 600, fit: "crop" }),
+            image: (covers?.coverArticle as string) || fallbackCover,
             url: `/articles/${a.slug}`,
             createdAt: a.publishedAt ? new Date(a.publishedAt) : new Date(),
           }));

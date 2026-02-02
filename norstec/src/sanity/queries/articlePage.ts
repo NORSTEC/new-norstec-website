@@ -13,10 +13,16 @@ export const ARTICLE_PAGE_QUERY = defineQuery(`
         title,
         slug,
         excerpt,
-        coverImage,
-        coverAlt,
         publishedAt
-      }
+      },
+      coverArticle,
+      coverArticleAlt,
+      coverYoutube,
+      coverYoutubeAlt,
+      coverInstagram,
+      coverInstagramAlt,
+      coverLinkedin,
+      coverLinkedinAlt
     }
   }
 `);

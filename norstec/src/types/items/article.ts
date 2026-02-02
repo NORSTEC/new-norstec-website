@@ -10,8 +10,6 @@ export interface Article {
     current: string;
   };
   excerpt?: string;
-  coverImage: Image;
-  coverAlt: string;
   publishedAt: string;
   sections?: ArticleSection[];
 }

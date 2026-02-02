@@ -24,42 +24,54 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
   };
 
   return (
-    <article className="relative overflow-hidden rounded-4xl bg-egg hover:-translate-y-4 transition duration-200 cursor-pointer snap"
+    <article className="relative overflow-hidden rounded-4xl bg-egg hover:-translate-y-4 transition duration-200 cursor-pointer p-5 flex flex-col gap-4"
       onClick={handleClick}
     >
-      <span className="absolute right-1.5 md:right-3 top-3 rounded-full bg-moody px-2 md:px-3 py-1 text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.08em] text-egg shadow-md backdrop-blur">
-        {item.createdAt.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
-      </span>
-      <span className="absolute right-1.5 md:right-3 top-12 rounded-full bg-moody px-2 md:px-3 py-1 text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.08em] text-egg shadow-md backdrop-blur">
-        {item.type}
-      </span>
-      {item.image ? (
-        <Image
-          src={item.image}
-          alt=""
-          className="h-64 w-full object-cover"
-          width={200}
-          height={160}
-        />
-      ) :
-        <Image
-          src={"/images/landing.jpeg"}
-          alt=""
-          className="h-64 w-full object-cover"
-          width={200}
-          height={160}
-        />
-      }
-      <div className="p-5 space-y-3">
+      <div className="flex flex-col gap-1">
+        <span className="text-xs uppercase tracking-[0.08em] text-moody">
+          {item.createdAt.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
+        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-copper">
+          {item.type}
+        </span>
+      </div>
+
+      <div className="flex items-center justify-center">
+        <div className="w-32 h-32 rounded-full overflow-hidden border border-moody/10 bg-moody/5">
+          {item.image ? (
+            <Image
+              src={item.image}
+              alt=""
+              className="w-full h-full object-cover"
+              width={200}
+              height={200}
+            />
+          ) : (
+            <Image
+              src={"/images/landing.jpeg"}
+              alt=""
+              className="w-full h-full object-cover"
+              width={200}
+              height={200}
+            />
+          )}
+        </div>
+      </div>
+
+      <div className="space-y-2">
         {item.title && item.type !== "linkedin" && (
-          <h2 className="text-[1.15rem] font-semibold leading-tight">{cleanHTML(item.title)}</h2>
+          <h2 className="text-xl font-semibold leading-tight">{cleanHTML(item.title)}</h2>
         )}
         {item.description && (
-          <p className="line-clamp-3">{cleanHTML(item.description)}</p>
+          <p className="text-sm text-moody/80 line-clamp-3">{cleanHTML(item.description)}</p>
         )}
         {item.title && item.type === "linkedin" && (
-          <p className="line-clamp-6">{cleanHTML(item.title)}</p>
-                  )}
+          <p className="text-sm text-moody/90 line-clamp-6">{cleanHTML(item.title)}</p>
+        )}
       </div>
     </article>
   );

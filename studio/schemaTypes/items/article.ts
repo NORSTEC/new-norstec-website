@@ -29,19 +29,6 @@ export default defineType({
             description: "Short summary shown in article lists and previews.",
         }),
         defineField({
-            name: "coverImage",
-            title: "Cover image",
-            type: "image",
-            options: { hotspot: true },
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-            name: "coverAlt",
-            title: "Cover image alt text",
-            type: "string",
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
             name: "publishedAt",
             title: "Published at",
             type: "datetime",
@@ -77,7 +64,6 @@ export default defineType({
         select: {
             title: "title",
             subtitle: "slug.current",
-            media: "coverImage",
         },
     },
 });
