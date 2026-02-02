@@ -19,10 +19,13 @@ type Props = {
   gapXl?: number;
   /** Gap (px) between stripes at 3xl */
   gap3xl?: number;
+  /** Reference height for scaling the gap with viewport height */
+  referenceHeight?: number;
   className?: string;
 };
 
-const WIDTH_FACTORS = [17, 1.05, 0.85, 0.65]; // sky, beachball, sun, copper
+// Relative widths: sky stays smallest, others ~5x larger per request
+const WIDTH_FACTORS = [20, 18, 13.3, 10.05]; // sky, beachball, sun, copper
 const BREAKPOINT_XL = 1280;
 const BREAKPOINT_3XL = 2000; // Tailwind 3xl ≈ 125rem
 
@@ -32,12 +35,21 @@ export default function StripesFilter({
   baseWidthXl = 20,
   baseWidth3xl = 28,
   gapLg = 10,
-  gapXl = 16,
+  gapXl = 30,
   gap3xl = 22,
+  referenceHeight = 900,
   className = "",
 }: Props) {
   const { colors } = useStripePalette(); // [sky, beachball, sun, copper]
   const scope = React.useId().replace(/:/g, "-");
+  const [{ width, height }, setSize] = React.useState({ width: 0, height: 0 });
+
+  React.useEffect(() => {
+    const setDims = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+    setDims();
+    window.addEventListener("resize", setDims);
+    return () => window.removeEventListener("resize", setDims);
+  }, []);
 
   const widthsLg = WIDTH_FACTORS.map((f) => f * baseWidthLg);
   const widthsXl = WIDTH_FACTORS.map((f) => f * baseWidthXl);
@@ -45,15 +57,17 @@ export default function StripesFilter({
 
   const stripeOrder: MediaType[] = ["article", "linkedin", "instagram", "youtube"];
 
+  const breakpoint: "lg" | "xl" | "x3" = width >= BREAKPOINT_3XL ? "x3" : width >= BREAKPOINT_XL ? "xl" : "lg";
+  const baseGap = breakpoint === "x3" ? gap3xl : breakpoint === "xl" ? gapXl : gapLg;
+  const resolvedGap = Math.round((height || referenceHeight) * (baseGap / referenceHeight));
+
   return (
     <div
-      className={`pointer-events-none absolute inset-y-0 left-0 hidden lg:flex -z-10 ${className}`}
+      className={`pointer-events-none absolute inset-y-0 right-0 hidden lg:flex -z-10 w-full justify-end items-stretch ${className}`}
       data-scope={scope}
+      style={{ gap: `${resolvedGap}px` }}
     >
       <style jsx>{`
-        [data-scope="${scope}"] {
-          gap: ${gapLg}px;
-        }
         [data-scope="${scope}"] .stripe-0 {
           width: ${widthsLg[0]}px;
         }
@@ -68,9 +82,6 @@ export default function StripesFilter({
         }
 
         @media (min-width: ${BREAKPOINT_XL}px) {
-          [data-scope="${scope}"] {
-            gap: ${gapXl}px;
-          }
           [data-scope="${scope}"] .stripe-0 {
             width: ${widthsXl[0]}px;
           }
@@ -86,9 +97,6 @@ export default function StripesFilter({
         }
 
         @media (min-width: ${BREAKPOINT_3XL}px) {
-          [data-scope="${scope}"] {
-            gap: ${gap3xl}px;
-          }
           [data-scope="${scope}"] .stripe-0 {
             width: ${widths3xl[0]}px;
           }
@@ -111,10 +119,10 @@ export default function StripesFilter({
         return (
           <span
             key={mediaType}
-            className={`stripe-${idx} h-full `}
+            className={`stripe-${idx} h-full`}
             style={{
               background: color,
-              opacity: isActive ? 1 : 0.2,
+              opacity: isActive ? 1 : 0.4,
             }}
           />
         );
