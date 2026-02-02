@@ -19,6 +19,16 @@ type StripeConfig = {
 
 const STRIPE_CLIP_PATH = "polygon(var(--trap-cut) 0%, 100% 0%, 100% 100%, 0% 100%)";
 
+function hexToRgba(hex: string, alpha: number) {
+  const clean = hex.replace("#", "");
+  const full = clean.length === 3 ? clean.split("").map((c) => c + c).join("") : clean;
+  const num = parseInt(full, 16);
+  const r = (num >> 16) & 255;
+  const g = (num >> 8) & 255;
+  const b = num & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 const STRIPE_CONFIGS: StripeConfig[] = [
   {
     mediaType: "youtube",
@@ -86,6 +96,7 @@ export default function ChemtrailsFilter({ selected, setSelected }: Props) {
         {STRIPE_CONFIGS.map((stripe, index) => {
           const color = colorsReversed[index];
           const isActive = selected.includes(stripe.mediaType);
+          const inactiveBg = hexToRgba(color, 0.4);
 
           return (
             <button
@@ -101,13 +112,12 @@ export default function ChemtrailsFilter({ selected, setSelected }: Props) {
                 zIndex: stripe.zIndex,
                 width: "var(--trap-width)",
                 height: "300%",
-                background: isActive ? color : "transparent",
+                background: isActive ? color : inactiveBg,
                 border: "none",
-                boxShadow: isActive ? "none" : `inset 0 0 0 2px ${color}`,
                 clipPath: STRIPE_CLIP_PATH,
                 WebkitClipPath: STRIPE_CLIP_PATH,
-                opacity: isActive ? 1 : 1,
-                filter: isActive ? "saturate(1)" : "saturate(1)",
+                opacity: 1,
+                filter: "saturate(1)",
               }}
             />
           );
