@@ -57,7 +57,7 @@ export default function FilterSection({ selected, setSelected }: Props) {
   );
 
   return (
-    <section className="section relative mobile-container no-snap min-h-screen!">
+    <section className="h-[500px] relative mobile-container no-snap ">
       <ChemtrailsFilter selected={selected} setSelected={setSelected} />
       {/* Overlay labels (non-interactive). Right offsets derive from viewport height per breakpoint. */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block">

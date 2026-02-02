@@ -33,7 +33,7 @@ const STRIPE_CONFIGS: StripeConfig[] = [
   {
     mediaType: "youtube",
     trapClassName:
-      "[--trap-width:262px] [--trap-cut:230px] xl:[--trap-width:510px] xl:[--trap-cut:474px] 3xl:[--trap-width:600px] 3xl:[--trap-cut:560px]",
+      "[--trap-width:262px] [--trap-cut:230px] xl:[--trap-width:280px] xl:[--trap-cut:150px] 3xl:[--trap-width:600px] 3xl:[--trap-cut:560px]",
     wrapperClassName: "absolute top-0 right-0 h-full [--rot:0deg]",
     wrapperStyle: {
       transform: "translate(0px, 0px) rotate(var(--rot))",
@@ -44,9 +44,9 @@ const STRIPE_CONFIGS: StripeConfig[] = [
   {
     mediaType: "instagram",
     trapClassName:
-      "[--trap-width:490px] [--trap-cut:458px] xl:[--trap-width:644px] xl:[--trap-cut:610px] 3xl:[--trap-width:743px] 3xl:[--trap-cut:704px]",
+      "[--trap-width:490px] [--trap-cut:458px] xl:[--trap-width:380px] xl:[--trap-cut:250px] 3xl:[--trap-width:743px] 3xl:[--trap-cut:704px]",
     wrapperClassName:
-      "absolute top-0 right-0 h-full [--rot:5deg] xl:[--rot:11deg] 3xl:[--rot:10deg] [--x:-3rem] xl:[--x:-3.55rem] 3xl:[--x:-4.45rem]",
+      "absolute top-0 right-0 h-full [--rot:5deg] xl:[--rot:6deg] 3xl:[--rot:10deg] [--x:-3.3rem] xl:[--x:-9rem] 3xl:[--x:-4.45rem]",
     wrapperStyle: {
       transform: "translateX(var(--x)) rotate(var(--rot))",
       transformOrigin: "top right",
@@ -56,9 +56,9 @@ const STRIPE_CONFIGS: StripeConfig[] = [
   {
     mediaType: "linkedin",
     trapClassName:
-      "[--trap-width:498px] [--trap-cut:468px] xl:[--trap-width:661px] xl:[--trap-cut:632px] 3xl:[--trap-width:751px] 3xl:[--trap-cut:717px]",
+      "[--trap-width:498px] [--trap-cut:468px] xl:[--trap-width:480px] xl:[--trap-cut:350px] 3xl:[--trap-width:751px] 3xl:[--trap-cut:717px]",
     wrapperClassName:
-      "absolute top-0 right-0 h-full [--rot:14deg] xl:[--rot:25deg] 3xl:[--rot:22deg] [--x:-6rem] xl:[--x:-7.10rem] 3xl:[--x:-9rem]",
+      "absolute top-0 right-0 h-full [--rot:14deg] xl:[--rot:15deg] 3xl:[--rot:22deg] [--x:-6rem] xl:[--x:-18.5rem] 3xl:[--x:-9rem]",
     wrapperStyle: {
       transform: "translateX(var(--x)) rotate(var(--rot))",
       transformOrigin: "top right",
@@ -68,9 +68,9 @@ const STRIPE_CONFIGS: StripeConfig[] = [
   {
     mediaType: "article",
     trapClassName:
-      "[--trap-width:500px] [--trap-cut:473px] xl:[--trap-width:483.5px] xl:[--trap-cut:460px] 3xl:[--trap-width:759px] 3xl:[--trap-cut:731px]",
+      "[--trap-width:500px] [--trap-cut:473px] xl:[--trap-width:580px] xl:[--trap-cut:450px] 3xl:[--trap-width:759px] 3xl:[--trap-cut:731px]",
     wrapperClassName:
-      "absolute top-0 right-0 h-full [--rot:23deg] xl:[--rot:40deg] 3xl:[--rot:36deg] [--x:-9rem] xl:[--x:-10.65rem] 3xl:[--x:-13.5rem]",
+      "absolute top-0 right-0 h-full [--rot:23deg] xl:[--rot:28deg] 3xl:[--rot:36deg] [--x:-rem] xl:[--x:-28.5rem] 3xl:[--x:-13.5rem]",
     wrapperStyle: {
       transform: "translateX(var(--x)) rotate(var(--rot))",
       transformOrigin: "top right",
