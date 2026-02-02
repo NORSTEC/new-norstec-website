@@ -41,7 +41,7 @@ export default function FilterSection({ selected, setSelected }: Props) {
         {
           text: "linkedin",
           topPx: { base: 240, xl: 450, x3: 430 },
-          rightPx: { base: 43, xl: 550, x3: 520 },
+          rightPx: { base: 43, xl: 555, x3: 520 },
         },
         {
           text: "article",

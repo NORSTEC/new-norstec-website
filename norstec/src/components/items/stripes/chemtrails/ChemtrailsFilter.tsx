@@ -58,7 +58,7 @@ const STRIPE_CONFIGS: StripeConfig[] = [
     trapClassName:
       "[--trap-width:498px] [--trap-cut:468px] xl:[--trap-width:480px] xl:[--trap-cut:350px] 3xl:[--trap-width:751px] 3xl:[--trap-cut:717px]",
     wrapperClassName:
-      "absolute top-0 right-0 h-full [--rot:14deg] xl:[--rot:15deg] 3xl:[--rot:22deg] [--x:-6rem] xl:[--x:-18.5rem] 3xl:[--x:-9rem]",
+      "absolute top-0 right-0 h-full [--rot:14deg] xl:[--rot:15.1deg] 3xl:[--rot:22deg] [--x:-6rem] xl:[--x:-18.5rem] 3xl:[--x:-9rem]",
     wrapperStyle: {
       transform: "translateX(var(--x)) rotate(var(--rot))",
       transformOrigin: "top right",
@@ -70,7 +70,7 @@ const STRIPE_CONFIGS: StripeConfig[] = [
     trapClassName:
       "[--trap-width:500px] [--trap-cut:473px] xl:[--trap-width:580px] xl:[--trap-cut:450px] 3xl:[--trap-width:759px] 3xl:[--trap-cut:731px]",
     wrapperClassName:
-      "absolute top-0 right-0 h-full [--rot:23deg] xl:[--rot:28deg] 3xl:[--rot:36deg] [--x:-rem] xl:[--x:-28.5rem] 3xl:[--x:-13.5rem]",
+      "absolute top-0 right-0 h-full [--rot:23deg] xl:[--rot:28.2deg] 3xl:[--rot:36deg] [--x:-rem] xl:[--x:-28.5rem] 3xl:[--x:-13.5rem]",
     wrapperStyle: {
       transform: "translateX(var(--x)) rotate(var(--rot))",
       transformOrigin: "top right",
