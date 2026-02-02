@@ -21,7 +21,7 @@ const STRIPE_CLIP_PATH = "polygon(var(--trap-cut) 0%, 100% 0%, 100% 100%, 0% 100
 
 const STRIPE_CONFIGS: StripeConfig[] = [
   {
-    mediaType: "article",
+    mediaType: "youtube",
     trapClassName:
       "[--trap-width:262px] [--trap-cut:230px] xl:[--trap-width:510px] xl:[--trap-cut:474px] 3xl:[--trap-width:600px] 3xl:[--trap-cut:560px]",
     wrapperClassName: "absolute top-0 right-0 h-full [--rot:0deg]",
@@ -32,7 +32,7 @@ const STRIPE_CONFIGS: StripeConfig[] = [
     zIndex: 40,
   },
   {
-    mediaType: "linkedin",
+    mediaType: "instagram",
     trapClassName:
       "[--trap-width:490px] [--trap-cut:458px] xl:[--trap-width:644px] xl:[--trap-cut:610px] 3xl:[--trap-width:743px] 3xl:[--trap-cut:704px]",
     wrapperClassName:
@@ -44,7 +44,7 @@ const STRIPE_CONFIGS: StripeConfig[] = [
     zIndex: 30,
   },
   {
-    mediaType: "youtube",
+    mediaType: "linkedin",
     trapClassName:
       "[--trap-width:498px] [--trap-cut:468px] xl:[--trap-width:661px] xl:[--trap-cut:632px] 3xl:[--trap-width:751px] 3xl:[--trap-cut:717px]",
     wrapperClassName:
@@ -56,7 +56,7 @@ const STRIPE_CONFIGS: StripeConfig[] = [
     zIndex: 20,
   },
   {
-    mediaType: "instagram",
+    mediaType: "article",
     trapClassName:
       "[--trap-width:500px] [--trap-cut:473px] xl:[--trap-width:483.5px] xl:[--trap-cut:460px] 3xl:[--trap-width:759px] 3xl:[--trap-cut:731px]",
     wrapperClassName:

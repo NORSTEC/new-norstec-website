@@ -114,25 +114,15 @@ export default function ClientArticlesPage({ hero }: Props) {
     <main className="w-full">
       {hero && <SectionHero section={hero} className="no-snap" />}
       <FilterSection selected={selected} setSelected={setSelected} />
-      <div className="normal-section min-h-screen w-full px-4 py-40 flex flex-col items-center gap-16 desktop-container">
+      <div className="normal-section min-h-screen w-full flex flex-col items-center gap-16 desktop-container">
       {loading && (
         <p className="w-full text-center">Loading feed…</p>
       )}
       {error && !loading && (
         <p className="w-full text-center text-copper">{error}</p>
       )}
-      <section className="flex flex-wrap gap-3">
-        {(["article", "linkedin", "youtube", "instagram"] as MediaType[]).map((type) => (
-          <MediaToggleButton
-            key={type}
-            mediaType={type}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        ))}
-      </section>
 
-      <section className="w-full max-w-[1700px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <section className="w-full  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6">
         {feed.map((item) => (
           <FeedCard key={`${item.type}-${item.id}`} item={item} />
         ))}
