@@ -10,36 +10,65 @@ type Props = {
 };
 
 export default function FilterSection({ selected, setSelected }: Props) {
+  const [{ width, height }, setSize] = React.useState({ width: 0, height: 0 });
+
+  React.useEffect(() => {
+    const setDims = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+    setDims();
+    window.addEventListener("resize", setDims);
+    return () => window.removeEventListener("resize", setDims);
+  }, []);
+
+  const breakpoint = React.useMemo<"base" | "xl" | "x3">(() => {
+    if (width >= 2000) return "x3";
+    if (width >= 1280) return "xl";
+    return "base";
+  }, [width]);
+
+  const labelPositions = React.useMemo(
+    () =>
+      [
+        {
+          text: "youtube",
+          top: { base: 18, xl: 93, x3: 93 },
+          rightFactor: { base: 0.008, xl: 0.15, x3: 0.19 },
+        },
+        {
+          text: "instagram",
+          top: { base: 32, xl: 93, x3: 93 },
+          rightFactor: { base: 0.010, xl: 0.4, x3: 0.415 },
+        },
+        {
+          text: "linkedin",
+          top: { base: 48, xl: 93, x3: 93 },
+          rightFactor: { base: 0.014, xl: 0.75, x3: 0.7 },
+        },
+        {
+          text: "article",
+          top: { base: 62, xl: 93, x3: 93 },
+          rightFactor: { base: 0.018, xl: 1.2, x3: 1.1 },
+        },
+      ].map((label) => {
+        const topPercent = label.top[breakpoint];
+        const rightPx = height ? Math.round(height * label.rightFactor[breakpoint]) : 0;
+        return { ...label, topPercent, rightPx };
+      }),
+    [breakpoint, height]
+  );
+
   return (
-    <section className="section relative mobile-container no-snap">
+    <section className="section relative mobile-container no-snap min-h-screen!">
       <ChemtrailsFilter selected={selected} setSelected={setSelected} />
-      {/* Overlay labels (non-interactive). Tweak the per-breakpoint classes below. */}
+      {/* Overlay labels (non-interactive). Right offsets derive from viewport height per breakpoint. */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
-        {[
-          {
-            text: "youtube",
-            posClasses:
-              "top-[18%] right-[8%] xl:top-[93%] xl:right-[8%] 3xl:top-[26%] 3xl:right-[12%]",
-          },
-          {
-            text: "instagram",
-            posClasses:
-              "top-[32%] right-[10%] xl:top-[93%] xl:right-[23%] 3xl:top-[40%] 3xl:right-[14%]",
-          },
-          {
-            text: "linkedin",
-            posClasses:
-              "top-[48%] right-[14%] xl:top-[93%] xl:right-[43%] 3xl:top-[52%] 3xl:right-[18%]",
-          },
-          {
-            text: "article",
-            posClasses:
-              "top-[62%] right-[18%] xl:top-[93%] xl:right-[68%] 3xl:top-[66%] 3xl:right-[22%]",
-          },
-        ].map((label) => (
+        {labelPositions.map((label) => (
           <span
             key={label.text}
-            className={`absolute ${label.posClasses} text-h2 font-normal uppercase tracking-[0.1em] text-moody`}
+            className="absolute text-3xl font-normal uppercase tracking-[0.1em] text-moody"
+            style={{
+              top: `${label.topPercent}%`,
+              right: `${label.rightPx}px`,
+            }}
           >
             {label.text}
           </span>
