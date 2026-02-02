@@ -41,6 +41,8 @@ function renderAboutSection(section: AboutPageSection) {
               key={section._id}
               color={section.color}
               lineFactor={lineFactor}
+              paddingTop={section.paddingTop}
+              paddingBottom={section.paddingBottom}
           />
       );
     }

@@ -54,10 +54,6 @@
         @apply relative overflow-x-hidden xl:h-screen snap-start overflow-y-hidden
     }
 
-    .normal-section {
-        @apply relative overflow-x-hidden snap-start h-auto max-h-none overflow-y-visible
-    }
-
     .section.no-snap {
         scroll-snap-align: unset !important;
         min-height: auto !important;
