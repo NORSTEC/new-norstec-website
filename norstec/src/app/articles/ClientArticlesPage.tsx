@@ -6,6 +6,7 @@ import { MediaToggleButton } from "./MediaToggleButton";
 import { FeedCard } from "./FeedCard";
 import SectionHero from "@/components/sections/SectionHero";
 import type { SectionHero as SectionHeroType } from "@/types/sections/sectionHero";
+import FilterSection from "@/components/static/FilterSection";
 
 type ArticleApiItem = {
   _id: string;
@@ -112,6 +113,7 @@ export default function ClientArticlesPage({ hero }: Props) {
   return (
     <main className="w-full">
       {hero && <SectionHero section={hero} className="no-snap" />}
+      <FilterSection />
       <div className="normal-section min-h-screen w-full px-4 py-40 flex flex-col items-center gap-16 desktop-container">
       {loading && (
         <p className="w-full text-center">Loading feed…</p>
