@@ -7,6 +7,8 @@ import { FeedCard } from "./FeedCard";
 import SectionHero from "@/components/sections/SectionHero";
 import type { SectionHero as SectionHeroType } from "@/types/sections/sectionHero";
 import FilterSection from "@/components/static/FilterSection";
+import StripesFilter from "@/components/items/stripes/StripesFilter";
+import StripesVertical from "@/components/items/stripes/StripesVertical";
 
 type ArticleApiItem = {
   _id: string;
@@ -114,24 +116,34 @@ export default function ClientArticlesPage({ hero }: Props) {
     <main className="w-full">
       {hero && <SectionHero section={hero} className="no-snap" />}
       <FilterSection selected={selected} setSelected={setSelected} />
-      <div className="normal-section min-h-screen w-full flex flex-col items-center gap-16 desktop-container">
-      {loading && (
-        <p className="w-full text-center">Loading feed…</p>
-      )}
+      <div className="normal-section min-h-screen w-full flex flex-col items-center gap-16 desktop-container xl:py-0!">
       {error && !loading && (
         <p className="w-full text-center text-copper">{error}</p>
       )}
 
-      <section className="w-full  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6">
-        {feed.map((item) => (
-          <FeedCard key={`${item.type}-${item.id}`} item={item} />
-        ))}
-        {feed.length === 0 && !loading && (
-          <p className="col-span-full text-center">
-            No items to display. Try selecting different media types.
-          </p>
-        )}
-      </section>
+      <div className="relative w-full">
+        <StripesFilter
+          selected={selected}
+          setSelected={setSelected}
+          baseWidthLg={14}
+          baseWidthXl={22}
+          baseWidth3xl={30}
+          gapLg={10}
+          gapXl={16}
+          gap3xl={22}
+          className="pl-[1rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] -left-[1rem] z-0"
+        />
+        <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 gap-2 py-20">
+          {feed.map((item) => (
+            <FeedCard key={`${item.type}-${item.id}`} item={item} />
+          ))}
+          {feed.length === 0 && !loading && (
+            <p className="col-span-full text-center">
+              No items to display. Try selecting different media types.
+            </p>
+          )}
+        </section>
+      </div>
       </div>
     </main>
   );

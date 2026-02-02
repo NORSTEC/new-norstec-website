@@ -7,6 +7,22 @@ import { useRouter } from "next/navigation";
 export const FeedCard = ({ item }: { item: FeedItem }) => {
   const router = useRouter();
 
+  const typeStyles: Record<
+    FeedItem["type"],
+    { border: string; text: string }
+  > = {
+    article: { border: "border-sky", text: "text-sky" },
+    linkedin: { border: "border-beachball", text: "text-beachball" },
+    youtube: { border: "border-copper", text: "text-copper" },
+    instagram: { border: "border-sun", text: "text-sun" },
+    podcast: { border: "border-sky", text: "text-sky" },
+  };
+
+  const { border, text } = typeStyles[item.type] ?? {
+    border: "border-sky",
+    text: "text-sky",
+  };
+
   const cleanHTML = (htmlString: string) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = htmlString;
@@ -25,7 +41,7 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
 
   return (
     <article
-      className="relative overflow-hidden rounded-4xl bg-egg hover:scale-95  transition-all duration-200 cursor-pointer p-5 flex flex-col gap-4 border border-sky"
+      className={`relative overflow-hidden rounded-4xl bg-egg hover:scale-103 transition-all duration-200 cursor-pointer p-5 flex flex-col gap-4 border border-2 ${border}`}
       onClick={handleClick}
     >
       <div className="flex flex-col gap-1">
@@ -36,7 +52,7 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
             day: "numeric",
           })}
         </span>
-        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-copper">
+        <span className={`text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${text}`}>
           {item.type}
         </span>
       </div>
