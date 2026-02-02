@@ -131,7 +131,7 @@ export default function ClientArticlesPage({ hero }: Props) {
           gapLg={10}
           gapXl={16}
           gap3xl={22}
-          className="pl-[1rem] lg:pl-[5rem] xl:pl-[7rem] 3xl:pl-[15rem] -left-[1rem] z-0"
+          className="pl-[1rem] lg:pl-[5rem] xl:pl-[2.25rem] 3xl:pl-[15rem] -left-[1rem] z-0"
         />
         <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 gap-2 py-20">
           {feed.map((item) => (

@@ -22,7 +22,7 @@ type Props = {
   className?: string;
 };
 
-const WIDTH_FACTORS = [1, 2, 3, 4]; // copper, sun, beachball, sky
+const WIDTH_FACTORS = [17, 1.05, 0.85, 0.65]; // sky, beachball, sun, copper
 const BREAKPOINT_XL = 1280;
 const BREAKPOINT_3XL = 2000; // Tailwind 3xl ≈ 125rem
 
@@ -36,14 +36,14 @@ export default function StripesFilter({
   gap3xl = 22,
   className = "",
 }: Props) {
-  const { colorsReversed } = useStripePalette(); // [copper, sun, beachball, sky]
+  const { colors } = useStripePalette(); // [sky, beachball, sun, copper]
   const scope = React.useId().replace(/:/g, "-");
 
   const widthsLg = WIDTH_FACTORS.map((f) => f * baseWidthLg);
   const widthsXl = WIDTH_FACTORS.map((f) => f * baseWidthXl);
   const widths3xl = WIDTH_FACTORS.map((f) => f * baseWidth3xl);
 
-  const stripeOrder: MediaType[] = ["article", "linkedin", "youtube", "instagram"];
+  const stripeOrder: MediaType[] = ["article", "linkedin", "instagram", "youtube"];
 
   return (
     <div
@@ -104,14 +104,14 @@ export default function StripesFilter({
         }
       `}</style>
 
-      {colorsReversed.map((color, idx) => {
+      {colors.map((color, idx) => {
         const mediaType = stripeOrder[idx];
         const isActive = selected.includes(mediaType);
 
         return (
           <span
             key={mediaType}
-            className={`stripe-${idx} h-full rounded-xl`}
+            className={`stripe-${idx} h-full `}
             style={{
               background: color,
               opacity: isActive ? 1 : 0.2,
