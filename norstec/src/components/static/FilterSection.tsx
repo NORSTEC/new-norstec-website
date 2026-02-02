@@ -10,10 +10,10 @@ type Props = {
 };
 
 export default function FilterSection({ selected, setSelected }: Props) {
-  const [{ width, height }, setSize] = React.useState({ width: 0, height: 0 });
+  const [{ width }, setSize] = React.useState({ width: 0 });
 
   React.useEffect(() => {
-    const setDims = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+    const setDims = () => setSize({ width: window.innerWidth });
     setDims();
     window.addEventListener("resize", setDims);
     return () => window.removeEventListener("resize", setDims);
@@ -30,30 +30,30 @@ export default function FilterSection({ selected, setSelected }: Props) {
       [
         {
           text: "youtube",
-          top: { base: 18, xl: 93, x3: 93 },
-          rightFactor: { base: 0.008, xl: 0.15, x3: 0.19 },
+          topPx: { base: 90, xl: 450, x3: 430 },
+          rightPx: { base: 8, xl: 130, x3: 120 },
         },
         {
           text: "instagram",
-          top: { base: 32, xl: 93, x3: 93 },
-          rightFactor: { base: 0.010, xl: 0.4, x3: 0.415 },
+          topPx: { base: 160, xl: 450, x3: 430 },
+          rightPx: { base: 23, xl: 320, x3: 300 },
         },
         {
           text: "linkedin",
-          top: { base: 48, xl: 93, x3: 93 },
-          rightFactor: { base: 0.014, xl: 0.75, x3: 0.7 },
+          topPx: { base: 240, xl: 450, x3: 430 },
+          rightPx: { base: 43, xl: 550, x3: 520 },
         },
         {
           text: "article",
-          top: { base: 62, xl: 93, x3: 93 },
-          rightFactor: { base: 0.018, xl: 1.2, x3: 1.1 },
+          topPx: { base: 320, xl: 450, x3: 430 },
+          rightPx: { base: 68, xl: 850, x3: 820 },
         },
-      ].map((label) => {
-        const topPercent = label.top[breakpoint];
-        const rightPx = height ? Math.round(height * label.rightFactor[breakpoint]) : 0;
-        return { ...label, topPercent, rightPx };
-      }),
-    [breakpoint, height]
+      ].map((label) => ({
+        text: label.text,
+        topPx: label.topPx[breakpoint],
+        rightPx: label.rightPx[breakpoint],
+      })),
+    [breakpoint]
   );
 
   return (
@@ -66,7 +66,7 @@ export default function FilterSection({ selected, setSelected }: Props) {
             key={label.text}
             className="absolute text-3xl font-normal uppercase tracking-[0.1em] text-moody"
             style={{
-              top: `${label.topPercent}%`,
+              top: `${label.topPx}px`,
               right: `${label.rightPx}px`,
             }}
           >
