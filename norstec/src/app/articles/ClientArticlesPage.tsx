@@ -23,11 +23,7 @@ type ArticleApiItem = {
 };
 
 type Covers = {
-  coverArticle?: string;
-  coverYoutube?: string;
-  coverInstagram?: string;
-  coverLinkedin?: string;
-  useJuicerImages?: boolean;
+  // no longer used, kept for shape consistency
 };
 
 type Props = {
@@ -46,7 +42,6 @@ export default function ClientArticlesPage({ hero }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const fallbackCover = "/images/landing.jpeg";
-
   useEffect(() => {
     const loadFeed = async () => {
       setLoading(true);
@@ -66,20 +61,16 @@ export default function ClientArticlesPage({ hero }: Props) {
         });
         const juicerData = await juicerRes.json();
 
-        const useJuicerImages = !!covers.useJuicerImages;
-
         const juicerItems: FeedItem[] = (juicerData.posts.items || [])
           .map((post: JuicerPost) => {
             const type = post.source.source.toLowerCase() as MediaType;
-            const coverKey = `cover${type.charAt(0).toUpperCase() + type.slice(1)}` as keyof Covers;
-            const coverUrl = (covers?.[coverKey] as string) || fallbackCover;
             const juicerImage = post.image;
             return {
               id: post.id,
               type,
               title: post.message,
               description: post.description,
-            image: useJuicerImages && juicerImage ? juicerImage : coverUrl,
+              image: juicerImage || fallbackCover,
               url: post.full_url,
               createdAt: new Date(post.external_created_at),
             };
@@ -101,7 +92,6 @@ export default function ClientArticlesPage({ hero }: Props) {
                 : a.coverImage
                 ? imageBuilder(a.coverImage, { width: 800, height: 600, fit: "crop" })
                 : undefined) ||
-              (covers?.coverArticle as string) ||
               fallbackCover,
             url: `/articles/${a.slug}`,
             createdAt: a.publishedAt ? new Date(a.publishedAt) : new Date(),

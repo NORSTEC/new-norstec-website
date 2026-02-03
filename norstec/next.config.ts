@@ -9,7 +9,10 @@ const nextConfig: NextConfig = {
       "images.unsplash.com",
       "pbs.twimg.com",
       "i.ytimg.com",
-      "www.juicer.io"
+      "www.juicer.io",
+      "juicer-assets.s3.amazonaws.com",
+      "cdn.juicer.io",
+      "images.juicer.io"
     ],
     remotePatterns: [
       {

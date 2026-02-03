@@ -13,16 +13,6 @@ export default function SectionArticles({ section, className = "" }: Props) {
 
   return (
     <section className={`section mobile-container ${className}`}>
-      <div className="flex items-center justify-between w-full mb-6">
-        {section.title ? (
-          <h2 className="text-h2 flex items-center gap-2">
-            {section.title}
-            <span aria-hidden className="star-inline" />
-          </h2>
-        ) : (
-          <span className="sr-only">Articles</span>
-        )}
-      </div>
 
       <div className="grid w-full gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {articles.map((article) => {
