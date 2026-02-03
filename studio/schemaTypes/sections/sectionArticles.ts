@@ -65,6 +65,13 @@ export default defineType({
             type: "string",
             validation: (Rule) => Rule.required(),
         }),
+        defineField({
+            name: "useJuicerImages",
+            title: "Use Juicer images when available",
+            type: "boolean",
+            initialValue: false,
+            description: "If enabled, Juicer posts will use their original images instead of the fallback covers.",
+        }),
     ],
 
     preview: {

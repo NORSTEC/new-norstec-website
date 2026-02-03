@@ -12,6 +12,19 @@ export default defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
+            name: "coverImage",
+            title: "Cover image",
+            type: "image",
+            options: { hotspot: true },
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: "coverAlt",
+            title: "Cover alt text",
+            type: "string",
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
             name: "slug",
             title: "Slug",
             type: "slug",

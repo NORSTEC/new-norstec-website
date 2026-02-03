@@ -9,12 +9,15 @@ import type { SectionHero as SectionHeroType } from "@/types/sections/sectionHer
 import FilterSection from "@/components/static/FilterSection";
 import StripesFilter from "@/components/items/stripes/StripesFilter";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
+import { imageBuilder } from "@/utils/imageBuilder";
 
 type ArticleApiItem = {
   _id: string;
   title: string;
   slug: string;
   excerpt?: string;
+  coverImage?: any;
+  coverAlt?: string;
   publishedAt?: string;
 };
 
@@ -23,6 +26,7 @@ type Covers = {
   coverYoutube?: string;
   coverInstagram?: string;
   coverLinkedin?: string;
+  useJuicerImages?: boolean;
 };
 
 type Props = {
@@ -61,17 +65,20 @@ export default function ClientArticlesPage({ hero }: Props) {
         });
         const juicerData = await juicerRes.json();
 
+        const useJuicerImages = !!covers.useJuicerImages;
+
         const juicerItems: FeedItem[] = (juicerData.posts.items || [])
           .map((post: JuicerPost) => {
             const type = post.source.source.toLowerCase() as MediaType;
             const coverKey = `cover${type.charAt(0).toUpperCase() + type.slice(1)}` as keyof Covers;
             const coverUrl = (covers?.[coverKey] as string) || fallbackCover;
+            const juicerImage = post.image;
             return {
               id: post.id,
               type,
               title: post.message,
               description: post.description,
-              image: coverUrl,
+            image: useJuicerImages && juicerImage ? juicerImage : coverUrl,
               url: post.full_url,
               createdAt: new Date(post.external_created_at),
             };
@@ -87,7 +94,14 @@ export default function ClientArticlesPage({ hero }: Props) {
             type: "article" as MediaType,
             title: a.title,
             description: a.excerpt,
-            image: (covers?.coverArticle as string) || fallbackCover,
+            image:
+              (typeof a.coverImage === "string"
+                ? a.coverImage
+                : a.coverImage
+                ? imageBuilder(a.coverImage, { width: 800, height: 600, fit: "crop" })
+                : undefined) ||
+              (covers?.coverArticle as string) ||
+              fallbackCover,
             url: `/articles/${a.slug}`,
             createdAt: a.publishedAt ? new Date(a.publishedAt) : new Date(),
           }));
@@ -117,26 +131,26 @@ export default function ClientArticlesPage({ hero }: Props) {
       {hero && <SectionHero section={hero} className="no-snap" />}
       <FilterSection selected={selected} setSelected={setSelected} />
       <div className="normal-section min-h-screen w-full flex flex-col items-center gap-16 desktop-container xl:py-0!">
-      {error && !loading && (
-        <p className="w-full text-center text-copper">{error}</p>
-      )}
+        {error && !loading && (
+          <p className="w-full text-center text-copper">{error}</p>
+        )}
 
-      <div className="relative w-full">
-        <StripesFilter
-          selected={selected}
-          setSelected={setSelected}
-        />
-        <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 py-20 min-h-screen gap-5 xl:gap-0">
-          {feed.map((item) => (
-            <FeedCard key={`${item.type}-${item.id}`} item={item} />
-          ))}
-          {feed.length === 0 && !loading && (
-            <p className="col-span-full text-center">
-              No items to display. Try selecting different media types.
-            </p>
-          )}
-        </section>
-      </div>
+        <div className="relative w-full">
+          <StripesFilter
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 py-20 min-h-screen gap-5 xl:gap-0">
+            {feed.map((item) => (
+              <FeedCard key={`${item.type}-${item.id}`} item={item} />
+            ))}
+            {feed.length === 0 && !loading && (
+              <p className="col-span-full text-center">
+                No items to display. Try selecting different media types.
+              </p>
+            )}
+          </section>
+        </div>
       </div>
     </main>
   );

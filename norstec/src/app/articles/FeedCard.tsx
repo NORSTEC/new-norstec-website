@@ -76,7 +76,7 @@ export const FeedCard = ({ item }: { item: FeedItem }) => {
             <Image
               src={item.image}
               alt=""
-              className="w-full h-full object-cover"
+              className="w-full h-full object-fill"
               width={400}
               height={40}
             />

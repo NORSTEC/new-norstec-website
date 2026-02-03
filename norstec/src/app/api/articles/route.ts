@@ -9,12 +9,15 @@ const PAGE_ARTICLES_QUERY = `
       title,
       "slug": slug.current,
       excerpt,
-      publishedAt
+      publishedAt,
+      coverAlt,
+      "coverImage": coverImage.asset->url
     },
     "coverArticle": coverArticle.asset->url,
     "coverYoutube": coverYoutube.asset->url,
     "coverInstagram": coverInstagram.asset->url,
-    "coverLinkedin": coverLinkedin.asset->url
+    "coverLinkedin": coverLinkedin.asset->url,
+    useJuicerImages
   }
 }
 `;
@@ -25,7 +28,7 @@ const FALLBACK_ARTICLES_QUERY = `
   title,
   "slug": slug.current,
   excerpt,
-  coverImage,
+  "coverImage": coverImage.asset->url,
   coverAlt,
   publishedAt
 }
@@ -41,6 +44,7 @@ export async function GET() {
           coverYoutube: pageResult.sectionArticles.coverYoutube ?? "",
           coverInstagram: pageResult.sectionArticles.coverInstagram ?? "",
           coverLinkedin: pageResult.sectionArticles.coverLinkedin ?? "",
+          useJuicerImages: pageResult.sectionArticles.useJuicerImages ?? false,
         }
       : {};
 
