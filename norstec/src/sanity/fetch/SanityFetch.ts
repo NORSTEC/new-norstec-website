@@ -17,6 +17,8 @@ import { TEAM_PAGE_QUERY } from "@/sanity/queries/teamPage";
 import { JoinPage } from "@/types/pages/joinPage";
 import { JOIN_PAGE_QUERY } from "@/sanity/queries/joinPage";
 import {InitiativeSubPage} from "@/types/pages/initiativesSubPage";
+import { ArticlePage, ArticleDetailPage } from "@/types/pages/articlePage";
+import { ARTICLE_BY_SLUG_QUERY, ARTICLE_PAGE_QUERY } from "@/sanity/queries/articlePage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -114,6 +116,28 @@ export const getJoinPage = async (): Promise<JoinPage | null> => {
     return (data as JoinPage) ?? null;
   } catch (e) {
     console.error("Error fetching join page:", e);
+    return null;
+  }
+};
+
+// ============== ARTICLES ============== //
+export const getArticlePage = async (): Promise<ArticlePage | null> => {
+  try {
+    const { data } = await sanityFetch({ query: ARTICLE_PAGE_QUERY });
+    return (data as ArticlePage) ?? null;
+  } catch (e) {
+    console.error("Error fetching article page:", e);
+    return null;
+  }
+};
+
+export const getArticleBySlug = async (slug: string): Promise<ArticleDetailPage | null> => {
+  if (!slug) return null;
+  try {
+    const { data } = await sanityFetch({ query: ARTICLE_BY_SLUG_QUERY, params: { slug } });
+    return (data as ArticleDetailPage) ?? null;
+  } catch (e) {
+    console.error("Error fetching article:", e);
     return null;
   }
 };
