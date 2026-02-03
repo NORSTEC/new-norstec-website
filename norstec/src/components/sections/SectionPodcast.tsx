@@ -25,6 +25,7 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
   const [direction, setDirection] = React.useState<"next" | "prev">("next");
   const [mobilePage, setMobilePage] = React.useState(1);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const listRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -83,7 +84,7 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
       : AUTO_LIMIT_ALL;
   const hasEpisodes = episodes.length > 0;
   const count = episodes.length || (loading ? limit : 0);
-  const MOBILE_PAGE_SIZE = 6;
+  const MOBILE_PAGE_SIZE = 10;
   const mobileTotalPages = Math.max(1, Math.ceil(episodes.length / MOBILE_PAGE_SIZE));
   const mobilePageClamped = Math.min(mobilePage, mobileTotalPages);
   const mobileSliceStart = (mobilePageClamped - 1) * MOBILE_PAGE_SIZE;
@@ -108,11 +109,19 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
     setSelectedIndex((idx) => (idx + 1) % count);
   };
 
+  const goMobilePage = (nextPage: number) => {
+    const clamped = Math.min(Math.max(1, nextPage), mobileTotalPages);
+    setMobilePage(clamped);
+    setTimeout(() => {
+      listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  };
+
   return (
     <section className={`section relative overflow-hidden mobile-container xl:py-0! ${className}`}>
       <ChemtrailsRight />
 
-      <div className="relative flex flex-col h-full">
+      <div className="relative flex flex-col h-full" ref={listRef}>
         <div className="flex flex-col gap-2 chemtrails-right lg:pb-5! xl:pb-2!">
           <div className="flex items-center">
             <h2 className="text-h2">Spacepodden</h2>
@@ -246,7 +255,7 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
               <div className="flex items-center justify-center gap-4">
                 <button
                   type="button"
-                  onClick={() => setMobilePage((p) => Math.max(1, p - 1))}
+                  onClick={() => goMobilePage(mobilePageClamped - 1)}
                   className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg  transition-all duration-200"
                   aria-label="Previous page"
                   disabled={mobilePageClamped === 1}
@@ -256,14 +265,14 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
                   </span>
                 </button>
 
-                <span className="text-sm text-moody/70">
-                  Page {mobilePageClamped} of {mobileTotalPages}
+                <span className="text-sm text-moody">
+                  Page {mobilePageClamped} / {mobileTotalPages}
                 </span>
 
 
                 <button
                   type="button"
-                  onClick={() => setMobilePage((p) => Math.min(mobileTotalPages, p + 1))}
+                  onClick={() => goMobilePage(mobilePageClamped + 1)}
                   className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg transition-all duration-200"
                   aria-label="Next page"
                   disabled={mobilePageClamped === mobileTotalPages}

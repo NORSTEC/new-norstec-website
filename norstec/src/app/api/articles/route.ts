@@ -12,12 +12,7 @@ const PAGE_ARTICLES_QUERY = `
       publishedAt,
       coverAlt,
       "coverImage": coverImage.asset->url
-    },
-    "coverArticle": coverArticle.asset->url,
-    "coverYoutube": coverYoutube.asset->url,
-    "coverInstagram": coverInstagram.asset->url,
-    "coverLinkedin": coverLinkedin.asset->url,
-    useJuicerImages
+    }
   }
 }
 `;
@@ -38,22 +33,18 @@ export async function GET() {
   try {
     const pageResult = await client.fetch(PAGE_ARTICLES_QUERY);
     const fromPage = pageResult?.sectionArticles?.articles ?? [];
-    const covers = pageResult?.sectionArticles
-      ? {
-          coverArticle: pageResult.sectionArticles.coverArticle ?? "",
-          coverYoutube: pageResult.sectionArticles.coverYoutube ?? "",
-          coverInstagram: pageResult.sectionArticles.coverInstagram ?? "",
-          coverLinkedin: pageResult.sectionArticles.coverLinkedin ?? "",
-          useJuicerImages: pageResult.sectionArticles.useJuicerImages ?? false,
-        }
-      : {};
+    const covers = {};
 
     if (Array.isArray(fromPage) && fromPage.length > 0) {
-      return NextResponse.json({ articles: fromPage, covers });
+      return NextResponse.json({
+        articles: fromPage,
+        covers,
+        useJuicerImages: true,
+      });
     }
 
     const fallback = await client.fetch(FALLBACK_ARTICLES_QUERY);
-    return NextResponse.json({ articles: fallback, covers: {} });
+    return NextResponse.json({ articles: fallback, covers: {}, useJuicerImages: true });
   } catch (error) {
     console.error("Failed to fetch articles:", error);
     return NextResponse.json(
