@@ -31,7 +31,7 @@ export default function FilterSection({ selected, setSelected }: Props) {
         {
           text: "youtube",
           topPx: { base: 90, xl: 450, x3: 430 },
-          rightPx: { base: 8, xl: 130, x3: 270 },
+          rightPx: { base: 8, xl: 125, x3: 270 },
         },
         {
           text: "instagram",
@@ -57,7 +57,11 @@ export default function FilterSection({ selected, setSelected }: Props) {
   );
 
   return (
-    <section className="h-[500px] hidden xl:block relative mobile-container no-snap ">
+    <section className="h-[500px] hidden xl:block relative desktop-container no-snap ">
+      <div className="flex items-center gap-2 text-moody italic font-normal h-full">
+        <span className={"text-h3"}>Click stripes to filter</span>
+        <span className="icon icon-24 md:icon-40 icon-400">trending_flat</span>
+      </div>
       <ChemtrailsFilter selected={selected} setSelected={setSelected} />
       {/* Overlay labels (non-interactive). Right offsets derive from viewport height per breakpoint. */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
