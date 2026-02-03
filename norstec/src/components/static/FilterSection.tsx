@@ -58,9 +58,9 @@ export default function FilterSection({ selected, setSelected }: Props) {
 
   return (
     <section className="h-[500px] hidden xl:block relative desktop-container no-snap ">
-      <div className="flex items-center gap-2 text-moody italic font-normal h-full">
-        <span className={"text-h3"}>Click stripes to filter</span>
-        <span className="icon icon-24 md:icon-40 icon-400">trending_flat</span>
+      <div className="flex 2xl:items-center gap-2 text-moody italic font-normal h-full ">
+        <span className={"text-h3 z-10"}>Click stripes to filter</span>
+        <span className="icon icon-24 md:icon-40 icon-400 z-10">trending_flat</span>
       </div>
       <ChemtrailsFilter selected={selected} setSelected={setSelected} />
       {/* Overlay labels (non-interactive). Right offsets derive from viewport height per breakpoint. */}

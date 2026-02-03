@@ -10,6 +10,7 @@ import FilterSection from "@/components/static/FilterSection";
 import StripesFilter from "@/components/items/stripes/StripesFilter";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
 import { imageBuilder } from "@/utils/imageBuilder";
+import MobileMediaFilter from "./MobileMediaFilter";
 
 type ArticleApiItem = {
   _id: string;
@@ -130,17 +131,18 @@ export default function ClientArticlesPage({ hero }: Props) {
     <main className="w-full">
       {hero && <SectionHero section={hero} className="no-snap" />}
       <FilterSection selected={selected} setSelected={setSelected} />
-      <div className="normal-section min-h-screen w-full flex flex-col items-center gap-16 desktop-container xl:py-0!">
+      <div className="normal-section min-h-screen w-full flex flex-col items-center gap-16 desktop-container py-20! xl:py-0!">
         {error && !loading && (
           <p className="w-full text-center text-copper">{error}</p>
         )}
 
         <div className="relative w-full">
+          <MobileMediaFilter selected={selected} setSelected={setSelected} />
           <StripesFilter
             selected={selected}
             setSelected={setSelected}
           />
-          <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 py-20 min-h-screen gap-5 xl:gap-0">
+          <section className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 py-20 min-h-screen gap-30 sm:gap-5 xl:gap-0">
             {feed.map((item) => (
               <FeedCard key={`${item.type}-${item.id}`} item={item} />
             ))}
