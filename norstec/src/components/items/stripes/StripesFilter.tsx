@@ -24,7 +24,7 @@ const BREAKPOINT_3XL = 2000; // Tailwind 3xl ≈ 125rem
 // Defaults: sky smallest, others larger
 const DEFAULT_WIDTHS_LG: [number, number, number, number] = [60, 240, 240, 240];
 const DEFAULT_WIDTHS_XL: [number, number, number, number] = [405, 277, 218.5, 180];
-const DEFAULT_WIDTHS_3XL: [number, number, number, number] = [100, 360, 360, 360];
+const DEFAULT_WIDTHS_3XL: [number, number, number, number] = [709, 370, 290, 270];
 
 export default function StripesFilter({
   selected,
@@ -33,7 +33,7 @@ export default function StripesFilter({
   widths3xl = DEFAULT_WIDTHS_3XL,
   gapLg = 10,
   gapXl = 16.3,
-  gap3xl = 22,
+  gap3xl = 23,
   className = "",
 }: Props) {
   const { colors } = useStripePalette(); // [sky, beachball, sun, copper]

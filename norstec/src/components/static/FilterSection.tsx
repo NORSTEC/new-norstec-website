@@ -31,22 +31,22 @@ export default function FilterSection({ selected, setSelected }: Props) {
         {
           text: "youtube",
           topPx: { base: 90, xl: 450, x3: 430 },
-          rightPx: { base: 8, xl: 130, x3: 120 },
+          rightPx: { base: 8, xl: 130, x3: 270 },
         },
         {
           text: "instagram",
           topPx: { base: 160, xl: 450, x3: 430 },
-          rightPx: { base: 23, xl: 320, x3: 300 },
+          rightPx: { base: 23, xl: 320, x3: 550 },
         },
         {
           text: "linkedin",
           topPx: { base: 240, xl: 450, x3: 430 },
-          rightPx: { base: 43, xl: 555, x3: 520 },
+          rightPx: { base: 43, xl: 555, x3: 870 },
         },
         {
           text: "article",
           topPx: { base: 320, xl: 450, x3: 430 },
-          rightPx: { base: 68, xl: 850, x3: 820 },
+          rightPx: { base: 68, xl: 850, x3: 1300 },
         },
       ].map((label) => ({
         text: label.text,
