@@ -78,35 +78,33 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
     setMobilePage(1);
   }, [episodes, loading]);
 
-  const limit =
-    typeof section.limit === "number" && Number.isFinite(section.limit) && section.limit > 0
-      ? Math.max(1, section.limit)
-      : AUTO_LIMIT_ALL;
   const hasEpisodes = episodes.length > 0;
-  const count = episodes.length || (loading ? limit : 0);
+  const lastEpisodeIndex = episodes.length - 1;
+  const canGoPrev = hasEpisodes && selectedIndex < lastEpisodeIndex;
+  const canGoNext = hasEpisodes && selectedIndex > 0;
   const MOBILE_PAGE_SIZE = 10;
   const mobileTotalPages = Math.max(1, Math.ceil(episodes.length / MOBILE_PAGE_SIZE));
   const mobilePageClamped = Math.min(mobilePage, mobileTotalPages);
   const mobileSliceStart = (mobilePageClamped - 1) * MOBILE_PAGE_SIZE;
   const mobileSlice = episodes.slice(mobileSliceStart, mobileSliceStart + MOBILE_PAGE_SIZE);
-  const prevIndex = count ? (selectedIndex - 1 + count) % count : 0;
-  const nextIndex = count ? (selectedIndex + 1) % count : 0;
+  const prevIndex = canGoPrev ? selectedIndex + 1 : -1;
+  const nextIndex = canGoNext ? selectedIndex - 1 : -1;
   const activeEpisode = episodes[selectedIndex];
-  const prevEpisode = episodes[prevIndex];
-  const nextEpisode = episodes[nextIndex];
+  const prevEpisode = prevIndex >= 0 ? episodes[prevIndex] : undefined;
+  const nextEpisode = nextIndex >= 0 ? episodes[nextIndex] : undefined;
 
   const goPrev = () => {
-    if (!count) return;
+    if (!canGoPrev) return;
     const dir = "prev" as const;
     setDirection(dir);
-    setSelectedIndex((idx) => (idx - 1 + count) % count);
+    setSelectedIndex((idx) => Math.min(lastEpisodeIndex, idx + 1));
   };
 
   const goNext = () => {
-    if (!count) return;
+    if (!canGoNext) return;
     const dir = "next" as const;
     setDirection(dir);
-    setSelectedIndex((idx) => (idx + 1) % count);
+    setSelectedIndex((idx) => Math.max(0, idx - 1));
   };
 
   const goMobilePage = (nextPage: number) => {
@@ -138,8 +136,8 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
           <div className="relative flex 3xl:items-center justify-center gap-4 xl:gap-16 h-full">
             <div className="hidden lg:flex items-center xl:gap-3">
               <div
-                className="hidden lg:block w-[225px] xl:w-[300px] 3xl:w-[400px] transition-transform duration-300 hover:scale-95"
-                onClick={goNext}
+                className={`hidden lg:block w-[225px] xl:w-[300px] 3xl:w-[400px] transition-transform duration-300 ${canGoPrev ? "hover:scale-95 cursor-pointer" : ""}`}
+                onClick={canGoPrev ? goPrev : undefined}
                 style={{ transform: "perspective(1400px) rotateY(14deg) scale(0.9)" }}
               >
                 {prevEpisode ? (
@@ -161,9 +159,10 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
               </div>
               <button
                 type="button"
-                onClick={goNext}
-                className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg  transition-all duration-200"
+                onClick={goPrev}
+                className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="Previous episode"
+                disabled={!canGoPrev}
               >
                 <span className="icon icon-24 md:icon-40 icon-400 icon-filled transition-all duration-200 rotate-[180deg]">
                   trending_flat
@@ -202,17 +201,18 @@ export default function SectionPodcast({ section, className = "" }: SectionPodca
             <div className="hidden lg:flex items-center gap-3">
               <button
                 type="button"
-                onClick={goPrev}
-                className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg transition-all duration-200"
+                onClick={goNext}
+                className="flex items-center justify-center h-8 w-20 border-2 border-moody rounded-full cursor-pointer hover:bg-transparent hover:text-moody bg-moody text-egg transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="Next episode"
+                disabled={!canGoNext}
               >
-          <span className="icon icon-24 md:icon-40 icon-400 icon-filled transition-all duration-200 ">
-            trending_flat
-          </span>
+                <span className="icon icon-24 md:icon-40 icon-400 icon-filled transition-all duration-200">
+                  trending_flat
+                </span>
               </button>
               <div
-                className="hidden lg:block w-[225px] xl:w-[300px] 3xl:w-[400px] transition-transform duration-300 hover:scale-95 cursor-pointer"
-                onClick={goNext}
+                className={`hidden lg:block w-[225px] xl:w-[300px] 3xl:w-[400px] transition-transform duration-300 ${canGoNext ? "hover:scale-95 cursor-pointer" : ""}`}
+                onClick={canGoNext ? goNext : undefined}
                 style={{ transform: "perspective(1400px) rotateY(-14deg) scale(0.9)" }}
               >
                 {nextEpisode ? (
