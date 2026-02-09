@@ -4,12 +4,14 @@ export default defineType({
     name: 'application',
     title: 'Application',
     type: 'document',
+
     fields: [
+
         defineField({
             name: 'title',
             title: 'Norstec Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            validation: Rule => Rule.required(),
         }),
 
         defineField({
@@ -19,14 +21,48 @@ export default defineType({
             description: 'e.g. NORSTEC SUMMIT program committee member',
         }),
 
+
         defineField({
-            name: 'company',
-            title: 'Company',
+            name: 'landingImage',
+            title: 'Landing Image',
+            type: 'image',
+            options: { hotspot: true },
+            fields: [
+                defineField({
+                    name: 'alt',
+                    title: 'Alt text',
+                    type: 'string',
+                    validation: Rule => Rule.required(),
+                }),
+            ],
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: {
+                source: 'title',
+                maxLength: 96,
+                isUnique: (value, context) => context.defaultIsUnique(value, context),
+            },
+            validation: Rule => Rule.required(),
+        }),
+        defineField({
+            name: 'position',
+            title: 'Position',
             type: 'object',
             fields: [
-                { name: 'name', title: 'Name', type: 'string' },
-                { name: 'description', title: 'Description', type: 'text' },
-                { name: 'website', title: 'Website', type: 'url' },
+                defineField({
+                    name: 'name',
+                    title: 'Name',
+                    type: 'string',
+                    validation: Rule => Rule.required(),
+                }),
+                defineField({
+                    name: 'description',
+                    title: 'Description',
+                    type: 'text',
+                }),
             ],
         }),
 
@@ -36,6 +72,7 @@ export default defineType({
             type: 'array',
             of: [{ type: 'string' }],
             description: 'e.g. Oslo, Tromsø, Stockholm',
+            options: { layout: 'tags' },
         }),
 
         defineField({
@@ -46,7 +83,7 @@ export default defineType({
                 list: [
                     { title: '5–10 hours', value: 'normal_verv' },
                     { title: '10–25 hours', value: 'high_intensity' },
-                    { title: 'Contract', value: 'contract' },
+                    { title: 'TBD', value: 'tbd' },
                 ],
             },
         }),
@@ -58,18 +95,18 @@ export default defineType({
         }),
 
         defineField({
-            name: 'securityRequirements',
-            title: 'Security Requirements',
+            name: 'language',
+            title: 'Working Language',
             type: 'array',
             of: [{ type: 'string' }],
-            description: 'e.g. European citizen, NATO Secret clearance',
+            options: { layout: 'tags' },
         }),
+
 
         defineField({
             name: 'aboutRole',
             title: 'About the Role',
-            type: 'array',
-            of: [{ type: 'portableTextBlock' }],
+            type: 'portableText',
         }),
 
         defineField({
@@ -86,32 +123,65 @@ export default defineType({
             of: [{ type: 'string' }],
         }),
 
+
         defineField({
             name: 'niceToHave',
             title: 'Nice to Have',
-            type: 'array',
-            of: [{ type: 'string' }],
+            type: 'object',
+            fields: [
+                defineField({
+                    name: 'title',
+                    title: 'Section Title',
+                    type: 'string',
+                    initialValue: 'Nice to Have',
+                    validation: Rule => Rule.required(),
+                }),
+                defineField({
+                    name: 'items',
+                    title: 'Items',
+                    type: 'array',
+                    of: [{ type: 'string' }],
+                }),
+            ],
         }),
 
         defineField({
             name: 'howWeWork',
             title: 'How We Work',
-            type: 'array',
-            of: [{ type: 'portableTextBlock' }],
+            type: 'object',
+            fields: [
+                defineField({
+                    name: 'title',
+                    title: 'Section Title',
+                    type: 'string',
+                    initialValue: 'How We Work',
+                    validation: Rule => Rule.required(),
+                }),
+                defineField({
+                    name: 'content',
+                    title: 'Content',
+                    type: 'portableText',
+                }),
+            ],
         }),
 
         defineField({
             name: 'expectations',
             title: 'What We Expect From You',
-            type: 'array',
-            of: [
+            type: 'object',
+            fields: [
                 defineField({
-                    name: 'expectation',
-                    type: 'object',
-                    fields: [
-                        { name: 'title', type: 'string' },
-                        { name: 'description', type: 'string' },
-                    ],
+                    name: 'title',
+                    title: 'Section Title',
+                    type: 'string',
+                    initialValue: 'What We Expect From You',
+                    validation: Rule => Rule.required(),
+                }),
+                defineField({
+                    name: 'items',
+                    title: 'Items',
+                    type: 'array',
+                    of: [{ type: 'string' }],
                 }),
             ],
         }),
@@ -123,42 +193,34 @@ export default defineType({
             of: [{ type: 'string' }],
         }),
 
-        defineField({
-            name: 'keywords',
-            title: 'Keywords',
-            type: 'array',
-            of: [{ type: 'string' }],
-        }),
 
         defineField({
             name: 'contactPersons',
             title: 'Contact Persons',
             type: 'array',
             of: [
-                defineField({
-                    name: 'contactPerson',
-                    type: 'object',
-                    fields: [
-                        { name: 'name', title: 'Name', type: 'string' },
-                        { name: 'title', title: 'Title', type: 'string' },
-                        { name: 'email', title: 'Email', type: 'string' },
-                    ],
-                }),
+                {
+                    type: 'reference',
+                    to: [{ type: 'teamMember' }],
+                },
             ],
         }),
 
         defineField({
-            name: 'language',
-            title: 'Working Language',
+            name: 'keywords',
+            title: 'Keywords',
             type: 'array',
             of: [{ type: 'string' }],
+            options: { layout: 'tags' },
         }),
     ],
+
 
     preview: {
         select: {
             title: 'title',
-            subtitle: 'stilling.name',
+            subtitle: 'position.name',
+            media: 'landingImage',
         },
     },
 })

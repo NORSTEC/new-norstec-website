@@ -49,6 +49,7 @@ import {metadata} from "./sections/sectionMetadata";
 import statItem from './items/statItem'
 import {vintageStripes} from "./items/sectionDivider";
 import sectionBusinessContact from "./sections/summit/sectionBusinessContact";
+import application from "./sections/application/applicationForm"
 
 
 
@@ -91,6 +92,9 @@ export const schemaTypes = [
     sectionSummitProgram,
     sectionBusinessContact,
     sectionInitiativeAdditionalPage,
+
+    // Application
+    application,
 
     // Items
     teamMember,
