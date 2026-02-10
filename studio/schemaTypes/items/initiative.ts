@@ -127,6 +127,15 @@ export default defineType({
                                 },
                             },
                         },
+                        {
+                            type: 'sectionSummitSponsors',
+                            options: {
+                                filter: ({document}) => {
+                                    const isSummit = document?.slug?.current === 'summit'
+                                    return isSummit ? undefined : {filter: 'false'}
+                                },
+                            },
+                        },
                     ],
                 },
             ],
