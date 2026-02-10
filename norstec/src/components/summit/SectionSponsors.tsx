@@ -29,7 +29,7 @@ function isExternalLink(link: string) {
 }
 
 function getTierSpans(priority: number) {
-  if (priority === 1) return { colSpan: 4, rowSpan: 4 };
+  if (priority === 1) return { colSpan: 4, rowSpan: 3 };
   if (priority === 2) return { colSpan: 4, rowSpan: 3 };
   if (priority === 3) return { colSpan: 3, rowSpan: 3 };
   return { colSpan: 2, rowSpan: 2 };
@@ -89,7 +89,12 @@ export default function SectionSponsors({ section, className = "" }: Props) {
             }}
           >
             {sponsors.map((sponsor) => {
-              const logoSrc = imageBuilder(sponsor.logo, { width: 1400, fit: "max", quality: 95 });
+              const logoSrc = imageBuilder(sponsor.logo, {
+                width: sponsor.colSpan * 700,
+                height: sponsor.rowSpan * 300,
+                fit: "max",
+                quality: 95,
+              });
               const ariaLabel = sponsor.name
                 ? `Visit sponsor website: ${sponsor.name}`
                 : `Visit sponsor website: ${sponsor.alt}`;
