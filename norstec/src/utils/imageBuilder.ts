@@ -6,11 +6,82 @@ type ImageBuilderOptions = {
   quality?: number;
 };
 
+type ImageCrop = {
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+type ImageHotspot = {
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+type ImageSourceObject = {
+  asset?: { _ref?: string; _id?: string; url?: string | null };
+  crop?: ImageCrop | null;
+  hotspot?: ImageHotspot | null;
+};
+
+const clamp = (value: number, min: number, max: number) => {
+  return Math.min(max, Math.max(min, value));
+};
+
+const parseDimensionsFromRef = (ref?: string) => {
+  if (!ref || !ref.startsWith("image-")) {
+    return null;
+  }
+
+  const parts = ref.split("-");
+  const dimensions = parts[2];
+  if (!dimensions || !dimensions.includes("x")) {
+    return null;
+  }
+
+  const [w, h] = dimensions.split("x");
+  const width = Number.parseInt(w, 10);
+  const height = Number.parseInt(h, 10);
+
+  if (Number.isNaN(width) || Number.isNaN(height) || width <= 0 || height <= 0) {
+    return null;
+  }
+
+  return { width, height };
+};
+
+const getCropRect = (source: ImageSourceObject, ref?: string) => {
+  if (!source.crop) return null;
+
+  const dimensions = parseDimensionsFromRef(ref);
+  if (!dimensions) return null;
+
+  const cropLeft = clamp(source.crop.left ?? 0, 0, 1);
+  const cropRight = clamp(source.crop.right ?? 0, 0, 1);
+  const cropTop = clamp(source.crop.top ?? 0, 0, 1);
+  const cropBottom = clamp(source.crop.bottom ?? 0, 0, 1);
+
+  const safeWidthRatio = Math.max(0.0001, 1 - cropLeft - cropRight);
+  const safeHeightRatio = Math.max(0.0001, 1 - cropTop - cropBottom);
+
+  const left = Math.round(dimensions.width * cropLeft);
+  const top = Math.round(dimensions.height * cropTop);
+  const width = Math.max(1, Math.round(dimensions.width * safeWidthRatio));
+  const height = Math.max(1, Math.round(dimensions.height * safeHeightRatio));
+
+  return { left, top, width, height };
+};
+
 export const imageBuilder = (
-    source?: string | { asset?: { _ref?: string; _id?: string; url?: string | null } } | null,
+    source?: string | ImageSourceObject | null,
     opts: ImageBuilderOptions = {}
 ): string => {
   if (!source) return "";
+
+  const objectSource: ImageSourceObject | null =
+      typeof source === "string" ? null : source;
 
   const ref =
       typeof source === "string"
@@ -30,6 +101,30 @@ export const imageBuilder = (
       opts.quality !== undefined;
 
   const applyParams = (url: URL) => {
+    if (objectSource) {
+      const cropRect = getCropRect(objectSource, ref);
+      if (cropRect) {
+        url.searchParams.set(
+            "rect",
+            `${cropRect.left},${cropRect.top},${cropRect.width},${cropRect.height}`
+        );
+      }
+
+      if (
+          opts.fit === "crop" &&
+          opts.width !== undefined &&
+          opts.height !== undefined &&
+          objectSource.hotspot?.x !== undefined &&
+          objectSource.hotspot?.y !== undefined
+      ) {
+        const x = clamp(objectSource.hotspot.x, 0, 1);
+        const y = clamp(objectSource.hotspot.y, 0, 1);
+        url.searchParams.set("crop", "focalpoint");
+        url.searchParams.set("fp-x", String(x));
+        url.searchParams.set("fp-y", String(y));
+      }
+    }
+
     if (!hasTransforms) return url.toString();
 
     if (opts.width !== undefined) {

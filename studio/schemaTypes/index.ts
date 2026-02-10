@@ -34,6 +34,7 @@ import sectionSummitTimer from "./sections/summit/sectionSummitTimer";
 import sectionSummitHost from "./sections/summit/sectionSummitHost";
 import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
 import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
+import sectionSummitSponsors from "./sections/summit/sectionSummitSponsors";
 import sectionJoin from "./sections/sectionJoin";
 import sectionInitiativeAdditionalPage from "./sections/summit/newPage/sectionInitiativeAdditionalPage";
 
@@ -94,6 +95,7 @@ export const schemaTypes = [
     sectionSummitHost,
     sectionSummitInfo,
     sectionSummitProgram,
+    sectionSummitSponsors,
     sectionBusinessContact,
     sectionInitiativeAdditionalPage,
 
