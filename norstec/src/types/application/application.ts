@@ -1,4 +1,5 @@
 import { Image } from "@/types/image/image";
+import {PortableTextBlock} from "next-sanity";
 
 export interface Location {
     _id: string;
@@ -14,13 +15,18 @@ export interface RoleInfo {
     language?: string[];
 }
 
+
 export interface Application {
     _id: string;
     _type: "application";
     title: string;
-    slug: {
-        current: string;
-    };
+    slug: { current: string };
     landingImage?: Image;
-    roleInfo?: RoleInfo;
+
+    position?: {
+        name: string;
+        description?: PortableTextBlock[];
+    };
 }
+
+

@@ -51,6 +51,10 @@ export const JOIN_PAGE_QUERY = defineQuery(`
           title,
           slug,
           landingImage,
+          position{
+            name,
+            description
+            },
           roleInfo{
             teamOrDepartment,
             positionType,
