@@ -42,14 +42,12 @@ export const ApplicationCard = ({ application }: ApplicationCardProps) => {
         })
         : null;
 
-    // ---- Border logic
     const borderClass = isClosed
         ? "border-copper"
         : isXL
             ? "border-moody"
             : "border-sky";
 
-    // ---- Click handler
     const handleClick = () => {
         if (isClosed) return;
 
@@ -58,7 +56,6 @@ export const ApplicationCard = ({ application }: ApplicationCardProps) => {
         }
     };
 
-    // ---- Image
     const imageSrc = application.landingImage
         ? imageBuilder(application.landingImage, {
             width: 800,
@@ -84,7 +81,7 @@ export const ApplicationCard = ({ application }: ApplicationCardProps) => {
           </span>
 
                     <span
-                        className={`text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${
+                        className={`text-[0.7rem] font-bold uppercase tracking-[0.12em] ${
                             isClosed ? "text-copper" : "text-beachball"
                         }`}
                     >
