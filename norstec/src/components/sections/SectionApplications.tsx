@@ -8,6 +8,7 @@ type Props = {
     className?: string;
 };
 
+
 export default function SectionApplication({
                                                 section,
                                                 className = "",

@@ -48,23 +48,20 @@ export const JOIN_PAGE_QUERY = defineQuery(`
           !(_id in path("drafts.**"))
         ] | order(applicationDeadline asc){
           _id,
+          _type,
           title,
           slug,
           landingImage,
+
+          applicationDeadline,
+          teamOrDepartment,
+          positionType,
+          locations,
+          language,
+
           position{
             name,
             description
-            },
-          roleInfo{
-            teamOrDepartment,
-            positionType,
-            applicationDeadline,
-            locations[]->{
-              _id,
-              name,
-              country
-            },
-            language
           }
         }
       )
