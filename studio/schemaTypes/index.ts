@@ -34,8 +34,7 @@ import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
 import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
 import sectionJoin from "./sections/sectionJoin";
 import sectionInitiativeAdditionalPage from "./sections/summit/newPage/sectionInitiativeAdditionalPage";
-
-
+import sectionApplication from "./sections/summit/sectionApplication";
 // Items
 import teamMember from './items/teamMember'
 import initiative from './items/initiative'
@@ -50,6 +49,7 @@ import statItem from './items/statItem'
 import {vintageStripes} from "./items/sectionDivider";
 import sectionBusinessContact from "./sections/summit/sectionBusinessContact";
 import application from "./sections/application/applicationForm"
+
 
 
 
@@ -92,6 +92,7 @@ export const schemaTypes = [
     sectionSummitProgram,
     sectionBusinessContact,
     sectionInitiativeAdditionalPage,
+    sectionApplication,
 
     // Application
     application,
