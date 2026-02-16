@@ -15,6 +15,7 @@ import SectionSummitTimer from "@/components/summit/SectionSummitTimer";
 import SectionSummitHost from "@/components/summit/SectionSummitHost";
 import SectionSummitInfo from "@/components/summit/SectionSummitInfo";
 import SectionSummitProgram from "@/components/summit/SectionSummitProgram";
+import SectionSponsors from "@/components/summit/SectionSponsors";
 import SectionBusinessContact from "@/components/summit/SectionBusinessContact";
 import SectionInitiativeAdditionalPage from "@/components/summit/SectionInitiativeAdditionalPage";
 import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
@@ -55,6 +56,8 @@ function renderInitiativeSection(section: InitiativePageSection, className?: str
       return <SectionSummitInfo key={section._id} section={section} className={className} />;
     case "sectionSummitProgram":
       return <SectionSummitProgram key={section._id} section={section} className={className} />;
+    case "sectionSummitSponsors":
+      return <SectionSponsors key={section._id} section={section} className={className} />;
     case "sectionBusinessContact":
       return <SectionBusinessContact key={section._id} section={section} className={className} />;
     case "sectionInitiativeAdditionalPage":

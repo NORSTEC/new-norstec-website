@@ -5,6 +5,7 @@ import teamPage from './pages/teamPage'
 import initiativesPage from './pages/initiativesPage'
 import {sponsorPage} from "./pages/sponsorPage";
 import joinPage from './pages/joinPage'
+import articlePage from "./pages/articlePage";
 
 // Globals
 import contactInfo from './globals/contactInfo'
@@ -20,6 +21,7 @@ import sectionTable from './sections/sectionTable'
 import sectionInitiatives from './sections/sectionInitiatives'
 import sectionMedia from './sections/sectionMedia'
 import sectionPodcast from './sections/sectionPodcast'
+import sectionArticles from "./sections/sectionArticles";
 import sectionNapkin from './sections/sectionNapkin'
 import sectionFaq from './sections/sectionFaq'
 import sectionImage from './sections/sectionImage'
@@ -32,12 +34,14 @@ import sectionSummitTimer from "./sections/summit/sectionSummitTimer";
 import sectionSummitHost from "./sections/summit/sectionSummitHost";
 import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
 import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
+import sectionSummitSponsors from "./sections/summit/sectionSummitSponsors";
 import sectionJoin from "./sections/sectionJoin";
 import sectionInitiativeAdditionalPage from "./sections/summit/newPage/sectionInitiativeAdditionalPage";
 import sectionApplication from "./sections/summit/sectionApplication";
 // Items
 import teamMember from './items/teamMember'
 import initiative from './items/initiative'
+import article from "./items/article";
 import faqItem from './items/faqItem'
 import mediaItem from './items/mediaItem'
 import teamRole from "./items/teamRole";
@@ -62,6 +66,7 @@ export const schemaTypes = [
     metadata,
     sponsorPage,
     joinPage,
+    articlePage,
 
     // Globals
     contactInfo,
@@ -78,6 +83,7 @@ export const schemaTypes = [
     sectionTable,
     sectionInitiatives,
     sectionMedia,
+    sectionArticles,
     sectionPodcast,
     sectionNapkin,
     sectionFaq,
@@ -90,6 +96,7 @@ export const schemaTypes = [
     sectionSummitHost,
     sectionSummitInfo,
     sectionSummitProgram,
+    sectionSummitSponsors,
     sectionBusinessContact,
     sectionInitiativeAdditionalPage,
     sectionApplication,
@@ -100,6 +107,7 @@ export const schemaTypes = [
     // Items
     teamMember,
     initiative,
+    article,
     barListItem,
     statItem,
     faqItem,

@@ -14,6 +14,7 @@ import { SectionSummitTimer } from "@/types/sections/summit/sectionSummitTimer";
 import { SectionSummitHost } from "@/types/sections/summit/sectionSummitHost";
 import { SectionSummitInfo } from "@/types/sections/summit/sectionSummitInfo";
 import { SectionSummitProgram } from "@/types/sections/summit/sectionSummitProgram";
+import { SectionSummitSponsors } from "@/types/sections/summit/sectionSummitSponsors";
 import { VintageStripesSection } from "@/types/items/vintageStripes";
 import { SectionBusinessContact } from "@/types/sections/summit/sectionBusinessContact";
 import { SectionInitiativeAdditionalPage } from "@/types/sections/summit/sectionInitiativeAdditionalPage";
@@ -34,6 +35,7 @@ export type InitiativePageSection =
   | SectionSummitHost
   | SectionSummitInfo
   | SectionSummitProgram
+  | SectionSummitSponsors
   | SectionBusinessContact
   | SectionInitiativeAdditionalPage
   | VintageStripesSection;

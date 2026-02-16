@@ -21,6 +21,7 @@ export const singletonTypes = [
     'joinPage',
     'initiativesPage',
     'sponsorPage',
+    'articlePage',
     'footer',
     'contactInfo',
 ]
@@ -89,6 +90,16 @@ export const structure: StructureResolver = (S) =>
                         .documentId('sponsorPage'),
                 ),
 
+            S.listItem()
+                .title('Articles page')
+                .icon(VideoIcon)
+                .child(
+                    S.editor()
+                        .id('articlePage')
+                        .schemaType('articlePage')
+                        .documentId('articlePage'),
+                ),
+
             S.divider(),
 
             // -------- CONTENT --------
@@ -96,6 +107,11 @@ export const structure: StructureResolver = (S) =>
                 .title('Initiatives')
                 .icon(SparkleIcon)
                 .child(S.documentTypeList('initiative').title('Initiatives')),
+
+            S.listItem()
+                .title('Articles')
+                .icon(VideoIcon)
+                .child(S.documentTypeList('article').title('Articles')),
 
           S.listItem()
             .title('Organizations')
