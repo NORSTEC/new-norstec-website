@@ -15,7 +15,7 @@ export default defineType({
       title: "Sponsors",
       type: "array",
       description:
-        "Set a priority number per sponsor. 1 is the highest priority and must only be used by one sponsor.",
+        "Set a priority number per sponsor. 1 is the highest priority.",
       of: [
         defineField({
           name: "sponsor",
@@ -33,7 +33,7 @@ export default defineType({
               title: "Priority",
               type: "number",
               description:
-                "Lower number means higher priority. Size mapping: 1=6x2, 2=4x2, 3=3x1, 4+=2x1.",
+                "Lower number means higher priority. Size mapping: 1=4x3, 2=4x2, 3=3x2, 4+=2x1.",
               initialValue: 1,
               validation: (Rule) =>
                 Rule.required()
@@ -91,25 +91,7 @@ export default defineType({
       ],
       validation: (Rule) =>
         Rule.required()
-          .min(1)
-          .custom((sponsors) => {
-            if (!Array.isArray(sponsors) || sponsors.length === 0) {
-              return true;
-            }
-
-            const priorityOneCount = sponsors.reduce((count, sponsor) => {
-              if (sponsor?.priority === 1) {
-                return count + 1;
-              }
-              return count;
-            }, 0);
-
-            if (priorityOneCount !== 1) {
-              return "Set exactly one sponsor with priority 1.";
-            }
-
-            return true;
-          }),
+          .min(1),
     }),
   ],
   preview: {

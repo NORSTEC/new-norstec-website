@@ -29,9 +29,9 @@ function isExternalLink(link: string) {
 }
 
 function getTierSpans(priority: number) {
-  if (priority === 1) return { colSpan: 4, rowSpan: 4 };
-  if (priority === 2) return { colSpan: 4, rowSpan: 3 };
-  if (priority === 3) return { colSpan: 3, rowSpan: 3 };
+  if (priority === 1) return { colSpan: 4, rowSpan: 3 };
+  if (priority === 2) return { colSpan: 3, rowSpan: 3 };
+  if (priority === 3) return { colSpan: 2, rowSpan: 2 };
   return { colSpan: 2, rowSpan: 2 };
 }
 
@@ -121,7 +121,7 @@ export default function SectionSponsors({ section, className = "" }: Props) {
                       : `Visit sponsor website: ${sponsor.alt}`;
 
                     const card = (
-                      <div className="flex h-24 sm:h-28 md:h-32 w-full items-center justify-center rounded-xl hover:border-copper transition-all duration-200 p-2 md:p-3">
+                      <div className="flex h-20 sm:h-24 md:h-28 w-full items-center justify-center rounded-xl hover:border-copper transition-all duration-200 p-2 md:p-3">
                         {logoSrc ? (
                           <div className="relative h-full w-full">
                             <Image
@@ -176,7 +176,7 @@ export default function SectionSponsors({ section, className = "" }: Props) {
             className="grid w-full gap-3 lg:gap-6"
             style={{
               gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-              gridAutoRows: "50px",
+              gridAutoRows: "44px",
               gridAutoFlow: "dense",
             }}
           >
