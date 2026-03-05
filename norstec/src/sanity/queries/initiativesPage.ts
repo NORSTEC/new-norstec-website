@@ -117,21 +117,25 @@ export const INITIATIVE_BY_SLUG_QUERY = defineQuery(`
 `);
 
 export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
-  *[_type == "initiativePage" && slug.current == $pageSlug][0]{
+  *[_type in ["initiativePage", "summitProgramPage"] && slug.current == $pageSlug][0]{
     _id,
     _type,
     title,
     slug,
 
-    // parent initiative
-    "initiative": *[
-      _type == "initiative" &&
-      references(^._id)
-    ][0]{
-      _id,
-      title,
-      slug
-    },
+    "initiative": select(
+      _type == "initiativePage" => *[
+        _type == "initiative" &&
+        references(^._id)
+      ][0]{
+        _id,
+        title,
+        slug
+      },
+      _type == "summitProgramPage" => {
+        "slug": { "current": "summit" }
+      }
+    ),
 
     sections[]->{
       _id,
@@ -163,7 +167,6 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
       ),
 
       "members": select(
-        // Team section (member + role)
         _type == "sectionTeam" => members[]{
           _key,
           member->{
@@ -183,7 +186,6 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
           }
         },
 
-        // Business contact section (member only)
         _type == "sectionBusinessContact" => members[]{
           _key,
           "member": @->{
@@ -198,7 +200,6 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
           }
         },
 
-        // Initiative additional page (member + role)
         _type == "sectionInitiativeAdditionalPage" => members[]{
           _key,
           member->{
@@ -218,6 +219,24 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
           }
         }
       )
+    },
+
+    items[]{
+      title,
+      startTime,
+      endTime,
+      name,
+      description,
+      isBreak,
+      speakerlogos[]{
+        image{
+          asset->{
+            _id,
+            url
+          }
+        },
+        externalUrl
+      }
     }
   }
 `);

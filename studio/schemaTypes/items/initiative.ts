@@ -55,7 +55,10 @@ export default defineType({
             of: [
                 {
                     type: 'reference',
-                    to: [{ type: 'initiativePage' }],
+                    to: [
+                        { type: 'initiativePage' },
+                        { type: 'summitProgramPage' }
+                    ],
                 },
             ],
         }),

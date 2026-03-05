@@ -53,6 +53,8 @@ import statItem from './items/statItem'
 import {vintageStripes} from "./items/sectionDivider";
 import sectionBusinessContact from "./sections/summit/sectionBusinessContact";
 import application from "./sections/application/applicationForm"
+import {sectionSummitBillboard} from "./sections/summit/sectionSummitBillboard";
+import summitProgramPage from "./sections/summit/newPage/SummitProgramPage";
 
 
 
@@ -67,6 +69,7 @@ export const schemaTypes = [
     sponsorPage,
     joinPage,
     articlePage,
+    summitProgramPage,
 
     // Globals
     contactInfo,
@@ -100,6 +103,7 @@ export const schemaTypes = [
     sectionBusinessContact,
     sectionInitiativeAdditionalPage,
     sectionApplication,
+    sectionSummitBillboard,
 
     // Application
     application,

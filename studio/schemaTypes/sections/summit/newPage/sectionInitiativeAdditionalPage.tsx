@@ -82,15 +82,6 @@ export default defineType({
                             },
                         },
                         {
-                            type: 'sectionSummitProgram',
-                            options: {
-                                filter: ({ document }) => {
-                                    const isSummit = document?.slug?.current === 'summit'
-                                    return isSummit ? undefined : { filter: 'false' }
-                                },
-                            },
-                        },
-                        {
                             type: 'sectionSummitSponsors',
                             options: {
                                 filter: ({ document }) => {
