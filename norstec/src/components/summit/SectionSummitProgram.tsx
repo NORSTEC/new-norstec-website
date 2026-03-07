@@ -131,7 +131,7 @@ export default function SectionSummitProgram({
         {pages.map((pageItems, pageIndex) => (
             <section
                 key={pageIndex}
-                className={`section desktop-container ${className}`}
+                className={`section h-auto! desktop-container ${className}`}
             >
               {/* title only on first page */}
               {pageIndex === 0 && section.title ? (

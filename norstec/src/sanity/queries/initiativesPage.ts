@@ -117,10 +117,18 @@ export const INITIATIVE_BY_SLUG_QUERY = defineQuery(`
 `);
 
 export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
-  *[_type in ["initiativePage", "summitProgramPage"] && slug.current == $pageSlug][0]{
+  *[
+    _type in ["initiativePage", "summitProgramPage"] &&
+    (
+      slug.current == $pageSlug ||
+      slug.current == "summit/" + $pageSlug ||
+      "summit/" + slug.current == $pageSlug
+    )
+  ][0]{
     _id,
     _type,
     title,
+    subtitle,
     slug,
 
     "initiative": select(
@@ -222,6 +230,7 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
     },
 
     items[]{
+      _key,
       title,
       startTime,
       endTime,

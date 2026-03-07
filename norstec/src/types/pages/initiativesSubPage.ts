@@ -17,6 +17,7 @@ import { SectionSummitSponsors } from "@/types/sections/summit/sectionSummitSpon
 import { VintageStripesSection } from "@/types/items/vintageStripes";
 import {SectionBusinessContact} from "@/types/sections/summit/sectionBusinessContact";
 import {SectionInitiativeAdditionalPage} from "@/types/sections/summit/sectionInitiativeAdditionalPage";
+import { SummitProgramItem } from "@/types/sections/summit/sectionSummitProgram";
 
 export type InitiativeSubPageSection =
     | SectionHero
@@ -39,15 +40,12 @@ export type InitiativeSubPageSection =
     | SectionInitiativeAdditionalPage
     | VintageStripesSection;
 
-export interface InitiativeSubPage {
-    _type: "initiativePage";
+interface InitiativeSubPageBase {
     _id: string;
     title: string;
     slug: {
         current: string;
     };
-    sections: InitiativeSubPageSection[];
-
     initiative?: {
         _id: string;
         title: string;
@@ -56,3 +54,17 @@ export interface InitiativeSubPage {
         };
     };
 }
+
+export interface InitiativeContentSubPage extends InitiativeSubPageBase {
+    _type: "initiativePage";
+    sections: InitiativeSubPageSection[];
+}
+
+export interface SummitProgramSubPage extends InitiativeSubPageBase {
+    _type: "summitProgramPage";
+    subtitle?: string;
+    items: SummitProgramItem[];
+    sections?: InitiativeSubPageSection[];
+}
+
+export type InitiativeSubPage = InitiativeContentSubPage | SummitProgramSubPage;

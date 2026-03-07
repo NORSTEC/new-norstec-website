@@ -12,7 +12,6 @@ export default async function SummitSubPage({
     const page = await getInitiativeSubPageBySlug(
         decodeURIComponent(pageSlug).trim()
     );
-    console.log(page)
 
     if (!page) {
         notFound();
@@ -22,5 +21,5 @@ export default async function SummitSubPage({
         notFound();
     }
 
-    return <ClientInitiativeSubPage page={page} />;
+    return <ClientInitiativeSubPage page={page} stripePalette="summit" />;
 }
