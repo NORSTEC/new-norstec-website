@@ -7,7 +7,7 @@ import { ThemeProvider } from "../hooks/useTheme";
 import FooterGate from "@/components/static/Footer/FooterGate";
 
 export const metadata: Metadata = {
-  title: "SECURING OUR FUTURE IN SPACE",
+  title: "SECURING OUR FUTURE IN SPACE | NORSTEC",
   icons: {
     icon: [
       { url: "/images/NORSTEC.png", sizes: "32x32", type: "image/png" },

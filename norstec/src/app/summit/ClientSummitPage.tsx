@@ -41,6 +41,8 @@ export default function ClientSummitPage({ initiative }: { initiative: Initiativ
       initiative={initiative}
       sectionClassName=""
       stripePalette="summit"
+      summitProgramHref="/summit/program"
+      summitProgramLabel="View Program"
     />
   );
 }

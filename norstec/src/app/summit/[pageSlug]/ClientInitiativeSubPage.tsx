@@ -117,6 +117,33 @@ export default function ClientInitiativeSubPage({
     sectionClassName?: string;
     stripePalette?: StripePaletteName;
 }) {
+    if (page._type === "summitProgramPage") {
+        const programSection = {
+            _id: page._id,
+            _type: "sectionSummitProgram" as const,
+            title: page.title,
+            subtitle: page.subtitle,
+            items: page.items ?? [],
+        };
+
+        return (
+            <StripePaletteProvider palette={stripePalette}>
+                <main>
+                    {programSection.items.length ? (
+                        <SectionSummitProgram
+                            section={programSection}
+                            className={sectionClassName}
+                        />
+                    ) : (
+                        <div className="mobile-container py-16">
+                            No program published for this page yet.
+                        </div>
+                    )}
+                </main>
+            </StripePaletteProvider>
+        );
+    }
+
     const sections = page.sections ?? [];
 
     if (!sections.length) {

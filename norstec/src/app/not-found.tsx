@@ -7,7 +7,7 @@ import ChemtrailsRight from "@/components/items/stripes/chemtrails/ChemtrailsRig
 
 export default function NotFound() {
   return (
-    <div className="relative chemtrails-right lg:min-h-screen">
+    <div className="relative chemtrails-right lg:min-h-screen snap-start">
       <ChemtrailsRight />
 
       <main className="mobile-container flex items-center h-full justify-center">

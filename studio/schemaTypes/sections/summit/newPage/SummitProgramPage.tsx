@@ -1,8 +1,8 @@
-import {defineField, defineType} from "sanity";
+import { defineField, defineType } from "sanity";
 
 export default defineType({
-    name: "sectionSummitProgram",
-    title: "Summit | Program",
+    name: "summitProgramPage",
+    title: "Summit nytt Program",
     type: "document",
     fields: [
         defineField({
@@ -10,12 +10,26 @@ export default defineType({
             title: "Title",
             type: "string",
         }),
+
+        defineField({
+            name: "slug",
+            title: "Slug",
+            type: "slug",
+            options: {
+                source: "title",
+                maxLength: 96,
+            },
+            validation: (Rule) => Rule.required(),
+        }),
+
         defineField({
             name: "subtitle",
             title: "Subtitle",
             type: "string",
-            description: "Optional helper text under the section title (e.g. 'Click a row for more details').",
+            description:
+                "Optional helper text under the section title (e.g. 'Click a row for more details').",
         }),
+
         defineField({
             name: "items",
             title: "Program items",
@@ -32,6 +46,7 @@ export default defineType({
                             type: "string",
                             validation: (Rule) => Rule.required(),
                         }),
+
                         defineField({
                             name: "startTime",
                             title: "Start time",
@@ -39,6 +54,7 @@ export default defineType({
                             description: "Format HH:MM (24h).",
                             validation: (Rule) => Rule.required(),
                         }),
+
                         defineField({
                             name: "endTime",
                             title: "End time",
@@ -46,17 +62,20 @@ export default defineType({
                             description: "Format HH:MM (24h).",
                             validation: (Rule) => Rule.required(),
                         }),
+
                         defineField({
                             name: "name",
                             title: "Name",
                             type: "string",
                             description: "Speaker or owner of the session.",
                         }),
+
                         defineField({
                             name: "images",
                             title: "Images",
+                            description:
+                                "Optional one or two portrait images shown with the description.",
                             type: "array",
-                            description: "Optional one or two portrait images shown with the description.",
                             validation: (Rule) => Rule.max(2),
                             of: [
                                 defineField({
@@ -77,6 +96,7 @@ export default defineType({
                                             type: "string",
                                         }),
                                     ],
+
                                     preview: {
                                         select: {
                                             media: "image",
@@ -92,19 +112,23 @@ export default defineType({
                                 }),
                             ],
                         }),
+
                         defineField({
                             name: "description",
                             title: "Description",
                             type: "portableText",
                         }),
+
                         defineField({
                             name: "isBreak",
                             title: "Is break",
                             type: "boolean",
                             initialValue: false,
-                            description: "Mark this item as a break; name is optional.",
+                            description:
+                                "Mark this item as a break; name is optional.",
                         }),
                     ],
+
                     preview: {
                         select: {
                             title: "title",
@@ -112,10 +136,14 @@ export default defineType({
                             end: "endTime",
                             isBreak: "isBreak",
                         },
-                        prepare({title, start, end, isBreak}) {
+                        prepare({ title, start, end, isBreak }) {
                             return {
-                                title: isBreak ? `Break: ${title || "—"}` : title || "Untitled",
-                                subtitle: [start, end].filter(Boolean).join(" - ") || "No time set",
+                                title: isBreak
+                                    ? `Break: ${title || "—"}`
+                                    : title || "Untitled",
+                                subtitle:
+                                    [start, end].filter(Boolean).join(" - ") ||
+                                    "No time set",
                             };
                         },
                     },
@@ -123,16 +151,19 @@ export default defineType({
             ],
         }),
     ],
+
     preview: {
         select: {
             title: "title",
             items: "items",
         },
-        prepare({title, items}) {
+        prepare({ title, items }) {
             const count = items?.length || 0;
             return {
                 title: title || "Program",
-                subtitle: count ? `${count} item${count === 1 ? "" : "s"}` : "Empty program",
+                subtitle: count
+                    ? `${count} item${count === 1 ? "" : "s"}`
+                    : "Empty program",
             };
         },
     },

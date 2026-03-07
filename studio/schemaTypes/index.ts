@@ -37,8 +37,7 @@ import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
 import sectionSummitSponsors from "./sections/summit/sectionSummitSponsors";
 import sectionJoin from "./sections/sectionJoin";
 import sectionInitiativeAdditionalPage from "./sections/summit/newPage/sectionInitiativeAdditionalPage";
-
-
+import sectionApplication from "./sections/summit/sectionApplication";
 // Items
 import teamMember from './items/teamMember'
 import initiative from './items/initiative'
@@ -53,6 +52,10 @@ import {metadata} from "./sections/sectionMetadata";
 import statItem from './items/statItem'
 import {vintageStripes} from "./items/sectionDivider";
 import sectionBusinessContact from "./sections/summit/sectionBusinessContact";
+import application from "./sections/application/applicationForm"
+import {sectionSummitBillboard} from "./sections/summit/sectionSummitBillboard";
+import summitProgramPage from "./sections/summit/newPage/SummitProgramPage";
+
 
 
 
@@ -66,6 +69,7 @@ export const schemaTypes = [
     sponsorPage,
     joinPage,
     articlePage,
+    summitProgramPage,
 
     // Globals
     contactInfo,
@@ -98,6 +102,11 @@ export const schemaTypes = [
     sectionSummitSponsors,
     sectionBusinessContact,
     sectionInitiativeAdditionalPage,
+    sectionApplication,
+    sectionSummitBillboard,
+
+    // Application
+    application,
 
     // Items
     teamMember,

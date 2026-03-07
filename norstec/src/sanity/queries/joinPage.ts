@@ -7,6 +7,7 @@ export const JOIN_PAGE_QUERY = defineQuery(`
       _id,
       _type,
       ...,
+
       "organizations": select(
         _type == "sectionJoin" => *[_type == "organization"] | order(name asc){
           _id,
@@ -19,6 +20,7 @@ export const JOIN_PAGE_QUERY = defineQuery(`
           mapPosition,
         }
       ),
+
       "members": select(
         _type == "sectionTeam" => members[]{
           _key,
@@ -38,7 +40,32 @@ export const JOIN_PAGE_QUERY = defineQuery(`
             title
           }
         }
+      ),
+
+      "applications": select(
+        _type == "sectionApplications" => *[
+          _type == "application" &&
+          !(_id in path("drafts.**"))
+        ] | order(applicationDeadline asc){
+          _id,
+          _type,
+          title,
+          slug,
+          landingImage,
+
+          applicationDeadline,
+          teamOrDepartment,
+          positionType,
+          locations,
+          language,
+
+          position{
+            name,
+            description
+          }
+        }
       )
+
     }
   }
 `);

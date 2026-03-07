@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ff3617c-c50b-4e4d-8053-ae34180b9d1a" name="Changes" comment="Refactor: Simplify Footer component structure and enhance styling" />
+    <list default="true" id="1ff3617c-c50b-4e4d-8053-ae34180b9d1a" name="Changes" comment="Refactor: Simplify Footer component structure and enhance styling">
+      <change afterPath="$PROJECT_DIR$/studio/schemaTypes/sections/application/applicationForm.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,9 +18,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "2-create-summit-components",
+    "git-widget-placeholder": "stillinger",
+    "last_opened_file_path": "C:/Users/Eier/Documents/Konsekvens/konsekvens/public/Jayan.jpg",
     "node.js.selected.package.tslint": "(autodetect)",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external"
+    "ts.external.directory.path": "C:\\Users\\Eier\\Documents\\Norstec\\new-norstec-website\\studio\\node_modules\\typescript\\lib"
   }
 }]]></component>
   <component name="TaskManager">

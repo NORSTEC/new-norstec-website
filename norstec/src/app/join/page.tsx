@@ -43,6 +43,7 @@ export const metadata: Metadata = {
 
 export default async function JoinPage() {
   const joinPage = await getJoinPage();
+  console.log(joinPage);
 
   if (!joinPage) {
     return <p className="mobile-container py-16">Failed to load join page.</p>;

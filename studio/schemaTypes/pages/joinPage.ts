@@ -18,6 +18,7 @@ export default defineType({
             {type: 'sectionJoin'},
             {type: 'sectionTeam'},
             {type: 'sectionDivider'},
+            {type: 'sectionApplications'},
           ],
         },
       ],
