@@ -237,15 +237,33 @@ export const INITIATIVE_SUBPAGE_BY_SLUG_QUERY = defineQuery(`
       name,
       description,
       isBreak,
-      speakerlogos[]{
-        image{
-          asset->{
-            _id,
-            url
+      "images": coalesce(
+        images[]{
+          _key,
+          alt,
+          image{
+            crop,
+            hotspot,
+            asset->{
+              _id,
+              url
+            }
           }
         },
-        externalUrl
-      }
+        speakerlogos[]{
+          _key,
+          "alt": coalesce(alt, image.alt),
+          image{
+            crop,
+            hotspot,
+            asset->{
+              _id,
+              url
+            }
+          },
+          externalUrl
+        }
+      )
     }
   }
 `);

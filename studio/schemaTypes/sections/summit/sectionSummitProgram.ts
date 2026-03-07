@@ -53,6 +53,46 @@ export default defineType({
                             description: "Speaker or owner of the session.",
                         }),
                         defineField({
+                            name: "images",
+                            title: "Images",
+                            type: "array",
+                            description: "Optional one or two portrait images shown with the description.",
+                            validation: (Rule) => Rule.max(2),
+                            of: [
+                                defineField({
+                                    name: "imageItem",
+                                    title: "Image item",
+                                    type: "object",
+                                    fields: [
+                                        defineField({
+                                            name: "image",
+                                            title: "Image",
+                                            type: "image",
+                                            options: { hotspot: true },
+                                            validation: (Rule) => Rule.required(),
+                                        }),
+                                        defineField({
+                                            name: "alt",
+                                            title: "Alt text",
+                                            type: "string",
+                                        }),
+                                    ],
+                                    preview: {
+                                        select: {
+                                            media: "image",
+                                            title: "alt",
+                                        },
+                                        prepare({ media, title }) {
+                                            return {
+                                                title: title || "Program image",
+                                                media,
+                                            };
+                                        },
+                                    },
+                                }),
+                            ],
+                        }),
+                        defineField({
                             name: "description",
                             title: "Description",
                             type: "portableText",

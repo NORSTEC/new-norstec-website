@@ -71,11 +71,12 @@ export default defineType({
                         }),
 
                         defineField({
-                            name: "speakerlogos",
-                            title: "Logos / Speaker images",
+                            name: "images",
+                            title: "Images",
                             description:
-                                "Optional logos or profile images with links (e.g. company page or LinkedIn).",
+                                "Optional one or two portrait images shown with the description.",
                             type: "array",
+                            validation: (Rule) => Rule.max(2),
                             of: [
                                 defineField({
                                     name: "imageItem",
@@ -89,40 +90,21 @@ export default defineType({
                                             options: { hotspot: true },
                                             validation: (Rule) => Rule.required(),
                                         }),
-
                                         defineField({
-                                            name: "linkType",
-                                            title: "Link type",
+                                            name: "alt",
+                                            title: "Alt text",
                                             type: "string",
-                                            options: {
-                                                list: [
-                                                    { title: "External URL", value: "external" },
-                                                ],
-                                                layout: "radio",
-                                            },
-                                            initialValue: "external",
-                                        }),
-
-                                        defineField({
-                                            name: "externalUrl",
-                                            title: "External URL",
-                                            type: "url",
-                                            hidden: ({ parent }) => parent?.linkType !== "external",
                                         }),
                                     ],
 
                                     preview: {
                                         select: {
                                             media: "image",
-                                            linkType: "linkType",
-                                            url: "externalUrl",
+                                            title: "alt",
                                         },
-                                        prepare({ media, linkType, url }) {
+                                        prepare({ media, title }) {
                                             return {
-                                                title:
-                                                    linkType === "external"
-                                                        ? url || "External link"
-                                                        : "Internal link",
+                                                title: title || "Program image",
                                                 media,
                                             };
                                         },

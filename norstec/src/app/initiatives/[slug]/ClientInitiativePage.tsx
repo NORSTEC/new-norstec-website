@@ -48,7 +48,7 @@ function renderProgramLinkSection({
 
   return (
     <section key={key} className={`section  ${className ?? ""}`}>
-      <div className="h-full">
+      <div className="h-full flex items-center justify-center">
         <div className="xl:hidden flex flex-col mobile-container">
           {mobileItems.map((index) => (
             <Link
@@ -68,9 +68,12 @@ function renderProgramLinkSection({
           ))}
         </div>
 
-        <div className="hidden xl:grid md:grid-cols-2  h-full desktop-container">
+        <div className="hidden xl:grid md:grid-cols-2  h-full desktop-container gap-5">
           {Array.from({ length: desktopColumns }, (_, columnIndex) => (
-            <div key={`column-${columnIndex}`} className="flex h-full flex-col justify-between">
+            <div
+              key={`column-${columnIndex}`}
+              className="flex h-full flex-col justify-between items-center"
+            >
               {desktopItems
                 .slice(columnIndex * desktopRowsPerColumn, (columnIndex + 1) * desktopRowsPerColumn)
                 .map((index) => (
@@ -78,7 +81,7 @@ function renderProgramLinkSection({
                     key={`desktop-${index}`}
                     href={href}
                     aria-label={ariaLabel}
-                    className="group inline-flex w-full items-center font-normal uppercase leading-[1.05] py-0.5 text-[clamp(2rem,5vw,5rem)] tracking-[0.4em]"
+                    className="group inline-flex items-center font-normal uppercase leading-[1.05] py-0.5 text-[clamp(2rem,5vw,5rem)] tracking-[0.4em]"
                   >
                     <span className=" group-hover:italic group-hover:font-extralight">{word}</span>
                     <span
