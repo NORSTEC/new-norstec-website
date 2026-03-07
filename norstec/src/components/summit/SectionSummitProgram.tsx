@@ -60,16 +60,22 @@ function ProgramHeroStarCluster({ side }: { side: "left" | "right" }) {
   const isLeft = side === "left";
   const directionClass = isLeft ? "flex-row" : "flex-row-reverse";
   const edgeClipClass = isLeft ? "-translate-x-[52%]" : "translate-x-[52%]";
+  const centerTightClass = isLeft
+    ? "-translate-x-[0.5rem] md:-translate-x-[1rem]"
+    : "translate-x-[0.5rem] md:translate-x-[1rem]";
 
   return (
-    <div className={`flex items-end gap-2 md:gap-16 ${directionClass}`}>
+    <div className={`flex items-end gap-7 md:gap-16 ${directionClass}`}>
       <span
         aria-hidden
-        className={`star-inline ml-0 shrink-0 scale-[4] origin-center ${edgeClipClass}`}
+        className={`star-inline ml-0 shrink-0 scale-[3] md:scale-[4] origin-center ${edgeClipClass}`}
       />
-      <span aria-hidden className="star-inline ml-0 shrink-0 scale-[3] origin-center" />
-      <span aria-hidden className="star-inline ml-0 shrink-0 scale-[2.5] origin-center" />
-      <span aria-hidden className="star-inline ml-0 shrink-0 scale-[2] origin-center" />
+      <span aria-hidden className="star-inline ml-0 shrink-0 scale-[2.2] md:scale-[3] origin-center" />
+      <span aria-hidden className="star-inline ml-0 shrink-0 scale-[1.8] md:scale-[2.5] origin-center" />
+      <span
+        aria-hidden
+        className={`star-inline ml-0 shrink-0 scale-[1.4] md:scale-[2] origin-center ${centerTightClass}`}
+      />
     </div>
   );
 }
@@ -136,7 +142,7 @@ export default function SectionSummitProgram({
         </div>
       ) : null}
 
-      <div className="desktop-container pt-0!">
+      <div className="desktop-container pt-0! pb-0! md:pb-20!">
         {section.subtitle ? <p className="mt-2 text-moody text-base">{section.subtitle}</p> : null}
 
         <div className="flex flex-col divide-y divide-moody">
@@ -170,7 +176,7 @@ export default function SectionSummitProgram({
                     {idx + 1}.
                   </span>
 
-                  <span className="relative flex items-center justify-center text-base md:text-2xl font-light pl-3 h-full">
+                  <span className="relative flex items-center justify-center text-base md:text-2xl font-light pl-3 text-nowrap h-full ">
                     <span
                       className="absolute left-0 top-[0.2px] bottom-[0.2px] w-px bg-moody"
                       aria-hidden
