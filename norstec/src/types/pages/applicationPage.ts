@@ -43,6 +43,7 @@ export interface ApplicationPage {
     benefits?: string[];
 
     contactPersons?: {
+        _type: "teamMember";
         _id: string;
         name: string;
         email?: string;
