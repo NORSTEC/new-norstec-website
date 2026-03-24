@@ -1,5 +1,6 @@
 "use client";
-
+import { FormEvent, useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { PortableText } from "next-sanity";
 import NextImage from "next/image";
 import { imageBuilder } from "@/utils/imageBuilder";
@@ -7,6 +8,7 @@ import { ApplicationPage } from "@/types/pages/applicationPage";
 import TeamCarousel from "@/components/items/team/TeamCarousel";
 import type { SectionTeamMember } from "@/types/sections/sectionTeam";
 
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL!;
 type Props = {
     data: ApplicationPage;
 };
@@ -31,6 +33,108 @@ function ListBox({ title, items }: ListBoxItem) {
     );
 }
 
+function ApplyForm({ positionTitle }: { positionTitle: string }) {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+    const [cfToken, setCfToken] = useState<string | null>(null);
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+    const inputClass =
+        "w-full rounded-xl border-2 border-moody/20 bg-transparent px-4 py-3 focus:outline-none focus:border-moody transition-colors";
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!cfToken) return;
+        setStatus("loading");
+        try {
+            await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ position: positionTitle, name, email, message, cfToken }),
+            });
+            setStatus("success");
+        } catch {
+            setStatus("error");
+        }
+    };
+
+    if (status === "success") {
+        return (
+            <div className="rounded-2xl border p-6 space-y-2">
+                <p className="font-semibold uppercase tracking-wide">Application sent!</p>
+                <p className="text-sm text-moody/70">We'll be in touch at {email}.</p>
+            </div>
+        );
+    }
+
+    return (
+        <form onSubmit={handleSubmit} className="space-y-4">
+            <h2 className="text-h2">Apply</h2>
+
+            <label className="flex flex-col gap-2">
+                <span className="text-sm font-semibold uppercase tracking-wide">
+                    Full name <span className="text-copper">*</span>
+                </span>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className={inputClass}
+                    required
+                />
+            </label>
+
+            <label className="flex flex-col gap-2">
+                <span className="text-sm font-semibold uppercase tracking-wide">
+                    Email <span className="text-copper">*</span>
+                </span>
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={inputClass}
+                    required
+                />
+            </label>
+
+            <label className="flex flex-col gap-2">
+                <span className="text-sm font-semibold uppercase tracking-wide">
+                    Message <span className="text-copper">*</span>
+                </span>
+                <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className={`${inputClass} min-h-[140px] resize-y`}
+                    placeholder="Tell us about yourself and why you're a great fit."
+                    required
+                />
+            </label>
+
+            <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                onSuccess={(token) => setCfToken(token)}
+                onError={() => setCfToken(null)}
+                onExpire={() => setCfToken(null)}
+            />
+
+            <div>
+                <button
+                    type="submit"
+                    disabled={status === "loading" || !cfToken}
+                    className="inline-block border-moody border-2 rounded-full hover:bg-moody hover:text-egg px-10 py-4 font-semibold uppercase tracking-widest transition-colors duration-200 disabled:opacity-50"
+                >
+                    {status === "loading" ? "Sending…" : "Apply Now"}
+                </button>
+                {status === "error" && (
+                    <p className="text-sm text-red-500 mt-2">Something went wrong. Please try again.</p>
+                )}
+            </div>
+        </form>
+    );
+}
+
 export default function ClientApplicationPage({ data }: Props) {
     const imageSrc = data.landingImage
         ? imageBuilder(data.landingImage, {
@@ -46,7 +150,6 @@ export default function ClientApplicationPage({ data }: Props) {
         member: { ...person },
     }));
 
-    // Collect all list sections for the right column
     const listSections: ListBoxItem[] = [
         data.responsibilities?.length
             ? { title: "What You Will Do", items: data.responsibilities }
@@ -65,7 +168,6 @@ export default function ClientApplicationPage({ data }: Props) {
             : null,
     ].filter(Boolean) as ListBoxItem[];
 
-    // Collect all description sections for the left column
     const hasDescriptions =
         data.aboutRole ||
         data.howWeWork?.content ||
@@ -97,11 +199,9 @@ export default function ClientApplicationPage({ data }: Props) {
 
                 {!imageSrc && <h1 className="text-h1">{data.title}</h1>}
 
-                {/* Two-column layout: descriptions left, lists right */}
                 {(hasDescriptions || listSections.length > 0) && (
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 items-start">
 
-                        {/* Left: rich text / description sections + contact */}
                         <div className="space-y-10">
                             {data.aboutRole && (
                                 <div className="space-y-4">
@@ -160,16 +260,7 @@ export default function ClientApplicationPage({ data }: Props) {
                                 </div>
                             )}
 
-                            <div className="pt-4 border-egg border-2">
-                                <a
-                                    href="mailto:hey@norstec.no"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-block rounded-full hover:bg-moody hover:text-egg  px-10 py-4 font-semibold uppercase tracking-widest transition-colors duration-200"
-                                >
-                                    Apply Now
-                                </a>
-                            </div>
+                            <ApplyForm positionTitle={data.title} />
                         </div>
 
                         {listSections.length > 0 && (
