@@ -11,6 +11,26 @@ type Props = {
     data: ApplicationPage;
 };
 
+type ListBoxItem = {
+    title: string;
+    items: string[];
+};
+
+function ListBox({ title, items }: ListBoxItem) {
+    return (
+        <div className="rounded-2xl border p-6 space-y-3">
+            <h2 className="text-h2">{title}</h2>
+            <ul className="space-y-2 list-disc pl-5">
+                {items.map((item, i) => (
+                    <li key={i} className="text-sm leading-relaxed">
+                        {item}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
 export default function ClientApplicationPage({ data }: Props) {
     const imageSrc = data.landingImage
         ? imageBuilder(data.landingImage, {
@@ -25,6 +45,31 @@ export default function ClientApplicationPage({ data }: Props) {
         _key: person._id,
         member: { ...person },
     }));
+
+    // Collect all list sections for the right column
+    const listSections: ListBoxItem[] = [
+        data.responsibilities?.length
+            ? { title: "What You Will Do", items: data.responsibilities }
+            : null,
+        data.requiredQualifications?.length
+            ? { title: "What We Are Looking For", items: data.requiredQualifications }
+            : null,
+        data.niceToHave?.items?.length
+            ? { title: data.niceToHave.title, items: data.niceToHave.items }
+            : null,
+        data.expectations?.items?.length
+            ? { title: data.expectations.title, items: data.expectations.items }
+            : null,
+        data.benefits?.length
+            ? { title: "What You Can Expect From Us", items: data.benefits }
+            : null,
+    ].filter(Boolean) as ListBoxItem[];
+
+    // Collect all description sections for the left column
+    const hasDescriptions =
+        data.aboutRole ||
+        data.howWeWork?.content ||
+        data.position;
 
     return (
         <main className="w-full">
@@ -48,119 +93,96 @@ export default function ClientApplicationPage({ data }: Props) {
                 </div>
             )}
 
-            <div className="mobile-container space-y-10 max-w-5xl mx-auto">
+            <div className="mobile-container max-w-7xl mx-auto py-12 space-y-12">
 
                 {!imageSrc && <h1 className="text-h1">{data.title}</h1>}
 
-                {data.aboutRole && (
-                    <div className="space-y-4">
-                        <h2 className="text-h2">About the Role</h2>
-                        <PortableText
-                            value={data.aboutRole}
-                            components={{
-                                block: {
-                                    normal: ({ children }) => (
-                                        <p className="mb-4 last:mb-0">{children}</p>
-                                    ),
-                                },
-                            }}
-                        />
-                    </div>
-                )}
+                {/* Two-column layout: descriptions left, lists right */}
+                {(hasDescriptions || listSections.length > 0) && (
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 items-start">
 
-                {data.responsibilities?.length && (
-                    <div>
-                        <h2 className="text-h2 mb-4">What You Will Do</h2>
-                        <ul className="space-y-2 list-disc pl-6">
-                            {data.responsibilities.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                        {/* Left: rich text / description sections + contact */}
+                        <div className="space-y-10">
+                            {data.aboutRole && (
+                                <div className="space-y-4">
+                                    <h2 className="text-h2">About the Role</h2>
+                                    <PortableText
+                                        value={data.aboutRole}
+                                        components={{
+                                            block: {
+                                                normal: ({ children }) => (
+                                                    <p className="mb-4 last:mb-0">{children}</p>
+                                                ),
+                                            },
+                                        }}
+                                    />
+                                </div>
+                            )}
 
-                {data.requiredQualifications?.length && (
-                    <div>
-                        <h2 className="text-h2 mb-4">What We Are Looking For</h2>
-                        <ul className="space-y-2 list-disc pl-6">
-                            {data.requiredQualifications.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                            {data.howWeWork?.content && (
+                                <div className="space-y-4">
+                                    <h2 className="text-h2">{data.howWeWork.title}</h2>
+                                    <PortableText
+                                        value={data.howWeWork.content}
+                                        components={{
+                                            block: {
+                                                normal: ({ children }) => (
+                                                    <p className="mb-4 last:mb-0">{children}</p>
+                                                ),
+                                            },
+                                        }}
+                                    />
+                                </div>
+                            )}
 
-                {data.niceToHave?.items?.length && (
-                    <div>
-                        <h2 className="text-h2 mb-4">{data.niceToHave.title}</h2>
-                        <ul className="space-y-2 list-disc pl-6">
-                            {data.niceToHave.items.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                            {data.position && (
+                                <div className="space-y-4">
+                                    <h2 className="text-h2">{data.position.name}</h2>
+                                    {data.position.description && (
+                                        <PortableText
+                                            value={data.position.description}
+                                            components={{
+                                                block: {
+                                                    normal: ({ children }) => (
+                                                        <p className="mb-4 last:mb-0">{children}</p>
+                                                    ),
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                </div>
+                            )}
 
-                {data.expectations?.items?.length && (
-                    <div>
-                        <h2 className="text-h2 mb-4">{data.expectations.title}</h2>
-                        <ul className="space-y-2 list-disc pl-6">
-                            {data.expectations.items.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                            {contactMembers.length > 0 && (
+                                <div className="space-y-6">
+                                    <h2 className="text-h2">Contact</h2>
+                                    <TeamCarousel members={contactMembers} />
+                                </div>
+                            )}
 
-                {data.howWeWork?.content && (
-                    <div className="space-y-4">
-                        <h2 className="text-h2">{data.howWeWork.title}</h2>
-                        <PortableText
-                            value={data.howWeWork.content}
-                            components={{
-                                block: {
-                                    normal: ({ children }) => (
-                                        <p className="mb-4 last:mb-0">{children}</p>
-                                    ),
-                                },
-                            }}
-                        />
-                    </div>
-                )}
+                            <div className="pt-4 border-egg border-2">
+                                <a
+                                    href="mailto:hey@norstec.no"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block rounded-full hover:bg-moody hover:text-egg  px-10 py-4 font-semibold uppercase tracking-widest transition-colors duration-200"
+                                >
+                                    Apply Now
+                                </a>
+                            </div>
+                        </div>
 
-                {data.benefits?.length && (
-                    <div>
-                        <h2 className="text-h2 mb-4">What You Can Expect From Us</h2>
-                        <ul className="space-y-2 list-disc pl-6">
-                            {data.benefits.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {data.position && (
-                    <div className="space-y-4">
-                        <h2 className="text-h2">{data.position.name}</h2>
-                        {data.position.description && (
-                            <PortableText
-                                value={data.position.description}
-                                components={{
-                                    block: {
-                                        normal: ({ children }) => (
-                                            <p className="mb-4 last:mb-0">{children}</p>
-                                        ),
-                                    },
-                                }}
-                            />
+                        {listSections.length > 0 && (
+                            <div className="space-y-6 lg:sticky lg:top-8">
+                                {listSections.map((section) => (
+                                    <ListBox
+                                        key={section.title}
+                                        title={section.title}
+                                        items={section.items}
+                                    />
+                                ))}
+                            </div>
                         )}
-                    </div>
-                )}
-
-                {contactMembers.length > 0 && (
-                    <div className="space-y-6">
-                        <h2 className="text-h2">Contact</h2>
-                        <TeamCarousel members={contactMembers} />
                     </div>
                 )}
 
