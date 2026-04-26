@@ -176,7 +176,10 @@ export default function ClientApplicationPage({ data }: Props) {
     return (
         <main className="w-full">
             {imageSrc && (
-                <div className="relative w-screen h-screen overflow-hidden">
+                <div
+                    className="relative w-screen h-screen overflow-hidden"
+                    data-section-hero
+                >
                     <NextImage
                         src={imageSrc}
                         alt={data.landingImage?.alt || data.title}
@@ -264,7 +267,7 @@ export default function ClientApplicationPage({ data }: Props) {
                         </div>
 
                         {listSections.length > 0 && (
-                            <div className="space-y-6 lg:sticky lg:top-8">
+                            <div className="space-y-6 lg:sticky lg:top-12">
                                 {listSections.map((section) => (
                                     <ListBox
                                         key={section.title}
