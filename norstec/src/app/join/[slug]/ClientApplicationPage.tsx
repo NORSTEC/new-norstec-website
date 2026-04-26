@@ -1,12 +1,26 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
 import { PortableText } from "next-sanity";
 import NextImage from "next/image";
 import { imageBuilder } from "@/utils/imageBuilder";
 import { ApplicationPage } from "@/types/pages/applicationPage";
 import TeamCarousel from "@/components/items/team/TeamCarousel";
 import type { SectionTeamMember } from "@/types/sections/sectionTeam";
+import Script from "next/script";
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      enterprise?: {
+        ready: (callback: () => void) => void;
+        execute: (
+          siteKey: string,
+          options: { action: string }
+        ) => Promise<string>;
+      };
+    };
+  }
+}
 
 const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL!;
 type Props = {
@@ -37,28 +51,54 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
-    const [cfToken, setCfToken] = useState<string | null>(null);
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
     const inputClass =
         "w-full rounded-xl border-2 border-moody/20 bg-transparent px-4 py-3 focus:outline-none focus:border-moody transition-colors";
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!cfToken) return;
-        setStatus("loading");
-        try {
-            await fetch(APPS_SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ position: positionTitle, name, email, message, cfToken }),
-            });
-            setStatus("success");
-        } catch {
-            setStatus("error");
-        }
-    };
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    try {
+      const grecaptcha = window.grecaptcha;
+
+      if (!grecaptcha?.enterprise) {
+        throw new Error("reCAPTCHA Enterprise not loaded");
+      }
+
+      const recaptchaToken = await new Promise<string>((resolve, reject) => {
+        grecaptcha.enterprise!.ready(async () => {
+          try {
+            const token = await grecaptcha.enterprise!.execute(
+              process.env.NEXT_PUBLIC_RECAPTCHA_APPLICATIONS_KEY!,
+              { action: "application_submit" }
+            );
+
+            resolve(token);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({
+          position: positionTitle,
+          name,
+          email,
+          message,
+          recaptchaToken,
+        }),
+      });
+
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
 
     if (status === "success") {
         return (
@@ -70,6 +110,11 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
     }
 
     return (
+      <>
+        <Script
+          src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_APPLICATIONS_KEY}`}
+          strategy="afterInteractive"
+        />
         <form onSubmit={handleSubmit} className="space-y-4">
             <h2 className="text-h2">Apply</h2>
 
@@ -112,17 +157,10 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
                 />
             </label>
 
-            <Turnstile
-                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                onSuccess={(token) => setCfToken(token)}
-                onError={() => setCfToken(null)}
-                onExpire={() => setCfToken(null)}
-            />
-
             <div>
                 <button
                     type="submit"
-                    disabled={status === "loading" || !cfToken}
+                    disabled={status === "loading"}
                     className="inline-flex items-center justify-center rounded-xl border-2 border-moody bg-moody text-egg px-6 py-3 text-[1rem] font-semibold tracking-wide transition hover:bg-transparent hover:text-moody cursor-pointer"
                 >
                     {status === "loading" ? "Sending…" : "Apply Now"}
@@ -132,6 +170,8 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
                 )}
             </div>
         </form>
+      </>
+
     );
 }
 
@@ -282,5 +322,6 @@ export default function ClientApplicationPage({ data }: Props) {
 
             </div>
         </main>
+
     );
 }
