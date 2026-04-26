@@ -123,7 +123,7 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
                 <button
                     type="submit"
                     disabled={status === "loading" || !cfToken}
-                    className="inline-block border-moody border-2 rounded-full hover:bg-moody hover:text-egg px-10 py-4 font-semibold uppercase tracking-widest transition-colors duration-200 disabled:opacity-50"
+                    className="inline-flex items-center justify-center rounded-xl border-2 border-moody bg-moody text-egg px-6 py-3 text-[1rem] font-semibold tracking-wide transition hover:bg-transparent hover:text-moody cursor-pointer"
                 >
                     {status === "loading" ? "Sending…" : "Apply Now"}
                 </button>

@@ -43,10 +43,7 @@ export const JOIN_PAGE_QUERY = defineQuery(`
       ),
 
       "applications": select(
-        _type == "sectionApplications" => *[
-          _type == "application" &&
-          !(_id in path("drafts.**"))
-        ] | order(applicationDeadline asc){
+        _type == "sectionApplications" => applications[defined(@->_id)][]->{
           _id,
           _type,
           title,
@@ -63,7 +60,7 @@ export const JOIN_PAGE_QUERY = defineQuery(`
             name,
             description
           }
-        }
+        } | order(applicationDeadline asc)
       )
 
     }
