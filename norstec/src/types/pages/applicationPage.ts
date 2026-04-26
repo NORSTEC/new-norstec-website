@@ -48,7 +48,8 @@ export interface ApplicationPage {
         name: string;
         email?: string;
         phone?: string;
-        photo?: Image;
-        photoAlt?: string;
+        photo: Image;
+        photoAlt: string;
+        linkedin?: string;
     }[];
 }
