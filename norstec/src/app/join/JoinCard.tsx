@@ -12,6 +12,13 @@ type ApplicationCardProps = {
     application: Application;
 };
 
+const DEADLINE_FORMATTER = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+});
+
 export const ApplicationCard = ({ application }: ApplicationCardProps) => {
     const router = useRouter();
 
@@ -34,13 +41,10 @@ export const ApplicationCard = ({ application }: ApplicationCardProps) => {
     const isClosed =
         deadlineDate ? deadlineDate.getTime() < new Date().getTime() : false;
 
-    const formattedDeadline = deadlineDate
-        ? deadlineDate.toLocaleDateString(undefined, {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-        })
-        : null;
+    const formattedDeadline =
+        deadlineDate && !Number.isNaN(deadlineDate.getTime())
+            ? DEADLINE_FORMATTER.format(deadlineDate)
+            : null;
 
     const borderClass = isClosed
         ? "border-copper"

@@ -43,11 +43,13 @@ export interface ApplicationPage {
     benefits?: string[];
 
     contactPersons?: {
+        _type: "teamMember";
         _id: string;
         name: string;
         email?: string;
         phone?: string;
-        photo?: Image;
-        photoAlt?: string;
+        photo: Image;
+        photoAlt: string;
+        linkedin?: string;
     }[];
 }

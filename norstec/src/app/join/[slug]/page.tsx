@@ -10,7 +10,6 @@ export default async function ApplicationSlugPage({ params }: Props) {
     const { slug } = await params;
 
     const application = await getApplicationBySlug(slug);
-
     if (!application) {
         notFound();
     }

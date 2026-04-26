@@ -30,7 +30,14 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     const isPrivacyPage = pathname === "/privacy";
     const isArticlesPage = pathname?.startsWith("/articles");
     const isProgramPage = pathname?.startsWith("/summit/program");
-    const shouldApplySectionClass = !(isPrivacyPage || isArticlesPage || isProgramPage);
+    const isJoinLandingPage = pathname === "/join";
+    const isJoinDetailPage = pathname?.startsWith("/join/");
+    const shouldApplySectionClass = !(
+      isPrivacyPage ||
+      isArticlesPage ||
+      isProgramPage ||
+      (isJoinDetailPage && !isJoinLandingPage)
+    );
 
   const isActiveRoute = (pathname: string, href: string) => {
         if (href === "/") return pathname === "/"
