@@ -36,6 +36,7 @@ import sectionSummitInfo from "./sections/summit/sectionSummitInfo";
 import sectionSummitProgram from "./sections/summit/sectionSummitProgram";
 import sectionSummitSponsors from "./sections/summit/sectionSummitSponsors";
 import sectionJoin from "./sections/sectionJoin";
+import sectionIncubatorContactForm from "./sections/sectionIncubatorContactForm";
 import sectionInitiativeAdditionalPage from "./sections/summit/newPage/sectionInitiativeAdditionalPage";
 import sectionApplication from "./sections/summit/sectionApplication";
 // Items
@@ -93,6 +94,7 @@ export const schemaTypes = [
     sectionImage,
     sectionQuote,
     sectionJoin,
+    sectionIncubatorContactForm,
     sectionSponsor,
     sectionSummitTextImage,
     sectionSummitTimer,

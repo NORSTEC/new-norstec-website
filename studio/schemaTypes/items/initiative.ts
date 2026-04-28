@@ -82,6 +82,7 @@ export default defineType({
                         {type: 'sectionMedia'},
                         {type: 'sectionPodcast'},
                         {type: 'sectionQuote'},
+                        {type: 'sectionIncubatorContactForm'},
                         {type: 'sectionDivider'},
                         {type: 'initiativePage'},
                         {

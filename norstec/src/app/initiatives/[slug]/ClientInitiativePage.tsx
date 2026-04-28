@@ -19,6 +19,7 @@ import SectionSummitProgram from "@/components/summit/SectionSummitProgram";
 import SectionSponsors from "@/components/summit/SectionSponsors";
 import SectionBusinessContact from "@/components/summit/SectionBusinessContact";
 import SectionInitiativeAdditionalPage from "@/components/summit/SectionInitiativeAdditionalPage";
+import SectionIncubatorContactForm from "@/components/sections/SectionIncubatorContactForm";
 import VintageStripes from "@/components/items/stripes/mobile/VintageStripes";
 import { InitiativePage, InitiativePageSection } from "@/types/pages/initiativePage";
 import { StripePaletteName, StripePaletteProvider } from "@/hooks/useStripePalette";
@@ -159,6 +160,10 @@ function renderInitiativeSection(
           section={section}
           className={className}
         />
+      );
+    case "sectionIncubatorContactForm":
+      return (
+        <SectionIncubatorContactForm key={section._id} section={section} className={className} />
       );
     case "sectionDivider": {
       const lineFactor = 200 - section.lineDensity * 10;
