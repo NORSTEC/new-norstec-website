@@ -18,6 +18,7 @@ import { SectionSummitSponsors } from "@/types/sections/summit/sectionSummitSpon
 import { VintageStripesSection } from "@/types/items/vintageStripes";
 import { SectionBusinessContact } from "@/types/sections/summit/sectionBusinessContact";
 import { SectionInitiativeAdditionalPage } from "@/types/sections/summit/sectionInitiativeAdditionalPage";
+import { SectionIncubatorContactForm } from "@/types/sections/sectionIncubatorContactForm";
 
 export type InitiativePageSection =
   | SectionHero
@@ -38,6 +39,7 @@ export type InitiativePageSection =
   | SectionSummitSponsors
   | SectionBusinessContact
   | SectionInitiativeAdditionalPage
+  | SectionIncubatorContactForm
   | VintageStripesSection;
 
 export interface InitiativePage extends Omit<Initiative, "sections"> {
