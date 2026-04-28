@@ -132,7 +132,6 @@ function IncubatorContactForm({ positionTitle }: { positionTitle: string }) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className={`${inputClass} min-h-[140px] resize-y`}
-            placeholder="Tell us about yourself and why you're a great fit."
             required
           />
         </label>
