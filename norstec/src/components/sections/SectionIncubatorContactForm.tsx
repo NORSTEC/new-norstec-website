@@ -96,7 +96,6 @@ function IncubatorContactForm({ positionTitle }: { positionTitle: string }) {
         strategy="afterInteractive"
       />
       <form onSubmit={handleSubmit} className="space-y-4">
-        <h2 className="text-h2">Apply</h2>
 
         <label className="flex flex-col gap-2">
           <span className="text-sm font-semibold uppercase tracking-wide">
@@ -142,7 +141,7 @@ function IncubatorContactForm({ positionTitle }: { positionTitle: string }) {
             disabled={status === "loading"}
             className="inline-flex items-center justify-center rounded-xl border-2 border-moody bg-moody text-egg px-6 py-3 text-[1rem] font-semibold tracking-wide transition hover:bg-transparent hover:text-moody cursor-pointer"
           >
-            {status === "loading" ? "Sending…" : "Apply Now"}
+            {status === "loading" ? "Sending…" : "Send message"}
           </button>
           {status === "error" && (
             <p className="text-sm text-red-500 mt-2">Something went wrong. Please try again.</p>
