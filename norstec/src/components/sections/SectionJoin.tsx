@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { PortableText } from "next-sanity";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
 import { SectionJoin as SectionJoinType } from "@/types/sections/sectionJoin";
 
@@ -10,7 +11,7 @@ type SectionJoinProps = {
 };
 
 export default function SectionJoin({ section, className = "" }: SectionJoinProps) {
-  const { title, organizations = [] } = section;
+  const { title, body, organizations = [] } = section;
 
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
@@ -52,6 +53,19 @@ export default function SectionJoin({ section, className = "" }: SectionJoinProp
             <span aria-hidden className="star-inline" />
           </h2>
         )}
+
+        {body?.length ? (
+          <div className="max-w-[80rem] text-moody">
+            <PortableText
+              value={body}
+              components={{
+                block: {
+                  normal: ({ children }) => <p className="mb-[1rem] last:mb-0">{children}</p>,
+                },
+              }}
+            />
+          </div>
+        ) : null}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-[80rem]">
           <label className="flex flex-col gap-2">
