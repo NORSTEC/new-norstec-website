@@ -29,12 +29,16 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     const isSummit = pathname?.startsWith("/summit");
     const isPrivacyPage = pathname === "/privacy";
     const isArticlesPage = pathname?.startsWith("/articles");
+    const isMerchPage = pathname?.startsWith("/merch");
+    const isCartPage = pathname === "/cart";
     const isProgramPage = pathname?.startsWith("/summit/program");
     const isJoinLandingPage = pathname === "/join";
     const isJoinDetailPage = pathname?.startsWith("/join/");
     const shouldApplySectionClass = !(
       isPrivacyPage ||
       isArticlesPage ||
+      isMerchPage ||
+      isCartPage ||
       isProgramPage ||
       (isJoinDetailPage && !isJoinLandingPage)
     );

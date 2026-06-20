@@ -4,26 +4,89 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ff3617c-c50b-4e4d-8053-ae34180b9d1a" name="Changes" comment="Refactor: Simplify Footer component structure and enhance styling">
-      <change afterPath="$PROJECT_DIR$/studio/schemaTypes/sections/application/applicationForm.ts" afterDir="false" />
+    <list default="true" id="1ff3617c-c50b-4e4d-8053-ae34180b9d1a" name="Changes" comment="Update button text in Incubator Contact Form and remove heading">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/app/sitemap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/app/sitemap.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/components/sections/SectionHero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/components/sections/SectionHero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/components/static/Footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/components/static/Footer/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/components/static/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/components/static/Navbar/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/config/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/config/navigation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/sanity/fetch/SanityFetch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/sanity/fetch/SanityFetch.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studio/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/studio/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studio/schemaTypes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/studio/schemaTypes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studio/structure.ts" beforeDir="false" afterPath="$PROJECT_DIR$/studio/structure.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/Users/eirikekv/Desktop/NORSTEC/new-norstec-website" value="3EatM5iPmFonweWQBDyy2uEQtx9" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="313" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "stillinger",
-    "last_opened_file_path": "C:/Users/Eier/Documents/Konsekvens/konsekvens/public/Jayan.jpg",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "ts.external.directory.path": "C:\\Users\\Eier\\Documents\\Norstec\\new-norstec-website\\studio\\node_modules\\typescript\\lib"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;eirikek&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/NORSTEC/new-norstec-website.git&quot;,
+    &quot;accountId&quot;: &quot;29923dfe-ad45-45ad-a976-089a6580bfc7&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/norstec/package.json" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="3EatM5iPmFonweWQBDyy2uEQtx9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;22-set-up-shop&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Eier/Documents/Konsekvens/konsekvens/public/Jayan.jpg&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/eirikekv/Desktop/NORSTEC/new-norstec-website/norstec/node_modules/prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/eirikekv/Desktop/NORSTEC/new-norstec-website/norstec/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.29346.242" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task id="LOCAL−00001" summary="Refactor: Simplify Footer component structure and enhance styling">
       <option name="closed" value="true" />
@@ -32,11 +95,42 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1768590679527</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="Update button text in Incubator Contact Form and remove heading">
+      <option name="closed" value="true" />
+      <created>1777400323971</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1777400323971</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1ff3617c-c50b-4e4d-8053-ae34180b9d1a" name="Changes" comment="Update button text in Incubator Contact Form and remove heading" />
+      <created>1780428457541</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1780428457541</updated>
+      <workItem from="1780428458574" duration="272000" />
+      <workItem from="1780430021837" duration="4832000" />
+      <workItem from="1781015230465" duration="203000" />
+      <workItem from="1781290240850" duration="7444000" />
+      <workItem from="1781983371035" duration="1026000" />
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Refactor: Simplify Footer component structure and enhance styling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor: Simplify Footer component structure and enhance styling" />
+    <MESSAGE value="Update button text in Incubator Contact Form and remove heading" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update button text in Incubator Contact Form and remove heading" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

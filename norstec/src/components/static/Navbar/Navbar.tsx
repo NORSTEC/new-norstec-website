@@ -13,6 +13,7 @@ import { useHideOnScrollMobile } from "@/hooks/useHideOnScrollMobile";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Countdown from "@/components/static/Countdown";
 import { useTheme } from "@/hooks/useTheme";
+import { useCart } from "@/components/merch/CartProvider";
 
 type NavbarProps = {
   logoHref?: string;
@@ -39,6 +40,7 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
   const shouldDelayOnMount = !isDesktop && pathname === "/" && !prefersReducedMotion;
   const [allowHeader, setAllowHeader] = useState(() => !shouldDelayOnMount);
   const { resolvedTheme, toggleTheme } = useTheme();
+  const { cart } = useCart();
   // Invert icons: show sun when in dark mode and moon when in light mode
   const themeIcon = resolvedTheme === "dark" ? "light_mode" : "dark_mode";
 
@@ -247,6 +249,29 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
               />
             </Link>
             <div className="flex items-center gap-3">
+              <Link
+                href="/cart"
+                aria-label={
+                  cart?.totalQuantity
+                    ? `Cart with ${cart.totalQuantity} items`
+                    : "Cart"
+                }
+                className={[
+                  "relative flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200 lg:duration-300",
+                  navTheme === "dark"
+                    ? "text-egg-static"
+                    : controlsLight
+                      ? "text-egg"
+                      : "text-moody",
+                ].join(" ")}
+              >
+                <span className="material-symbols-outlined">shopping_bag</span>
+                {Boolean(cart?.totalQuantity) && (
+                  <span className="absolute -right-2 -top-2 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-copper px-1 text-[0.65rem] font-semibold leading-none text-moody-static">
+                    {cart?.totalQuantity}
+                  </span>
+                )}
+              </Link>
               {!forceDark && (
                 <button
                   type="button"

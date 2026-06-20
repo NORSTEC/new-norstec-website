@@ -5,6 +5,7 @@ import { oughter, barlow } from "@/assets/fonts";
 import Navbar from "@/components/static/Navbar/Navbar";
 import { ThemeProvider } from "../hooks/useTheme";
 import FooterGate from "@/components/static/Footer/FooterGate";
+import { CartProvider } from "@/components/merch/CartProvider";
 
 export const metadata: Metadata = {
   title: "SECURING OUR FUTURE IN SPACE | NORSTEC",
@@ -45,9 +46,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="theme-transition">
         <ThemeProvider>
-          <Navbar />
-          {children}
-          <FooterGate />
+          <CartProvider shopifyStoreDomain={process.env.SHOPIFY_STORE_DOMAIN}>
+            <Navbar />
+            {children}
+            <FooterGate />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>

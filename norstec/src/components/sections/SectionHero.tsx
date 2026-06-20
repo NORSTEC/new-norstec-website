@@ -7,9 +7,14 @@ import type { SectionHero as SectionHeroType } from "@/types/sections/sectionHer
 type SectionHeroProps = {
     section: SectionHeroType;
     className?: string;
+    titleClassName?: string;
 };
 
-export default function SectionHero({ section, className = "" }: SectionHeroProps) {
+export default function SectionHero({
+  section,
+  className = "",
+  titleClassName = "text-[2rem] sm:text-[3.5rem] md:text-[4.5rem] xl:text-[7rem] 2xl:text-[9rem]",
+}: SectionHeroProps) {
     const { title, subtitle, image, imageMobile } = section;
 
     const desktopSrc = imageBuilder(image);
@@ -19,7 +24,7 @@ export default function SectionHero({ section, className = "" }: SectionHeroProp
 
     const TextOverlay = (
     <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center text-egg-static drop-shadow-[0_2px_16px_rgba(0,0,0,0.65)]">
-      <h1 className="text-[2rem] sm:text-[3.5rem] md:text-[4.5rem] xl:text-[7rem] 2xl:text-[9rem] font-light font-barlow uppercase flex items-center justify-center">
+      <h1 className={`${titleClassName} font-light font-barlow uppercase flex items-center justify-center`}>
         {title}
       </h1>
 
