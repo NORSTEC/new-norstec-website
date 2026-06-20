@@ -25,7 +25,7 @@ export default function ImageContainer({
   className,
   threeImageLayout = "equal",
   featuredPosition = "left",
-  singleImageCover = false,
+  singleImageCover,
 }: ImageContainerProps) {
   const total = images?.length ?? 0;
 
@@ -33,15 +33,14 @@ export default function ImageContainer({
 
   if (total === 1) {
     const item = images[0];
+    const cover = singleImageCover ?? true;
     const src = imageBuilder(item.image, {
-      width: 1000,
-      height: 1000,
+      width: 1200,
+      height: 900,
       quality: 90,
-      fit: "max",
+      fit: cover ? "crop" : "max",
     });
     if (!src) return null;
-
-    const cover = singleImageCover ?? true;
 
     return (
       <div className={`w-full ${className ?? ""}`}>

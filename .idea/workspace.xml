@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ff3617c-c50b-4e4d-8053-ae34180b9d1a" name="Changes" comment="Refactor: Simplify Footer component structure and enhance styling">
-      <change beforePath="$PROJECT_DIR$/norstec/src/components/sections/SectionJoin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/components/sections/SectionJoin.tsx" afterDir="false" />
+    <list default="true" id="1ff3617c-c50b-4e4d-8053-ae34180b9d1a" name="Changes" comment="feat: Add description to join form">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/components/items/images/ImageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/components/items/images/ImageContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/norstec/src/components/static/Footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/norstec/src/components/static/Footer/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studio/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/studio/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,11 +39,19 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1768590679527</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="feat: Add description to join form">
+      <option name="closed" value="true" />
+      <created>1781985177132</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1781985177132</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Refactor: Simplify Footer component structure and enhance styling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor: Simplify Footer component structure and enhance styling" />
+    <MESSAGE value="feat: Add description to join form" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add description to join form" />
   </component>
 </project>
