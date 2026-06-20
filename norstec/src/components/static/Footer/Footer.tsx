@@ -28,16 +28,19 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     const isDark = resolvedTheme === "dark";
     const isSummit = pathname?.startsWith("/summit");
     const isPrivacyPage = pathname === "/privacy";
-    const isArticlesPage = pathname?.startsWith("/articles");
+    const isArticlesIndexPage = pathname === "/articles";
+    const isArticleDetailPage = pathname?.startsWith("/articles/");
     const isProgramPage = pathname?.startsWith("/summit/program");
     const isJoinLandingPage = pathname === "/join";
     const isJoinDetailPage = pathname?.startsWith("/join/");
-    const shouldApplySectionClass = !(
-      isPrivacyPage ||
-      isArticlesPage ||
-      isProgramPage ||
-      (isJoinDetailPage && !isJoinLandingPage)
-    );
+    const shouldApplySectionClass =
+      isArticleDetailPage ||
+      !(
+        isPrivacyPage ||
+        isArticlesIndexPage ||
+        isProgramPage ||
+        (isJoinDetailPage && !isJoinLandingPage)
+      );
 
   const isActiveRoute = (pathname: string, href: string) => {
         if (href === "/") return pathname === "/"
