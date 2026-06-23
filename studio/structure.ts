@@ -125,11 +125,6 @@ export const structure: StructureResolver = (S) =>
                 .icon(VideoIcon)
                 .child(S.documentTypeList('article').title('Articles')),
 
-            S.listItem()
-                .title('Merch products')
-                .icon(TshirtIcon)
-                .child(S.documentTypeList('product').title('Merch products')),
-
           S.listItem()
             .title('Organizations')
             .icon(RocketIcon)

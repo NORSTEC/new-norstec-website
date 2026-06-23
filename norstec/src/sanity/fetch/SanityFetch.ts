@@ -21,12 +21,7 @@ import { ArticlePage, ArticleDetailPage } from "@/types/pages/articlePage";
 import { ARTICLE_BY_SLUG_QUERY, ARTICLE_PAGE_QUERY } from "@/sanity/queries/articlePage";
 import {ApplicationPage} from "@/types/pages/applicationPage";
 import {APPLICATION_BY_SLUG_QUERY} from "@/sanity/queries/applicationPage";
-import {
-  MERCH_PAGE_QUERY,
-  MERCH_PRODUCT_BY_SLUG_QUERY,
-  MERCH_PRODUCTS_QUERY
-} from "@/sanity/queries/merch";
-import type {MerchProduct} from "@/types/merch";
+import {MERCH_PAGE_QUERY} from "@/sanity/queries/merch";
 import type {MerchPage} from "@/types/pages/merchPage";
 
 // ============== HOME ============== //
@@ -178,31 +173,6 @@ export const getMerchPage = async (): Promise<MerchPage | null> => {
     return (data as MerchPage) ?? null;
   } catch (e) {
     console.error("Error fetching merch page:", e);
-    return null;
-  }
-};
-
-export const getMerchProducts = async (): Promise<MerchProduct[]> => {
-  try {
-    const {data} = await sanityFetch({query: MERCH_PRODUCTS_QUERY});
-    return (data as MerchProduct[]) ?? [];
-  } catch (e) {
-    console.error("Error fetching merch products:", e);
-    return [];
-  }
-};
-
-export const getMerchProductBySlug = async (slug: string): Promise<MerchProduct | null> => {
-  if (!slug) return null;
-
-  try {
-    const {data} = await sanityFetch({
-      query: MERCH_PRODUCT_BY_SLUG_QUERY,
-      params: {slug},
-    });
-    return (data as MerchProduct) ?? null;
-  } catch (e) {
-    console.error("Error fetching merch product:", e);
     return null;
   }
 };

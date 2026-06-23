@@ -56,7 +56,6 @@ import sectionBusinessContact from "./sections/summit/sectionBusinessContact";
 import application from "./sections/application/applicationForm"
 import {sectionSummitBillboard} from "./sections/summit/sectionSummitBillboard";
 import summitProgramPage from "./sections/summit/newPage/SummitProgramPage";
-import product from "./items/product";
 import merchPage from "./pages/merchPage";
 
 
@@ -125,5 +124,4 @@ export const schemaTypes = [
     organization,
     mapPosition,
     vintageStripes,
-    product,
 ]

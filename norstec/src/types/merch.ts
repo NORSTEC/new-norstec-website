@@ -1,25 +1,3 @@
-import type {Image} from "@/types/image/image";
-
-export type MerchImage = Image & {
-  alt?: string;
-};
-
-export type MerchProduct = {
-  _id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  description?: unknown[];
-  images: MerchImage[];
-  shopifyProductId: string;
-  shopifyVariantId: string;
-  price: Money;
-  featured?: boolean;
-  // Live from Shopify. Undefined when the lookup failed and we fell back to
-  // Sanity data; in that case the product is treated as available.
-  availableForSale?: boolean;
-};
-
 export type Money = {
   amount: number;
   currencyCode: string;
