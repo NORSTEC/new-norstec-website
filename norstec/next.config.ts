@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       "www.juicer.io",
       "juicer-assets.s3.amazonaws.com",
       "cdn.juicer.io",
-      "images.juicer.io"
+      "images.juicer.io",
     ],
     remotePatterns: [
       {

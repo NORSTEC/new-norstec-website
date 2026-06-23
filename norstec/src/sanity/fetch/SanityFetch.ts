@@ -5,24 +5,24 @@ import { HOME_PAGE_QUERY } from "@/sanity/queries/homePage";
 import {
   INITIATIVE_BY_SLUG_QUERY,
   INITIATIVE_SUBPAGE_BY_SLUG_QUERY,
-  INITIATIVES_PAGE_QUERY
+  INITIATIVES_PAGE_QUERY,
 } from "@/sanity/queries/initiativesPage";
 import { InitiativePage } from "@/types/pages/initiativePage";
 import { AboutPage } from "@/types/pages/aboutPage";
 import { ABOUT_PAGE_QUERY } from "@/sanity/queries/aboutPage";
-import {SponsorPage} from "@/types/sections/sectionSponsor";
-import {SPONSOR_PAGE_QUERY} from "@/sanity/queries/sponsorPage";
+import { SponsorPage } from "@/types/sections/sectionSponsor";
+import { SPONSOR_PAGE_QUERY } from "@/sanity/queries/sponsorPage";
 import { TeamPage } from "@/types/pages/teamPage";
 import { TEAM_PAGE_QUERY } from "@/sanity/queries/teamPage";
 import { JoinPage } from "@/types/pages/joinPage";
 import { JOIN_PAGE_QUERY } from "@/sanity/queries/joinPage";
-import {InitiativeSubPage} from "@/types/pages/initiativesSubPage";
+import { InitiativeSubPage } from "@/types/pages/initiativesSubPage";
 import { ArticlePage, ArticleDetailPage } from "@/types/pages/articlePage";
 import { ARTICLE_BY_SLUG_QUERY, ARTICLE_PAGE_QUERY } from "@/sanity/queries/articlePage";
-import {ApplicationPage} from "@/types/pages/applicationPage";
-import {APPLICATION_BY_SLUG_QUERY} from "@/sanity/queries/applicationPage";
-import {MERCH_PAGE_QUERY} from "@/sanity/queries/merch";
-import type {MerchPage} from "@/types/pages/merchPage";
+import { ApplicationPage } from "@/types/pages/applicationPage";
+import { APPLICATION_BY_SLUG_QUERY } from "@/sanity/queries/applicationPage";
+import { MERCH_PAGE_QUERY } from "@/sanity/queries/merch";
+import type { MerchPage } from "@/types/pages/merchPage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -61,7 +61,7 @@ export const getInitiativeBySlug = async (slug: string): Promise<InitiativePage 
 };
 
 export const getInitiativeSubPageBySlug = async (
-    pageSlug: string
+  pageSlug: string
 ): Promise<InitiativeSubPage | null> => {
   if (!pageSlug) {
     return null;
@@ -125,9 +125,7 @@ export const getJoinPage = async (): Promise<JoinPage | null> => {
 };
 
 // ============== APPLICATION ============== //
-export const getApplicationBySlug = async (
-    slug: string
-): Promise<ApplicationPage | null> => {
+export const getApplicationBySlug = async (slug: string): Promise<ApplicationPage | null> => {
   if (!slug) return null;
 
   try {
@@ -142,7 +140,6 @@ export const getApplicationBySlug = async (
     return null;
   }
 };
-
 
 // ============== ARTICLES ============== //
 export const getArticlePage = async (): Promise<ArticlePage | null> => {
@@ -169,7 +166,7 @@ export const getArticleBySlug = async (slug: string): Promise<ArticleDetailPage 
 // ============== MERCH ============== //
 export const getMerchPage = async (): Promise<MerchPage | null> => {
   try {
-    const {data} = await sanityFetch({query: MERCH_PAGE_QUERY});
+    const { data } = await sanityFetch({ query: MERCH_PAGE_QUERY });
     return (data as MerchPage) ?? null;
   } catch (e) {
     console.error("Error fetching merch page:", e);

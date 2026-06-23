@@ -27,18 +27,18 @@ function getConfig(): ShopifyConfig {
 
   if (!domain || !token) {
     throw new ShopifyConfigError(
-      "Missing SHOPIFY_STORE_DOMAIN or SHOPIFY_STOREFRONT_API_TOKEN environment variable.",
+      "Missing SHOPIFY_STORE_DOMAIN or SHOPIFY_STOREFRONT_API_TOKEN environment variable."
     );
   }
 
-  return {endpoint: `https://${domain}/api/${version}/graphql.json`, token};
+  return { endpoint: `https://${domain}/api/${version}/graphql.json`, token };
 }
 
 export async function shopifyStorefrontFetch<T>(
   query: string,
-  variables?: Record<string, unknown>,
+  variables?: Record<string, unknown>
 ): Promise<T> {
-  const {endpoint, token} = getConfig();
+  const { endpoint, token } = getConfig();
 
   const response = await fetch(endpoint, {
     method: "POST",
@@ -46,7 +46,7 @@ export async function shopifyStorefrontFetch<T>(
       "Content-Type": "application/json",
       "X-Shopify-Storefront-Access-Token": token,
     },
-    body: JSON.stringify({query, variables}),
+    body: JSON.stringify({ query, variables }),
     // Prices and availability must always be fresh; never cache.
     cache: "no-store",
   });
@@ -55,7 +55,7 @@ export async function shopifyStorefrontFetch<T>(
     throw new ShopifyRequestError(`Shopify responded with HTTP ${response.status}.`);
   }
 
-  const body = (await response.json()) as {data?: T; errors?: {message: string}[]};
+  const body = (await response.json()) as { data?: T; errors?: { message: string }[] };
 
   if (body.errors?.length) {
     throw new ShopifyRequestError(body.errors.map((e) => e.message).join("; "));

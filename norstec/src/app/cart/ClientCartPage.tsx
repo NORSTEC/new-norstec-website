@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import Money from "@/components/merch/Money";
-import {useCart} from "@/components/merch/CartProvider";
+import { useCart } from "@/components/merch/CartProvider";
 
 export default function ClientCartPage() {
-  const {cart, checkout, isCheckingOut, checkoutError, updateItem, removeItem} = useCart();
+  const { cart, checkout, isCheckingOut, checkoutError, maxPerLine, updateItem, removeItem } =
+    useCart();
   const lines = cart.lines;
 
   return (
@@ -14,7 +15,7 @@ export default function ClientCartPage() {
       <header className="mb-12 border-b-2 border-moody pb-8">
         <Link
           href="/merch"
-          className="mb-4 inline-flex items-center gap-2 hover:text-copper"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-moody bg-moody px-5 py-2 text-egg transition-colors hover:bg-transparent hover:text-moody"
         >
           <span className="material-symbols-outlined rotate-180">trending_flat</span>
           Back to merch
@@ -72,7 +73,7 @@ export default function ClientCartPage() {
                       type="button"
                       onClick={() => updateItem(line.variantId, line.quantity - 1)}
                       aria-label="Decrease quantity"
-                      className="h-9 w-9 cursor-pointer rounded-full border-2 border-moody"
+                      className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-moody bg-moody text-egg transition-colors hover:bg-transparent hover:text-moody"
                     >
                       -
                     </button>
@@ -81,15 +82,20 @@ export default function ClientCartPage() {
                       type="button"
                       onClick={() => updateItem(line.variantId, line.quantity + 1)}
                       aria-label="Increase quantity"
-                      className="h-9 w-9 cursor-pointer rounded-full border-2 border-moody"
+                      disabled={line.quantity >= maxPerLine}
+                      title={line.quantity >= maxPerLine ? `Max ${maxPerLine} per item` : undefined}
+                      className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-moody bg-moody text-egg transition-colors hover:bg-transparent hover:text-moody disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-moody disabled:hover:text-egg"
                     >
                       +
                     </button>
+                    {line.quantity >= maxPerLine && (
+                      <span className="text-sm text-copper">Max {maxPerLine}</span>
+                    )}
                     <button
                       type="button"
                       onClick={() => removeItem(line.variantId)}
                       aria-label="Remove item"
-                      className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-moody transition-colors hover:bg-moody hover:text-egg"
+                      className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-moody bg-moody text-egg transition-colors hover:bg-transparent hover:text-moody"
                     >
                       <span className="material-symbols-outlined text-[1.15rem]">delete</span>
                     </button>

@@ -1,4 +1,4 @@
-import type {Money} from "@/types/merch";
+import type { Money } from "@/types/merch";
 
 export type ShopifyImage = {
   url: string;
@@ -10,7 +10,7 @@ export type ShopifyVariant = {
   title: string;
   availableForSale: boolean;
   price: Money;
-  selectedOptions: {name: string; value: string}[];
+  selectedOptions: { name: string; value: string }[];
   image: ShopifyImage | null;
 };
 

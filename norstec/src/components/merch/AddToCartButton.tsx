@@ -1,7 +1,7 @@
 "use client";
 
-import {useState} from "react";
-import {useCart, type AddToCartInput} from "@/components/merch/CartProvider";
+import { useState } from "react";
+import { useCart, type AddToCartInput } from "@/components/merch/CartProvider";
 
 export default function AddToCartButton({
   line,
@@ -13,7 +13,7 @@ export default function AddToCartButton({
   soldOut?: boolean;
   className?: string;
 }) {
-  const {addItem} = useCart();
+  const { addItem } = useCart();
   const [added, setAdded] = useState(false);
 
   const add = () => {

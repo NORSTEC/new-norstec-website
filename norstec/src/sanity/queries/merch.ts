@@ -1,4 +1,4 @@
-import {defineQuery} from "next-sanity";
+import { defineQuery } from "next-sanity";
 
 export const MERCH_PAGE_QUERY = defineQuery(`
   *[_type == "merchPage"][0] {

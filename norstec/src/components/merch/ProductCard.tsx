@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/merch/AddToCartButton";
-import Money, {formatMoney} from "@/components/merch/Money";
-import type {ShopifyProductListItem} from "@/types/shopify";
+import Money, { formatMoney } from "@/components/merch/Money";
+import type { ShopifyProductListItem } from "@/types/shopify";
 
-export default function ProductCard({product}: {product: ShopifyProductListItem}) {
+export default function ProductCard({ product }: { product: ShopifyProductListItem }) {
   const imageUrl = product.featuredImage?.url;
   const soldOut = !product.availableForSale;
   // Show "from X" when variants have different prices.

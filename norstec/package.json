@@ -16,14 +16,14 @@
     "embla-carousel-wheel-gestures": "^8.1.0",
     "google": "link:next/font/google",
     "groq": "^5.7.0",
-    "isomorphic-dompurify": "^3.18.0",
     "local": "link:next/font/local",
     "motion": "^12.31.0",
     "next": "16.0.10",
     "next-sanity": "^11.6.12",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-parallax-tilt": "^1.7.319"
+    "react-parallax-tilt": "^1.7.319",
+    "sanitize-html": "^2.17.5"
   },
   "devDependencies": {
     "@savaryna/tailwindcss-material-symbols": "^1.3.1",
@@ -31,6 +31,7 @@
     "@types/node": "^20.19.31",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
+    "@types/sanitize-html": "^2.16.1",
     "autoprefixer": "^10.4.24",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9.39.2",

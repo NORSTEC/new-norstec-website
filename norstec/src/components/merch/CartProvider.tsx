@@ -1,17 +1,32 @@
 "use client";
 
-import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
-import type {LocalCart, LocalCartLine, Money} from "@/types/merch";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import Link from "next/link";
+import { AnimatePresence, motion } from "motion/react";
+import { MAX_QUANTITY_PER_LINE } from "@/config/merch";
+import type { LocalCart, LocalCartLine, Money } from "@/types/merch";
 
 const STORAGE_KEY = "norstec-local-cart-v1";
 
 // A cart line without its quantity; the provider merges quantities.
 export type AddToCartInput = Omit<LocalCartLine, "quantity">;
 
+const clampQuantity = (quantity: number) =>
+  Math.max(1, Math.min(Math.floor(quantity), MAX_QUANTITY_PER_LINE));
+
 type CartContextValue = {
   cart: LocalCart;
   isCheckingOut: boolean;
   checkoutError: string | null;
+  maxPerLine: number;
   checkout: () => Promise<void>;
   addItem: (item: AddToCartInput, quantity?: number) => void;
   updateItem: (variantId: string, quantity: number) => void;
@@ -38,13 +53,15 @@ function calculateCart(lines: LocalCartLine[]): LocalCart {
         }
       : null;
 
-  return {lines, totalQuantity, subtotal};
+  return { lines, totalQuantity, subtotal };
 }
 
-export function CartProvider({children}: {children: React.ReactNode}) {
+export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<LocalCart>(EMPTY_CART);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ title: string; id: number } | null>(null);
+  const toastId = useRef(0);
 
   const persist = useCallback((lines: LocalCartLine[]) => {
     const nextCart = calculateCart(lines);
@@ -70,15 +87,14 @@ export function CartProvider({children}: {children: React.ReactNode}) {
       const existing = cart.lines.find((line) => line.variantId === item.variantId);
       const nextLine: LocalCartLine = {
         ...item,
-        quantity: (existing?.quantity ?? 0) + quantity,
+        quantity: clampQuantity((existing?.quantity ?? 0) + quantity),
       };
 
-      persist([
-        ...cart.lines.filter((line) => line.variantId !== item.variantId),
-        nextLine,
-      ]);
+      persist([...cart.lines.filter((line) => line.variantId !== item.variantId), nextLine]);
+      toastId.current += 1;
+      setToast({ title: item.title, id: toastId.current });
     },
-    [cart.lines, persist],
+    [cart.lines, persist]
   );
 
   const updateItem = useCallback(
@@ -88,17 +104,19 @@ export function CartProvider({children}: {children: React.ReactNode}) {
         return;
       }
       persist(
-        cart.lines.map((line) => (line.variantId === variantId ? {...line, quantity} : line)),
+        cart.lines.map((line) =>
+          line.variantId === variantId ? { ...line, quantity: clampQuantity(quantity) } : line
+        )
       );
     },
-    [cart.lines, persist],
+    [cart.lines, persist]
   );
 
   const removeItem = useCallback(
     (variantId: string) => {
       persist(cart.lines.filter((line) => line.variantId !== variantId));
     },
-    [cart.lines, persist],
+    [cart.lines, persist]
   );
 
   // Creates a real Shopify cart server-side and redirects to Shopify's hosted
@@ -111,7 +129,7 @@ export function CartProvider({children}: {children: React.ReactNode}) {
     try {
       const response = await fetch("/api/cart/checkout", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           lines: cart.lines.map((line) => ({
             variantId: line.variantId,
@@ -120,7 +138,7 @@ export function CartProvider({children}: {children: React.ReactNode}) {
         }),
       });
 
-      const data = (await response.json()) as {checkoutUrl?: string; error?: string};
+      const data = (await response.json()) as { checkoutUrl?: string; error?: string };
       if (!response.ok || !data.checkoutUrl) {
         throw new Error(data.error || "Could not start checkout.");
       }
@@ -132,12 +150,56 @@ export function CartProvider({children}: {children: React.ReactNode}) {
     }
   }, [cart.lines, isCheckingOut]);
 
+  // Auto-dismiss the "added to cart" confirmation toast.
+  useEffect(() => {
+    if (!toast) return;
+    const timer = window.setTimeout(() => setToast(null), 2800);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
+
   const value = useMemo(
-    () => ({cart, isCheckingOut, checkoutError, checkout, addItem, updateItem, removeItem}),
-    [addItem, cart, checkout, checkoutError, isCheckingOut, removeItem, updateItem],
+    () => ({
+      cart,
+      isCheckingOut,
+      checkoutError,
+      maxPerLine: MAX_QUANTITY_PER_LINE,
+      checkout,
+      addItem,
+      updateItem,
+      removeItem,
+    }),
+    [addItem, cart, checkout, checkoutError, isCheckingOut, removeItem, updateItem]
   );
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={value}>
+      {children}
+      <div className="pointer-events-none fixed inset-x-0 bottom-6 z-[100] flex justify-center px-4 sm:justify-end sm:pr-6">
+        <AnimatePresence>
+          {toast && (
+            <motion.div
+              role="status"
+              aria-live="polite"
+              initial={{ opacity: 0, y: 20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.96 }}
+              transition={{ duration: 0.35, ease: [0.22, 0.9, 0.2, 1] }}
+              className="pointer-events-auto flex items-center gap-3 rounded-3xl border-2 border-moody bg-egg px-5 py-3"
+            >
+              <span className="material-symbols-outlined text-copper">check_circle</span>
+              <span className="min-w-0 truncate">Added to cart</span>
+              <Link
+                href="/cart"
+                className="shrink-0 rounded-full border-2 border-moody bg-moody px-4 py-1 text-egg transition-colors hover:bg-transparent hover:text-moody"
+              >
+                View cart
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </CartContext.Provider>
+  );
 }
 
 export function useCart() {

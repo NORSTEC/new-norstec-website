@@ -1,6 +1,20 @@
-import DOMPurify from "isomorphic-dompurify";
-import {shopifyStorefrontFetch} from "@/lib/shopify/client";
-import type {Money} from "@/types/merch";
+import sanitizeHtml from "sanitize-html";
+import { shopifyStorefrontFetch } from "@/lib/shopify/client";
+
+// Allow safe formatting (tables, lists, links, images) and strip <script>,
+// event handlers, etc. Runs server-side; no jsdom dependency.
+function sanitizeDescription(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: [...sanitizeHtml.defaults.allowedTags, "img", "figure", "figcaption"],
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ["src", "alt", "width", "height"],
+      "*": ["colspan", "rowspan"],
+    },
+    allowedSchemes: ["http", "https", "mailto"],
+  });
+}
+import type { Money } from "@/types/merch";
 import type {
   CheckoutLineInput,
   ShopifyCart,
@@ -16,10 +30,10 @@ export function toVariantGid(variantId: string): string | null {
   return numericId ? `gid://shopify/ProductVariant/${numericId}` : null;
 }
 
-type MoneyNode = {amount: string; currencyCode: string};
+type MoneyNode = { amount: string; currencyCode: string };
 
 function toMoney(node: MoneyNode): Money {
-  return {amount: Number(node.amount), currencyCode: node.currencyCode};
+  return { amount: Number(node.amount), currencyCode: node.currencyCode };
 }
 
 // ============== PRODUCT LISTING ============== //
@@ -54,18 +68,18 @@ type ProductListNode = {
   title: string;
   description: string;
   availableForSale: boolean;
-  featuredImage: {url: string; altText: string | null} | null;
-  priceRange: {minVariantPrice: MoneyNode; maxVariantPrice: MoneyNode};
-  variants: {edges: {node: {id: string}}[]};
+  featuredImage: { url: string; altText: string | null } | null;
+  priceRange: { minVariantPrice: MoneyNode; maxVariantPrice: MoneyNode };
+  variants: { edges: { node: { id: string } }[] };
 };
 
 export async function getShopifyProducts(): Promise<ShopifyProductListItem[]> {
   try {
-    const data = await shopifyStorefrontFetch<{products: {edges: {node: ProductListNode}[]}}>(
-      PRODUCTS_QUERY,
+    const data = await shopifyStorefrontFetch<{ products: { edges: { node: ProductListNode }[] } }>(
+      PRODUCTS_QUERY
     );
 
-    return data.products.edges.map(({node}) => {
+    return data.products.edges.map(({ node }) => {
       const variantEdges = node.variants.edges;
       return {
         id: node.id,
@@ -123,8 +137,8 @@ type VariantNode = {
   title: string;
   availableForSale: boolean;
   price: MoneyNode;
-  selectedOptions: {name: string; value: string}[];
-  image: {url: string; altText: string | null} | null;
+  selectedOptions: { name: string; value: string }[];
+  image: { url: string; altText: string | null } | null;
 };
 
 type ProductNode = {
@@ -133,23 +147,23 @@ type ProductNode = {
   title: string;
   descriptionHtml: string;
   availableForSale: boolean;
-  images: {edges: {node: {url: string; altText: string | null}}[]};
-  options: {name: string; values: string[]}[];
-  variants: {edges: {node: VariantNode}[]};
+  images: { edges: { node: { url: string; altText: string | null } }[] };
+  options: { name: string; values: string[] }[];
+  variants: { edges: { node: VariantNode }[] };
 };
 
 export async function getShopifyProductByHandle(handle: string): Promise<ShopifyProduct | null> {
   if (!handle) return null;
 
   try {
-    const data = await shopifyStorefrontFetch<{product: ProductNode | null}>(
+    const data = await shopifyStorefrontFetch<{ product: ProductNode | null }>(
       PRODUCT_BY_HANDLE_QUERY,
-      {handle},
+      { handle }
     );
     const node = data.product;
     if (!node) return null;
 
-    const variants: ShopifyVariant[] = node.variants.edges.map(({node: v}) => ({
+    const variants: ShopifyVariant[] = node.variants.edges.map(({ node: v }) => ({
       id: v.id,
       title: v.title,
       availableForSale: v.availableForSale,
@@ -163,9 +177,8 @@ export async function getShopifyProductByHandle(handle: string): Promise<Shopify
       handle: node.handle,
       title: node.title,
       // Sanitize Shopify/Gelato-authored HTML before it is rendered with
-      // dangerouslySetInnerHTML. Strips <script>, event handlers, etc., while
-      // keeping safe formatting (tables, lists, links).
-      descriptionHtml: DOMPurify.sanitize(node.descriptionHtml ?? ""),
+      // dangerouslySetInnerHTML.
+      descriptionHtml: sanitizeDescription(node.descriptionHtml ?? ""),
       availableForSale: node.availableForSale,
       images: node.images.edges.map((e) => e.node),
       options: node.options,
@@ -196,8 +209,8 @@ const CART_CREATE_MUTATION = `
 
 type CartCreateResponse = {
   cartCreate: {
-    cart: {checkoutUrl: string; totalQuantity: number} | null;
-    userErrors: {field: string[] | null; message: string}[];
+    cart: { checkoutUrl: string; totalQuantity: number } | null;
+    userErrors: { field: string[] | null; message: string }[];
   };
 };
 
@@ -208,9 +221,9 @@ export async function createShopifyCart(lines: CheckoutLineInput[]): Promise<Sho
   const cartLines = lines
     .map((line) => {
       const merchandiseId = toVariantGid(line.variantId);
-      return merchandiseId ? {merchandiseId, quantity: line.quantity} : null;
+      return merchandiseId ? { merchandiseId, quantity: line.quantity } : null;
     })
-    .filter((line): line is {merchandiseId: string; quantity: number} => Boolean(line));
+    .filter((line): line is { merchandiseId: string; quantity: number } => Boolean(line));
 
   if (!cartLines.length) {
     throw new Error("No valid variant ids to create a cart.");
@@ -220,7 +233,7 @@ export async function createShopifyCart(lines: CheckoutLineInput[]): Promise<Sho
     lines: cartLines,
   });
 
-  const {cart, userErrors} = data.cartCreate;
+  const { cart, userErrors } = data.cartCreate;
 
   if (userErrors.length) {
     throw new Error(userErrors.map((e) => e.message).join("; "));
@@ -229,5 +242,5 @@ export async function createShopifyCart(lines: CheckoutLineInput[]): Promise<Sho
     throw new Error("Shopify did not return a checkout URL.");
   }
 
-  return {checkoutUrl: cart.checkoutUrl, totalQuantity: cart.totalQuantity};
+  return { checkoutUrl: cart.checkoutUrl, totalQuantity: cart.totalQuantity };
 }

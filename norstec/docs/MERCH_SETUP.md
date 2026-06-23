@@ -65,8 +65,8 @@ automatically on `/merch`. Product detail pages are addressed by the Shopify **h
 3. Connect the products to **Gelato** for print-on-demand fulfillment (done in the Gelato/Shopify
    dashboards — no website code involved).
 4. **Payments:** install and configure a Vipps/MobilePay **payment** app — either the
-   *Vipps/MobilePay Payment app* (adds Vipps as a method in Shopify checkout) or the
-   *Vipps/MobilePay Checkout app*. The **Companion app alone does not process payments** — it only
+   _Vipps/MobilePay Payment app_ (adds Vipps as a method in Shopify checkout) or the
+   _Vipps/MobilePay Checkout app_. The **Companion app alone does not process payments** — it only
    adds branding and receipts. Verify under **Settings → Payments** that Vipps is active.
 5. Run a complete test order before launch.
 
