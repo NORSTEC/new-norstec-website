@@ -1,83 +1,88 @@
 # Merch setup
 
-The recommended MVP uses a custom local cart and Shopify cart permalinks. It does not use the
-Shopify Storefront API or require the Headless sales channel.
+The store uses the **Shopify Storefront API** as the single source of truth for products.
+Everything customers see — products, variants (size/colour), images, descriptions, prices,
+availability — is fetched live from Shopify. Sanity is only used for the hero section at the top of
+the `/merch` page.
 
-Sanity owns product content, images, and the prices displayed on the NORSTEC website. Shopify owns
-checkout, final pricing, availability, shipping, tax, payment, orders, Vipps, and Printful
-fulfillment.
+The website:
 
-## Environment variable
+1. Lists all products from Shopify (`getShopifyProducts`).
+2. Loads a single product with its variants by handle (`getShopifyProductByHandle`).
+3. On checkout, creates a real Shopify cart (`cartCreate`) and redirects the customer to the
+   returned `checkoutUrl` on Shopify's hosted checkout.
 
-Add this server-side environment variable locally and in production:
+To show or hide a product on the website, publish/unpublish it to the **Headless** (or Online
+Store) sales channel in Shopify. There are no product documents to maintain in Sanity.
+
+## Environment variables
+
+Add these server-side variables locally (`.env.local`) and in production:
 
 ```text
 SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
+SHOPIFY_STOREFRONT_API_TOKEN=your-storefront-api-access-token
+SHOPIFY_STOREFRONT_API_VERSION=2026-04
 ```
 
-Do not include `https://` or a trailing slash.
+- `SHOPIFY_STORE_DOMAIN`: no `https://`, no trailing slash.
+- `SHOPIFY_STOREFRONT_API_TOKEN`: the public Storefront API access token (read-only scopes). It is
+  only used server-side and has no `NEXT_PUBLIC_` prefix, so it is never sent to the browser.
+- `SHOPIFY_STOREFRONT_API_VERSION`: defaults to `2026-04` if omitted.
 
-No Storefront access token or Storefront API version is required.
+## Get the Storefront API token in Shopify
 
-## How checkout works
+Shopify removed the legacy "custom app" Storefront API flow from the admin (stores created from
+Jan 2026 only see "Build apps in Dev Dashboard"). The simplest supported way to get a Storefront
+API token is the **Headless** sales channel:
 
-The cart is stored in the browser's LocalStorage. Each cart line contains the Shopify variant ID,
-quantity, and a small Sanity product snapshot used to render the custom cart UI.
+1. Install **Headless** from the App Store: https://apps.shopify.com/headless
+2. Shopify admin → **Sales channels → Headless**.
+3. **Create storefront** → name it (e.g. `NORSTEC Website`).
+4. Open the storefront → section **Storefront API**.
+5. Copy the **Public access token** into `SHOPIFY_STOREFRONT_API_TOKEN`.
 
-When the customer clicks **Checkout**, the website generates a Shopify cart permalink:
-
-```text
-https://your-store.myshopify.com/cart/123456789:2,987654321:1
-```
-
-Sanity can store a Shopify variant ID as either a numeric ID or a Shopify GID:
-
-```text
-123456789
-gid://shopify/ProductVariant/123456789
-```
-
-The website extracts the numeric ID when it builds the permalink.
-
-The permalink sends the customer directly to Shopify with the selected variants and quantities.
-Shopify checkout is the source of truth for final price, availability, discounts, shipping, tax,
-Vipps payment, and Printful fulfillment.
+Headless storefronts automatically include the permissions to read products/inventory and create
+carts, so no manual scope configuration is needed. The public token authenticates via the
+`X-Shopify-Storefront-Access-Token` header (already used by the code).
 
 ## Sanity setup
 
-1. Create and publish the `Merch page` with a hero section.
-2. Create one `Merch product` document for each item.
-3. Add the product title, slug, description, and images.
-4. Add the price and three-letter currency code displayed on the website, for example `NOK`.
-5. Copy the matching Shopify IDs into:
+Only the hero matters now: create and publish the `Merch page` with a hero section. The legacy
+`Merch product` document type is no longer read by the website and can be ignored or removed.
 
-```text
-shopifyProductId=gid://shopify/Product/...
-shopifyVariantId=gid://shopify/ProductVariant/...
-```
+## Product content
 
-6. Enable **Visible in store** and publish the product.
-
-Each Sanity product currently connects to one Shopify variant.
+All product content lives in Shopify: title, description, images, options (size/colour), variants,
+prices, and inventory. Products published to the Headless/Online Store sales channel appear
+automatically on `/merch`. Product detail pages are addressed by the Shopify **handle**
+(`/merch/<handle>`).
 
 ## Shopify admin setup
 
 1. Create and activate the matching Shopify products and variants.
-2. Keep the Sanity displayed prices aligned with Shopify prices.
-3. Configure inventory, shipping, tax, checkout branding, and store policies.
-4. Connect the relevant products and variants to Printful.
-5. Enable and configure Vipps for Shopify checkout.
-6. Run a complete test order before launch.
+2. Configure inventory tracking, shipping, tax, checkout branding, and store policies.
+3. Connect the products to **Gelato** for print-on-demand fulfillment (done in the Gelato/Shopify
+   dashboards — no website code involved).
+4. **Payments:** install and configure a Vipps/MobilePay **payment** app — either the
+   *Vipps/MobilePay Payment app* (adds Vipps as a method in Shopify checkout) or the
+   *Vipps/MobilePay Checkout app*. The **Companion app alone does not process payments** — it only
+   adds branding and receipts. Verify under **Settings → Payments** that Vipps is active.
+5. Run a complete test order before launch.
 
-## Important limitations
+## How payment works with the headless storefront
 
-- Displayed prices and cart totals come from Sanity and are estimates until Shopify checkout.
-- Product availability is not checked before checkout.
-- If a Shopify variant ID changes, update the matching Sanity product.
-- Selling plans do not work with cart permalinks.
-- The customer leaves the NORSTEC website only when proceeding to Shopify checkout.
+The website never handles payment. It only generates a Shopify `cart.checkoutUrl` and redirects
+there. Whatever payment methods are configured in Shopify checkout (including Vipps/MobilePay) show
+up automatically. The headless storefront does not change payment behaviour.
+
+## Notes
+
+- Prices and availability shown on the site are live from Shopify (not cached).
+- Out-of-stock variants show **Sold out** and cannot be added to the cart.
+- The customer leaves the NORSTEC site only when proceeding to Shopify checkout.
 
 ## Shopify documentation
 
-- Cart permalinks:
-  https://shopify.dev/docs/apps/build/checkout/create-cart-permalinks
+- Storefront API: https://shopify.dev/docs/api/storefront
+- Create and update a cart: https://shopify.dev/docs/api/storefront/latest/mutations/cartCreate

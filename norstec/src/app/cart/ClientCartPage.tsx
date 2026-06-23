@@ -6,16 +6,20 @@ import Money from "@/components/merch/Money";
 import {useCart} from "@/components/merch/CartProvider";
 
 export default function ClientCartPage() {
-  const {cart, checkoutUrl, updateItem, removeItem} = useCart();
+  const {cart, checkout, isCheckingOut, checkoutError, updateItem, removeItem} = useCart();
   const lines = cart.lines;
 
   return (
     <main className="min-h-screen desktop-container">
       <header className="mb-12 border-b-2 border-moody pb-8">
-        <p className="mb-3 uppercase tracking-[0.18em] text-copper">NORSTEC store</p>
-        <h1 className="text-[2rem] sm:text-[3rem] md:text-[4rem] xl:text-[5rem] 2xl:text-[6rem] font-thin uppercase">
-          Cart
-        </h1>
+        <Link
+          href="/merch"
+          className="mb-4 inline-flex items-center gap-2 hover:text-copper"
+        >
+          <span className="material-symbols-outlined rotate-180">trending_flat</span>
+          Back to merch
+        </Link>
+        <h1 className="text-h1">Cart</h1>
       </header>
 
       {!lines.length ? (
@@ -52,7 +56,7 @@ export default function ClientCartPage() {
                 <div className="flex min-w-0 flex-col justify-between gap-4">
                   <div>
                     <Link href={`/merch/${line.slug}`} className="hover:text-copper">
-                      <h2 className="text-h3 font-medium">{line.title}</h2>
+                      <h2 className="text-base font-medium md:text-lg">{line.title}</h2>
                     </Link>
                     <p className="mt-2 font-semibold">
                       <Money
@@ -84,9 +88,10 @@ export default function ClientCartPage() {
                     <button
                       type="button"
                       onClick={() => removeItem(line.variantId)}
-                      className="ml-auto cursor-pointer underline underline-offset-4"
+                      aria-label="Remove item"
+                      className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-moody transition-colors hover:bg-moody hover:text-egg"
                     >
-                      Remove
+                      <span className="material-symbols-outlined text-[1.15rem]">delete</span>
                     </button>
                   </div>
                 </div>
@@ -96,28 +101,28 @@ export default function ClientCartPage() {
 
           <aside className="h-fit rounded-4xl border-2 border-moody p-6 lg:sticky lg:top-24">
             <h2 className="text-h2">Summary</h2>
-            {/* This subtotal is based on Sanity display prices. Shopify checkout is final. */}
             <div className="my-6 flex justify-between gap-4 border-y-2 border-moody py-5">
-              <span>Total</span>
+              <span>Subtotal</span>
               <strong>
                 <Money value={cart.subtotal} />
               </strong>
             </div>
-            {checkoutUrl ? (
-              <a
-                href={checkoutUrl}
-                className="flex w-full items-center justify-center rounded-full border-2 border-moody bg-moody px-5 py-3 text-egg transition-colors hover:bg-transparent hover:text-moody"
-              >
-                Checkout
-              </a>
-            ) : (
-              <p className="rounded-3xl border-2 border-copper p-4 text-copper">
-                Checkout is not configured. Add SHOPIFY_STORE_DOMAIN.
+            <button
+              type="button"
+              onClick={checkout}
+              disabled={isCheckingOut}
+              className="flex w-full items-center justify-center rounded-full border-2 border-moody bg-moody px-5 py-3 text-egg transition-colors hover:bg-transparent hover:text-moody disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isCheckingOut ? "Starting checkout…" : "Checkout"}
+            </button>
+            {checkoutError && (
+              <p className="mt-4 rounded-3xl border-2 border-copper p-4 text-copper">
+                {checkoutError}
               </p>
             )}
             <p className="mt-4 text-sm">
-              Displayed totals are estimates. Shopify checkout is the source of truth for final
-              price, availability, shipping, tax, Vipps payment, and Printful fulfillment.
+              Shipping and tax are calculated at checkout. Payment is handled securely by Shopify,
+              including Vipps/MobilePay.
             </p>
           </aside>
         </div>

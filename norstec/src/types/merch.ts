@@ -15,6 +15,9 @@ export type MerchProduct = {
   shopifyVariantId: string;
   price: Money;
   featured?: boolean;
+  // Live from Shopify. Undefined when the lookup failed and we fell back to
+  // Sanity data; in that case the product is treated as available.
+  availableForSale?: boolean;
 };
 
 export type Money = {

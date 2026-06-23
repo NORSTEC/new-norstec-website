@@ -1,16 +1,19 @@
 "use client";
 
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
-import {buildShopifyCartPermalink} from "@/lib/shopifyCartPermalink";
-import type {LocalCart, LocalCartLine, MerchProduct, Money} from "@/types/merch";
-import {imageBuilder} from "@/utils/imageBuilder";
+import type {LocalCart, LocalCartLine, Money} from "@/types/merch";
 
 const STORAGE_KEY = "norstec-local-cart-v1";
 
+// A cart line without its quantity; the provider merges quantities.
+export type AddToCartInput = Omit<LocalCartLine, "quantity">;
+
 type CartContextValue = {
   cart: LocalCart;
-  checkoutUrl: string | null;
-  addItem: (product: MerchProduct, quantity?: number) => void;
+  isCheckingOut: boolean;
+  checkoutError: string | null;
+  checkout: () => Promise<void>;
+  addItem: (item: AddToCartInput, quantity?: number) => void;
   updateItem: (variantId: string, quantity: number) => void;
   removeItem: (variantId: string) => void;
 };
@@ -38,14 +41,10 @@ function calculateCart(lines: LocalCartLine[]): LocalCart {
   return {lines, totalQuantity, subtotal};
 }
 
-export function CartProvider({
-  children,
-  shopifyStoreDomain,
-}: {
-  children: React.ReactNode;
-  shopifyStoreDomain?: string;
-}) {
+export function CartProvider({children}: {children: React.ReactNode}) {
   const [cart, setCart] = useState<LocalCart>(EMPTY_CART);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const persist = useCallback((lines: LocalCartLine[]) => {
     const nextCart = calculateCart(lines);
@@ -67,25 +66,15 @@ export function CartProvider({
   }, []);
 
   const addItem = useCallback(
-    (product: MerchProduct, quantity = 1) => {
-      const existing = cart.lines.find((line) => line.variantId === product.shopifyVariantId);
+    (item: AddToCartInput, quantity = 1) => {
+      const existing = cart.lines.find((line) => line.variantId === item.variantId);
       const nextLine: LocalCartLine = {
-        variantId: product.shopifyVariantId,
+        ...item,
         quantity: (existing?.quantity ?? 0) + quantity,
-        title: product.title,
-        price: product.price,
-        slug: product.slug,
-        imageUrl: imageBuilder(product.images?.[0], {
-          width: 500,
-          height: 500,
-          fit: "crop",
-          quality: 90,
-        }),
-        imageAlt: product.images?.[0]?.alt || product.title,
       };
 
       persist([
-        ...cart.lines.filter((line) => line.variantId !== product.shopifyVariantId),
+        ...cart.lines.filter((line) => line.variantId !== item.variantId),
         nextLine,
       ]);
     },
@@ -112,17 +101,40 @@ export function CartProvider({
     [cart.lines, persist],
   );
 
-  const checkoutUrl = useMemo(
-    () =>
-      shopifyStoreDomain
-        ? buildShopifyCartPermalink(shopifyStoreDomain, cart.lines)
-        : null,
-    [cart.lines, shopifyStoreDomain],
-  );
+  // Creates a real Shopify cart server-side and redirects to Shopify's hosted
+  // checkout, which owns final price, availability, shipping, tax, and payment.
+  const checkout = useCallback(async () => {
+    if (!cart.lines.length || isCheckingOut) return;
+    setIsCheckingOut(true);
+    setCheckoutError(null);
+
+    try {
+      const response = await fetch("/api/cart/checkout", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          lines: cart.lines.map((line) => ({
+            variantId: line.variantId,
+            quantity: line.quantity,
+          })),
+        }),
+      });
+
+      const data = (await response.json()) as {checkoutUrl?: string; error?: string};
+      if (!response.ok || !data.checkoutUrl) {
+        throw new Error(data.error || "Could not start checkout.");
+      }
+
+      window.location.href = data.checkoutUrl;
+    } catch (e) {
+      setCheckoutError(e instanceof Error ? e.message : "Could not start checkout.");
+      setIsCheckingOut(false);
+    }
+  }, [cart.lines, isCheckingOut]);
 
   const value = useMemo(
-    () => ({cart, checkoutUrl, addItem, updateItem, removeItem}),
-    [addItem, cart, checkoutUrl, removeItem, updateItem],
+    () => ({cart, isCheckingOut, checkoutError, checkout, addItem, updateItem, removeItem}),
+    [addItem, cart, checkout, checkoutError, isCheckingOut, removeItem, updateItem],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

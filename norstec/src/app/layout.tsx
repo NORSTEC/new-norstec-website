@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="theme-transition">
         <ThemeProvider>
-          <CartProvider shopifyStoreDomain={process.env.SHOPIFY_STORE_DOMAIN}>
+          <CartProvider>
             <Navbar />
             {children}
             <FooterGate />
