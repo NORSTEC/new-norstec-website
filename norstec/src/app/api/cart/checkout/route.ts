@@ -4,6 +4,11 @@ import type {CheckoutLineInput} from "@/types/shopify";
 
 export const dynamic = "force-dynamic";
 
+// Guard rails against oversized/abusive payloads. Shopify also throttles cart
+// creation, but we bound the request before it ever reaches Shopify.
+const MAX_LINES = 50;
+const MAX_QUANTITY = 100;
+
 type CheckoutBody = {lines?: {variantId?: unknown; quantity?: unknown}[]};
 
 export async function POST(request: Request) {
@@ -15,9 +20,10 @@ export async function POST(request: Request) {
   }
 
   const lines: CheckoutLineInput[] = (Array.isArray(body.lines) ? body.lines : [])
+    .slice(0, MAX_LINES)
     .map((line) => ({
       variantId: typeof line?.variantId === "string" ? line.variantId : "",
-      quantity: Math.floor(Number(line?.quantity)),
+      quantity: Math.min(Math.floor(Number(line?.quantity)) || 0, MAX_QUANTITY),
     }))
     .filter((line) => line.variantId && line.quantity > 0);
 

@@ -1,3 +1,4 @@
+import DOMPurify from "isomorphic-dompurify";
 import {shopifyStorefrontFetch} from "@/lib/shopify/client";
 import type {Money} from "@/types/merch";
 import type {
@@ -161,7 +162,10 @@ export async function getShopifyProductByHandle(handle: string): Promise<Shopify
       id: node.id,
       handle: node.handle,
       title: node.title,
-      descriptionHtml: node.descriptionHtml,
+      // Sanitize Shopify/Gelato-authored HTML before it is rendered with
+      // dangerouslySetInnerHTML. Strips <script>, event handlers, etc., while
+      // keeping safe formatting (tables, lists, links).
+      descriptionHtml: DOMPurify.sanitize(node.descriptionHtml ?? ""),
       availableForSale: node.availableForSale,
       images: node.images.edges.map((e) => e.node),
       options: node.options,
