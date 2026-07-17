@@ -12,13 +12,18 @@ const nextConfig: NextConfig = {
       "www.juicer.io",
       "juicer-assets.s3.amazonaws.com",
       "cdn.juicer.io",
-      "images.juicer.io"
+      "images.juicer.io",
     ],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
         pathname: "/images/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
