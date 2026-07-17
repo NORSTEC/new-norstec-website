@@ -16,6 +16,21 @@ const OPTION_LABELS: Record<string, string> = {
 
 const optionLabel = (name: string) => OPTION_LABELS[name] ?? name;
 
+const isColorOption = (name: string) =>
+  ["color", "colour", "farge"].includes(name.toLocaleLowerCase());
+
+const altTextFields = (altText: string | null) =>
+  (altText ?? "")
+    .split(/\s+[–—-]\s+/)
+    .map((field) => field.trim().toLocaleLowerCase())
+    .filter(Boolean);
+
+const imageMatchesColor = (altText: string | null, color: string) =>
+  altTextFields(altText).includes(color.trim().toLocaleLowerCase());
+
+const isFrontView = (altText: string | null) =>
+  altTextFields(altText).at(-1) === "front view";
+
 export default function ClientMerchProductPage({ product }: { product: ShopifyProduct }) {
   const hasVariants = product.variants.length > 1;
 
@@ -35,31 +50,39 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
   );
 
   const activeVariant = selectedVariant ?? initialVariant ?? null;
-  // Keep the selected variant image first, then append the remaining product
-  // images. Gelato can assign the same image to both the product and a variant,
-  // so de-duplicate by URL before rendering the gallery.
-  const galleryImages = useMemo(() => {
-    const images = [activeVariant?.image, ...product.images].filter(
-      (image): image is NonNullable<typeof image> => Boolean(image)
-    );
+  const activeColor = activeVariant?.selectedOptions.find((option) =>
+    isColorOption(option.name)
+  )?.value;
 
-    return images.filter(
-      (image, index) => images.findIndex((candidate) => candidate.url === image.url) === index
+  // Apparel image convention: "Product title – Color value – View". Match the
+  // middle field against Shopify's active colour value, so this works for any
+  // future garment and palette without hard-coded colour names. Products that
+  // are not tagged with the convention safely fall back to their full gallery.
+  const galleryImages = useMemo(() => {
+    const colorImages = activeColor
+      ? product.images.filter((image) => imageMatchesColor(image.altText, activeColor))
+      : [];
+    const images = colorImages.length > 0 ? colorImages : product.images;
+
+    // Shopify preserves media order; only promote an explicitly labelled front
+    // view while retaining the relative order of all remaining views.
+    return [...images].sort(
+      (first, second) => Number(isFrontView(second.altText)) - Number(isFrontView(first.altText))
     );
-  }, [activeVariant?.image, product.images]);
+  }, [activeColor, product.images]);
 
   const [imageSelection, setImageSelection] = useState<{
-    variantId: string | null;
+    galleryKey: string | null;
     imageUrl: string;
   } | null>(null);
 
-  // A manual thumbnail selection only applies to the currently active variant.
-  // Changing colour therefore starts on that variant's image without needing
-  // to synchronize state in an effect.
+  // Keep a manual thumbnail choice while changing size, but reset to the front
+  // view when the customer switches colour.
+  const galleryKey = activeColor ?? activeVariant?.id ?? null;
   const selectedImageUrl =
-    imageSelection?.variantId === (activeVariant?.id ?? null)
+    imageSelection?.galleryKey === galleryKey
       ? imageSelection.imageUrl
-      : activeVariant?.image?.url ?? product.images[0]?.url ?? null;
+      : galleryImages[0]?.url ?? null;
 
   const primaryImage =
     galleryImages.find((image) => image.url === selectedImageUrl) ?? galleryImages[0] ?? null;
@@ -130,7 +153,7 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
                     type="button"
                     onClick={() =>
                       setImageSelection({
-                        variantId: activeVariant?.id ?? null,
+                        galleryKey,
                         imageUrl: image.url,
                       })
                     }
