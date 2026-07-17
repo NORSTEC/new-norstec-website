@@ -16,9 +16,6 @@ const OPTION_LABELS: Record<string, string> = {
 
 const optionLabel = (name: string) => OPTION_LABELS[name] ?? name;
 
-const isColorOption = (name: string) =>
-  ["color", "colour", "farge"].includes(name.toLocaleLowerCase());
-
 export default function ClientMerchProductPage({ product }: { product: ShopifyProduct }) {
   const hasVariants = product.variants.length > 1;
 
@@ -38,71 +35,31 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
   );
 
   const activeVariant = selectedVariant ?? initialVariant ?? null;
-  const activeVariantImageUrl = activeVariant?.image?.url ?? null;
-
-  const imagesForActiveColor = () => {
-    const colorOption = product.options.find((option) => isColorOption(option.name));
-    const activeColor = activeVariant?.selectedOptions.find((option) =>
-      isColorOption(option.name)
-    )?.value;
-    const colorIndex = colorOption?.values.findIndex((value) => value === activeColor) ?? -1;
-    const colorCount = colorOption?.values.length ?? 0;
-
-    if (colorIndex === -1 || colorCount < 2 || product.images.length < colorCount) {
-      return null;
-    }
-
-    // Gelato orders mockups by pose, with the colour variants interleaved for
-    // each pose: colour 1, colour 2, then colour 1, colour 2, and so on.
-    return product.images.filter((_, imageIndex) => imageIndex % colorCount === colorIndex);
-  };
-
-  // Shopify only associates one image with each variant. Prefer Gelato's
-  // interleaved colour ordering above; for products without a colour option,
-  // use distinct variant images as gallery boundaries instead.
-  const galleryImages = (() => {
-    const colorImages = imagesForActiveColor();
-    if (colorImages) return colorImages;
-    if (!activeVariantImageUrl) return product.images;
-
-    const variantImageUrls = new Set(
-      product.variants
-        .map((variant) => variant.image?.url)
-        .filter((url): url is string => Boolean(url))
+  // Keep the selected variant image first, then append the remaining product
+  // images. Gelato can assign the same image to both the product and a variant,
+  // so de-duplicate by URL before rendering the gallery.
+  const galleryImages = useMemo(() => {
+    const images = [activeVariant?.image, ...product.images].filter(
+      (image): image is NonNullable<typeof image> => Boolean(image)
     );
-    const groupStart = product.images.findIndex((image) => image.url === activeVariantImageUrl);
 
-    // If Shopify does not include the variant image in the product media list,
-    // show that variant image alone rather than mixing unrelated variants.
-    if (groupStart === -1) {
-      return activeVariant?.image ? [activeVariant.image] : [];
-    }
-
-    const nextGroupOffset = product.images
-      .slice(groupStart + 1)
-      .findIndex(
-        (image) => variantImageUrls.has(image.url) && image.url !== activeVariantImageUrl
-      );
-    const groupEnd =
-      nextGroupOffset === -1 ? product.images.length : groupStart + 1 + nextGroupOffset;
-
-    const anchoredImages = product.images.slice(groupStart, groupEnd);
-
-    return anchoredImages;
-  })();
+    return images.filter(
+      (image, index) => images.findIndex((candidate) => candidate.url === image.url) === index
+    );
+  }, [activeVariant?.image, product.images]);
 
   const [imageSelection, setImageSelection] = useState<{
-    galleryKey: string | null;
+    variantId: string | null;
     imageUrl: string;
   } | null>(null);
 
-  // Scope a manual thumbnail selection to the colour gallery rather than the
-  // variant id, so changing size keeps the chosen image while changing colour
-  // starts on the corresponding variant image.
+  // A manual thumbnail selection only applies to the currently active variant.
+  // Changing colour therefore starts on that variant's image without needing
+  // to synchronize state in an effect.
   const selectedImageUrl =
-    imageSelection?.galleryKey === activeVariantImageUrl
+    imageSelection?.variantId === (activeVariant?.id ?? null)
       ? imageSelection.imageUrl
-      : activeVariantImageUrl ?? product.images[0]?.url ?? null;
+      : activeVariant?.image?.url ?? product.images[0]?.url ?? null;
 
   const primaryImage =
     galleryImages.find((image) => image.url === selectedImageUrl) ?? galleryImages[0] ?? null;
@@ -173,7 +130,7 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
                     type="button"
                     onClick={() =>
                       setImageSelection({
-                        galleryKey: activeVariantImageUrl,
+                        variantId: activeVariant?.id ?? null,
                         imageUrl: image.url,
                       })
                     }
