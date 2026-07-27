@@ -1,5 +1,10 @@
-# Local IDE settings
-.idea/
+# OS
+.DS_Store
 
-# Local AI/MCP configuration
+# IDEs / editors
+.idea/
+.vscode/
+
+# AI tooling
 .ai/
+.claude/settings.local.json

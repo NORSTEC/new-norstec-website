@@ -30,6 +30,8 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     const isPrivacyPage = pathname === "/privacy";
     const isArticlesIndexPage = pathname === "/articles";
     const isArticleDetailPage = pathname?.startsWith("/articles/");
+    const isMerchPage = pathname?.startsWith("/merch");
+    const isCartPage = pathname === "/cart";
     const isProgramPage = pathname?.startsWith("/summit/program");
     const isJoinLandingPage = pathname === "/join";
     const isJoinDetailPage = pathname?.startsWith("/join/");
@@ -38,6 +40,8 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
       !(
         isPrivacyPage ||
         isArticlesIndexPage ||
+        isMerchPage ||
+        isCartPage ||
         isProgramPage ||
         (isJoinDetailPage && !isJoinLandingPage)
       );

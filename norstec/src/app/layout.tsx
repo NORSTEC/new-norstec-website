@@ -7,6 +7,7 @@ import { ThemeProvider } from "../hooks/useTheme";
 import FooterGate from "@/components/static/Footer/FooterGate";
 import AnnouncementBanner from "@/components/static/AnnouncementBanner";
 import { getAnnouncement } from "@/sanity/fetch/SanityFetch";
+import { CartProvider } from "@/components/merch/CartProvider";
 
 export const metadata: Metadata = {
   title: "SECURING OUR FUTURE IN SPACE | NORSTEC",
@@ -50,10 +51,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="theme-transition">
         <ThemeProvider>
-          <AnnouncementBanner announcement={announcement} />
-          <Navbar hasAnnouncement={hasAnnouncement} />
-          {children}
-          <FooterGate />
+          <CartProvider>
+            <AnnouncementBanner announcement={announcement} />
+            <Navbar hasAnnouncement={hasAnnouncement} />
+            {children}
+            <FooterGate />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>

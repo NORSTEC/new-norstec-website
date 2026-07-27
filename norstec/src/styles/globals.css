@@ -365,3 +365,59 @@
     animation: fadeIn 0.5s forwards;
 }
 
+/* Shopify product description HTML (Tailwind preflight strips default margins). */
+.merch-description p {
+    margin-bottom: 1rem;
+}
+.merch-description ul,
+.merch-description ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    list-style: revert;
+}
+.merch-description li {
+    margin-bottom: 0.5rem;
+}
+.merch-description a {
+    color: var(--color-copper);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.merch-description strong {
+    font-weight: 600;
+}
+.merch-description table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95em;
+}
+.merch-description th,
+.merch-description td {
+    border: 2px solid var(--color-moody);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+}
+.merch-description th {
+    font-weight: 600;
+    background: color-mix(in srgb, var(--color-moody) 8%, transparent);
+}
+.merch-description thead th {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+/* Let wide size charts scroll horizontally on small screens instead of overflowing. */
+.merch-description {
+    min-width: 0;
+}
+.merch-description .merch-table-scroll,
+.merch-description figure {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+.merch-description figure table {
+    margin: 0;
+}
+
