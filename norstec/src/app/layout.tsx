@@ -5,6 +5,8 @@ import { oughter, barlow } from "@/assets/fonts";
 import Navbar from "@/components/static/Navbar/Navbar";
 import { ThemeProvider } from "../hooks/useTheme";
 import FooterGate from "@/components/static/Footer/FooterGate";
+import AnnouncementBanner from "@/components/static/AnnouncementBanner";
+import { getAnnouncement } from "@/sanity/fetch/SanityFetch";
 import { CartProvider } from "@/components/merch/CartProvider";
 
 export const metadata: Metadata = {
@@ -32,7 +34,10 @@ const themeInitScript = `
   })();
 `;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const announcement = await getAnnouncement();
+  const hasAnnouncement = Boolean(announcement?.isActive);
+
   return (
     <html lang="en" className={`${oughter.variable} ${barlow.variable}`} suppressHydrationWarning>
       <head>
@@ -47,7 +52,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="theme-transition">
         <ThemeProvider>
           <CartProvider>
-            <Navbar />
+            <AnnouncementBanner announcement={announcement} />
+            <Navbar hasAnnouncement={hasAnnouncement} />
             {children}
             <FooterGate />
           </CartProvider>

@@ -17,9 +17,13 @@ import { useCart } from "@/components/merch/CartProvider";
 
 type NavbarProps = {
   logoHref?: string;
+  hasAnnouncement?: boolean;
 };
 
-export default function Navbar({ logoHref = "/" }: NavbarProps) {
+export default function Navbar({
+  logoHref = "/",
+  hasAnnouncement = false,
+}: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [footerInView, setFooterInView] = useState(false);
   const [heroInView, setHeroInView] = useState(false);
@@ -230,10 +234,14 @@ export default function Navbar({ logoHref = "/" }: NavbarProps) {
     <>
       {/* TOP BAR */}
       <motion.header
-        className={["fixed inset-x-0 top-0 z-50", footerInView && "hidden"].join(" ")}
+        className={[
+          "fixed inset-x-0 z-50",
+          hasAnnouncement ? "top-10 lg:top-12" : "top-0",
+          footerInView && "hidden",
+        ].join(" ")}
         initial={false}
         animate={{
-          y: headerHidden ? -72 : 0,
+          y: headerHidden ? (hasAnnouncement ? -112 : -72) : 0,
           backgroundColor: headerBg,
         }}
         transition={{ type: "tween", duration: 0.35, ease: [0.22, 0.9, 0.2, 1] }}
