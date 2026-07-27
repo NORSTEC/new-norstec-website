@@ -1,0 +1,5 @@
+# Local IDE settings
+.idea/
+
+# Local AI/MCP configuration
+.ai/

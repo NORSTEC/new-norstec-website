@@ -1,7 +1,8 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { HomePage } from "@/types/pages/homePage";
 import { InitiativesPage } from "@/types/pages/initiativesPage";
-import { HOME_PAGE_QUERY } from "@/sanity/queries/homePage";
+import { ANNOUNCEMENT_QUERY, HOME_PAGE_QUERY } from "@/sanity/queries/homePage";
+import type { Announcement } from "@/types/items/announcement";
 import {
   INITIATIVE_BY_SLUG_QUERY,
   INITIATIVE_SUBPAGE_BY_SLUG_QUERY,
@@ -29,6 +30,16 @@ export const getHomePage = async (): Promise<HomePage | null> => {
     return (data as HomePage) ?? null;
   } catch (e) {
     console.error("Error fetching homepage:", e);
+    return null;
+  }
+};
+
+export const getAnnouncement = async (): Promise<Announcement | null> => {
+  try {
+    const { data } = await sanityFetch({ query: ANNOUNCEMENT_QUERY });
+    return (data as Announcement) ?? null;
+  } catch (e) {
+    console.error("Error fetching announcement:", e);
     return null;
   }
 };
