@@ -118,7 +118,8 @@ const PRODUCT_BY_HANDLE_QUERY = `
       title
       descriptionHtml
       availableForSale
-      images(first: 20) {
+      # Must cover every variant image: the gallery doubles as a variant picker.
+      images(first: 100) {
         edges { node { url altText } }
       }
       options {

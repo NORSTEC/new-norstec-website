@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/merch/AddToCartButton";
 import Money from "@/components/merch/Money";
-import type { ShopifyProduct } from "@/types/shopify";
+import type { ShopifyImage, ShopifyProduct, ShopifyVariant } from "@/types/shopify";
 
 // Shopify option names can be Norwegian; the site UI is English.
 const OPTION_LABELS: Record<string, string> = {
@@ -16,20 +16,25 @@ const OPTION_LABELS: Record<string, string> = {
 
 const optionLabel = (name: string) => OPTION_LABELS[name] ?? name;
 
-const isColorOption = (name: string) =>
-  ["color", "colour", "farge"].includes(name.toLocaleLowerCase());
+const optionsOf = (variant: ShopifyVariant | null | undefined) =>
+  Object.fromEntries((variant?.selectedOptions ?? []).map((option) => [option.name, option.value]));
 
-const altTextFields = (altText: string | null) =>
-  (altText ?? "")
-    .split(/\s+[–—-]\s+/)
-    .map((field) => field.trim().toLocaleLowerCase())
-    .filter(Boolean);
+// The option value all these variants agree on, ignoring options they differ on.
+// For a colour image that is the colour; size varies across the same picture.
+function sharedOptionValue(variants: ShopifyVariant[]): string | null {
+  const [first, ...rest] = variants;
+  if (!first) return null;
 
-const imageMatchesColor = (altText: string | null, color: string) =>
-  altTextFields(altText).includes(color.trim().toLocaleLowerCase());
+  const shared = first.selectedOptions.find(
+    (option) =>
+      option.value !== "Default Title" &&
+      rest.every((variant) =>
+        variant.selectedOptions.some((o) => o.name === option.name && o.value === option.value)
+      )
+  );
 
-const isFrontView = (altText: string | null) =>
-  altTextFields(altText).at(-1) === "front view";
+  return shared?.value ?? null;
+}
 
 export default function ClientMerchProductPage({ product }: { product: ShopifyProduct }) {
   const hasVariants = product.variants.length > 1;
@@ -38,7 +43,7 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
   const initialVariant = product.variants.find((v) => v.availableForSale) ?? product.variants[0];
 
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() =>
-    Object.fromEntries((initialVariant?.selectedOptions ?? []).map((o) => [o.name, o.value]))
+    optionsOf(initialVariant)
   );
 
   const selectedVariant = useMemo(
@@ -50,42 +55,64 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
   );
 
   const activeVariant = selectedVariant ?? initialVariant ?? null;
-  const activeColor = activeVariant?.selectedOptions.find((option) =>
-    isColorOption(option.name)
-  )?.value;
 
-  // Apparel image convention: "Product title – Color value – View". Match the
-  // middle field against Shopify's active colour value, so this works for any
-  // future garment and palette without hard-coded colour names. Products that
-  // are not tagged with the convention safely fall back to their full gallery.
-  const galleryImages = useMemo(() => {
-    const colorImages = activeColor
-      ? product.images.filter((image) => imageMatchesColor(image.altText, activeColor))
-      : [];
-    const images = colorImages.length > 0 ? colorImages : product.images;
+  // Shopify's own variant-to-image link is the source of truth. Gelato-synced
+  // products have UUID alt texts, so nothing can be inferred from those.
+  const variantsByImageUrl = useMemo(() => {
+    const map = new Map<string, ShopifyVariant[]>();
+    for (const variant of product.variants) {
+      const url = variant.image?.url;
+      if (!url) continue;
+      map.set(url, [...(map.get(url) ?? []), variant]);
+    }
+    return map;
+  }, [product.variants]);
 
-    // Shopify preserves media order; only promote an explicitly labelled front
-    // view while retaining the relative order of all remaining views.
-    return [...images].sort(
-      (first, second) => Number(isFrontView(second.altText)) - Number(isFrontView(first.altText))
-    );
-  }, [activeColor, product.images]);
+  // Prefer the product-level image object, which carries the alt text.
+  const activeVariantImage = useMemo(() => {
+    const url = activeVariant?.image?.url;
+    if (!url) return null;
+    return product.images.find((image) => image.url === url) ?? activeVariant?.image ?? null;
+  }, [activeVariant, product.images]);
 
-  const [imageSelection, setImageSelection] = useState<{
-    galleryKey: string | null;
-    imageUrl: string;
-  } | null>(null);
+  // The full gallery stays visible in Shopify's order: the thumbnails double as
+  // a variant picker, so hiding the other variants' images would leave nothing
+  // to pick, and reordering them would move a thumbnail out from under the
+  // cursor mid-click.
+  const galleryImages = product.images;
 
-  // Keep a manual thumbnail choice while changing size, but reset to the front
-  // view when the customer switches colour.
-  const galleryKey = activeColor ?? activeVariant?.id ?? null;
-  const selectedImageUrl =
-    imageSelection?.galleryKey === galleryKey
-      ? imageSelection.imageUrl
-      : galleryImages[0]?.url ?? null;
+  // A thumbnail the customer picked by hand. Cleared whenever they change an
+  // option, so switching colour always shows that colour rather than keeping a
+  // shared lifestyle shot on screen.
+  const [manualImageUrl, setManualImageUrl] = useState<string | null>(null);
 
   const primaryImage =
-    galleryImages.find((image) => image.url === selectedImageUrl) ?? galleryImages[0] ?? null;
+    galleryImages.find((image) => image.url === manualImageUrl) ??
+    activeVariantImage ??
+    galleryImages[0] ??
+    null;
+
+  const selectOption = (name: string, value: string) => {
+    setSelectedOptions((prev) => ({ ...prev, [name]: value }));
+    setManualImageUrl(null);
+  };
+
+  // Picking a thumbnail selects the variant it belongs to, keeping as much of
+  // the current selection as possible: choosing a colour must not reset size.
+  const selectImage = (image: ShopifyImage) => {
+    setManualImageUrl(image.url);
+
+    const candidates = variantsByImageUrl.get(image.url);
+    if (!candidates?.length) return;
+
+    const score = (variant: ShopifyVariant) =>
+      variant.selectedOptions.filter((option) => selectedOptions[option.name] === option.value)
+        .length + (variant.availableForSale ? 0.5 : 0);
+
+    const best = candidates.reduce((a, b) => (score(b) > score(a) ? b : a));
+    setSelectedOptions(optionsOf(best));
+  };
+
   const soldOut = activeVariant ? !activeVariant.availableForSale : !product.availableForSale;
 
   // Wrap Shopify's HTML tables (e.g. size charts) so wide ones scroll on mobile.
@@ -146,23 +173,21 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
             >
               {galleryImages.map((image, index) => {
                 const selected = image.url === primaryImage?.url;
+                const variantValue = sharedOptionValue(variantsByImageUrl.get(image.url) ?? []);
 
                 return (
                   <button
                     key={image.url}
                     type="button"
-                    onClick={() =>
-                      setImageSelection({
-                        galleryKey,
-                        imageUrl: image.url,
-                      })
-                    }
+                    onClick={() => selectImage(image)}
                     className={`relative aspect-square w-20 shrink-0 cursor-pointer overflow-hidden rounded-2xl border-2 bg-egg transition-colors md:w-24 ${
                       selected
                         ? "border-copper"
                         : "border-moody/25 hover:border-moody"
                     }`}
-                    aria-label={`View product image ${index + 1}`}
+                    aria-label={
+                      variantValue ? `Select ${variantValue}` : `View product image ${index + 1}`
+                    }
                     aria-pressed={selected}
                   >
                     <Image
@@ -200,9 +225,7 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
                         <button
                           key={value}
                           type="button"
-                          onClick={() =>
-                            setSelectedOptions((prev) => ({ ...prev, [option.name]: value }))
-                          }
+                          onClick={() => selectOption(option.name, value)}
                           className={`rounded-full border-2 border-moody px-4 py-2 transition-colors cursor-pointer ${
                             selected
                               ? "bg-moody text-egg"
