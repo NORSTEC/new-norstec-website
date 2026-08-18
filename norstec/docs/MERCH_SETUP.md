@@ -126,14 +126,15 @@ it.
 ## Images and variants
 
 Shopify links **one image per variant**, and the product page treats that link as the source of
-truth: selecting an option shows that variant's image, and selecting a thumbnail selects the variant
-the image belongs to. Nothing is inferred from file names or image order.
+truth: the gallery shows one variant at a time, and selecting an option shows that variant's image.
+Nothing is inferred from file names or image order. The option buttons are the only way to change
+variant, so another colourway's photo never appears in the thumbnail strip.
 
 So when a colour shows the wrong picture, the fix is in Shopify, not in the code: **Products →
 product → Variants → the variant → Media**. Mis-assignments usually appear on variants Gelato synced
 after the others.
 
-Images no variant points at (lifestyle shots, size charts) are shared: they show under every
+Images no variant points at (lifestyle shots, size charts) are shared: they show alongside every
 variant. That is wrong for an extra shot of one specific colourway — a back view of the natural tee
 should not appear while navy is selected — and Shopify has no field for it, since a variant holds
 only its one image. Such an image can name the option value it belongs to in its **alt text**:

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/merch/AddToCartButton";
 import Money from "@/components/merch/Money";
-import type { ShopifyImage, ShopifyProduct, ShopifyVariant } from "@/types/shopify";
+import type { ShopifyProduct, ShopifyVariant } from "@/types/shopify";
 
 // Shopify option names can be Norwegian; the site UI is English.
 const OPTION_LABELS: Record<string, string> = {
@@ -43,23 +43,6 @@ const readableAltText = (altText: string | null) => {
   return !text || UUID_ONLY.test(text) ? null : text;
 };
 
-// The option value all these variants agree on, ignoring options they differ on.
-// For a colour image that is the colour; size varies across the same picture.
-function sharedOptionValue(variants: ShopifyVariant[]): string | null {
-  const [first, ...rest] = variants;
-  if (!first) return null;
-
-  const shared = first.selectedOptions.find(
-    (option) =>
-      option.value !== "Default Title" &&
-      rest.every((variant) =>
-        variant.selectedOptions.some((o) => o.name === option.name && o.value === option.value)
-      )
-  );
-
-  return shared?.value ?? null;
-}
-
 export default function ClientMerchProductPage({ product }: { product: ShopifyProduct }) {
   const hasVariants = product.variants.length > 1;
 
@@ -82,15 +65,15 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
 
   // Shopify's own variant-to-image link is the source of truth. Gelato-synced
   // products have UUID alt texts, so nothing can be inferred from those.
-  const variantsByImageUrl = useMemo(() => {
-    const map = new Map<string, ShopifyVariant[]>();
-    for (const variant of product.variants) {
-      const url = variant.image?.url;
-      if (!url) continue;
-      map.set(url, [...(map.get(url) ?? []), variant]);
-    }
-    return map;
-  }, [product.variants]);
+  const variantImageUrls = useMemo(
+    () =>
+      new Set(
+        product.variants
+          .map((variant) => variant.image?.url)
+          .filter((url): url is string => Boolean(url))
+      ),
+    [product.variants]
+  );
 
   // Prefer the product-level image object, which carries the alt text.
   const activeVariantImage = useMemo(() => {
@@ -99,22 +82,21 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
     return product.images.find((image) => image.url === url) ?? activeVariant?.image ?? null;
   }, [activeVariant, product.images]);
 
-  // Every variant image stays visible in Shopify's order, because the thumbnails
-  // double as a variant picker: hiding the other variants' images would leave
-  // nothing to pick, and reordering them would move a thumbnail out from under
-  // the cursor mid-click. Only the extra shots are filtered, and only when they
-  // say which variant they belong to.
+  // The gallery shows one variant at a time: the image Shopify attached to the
+  // selected variant, the extra shots that named it, and anything untagged. The
+  // option buttons are the only way to change variant, so another colourway's
+  // photo in the strip would be a dead end.
   const galleryImages = useMemo(() => {
     const activeValues = new Set(
       Object.values(optionsOf(activeVariant)).map((value) => value.toLocaleLowerCase())
     );
 
     return product.images.filter((image) => {
-      if (variantsByImageUrl.has(image.url)) return true;
+      if (variantImageUrls.has(image.url)) return image.url === activeVariantImage?.url;
       const declared = declaredVariantValue(image.altText);
       return !declared || activeValues.has(declared.toLocaleLowerCase());
     });
-  }, [product.images, variantsByImageUrl, activeVariant]);
+  }, [product.images, variantImageUrls, activeVariantImage, activeVariant]);
 
   // A thumbnail the customer picked by hand. Cleared whenever they change an
   // option, so switching colour always shows that colour rather than keeping a
@@ -130,22 +112,6 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
   const selectOption = (name: string, value: string) => {
     setSelectedOptions((prev) => ({ ...prev, [name]: value }));
     setManualImageUrl(null);
-  };
-
-  // Picking a thumbnail selects the variant it belongs to, keeping as much of
-  // the current selection as possible: choosing a colour must not reset size.
-  const selectImage = (image: ShopifyImage) => {
-    setManualImageUrl(image.url);
-
-    const candidates = variantsByImageUrl.get(image.url);
-    if (!candidates?.length) return;
-
-    const score = (variant: ShopifyVariant) =>
-      variant.selectedOptions.filter((option) => selectedOptions[option.name] === option.value)
-        .length + (variant.availableForSale ? 0.5 : 0);
-
-    const best = candidates.reduce((a, b) => (score(b) > score(a) ? b : a));
-    setSelectedOptions(optionsOf(best));
   };
 
   const soldOut = activeVariant ? !activeVariant.availableForSale : !product.availableForSale;
@@ -208,21 +174,17 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
             >
               {galleryImages.map((image, index) => {
                 const selected = image.url === primaryImage?.url;
-                const variantValue = sharedOptionValue(variantsByImageUrl.get(image.url) ?? []);
-
                 return (
                   <button
                     key={image.url}
                     type="button"
-                    onClick={() => selectImage(image)}
+                    onClick={() => setManualImageUrl(image.url)}
                     className={`relative aspect-square w-20 shrink-0 cursor-pointer overflow-hidden rounded-2xl border-2 bg-egg transition-colors md:w-24 ${
                       selected
                         ? "border-copper"
                         : "border-moody/25 hover:border-moody"
                     }`}
-                    aria-label={
-                      variantValue ? `Select ${variantValue}` : `View product image ${index + 1}`
-                    }
+                    aria-label={`View product image ${index + 1}`}
                     aria-pressed={selected}
                   >
                     <Image
