@@ -37,6 +37,11 @@ export type ShopifyProductListItem = {
   handle: string;
   title: string;
   description: string;
+  // Shopify product type + tags, used by the merch listing filters.
+  productType: string | null;
+  tags: string[];
+  // ISO timestamp, used by the "newest" sort option.
+  createdAt: string;
   featuredImage: ShopifyImage | null;
   minPrice: Money;
   maxPrice: Money;
