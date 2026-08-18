@@ -70,6 +70,89 @@ automatically on `/merch`. Product detail pages are addressed by the Shopify **h
    adds branding and receipts. Verify under **Settings → Payments** that Vipps is active.
 5. Run a complete test order before launch.
 
+## Category tags
+
+The category filter on `/merch` is built from **namespaced tags** on the Shopify product, so
+ordinary tags ("core", "jul", "sommer", a campaign name) can be used freely without turning into
+filter buttons. Only tags starting with `kategori:` become categories, and the prefix is stripped
+before the label is shown.
+
+The taxonomy is broad on purpose: one bucket per shelf a customer would look on, not one per
+product. A category with a single product in it is a category that is not worth clicking.
+
+| Tag | Contains |
+| --- | --- |
+| `kategori:klær` | T-shirts, hoodies, sweaters, jackets |
+| `kategori:hodeplagg` | Caps, beanies, bucket hats |
+| `kategori:drikke` | Mugs, bottles, thermoses |
+| `kategori:tilbehør` | Phone cases, tote bags, stickers, pins, patches |
+
+Rules:
+
+- Lowercase, Norwegian, singular bucket name.
+- A product may carry several category tags — it then shows under each.
+- Products with no category tag are still searchable and still show under **All**, but disappear
+  when a category is selected. Every product should have at least one.
+- Split a bucket (for example `kategori:klær` into shirts and knitwear) only once it holds enough
+  products that browsing it gets tedious — roughly six or more.
+
+`productType` is **not** used for this. Gelato sets it to "Print Material" on every synced product,
+so it has no filtering value. Shopify collections were not used either: they are an ordering and
+merchandising tool, and tags keep the filter definition next to the product itself.
+
+### Applying the tags
+
+Tags can be edited by hand in the Shopify admin (**Products → product → Tags**), or in bulk with
+the repo script, which reads the taxonomy from a handle-to-category map:
+
+```bash
+node scripts/shopify-category-tags.mjs
+```
+
+It prints the plan and changes nothing. Add `--apply` to write. It needs an Admin API access token
+with the `write_products` scope in `.env.local`:
+
+```
+SHOPIFY_ADMIN_API_TOKEN=shpat_...
+```
+
+Create it under **Settings → Apps and sales channels → Develop apps**. The token is only used by
+this script — the website itself talks to the read-only Storefront API. Tags are added, never
+replaced; pass `--remove <tag> [<tag>...]` to clear obsolete ones.
+
+When a new product is added to the store, add its handle to `CATEGORIES` in the script and re-run
+it.
+
+## Images and variants
+
+Shopify links **one image per variant**, and the product page treats that link as the source of
+truth: the gallery shows one variant at a time, and selecting an option shows that variant's image.
+Nothing is inferred from file names or image order. The option buttons are the only way to change
+variant, so another colourway's photo never appears in the thumbnail strip.
+
+So when a colour shows the wrong picture, the fix is in Shopify, not in the code: **Products →
+product → Variants → the variant → Media**. Mis-assignments usually appear on variants Gelato synced
+after the others.
+
+Images no variant points at (lifestyle shots, size charts) are shared: they show alongside every
+variant. That is wrong for an extra shot of one specific colourway — a back view of the natural tee
+should not appear while navy is selected — and Shopify has no field for it, since a variant holds
+only its one image. Such an image can name the option value it belongs to in its **alt text**:
+
+```
+NORSTEC Logo T-Shirt, natural, back view [variant:Natural]
+```
+
+The value must match the Shopify option value exactly (case is ignored). It works for any option,
+not just colour — `[variant:iPhone 15 Pro]` is equally valid. The tag is stripped before the alt
+text is rendered, so write the human sentence first and leave the tag at the end.
+
+Untagged images stay shared, which is the right default for anything that is not colourway-specific.
+
+Alt text is otherwise plain accessibility text: it is read aloud by screen readers and follows the
+line into the cart. Gelato fills it with the media UUID, which the site ignores and replaces with the
+product title, but writing a real sentence is better than either.
+
 ## How payment works with the headless storefront
 
 The website never handles payment. It only generates a Shopify `cart.checkoutUrl` and redirects

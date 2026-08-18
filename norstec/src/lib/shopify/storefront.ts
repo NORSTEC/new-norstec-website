@@ -48,6 +48,9 @@ const PRODUCTS_QUERY = `
           title
           description
           availableForSale
+          productType
+          tags
+          createdAt
           featuredImage { url altText }
           priceRange {
             minVariantPrice { amount currencyCode }
@@ -68,6 +71,9 @@ type ProductListNode = {
   title: string;
   description: string;
   availableForSale: boolean;
+  productType: string | null;
+  tags: string[] | null;
+  createdAt: string;
   featuredImage: { url: string; altText: string | null } | null;
   priceRange: { minVariantPrice: MoneyNode; maxVariantPrice: MoneyNode };
   variants: { edges: { node: { id: string } }[] };
@@ -86,6 +92,9 @@ export async function getShopifyProducts(): Promise<ShopifyProductListItem[]> {
         handle: node.handle,
         title: node.title,
         description: node.description,
+        productType: node.productType || null,
+        tags: node.tags ?? [],
+        createdAt: node.createdAt,
         featuredImage: node.featuredImage,
         minPrice: toMoney(node.priceRange.minVariantPrice),
         maxPrice: toMoney(node.priceRange.maxVariantPrice),
@@ -109,7 +118,8 @@ const PRODUCT_BY_HANDLE_QUERY = `
       title
       descriptionHtml
       availableForSale
-      images(first: 20) {
+      # Must cover every variant image: the gallery doubles as a variant picker.
+      images(first: 100) {
         edges { node { url altText } }
       }
       options {
