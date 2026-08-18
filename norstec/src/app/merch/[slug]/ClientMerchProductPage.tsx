@@ -19,6 +19,30 @@ const optionLabel = (name: string) => OPTION_LABELS[name] ?? name;
 const optionsOf = (variant: ShopifyVariant | null | undefined) =>
   Object.fromEntries((variant?.selectedOptions ?? []).map((option) => [option.name, option.value]));
 
+// Shopify links one image per variant, and nothing more. Extra shots of a
+// single colourway (a back view, a sleeve detail) therefore have no variant to
+// belong to, so they would otherwise show up under every colour. An image can
+// opt out by naming the option value it belongs to in its alt text:
+//
+//   NORSTEC Logo T-Shirt, natural, back view [variant:Natural]
+//
+// The tag is stripped before the alt text is rendered. Untagged images stay
+// shared across every variant, which is the right default for lifestyle shots
+// and size charts.
+const VARIANT_TAG = /\s*\[variant:([^\]]+)\]\s*/i;
+
+// Gelato names its media with a bare UUID and copies that into the alt text,
+// which is worse than no alt text at all for a screen reader.
+const UUID_ONLY = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+const declaredVariantValue = (altText: string | null) =>
+  altText?.match(VARIANT_TAG)?.[1]?.trim() || null;
+
+const readableAltText = (altText: string | null) => {
+  const text = (altText ?? "").replace(VARIANT_TAG, " ").trim();
+  return !text || UUID_ONLY.test(text) ? null : text;
+};
+
 // The option value all these variants agree on, ignoring options they differ on.
 // For a colour image that is the colour; size varies across the same picture.
 function sharedOptionValue(variants: ShopifyVariant[]): string | null {
@@ -75,11 +99,22 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
     return product.images.find((image) => image.url === url) ?? activeVariant?.image ?? null;
   }, [activeVariant, product.images]);
 
-  // The full gallery stays visible in Shopify's order: the thumbnails double as
-  // a variant picker, so hiding the other variants' images would leave nothing
-  // to pick, and reordering them would move a thumbnail out from under the
-  // cursor mid-click.
-  const galleryImages = product.images;
+  // Every variant image stays visible in Shopify's order, because the thumbnails
+  // double as a variant picker: hiding the other variants' images would leave
+  // nothing to pick, and reordering them would move a thumbnail out from under
+  // the cursor mid-click. Only the extra shots are filtered, and only when they
+  // say which variant they belong to.
+  const galleryImages = useMemo(() => {
+    const activeValues = new Set(
+      Object.values(optionsOf(activeVariant)).map((value) => value.toLocaleLowerCase())
+    );
+
+    return product.images.filter((image) => {
+      if (variantsByImageUrl.has(image.url)) return true;
+      const declared = declaredVariantValue(image.altText);
+      return !declared || activeValues.has(declared.toLocaleLowerCase());
+    });
+  }, [product.images, variantsByImageUrl, activeVariant]);
 
   // A thumbnail the customer picked by hand. Cleared whenever they change an
   // option, so switching colour always shows that colour rather than keeping a
@@ -131,7 +166,7 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
           price: activeVariant.price,
           slug: product.handle,
           imageUrl: primaryImage?.url,
-          imageAlt: primaryImage?.altText || product.title,
+          imageAlt: readableAltText(primaryImage?.altText ?? null) ?? product.title,
         }
       : null;
 
@@ -153,7 +188,7 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
             {primaryImage ? (
               <Image
                 src={primaryImage.url}
-                alt={primaryImage.altText || product.title}
+                alt={readableAltText(primaryImage.altText) ?? product.title}
                 width={1400}
                 height={1400}
                 className="h-full w-full object-cover"
@@ -192,7 +227,10 @@ export default function ClientMerchProductPage({ product }: { product: ShopifyPr
                   >
                     <Image
                       src={image.url}
-                      alt={image.altText || `${product.title}, image ${index + 1}`}
+                      alt={
+                        readableAltText(image.altText) ??
+                        `${product.title}, image ${index + 1}`
+                      }
                       width={240}
                       height={240}
                       className="h-full w-full object-cover"

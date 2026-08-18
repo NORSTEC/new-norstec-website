@@ -123,6 +123,35 @@ replaced; pass `--remove <tag> [<tag>...]` to clear obsolete ones.
 When a new product is added to the store, add its handle to `CATEGORIES` in the script and re-run
 it.
 
+## Images and variants
+
+Shopify links **one image per variant**, and the product page treats that link as the source of
+truth: selecting an option shows that variant's image, and selecting a thumbnail selects the variant
+the image belongs to. Nothing is inferred from file names or image order.
+
+So when a colour shows the wrong picture, the fix is in Shopify, not in the code: **Products →
+product → Variants → the variant → Media**. Mis-assignments usually appear on variants Gelato synced
+after the others.
+
+Images no variant points at (lifestyle shots, size charts) are shared: they show under every
+variant. That is wrong for an extra shot of one specific colourway — a back view of the natural tee
+should not appear while navy is selected — and Shopify has no field for it, since a variant holds
+only its one image. Such an image can name the option value it belongs to in its **alt text**:
+
+```
+NORSTEC Logo T-Shirt, natural, back view [variant:Natural]
+```
+
+The value must match the Shopify option value exactly (case is ignored). It works for any option,
+not just colour — `[variant:iPhone 15 Pro]` is equally valid. The tag is stripped before the alt
+text is rendered, so write the human sentence first and leave the tag at the end.
+
+Untagged images stay shared, which is the right default for anything that is not colourway-specific.
+
+Alt text is otherwise plain accessibility text: it is read aloud by screen readers and follows the
+line into the cart. Gelato fills it with the media UUID, which the site ignores and replaces with the
+product title, but writing a real sentence is better than either.
+
 ## How payment works with the headless storefront
 
 The website never handles payment. It only generates a Shopify `cart.checkoutUrl` and redirects
