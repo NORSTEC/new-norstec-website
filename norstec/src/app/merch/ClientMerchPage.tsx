@@ -12,16 +12,32 @@ type Props = {
   products: ShopifyProductListItem[];
 };
 
-// Shopify tags are the axis the team actually curates. Product types come from
-// the Gelato sync and are usually identical across the catalog, so they are only
-// used when tags give us nothing to filter on.
-function categoriesOf(product: ShopifyProductListItem, useTags: boolean): string[] {
-  if (useTags) return product.tags;
+// Category pills come from namespaced Shopify tags ("kategori:klær"), so the
+// team can keep using free-form tags ("core", "jul", "sommer") without them
+// leaking into the filter UI. See docs/MERCH_SETUP.md for the taxonomy.
+const CATEGORY_TAG_PREFIX = "kategori:";
+
+type CategorySource = "namespaced-tag" | "tag" | "product-type";
+
+function categoriesOf(product: ShopifyProductListItem, source: CategorySource): string[] {
+  if (source === "namespaced-tag") {
+    return product.tags
+      .filter((tag) => tag.toLowerCase().startsWith(CATEGORY_TAG_PREFIX))
+      .map((tag) => tag.slice(CATEGORY_TAG_PREFIX.length).trim())
+      .filter(Boolean);
+  }
+  if (source === "tag") return product.tags;
   return product.productType ? [product.productType] : [];
 }
 
 function matchesSearch(product: ShopifyProductListItem, query: string): boolean {
-  const haystack = [product.title, product.description, product.productType ?? "", ...product.tags]
+  const haystack = [
+    product.title,
+    product.description,
+    product.productType ?? "",
+    // Strip the namespace so "kategori:klær" is searchable as "klær".
+    ...product.tags.map((tag) => tag.replace(new RegExp(`^${CATEGORY_TAG_PREFIX}`, "i"), "")),
+  ]
     .join(" ")
     .toLowerCase();
   // Every term must appear somewhere, so "black hoodie" also matches "Hoodie black".
@@ -58,20 +74,21 @@ export default function ClientMerchPage({ hero, products }: Props) {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sort, setSort] = useState<MerchSort>("featured");
 
-  const { categories, useTags } = useMemo(() => {
-    const tags = new Set(products.flatMap((product) => product.tags));
-    const preferTags = tags.size > 1;
-    const values = preferTags
-      ? tags
-      : new Set(
-          products
-            .map((product) => product.productType)
-            .filter((type): type is string => Boolean(type))
-        );
+  const { categories, categorySource } = useMemo(() => {
+    // Prefer the curated taxonomy. Fall back to raw tags, then to product types,
+    // so the filter still does something useful on a partly tagged catalog.
+    const sources: CategorySource[] = ["namespaced-tag", "tag", "product-type"];
+    const source =
+      sources.find((candidate) => {
+        const values = new Set(products.flatMap((product) => categoriesOf(product, candidate)));
+        return candidate === "namespaced-tag" ? values.size > 0 : values.size > 1;
+      }) ?? "namespaced-tag";
+
+    const values = new Set(products.flatMap((product) => categoriesOf(product, source)));
 
     return {
       categories: Array.from(values).sort((a, b) => a.localeCompare(b, "nb")),
-      useTags: preferTags,
+      categorySource: source,
     };
   }, [products]);
 
@@ -81,7 +98,9 @@ export default function ClientMerchPage({ hero, products }: Props) {
     const filtered = products.filter((product) => {
       if (
         activeCategories.length &&
-        !categoriesOf(product, useTags).some((category) => activeCategories.includes(category))
+        !categoriesOf(product, categorySource).some((category) =>
+          activeCategories.includes(category)
+        )
       ) {
         return false;
       }
@@ -91,7 +110,7 @@ export default function ClientMerchPage({ hero, products }: Props) {
     });
 
     return sortProducts(filtered, sort);
-  }, [products, search, activeCategories, useTags, inStockOnly, sort]);
+  }, [products, search, activeCategories, categorySource, inStockOnly, sort]);
 
   const toggleCategory = (category: string) =>
     setActiveCategories((prev) =>

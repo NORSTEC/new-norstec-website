@@ -70,6 +70,59 @@ automatically on `/merch`. Product detail pages are addressed by the Shopify **h
    adds branding and receipts. Verify under **Settings → Payments** that Vipps is active.
 5. Run a complete test order before launch.
 
+## Category tags
+
+The category filter on `/merch` is built from **namespaced tags** on the Shopify product, so
+ordinary tags ("core", "jul", "sommer", a campaign name) can be used freely without turning into
+filter buttons. Only tags starting with `kategori:` become categories, and the prefix is stripped
+before the label is shown.
+
+The taxonomy is broad on purpose: one bucket per shelf a customer would look on, not one per
+product. A category with a single product in it is a category that is not worth clicking.
+
+| Tag | Contains |
+| --- | --- |
+| `kategori:klær` | T-shirts, hoodies, sweaters, jackets |
+| `kategori:hodeplagg` | Caps, beanies, bucket hats |
+| `kategori:drikke` | Mugs, bottles, thermoses |
+| `kategori:tilbehør` | Phone cases, tote bags, stickers, pins, patches |
+
+Rules:
+
+- Lowercase, Norwegian, singular bucket name.
+- A product may carry several category tags — it then shows under each.
+- Products with no category tag are still searchable and still show under **All**, but disappear
+  when a category is selected. Every product should have at least one.
+- Split a bucket (for example `kategori:klær` into shirts and knitwear) only once it holds enough
+  products that browsing it gets tedious — roughly six or more.
+
+`productType` is **not** used for this. Gelato sets it to "Print Material" on every synced product,
+so it has no filtering value. Shopify collections were not used either: they are an ordering and
+merchandising tool, and tags keep the filter definition next to the product itself.
+
+### Applying the tags
+
+Tags can be edited by hand in the Shopify admin (**Products → product → Tags**), or in bulk with
+the repo script, which reads the taxonomy from a handle-to-category map:
+
+```bash
+node scripts/shopify-category-tags.mjs
+```
+
+It prints the plan and changes nothing. Add `--apply` to write. It needs an Admin API access token
+with the `write_products` scope in `.env.local`:
+
+```
+SHOPIFY_ADMIN_API_TOKEN=shpat_...
+```
+
+Create it under **Settings → Apps and sales channels → Develop apps**. The token is only used by
+this script — the website itself talks to the read-only Storefront API. Tags are added, never
+replaced; pass `--remove <tag> [<tag>...]` to clear obsolete ones.
+
+When a new product is added to the store, add its handle to `CATEGORIES` in the script and re-run
+it.
+
 ## How payment works with the headless storefront
 
 The website never handles payment. It only generates a Shopify `cart.checkoutUrl` and redirects
