@@ -4,7 +4,7 @@ import ClientSummitPage from "@/app/summit/ClientSummitPage";
 import { getInitiativeBySlug } from "@/sanity/fetch/SanityFetch";
 
 const SUMMIT_SLUG = "summit";
-const SUMMIT_DATE = "2026-03-12T00:00:00Z";
+const SUMMIT_DATE = "2027-03-12T00:00:00Z";
 
 export const dynamic = 'force-dynamic'
 
