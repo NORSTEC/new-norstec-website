@@ -96,14 +96,11 @@ function validate_(data) {
     "applicantName",
     "contactPerson",
     "email",
-    "phone",
     "institution",
     "activityName",
-    "activityDates",
     "activityDescription",
     "esaCovers",
-    "esaNotCovers",
-    "budget",
+    "costs",
   ];
 
   for (let i = 0; i < required.length; i++) {
@@ -118,7 +115,6 @@ function validate_(data) {
 
   if (!(Number(data.amountRequested) > 0)) return "invalid_amount";
   if (!(Number(data.expectedStudents) >= 1)) return "invalid_students";
-  if (!(Number(data.budgetTotal) >= 0)) return "invalid_budget_total";
 
   const files = data.attachments || [];
   if (files.length > MAX_FILES) return "too_many_files";
@@ -134,9 +130,6 @@ function validate_(data) {
 }
 
 function buildEmail_(data) {
-  const budgetTotal = toNumber_(data.budgetTotal);
-  const otherSupportAmount = toNumber_(data.otherSupportAmount);
-  const remainingNeed = Math.max(0, budgetTotal - otherSupportAmount);
   const isAssociation = data.applicantType === "association";
 
   return (
@@ -148,20 +141,14 @@ function buildEmail_(data) {
       ["1. Applicant", data.applicantName],
       ["2. Contact person", data.contactPerson],
       ["Email", data.email],
-      ["Phone", data.phone],
       ["3. Place of study", data.institution],
       ["4. Organization number", isAssociation ? data.orgNumber : "–"],
       ["6. Activity", data.activityName],
-      ["Dates and location", data.activityDates],
       ["Description", data.activityDescription],
       ["10. Expected number of students", data.expectedStudents],
       ["What ESA covers", data.esaCovers],
-      ["What ESA does not cover", data.esaNotCovers],
-      ["8. Budget and calculation", data.budget],
-      ["Total costs not covered by ESA", nok_(budgetTotal)],
-      ["9. Support from others", data.otherSupport || "–"],
-      ["Support from others (NOK)", nok_(otherSupportAmount)],
-      ["Remaining funding need", nok_(remainingNeed)],
+      ["8. Costs not covered by ESA (budget)", data.costs],
+      ["9. Support from others", data.otherSupport || "None"],
       ["7. Amount applied for", nok_(toNumber_(data.amountRequested))],
       ["Attachments", String((data.attachments || []).length)],
     ])

@@ -32,13 +32,6 @@ export default defineType({
       description: 'Shown instead of the form when applications are closed.',
       hidden: ({document}) => document?.isOpen !== false,
     }),
-    defineField({
-      name: 'maxAmount',
-      title: 'Normal maximum amount (NOK)',
-      type: 'number',
-      description: 'Applicants are warned if they apply for more than this.',
-      initialValue: 5000,
-    }),
   ],
   preview: {
     select: {title: 'title'},

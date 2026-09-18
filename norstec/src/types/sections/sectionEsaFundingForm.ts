@@ -7,5 +7,4 @@ export interface SectionEsaFundingForm {
   body?: PortableTextBlock[];
   isOpen?: boolean;
   closedMessage?: string;
-  maxAmount?: number;
 }

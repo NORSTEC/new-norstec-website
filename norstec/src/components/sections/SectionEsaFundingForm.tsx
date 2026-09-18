@@ -21,7 +21,6 @@ declare global {
 const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_ESA_FUNDING_APPS_SCRIPT_URL!;
 const RECAPTCHA_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_ESA_FUNDING_KEY!;
 
-const DEFAULT_MAX_AMOUNT = 5000;
 const MAX_FILES = 5;
 const MAX_TOTAL_BYTES = 10 * 1024 * 1024;
 const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
@@ -40,8 +39,6 @@ type Attachment = {
 
 const inputClass =
   "w-full rounded-xl border-2 border-moody/20 bg-egg text-moody px-4 py-3 focus:outline-none focus:border-moody transition-colors";
-
-const formatNok = (value: number) => `${new Intl.NumberFormat("nb-NO").format(value)} NOK`;
 
 const toNumber = (value: string) => {
   const parsed = Number(value.replace(/\s/g, "").replace(",", "."));
@@ -88,33 +85,26 @@ export default function SectionEsaFundingForm({
   className = "",
 }: SectionEsaFundingFormProps) {
   const { title, body, isOpen = true, closedMessage } = section;
-  const maxAmount = section.maxAmount ?? DEFAULT_MAX_AMOUNT;
 
   const [applicantType, setApplicantType] = useState<"student" | "association">("student");
   const [applicantName, setApplicantName] = useState("");
   const [contactPerson, setContactPerson] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [institution, setInstitution] = useState("");
   const [orgNumber, setOrgNumber] = useState("");
   const [activityName, setActivityName] = useState("");
-  const [activityDates, setActivityDates] = useState("");
   const [activityDescription, setActivityDescription] = useState("");
   const [expectedStudents, setExpectedStudents] = useState("1");
   const [esaCovers, setEsaCovers] = useState("");
-  const [esaNotCovers, setEsaNotCovers] = useState("");
-  const [budget, setBudget] = useState("");
-  const [budgetTotal, setBudgetTotal] = useState("");
+  const [costs, setCosts] = useState("");
+  const [hasOtherSupport, setHasOtherSupport] = useState(false);
   const [otherSupport, setOtherSupport] = useState("");
-  const [otherSupportAmount, setOtherSupportAmount] = useState("");
   const [amountRequested, setAmountRequested] = useState("");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [fileError, setFileError] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const isAssociation = applicantType === "association";
-  const remainingNeed = Math.max(0, toNumber(budgetTotal) - toNumber(otherSupportAmount));
-  const requested = toNumber(amountRequested);
 
   const handleFiles = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
@@ -187,20 +177,15 @@ export default function SectionEsaFundingForm({
           applicantName,
           contactPerson: isAssociation ? contactPerson : applicantName,
           email,
-          phone,
           institution,
           orgNumber: isAssociation ? orgNumber : "",
           activityName,
-          activityDates,
           activityDescription,
           expectedStudents: toNumber(expectedStudents),
           esaCovers,
-          esaNotCovers,
-          budget,
-          budgetTotal: toNumber(budgetTotal),
-          otherSupport,
-          otherSupportAmount: toNumber(otherSupportAmount),
-          amountRequested: requested,
+          costs,
+          otherSupport: hasOtherSupport ? otherSupport : "",
+          amountRequested: toNumber(amountRequested),
           attachments: attachments.map(({ name, mimeType, data }) => ({ name, mimeType, data })),
           recaptchaToken,
         }),
@@ -320,16 +305,6 @@ export default function SectionEsaFundingForm({
                 />
               </Field>
 
-              <Field label="Phone" required>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className={inputClass}
-                  required
-                />
-              </Field>
-
               <Field label="University, college or place of study" required>
                 <input
                   type="text"
@@ -350,23 +325,12 @@ export default function SectionEsaFundingForm({
                 />
               </Field>
 
-              <Field label="Dates and location" required>
-                <input
-                  type="text"
-                  value={activityDates}
-                  onChange={(e) => setActivityDates(e.target.value)}
-                  className={inputClass}
-                  placeholder="E.g. 12–16 October 2026, ESEC Redu, Belgium"
-                  required
-                />
-              </Field>
-
               <Field label="Description of the activity" required>
                 <textarea
                   value={activityDescription}
                   onChange={(e) => setActivityDescription(e.target.value)}
                   className={`${inputClass} min-h-[160px] resize-y`}
-                  placeholder="What is the course or conference, and what will you do there? Add a link if you have one."
+                  placeholder="Dates, location and what you will do there. Add a link if you have one."
                   required
                 />
               </Field>
@@ -393,57 +357,39 @@ export default function SectionEsaFundingForm({
                 />
               </Field>
 
-              <Field label="What does ESA not cover?" required>
+              <Field label="Costs not covered by ESA" required>
                 <textarea
-                  value={esaNotCovers}
-                  onChange={(e) => setEsaNotCovers(e.target.value)}
-                  className={`${inputClass} min-h-[120px] resize-y`}
-                  placeholder="E.g. travel to and from the course."
-                  required
-                />
-              </Field>
-
-              <Field label="Budget and how the amount is calculated" required>
-                <textarea
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
+                  value={costs}
+                  onChange={(e) => setCosts(e.target.value)}
                   className={`${inputClass} min-h-[160px] resize-y`}
                   placeholder={
-                    "List the costs not covered by ESA, e.g.\nFlight Oslo–Brussels: 2 500 NOK\nTrain to Redu: 600 NOK"
+                    "List each cost and amount, e.g.\nFlight Oslo–Brussels: 2 500 NOK\nTrain to Redu: 600 NOK"
                   }
                   required
                 />
               </Field>
 
-              <Field label="Total costs not covered by ESA (NOK)" required>
+              <label className="flex items-start gap-3 text-sm text-moody">
                 <input
-                  type="number"
-                  min={0}
-                  value={budgetTotal}
-                  onChange={(e) => setBudgetTotal(e.target.value)}
-                  className={inputClass}
-                  required
+                  type="checkbox"
+                  checked={hasOtherSupport}
+                  onChange={(e) => setHasOtherSupport(e.target.checked)}
+                  className="mt-1 h-4 w-4 shrink-0"
                 />
-              </Field>
+                <span>I have received or applied for support from others for this activity</span>
+              </label>
 
-              <Field label="Support received or applied for from others">
-                <textarea
-                  value={otherSupport}
-                  onChange={(e) => setOtherSupport(e.target.value)}
-                  className={`${inputClass} min-h-[120px] resize-y`}
-                  placeholder="E.g. your university or student association. Leave empty if none."
-                />
-              </Field>
-
-              <Field label="Total support from others (NOK)">
-                <input
-                  type="number"
-                  min={0}
-                  value={otherSupportAmount}
-                  onChange={(e) => setOtherSupportAmount(e.target.value)}
-                  className={inputClass}
-                />
-              </Field>
+              {hasOtherSupport && (
+                <Field label="Support from others" required>
+                  <textarea
+                    value={otherSupport}
+                    onChange={(e) => setOtherSupport(e.target.value)}
+                    className={`${inputClass} min-h-[120px] resize-y`}
+                    placeholder="Who, how much, and whether it is received or applied for."
+                    required
+                  />
+                </Field>
+              )}
 
               <Field label="Amount applied for (NOK)" required>
                 <input
@@ -455,24 +401,6 @@ export default function SectionEsaFundingForm({
                   required
                 />
               </Field>
-
-              <div className="text-sm text-moody/70 space-y-1">
-                <p>
-                  Remaining funding need: {formatNok(remainingNeed)}. We can normally grant up to{" "}
-                  {formatNok(maxAmount)} per applicant.
-                </p>
-                {requested > maxAmount && (
-                  <p className="text-copper">
-                    You are applying for more than {formatNok(maxAmount)}. Explain why in the
-                    budget.
-                  </p>
-                )}
-                {requested > remainingNeed && toNumber(budgetTotal) > 0 && (
-                  <p className="text-copper">
-                    You are applying for more than your remaining funding need.
-                  </p>
-                )}
-              </div>
 
               <Field label="Attachments">
                 <input
