@@ -11,6 +11,7 @@ import {
     EnvelopeIcon,
     SparkleIcon,
     RocketIcon,
+    EarthGlobeIcon,
 } from '@sanity/icons'
 import type {StructureResolver} from 'sanity/structure'
 import TshirtIcon from './schemaTypes/ui/TshirtIcon'
@@ -24,6 +25,7 @@ export const singletonTypes = [
     'sponsorPage',
     'articlePage',
     'merchPage',
+    'esaFundingPage',
     'footer',
     'contactInfo',
 ]
@@ -110,6 +112,16 @@ export const structure: StructureResolver = (S) =>
                         .id('merchPage')
                         .schemaType('merchPage')
                         .documentId('merchPage'),
+                ),
+
+            S.listItem()
+                .title('ESA funding page')
+                .icon(EarthGlobeIcon)
+                .child(
+                    S.editor()
+                        .id('esaFundingPage')
+                        .schemaType('esaFundingPage')
+                        .documentId('esaFundingPage'),
                 ),
 
             S.divider(),
