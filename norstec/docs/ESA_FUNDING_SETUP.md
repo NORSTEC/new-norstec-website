@@ -77,6 +77,29 @@ The page is built from sections, like the join page.
 4. When the funding pot is used up, open the **ESA funding form section** and turn off **Accepting
    applications**. The form is hidden and the closed message is shown instead.
 
+## Security
+
+The form in the browser only helps honest users. All real checks happen in the Apps Script:
+
+- **reCAPTCHA Enterprise** (score ≥ 0.5, action `esa_funding`) and max 3 submissions per email per
+  hour.
+- **Field validation**: required fields, email format (no line breaks, so no header injection),
+  9-digit organization number, max 5,000 characters per field.
+- **No XSS**: every value is HTML-escaped before it goes into the email, and nothing the applicant
+  writes is ever shown on the website.
+- **Attachments**:
+  - max 5 files and 10 MB in total
+  - the type is detected from the file's actual bytes (PDF, PNG or JPEG signature); the name and type
+    sent by the browser are ignored, so an `.exe` or `.html` renamed to `.pdf` is rejected
+  - PDFs containing JavaScript, launch actions, embedded files, XFA forms or similar are rejected
+  - files get a new safe name with the extension of the detected type
+  - files are never stored, opened or served by the website; they only exist as email attachments
+- Gmail virus-scans all attachments.
+
+No filter can guarantee that a file is harmless. The finance team should open attachments in
+Gmail's preview or Google Drive, not download and open them in desktop programs, and never enable
+macros or "editing" in a file from an applicant.
+
 ## 5. Test
 
 Submit a test application from `localhost` with one attachment and check that it arrives at

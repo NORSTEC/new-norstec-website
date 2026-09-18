@@ -24,6 +24,21 @@ const RECAPTCHA_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_ESA_FUNDING_KEY!;
 const MAX_FILES = 5;
 const MAX_TOTAL_BYTES = 10 * 1024 * 1024;
 const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
+const ACCEPTED_EXTENSIONS = /\.(pdf|jpe?g|png)$/i;
+const MAX_SHORT_TEXT = 200;
+const MAX_LONG_TEXT = 5000;
+
+const ERROR_MESSAGES: Record<string, string> = {
+  invalid_file_type:
+    "One of the attachments is not a valid PDF, JPG or PNG file. Remove it, or send it to economy@norstec.no instead.",
+  unsafe_pdf:
+    "One of the PDF files contains scripts or embedded files and was rejected. Save it as a plain PDF, or send it to economy@norstec.no instead.",
+  files_too_large: "The attachments can be at most 10 MB in total.",
+  rate_limited: "You have sent several applications recently. Please try again later.",
+};
+
+const DEFAULT_ERROR =
+  "Something went wrong. Please try again, or send your application to economy@norstec.no.";
 
 type SectionEsaFundingFormProps = {
   section: SectionEsaFundingFormType;
@@ -80,6 +95,33 @@ function Field({
   );
 }
 
+// Same markup and classes as the newsletter opt-in checkbox (styled by the global Brevo stylesheet).
+function Checkbox({
+  checked,
+  onChange,
+  required,
+  children,
+}: {
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
+  required?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <label className="sib-form relative flex items-start gap-2 p-0! m-0! font-barlow! text-sm text-moody cursor-pointer">
+      <input
+        type="checkbox"
+        className="input_replaced"
+        checked={checked}
+        onChange={onChange ? (e) => onChange(e.target.checked) : undefined}
+        required={required}
+      />
+      <span className="checkbox checkbox_tick_positive shrink-0 mt-[0.35em]"></span>
+      <span>{children}</span>
+    </label>
+  );
+}
+
 export default function SectionEsaFundingForm({
   section,
   className = "",
@@ -94,7 +136,7 @@ export default function SectionEsaFundingForm({
   const [orgNumber, setOrgNumber] = useState("");
   const [activityName, setActivityName] = useState("");
   const [activityDescription, setActivityDescription] = useState("");
-  const [expectedStudents, setExpectedStudents] = useState("1");
+  const [expectedStudents, setExpectedStudents] = useState("");
   const [esaCovers, setEsaCovers] = useState("");
   const [costs, setCosts] = useState("");
   const [hasOtherSupport, setHasOtherSupport] = useState(false);
@@ -103,6 +145,7 @@ export default function SectionEsaFundingForm({
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [fileError, setFileError] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState(DEFAULT_ERROR);
 
   const isAssociation = applicantType === "association";
 
@@ -113,7 +156,11 @@ export default function SectionEsaFundingForm({
 
     if (!files.length) return;
 
-    if (files.some((file) => !ACCEPTED_TYPES.includes(file.type))) {
+    if (
+      files.some(
+        (file) => !ACCEPTED_TYPES.includes(file.type) || !ACCEPTED_EXTENSIONS.test(file.name)
+      )
+    ) {
       setFileError("Only PDF, JPG and PNG files are allowed.");
       return;
     }
@@ -191,14 +238,17 @@ export default function SectionEsaFundingForm({
         }),
       });
 
-      const result = (await response.json()) as { ok?: boolean };
+      const result = (await response.json()) as { ok?: boolean; error?: string };
 
       if (!result.ok) {
-        throw new Error("Submission rejected");
+        setErrorMessage(ERROR_MESSAGES[result.error ?? ""] ?? DEFAULT_ERROR);
+        setStatus("error");
+        return;
       }
 
       setStatus("success");
     } catch {
+      setErrorMessage(DEFAULT_ERROR);
       setStatus("error");
     }
   };
@@ -261,6 +311,7 @@ export default function SectionEsaFundingForm({
               <Field label={isAssociation ? "Name of association" : "Full name"} required>
                 <input
                   type="text"
+                  maxLength={MAX_SHORT_TEXT}
                   value={applicantName}
                   onChange={(e) => setApplicantName(e.target.value)}
                   className={inputClass}
@@ -273,6 +324,7 @@ export default function SectionEsaFundingForm({
                   <Field label="Contact person" required>
                     <input
                       type="text"
+                      maxLength={MAX_SHORT_TEXT}
                       value={contactPerson}
                       onChange={(e) => setContactPerson(e.target.value)}
                       className={inputClass}
@@ -283,6 +335,7 @@ export default function SectionEsaFundingForm({
                   <Field label="Organization number" required>
                     <input
                       type="text"
+                      maxLength={MAX_SHORT_TEXT}
                       inputMode="numeric"
                       value={orgNumber}
                       onChange={(e) => setOrgNumber(e.target.value)}
@@ -298,6 +351,7 @@ export default function SectionEsaFundingForm({
               <Field label="Email" required>
                 <input
                   type="email"
+                  maxLength={MAX_SHORT_TEXT}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={inputClass}
@@ -308,6 +362,7 @@ export default function SectionEsaFundingForm({
               <Field label="University, college or place of study" required>
                 <input
                   type="text"
+                  maxLength={MAX_SHORT_TEXT}
                   value={institution}
                   onChange={(e) => setInstitution(e.target.value)}
                   className={inputClass}
@@ -318,6 +373,7 @@ export default function SectionEsaFundingForm({
               <Field label="Name of course or conference" required>
                 <input
                   type="text"
+                  maxLength={MAX_SHORT_TEXT}
                   value={activityName}
                   onChange={(e) => setActivityName(e.target.value)}
                   className={inputClass}
@@ -327,6 +383,7 @@ export default function SectionEsaFundingForm({
 
               <Field label="Description of the activity" required>
                 <textarea
+                  maxLength={MAX_LONG_TEXT}
                   value={activityDescription}
                   onChange={(e) => setActivityDescription(e.target.value)}
                   className={`${inputClass} min-h-[160px] resize-y`}
@@ -349,6 +406,7 @@ export default function SectionEsaFundingForm({
 
               <Field label="What does ESA cover?" required>
                 <textarea
+                  maxLength={MAX_LONG_TEXT}
                   value={esaCovers}
                   onChange={(e) => setEsaCovers(e.target.value)}
                   className={`${inputClass} min-h-[120px] resize-y`}
@@ -359,6 +417,7 @@ export default function SectionEsaFundingForm({
 
               <Field label="Costs not covered by ESA" required>
                 <textarea
+                  maxLength={MAX_LONG_TEXT}
                   value={costs}
                   onChange={(e) => setCosts(e.target.value)}
                   className={`${inputClass} min-h-[160px] resize-y`}
@@ -369,19 +428,14 @@ export default function SectionEsaFundingForm({
                 />
               </Field>
 
-              <label className="flex items-start gap-3 text-sm text-moody">
-                <input
-                  type="checkbox"
-                  checked={hasOtherSupport}
-                  onChange={(e) => setHasOtherSupport(e.target.checked)}
-                  className="mt-1 h-4 w-4 shrink-0"
-                />
-                <span>I have received or applied for support from others for this activity</span>
-              </label>
+              <Checkbox checked={hasOtherSupport} onChange={setHasOtherSupport}>
+                I have received or applied for support from others for this activity
+              </Checkbox>
 
               {hasOtherSupport && (
                 <Field label="Support from others" required>
                   <textarea
+                    maxLength={MAX_LONG_TEXT}
                     value={otherSupport}
                     onChange={(e) => setOtherSupport(e.target.value)}
                     className={`${inputClass} min-h-[120px] resize-y`}
@@ -440,20 +494,17 @@ export default function SectionEsaFundingForm({
                 </ul>
               )}
 
-              <label className="flex items-start gap-3 text-sm text-moody">
-                <input type="checkbox" className="mt-1 h-4 w-4 shrink-0" required />
-                <span>
-                  I confirm that the information is correct, and that NORSTEC may process it as
-                  described in the{" "}
-                  <Link href="/privacy" className="underline">
-                    privacy policy
-                  </Link>
-                  .{" "}
-                  <span aria-hidden className="text-copper">
-                    *
-                  </span>
+              <Checkbox required>
+                I confirm that the information is correct, and that NORSTEC may process it as
+                described in the{" "}
+                <Link href="/privacy" className="underline">
+                  privacy policy
+                </Link>
+                .{" "}
+                <span aria-hidden className="text-copper">
+                  *
                 </span>
-              </label>
+              </Checkbox>
 
               <div>
                 <button
@@ -464,10 +515,7 @@ export default function SectionEsaFundingForm({
                   {status === "loading" ? "Sending…" : "Send application"}
                 </button>
                 {status === "error" ? (
-                  <p className="text-sm text-red-500 mt-2">
-                    Something went wrong. Please try again, or send your application to
-                    economy@norstec.no.
-                  </p>
+                  <p className="text-sm text-red-500 mt-2">{errorMessage}</p>
                 ) : (
                   <p className="text-sm text-moody/70 mt-2">
                     Your application is sent to economy@norstec.no, who will reply by email.

@@ -17,11 +17,30 @@ const RECAPTCHA_ACTION = "esa_funding";
 const MIN_SCORE = 0.5;
 const MAX_FILES = 5;
 const MAX_TOTAL_BYTES = 10 * 1024 * 1024;
-const ALLOWED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
+const MAX_BODY_CHARS = 15 * 1024 * 1024;
+const MAX_FIELD_CHARS = 5000;
+const MAX_SUBMISSIONS_PER_HOUR = 3;
+
+// Attachments are identified by their actual bytes, never by the name or type the browser sends.
+const FILE_SIGNATURES = [
+  { ext: "pdf", mimeType: "application/pdf", bytes: [0x25, 0x50, 0x44, 0x46, 0x2d] }, // %PDF-
+  { ext: "png", mimeType: "image/png", bytes: [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a] },
+  { ext: "jpg", mimeType: "image/jpeg", bytes: [0xff, 0xd8, 0xff] },
+];
+
+// PDF features that can run code or carry hidden files. PDFs containing them are rejected.
+const DANGEROUS_PDF_NAMES = /\/(JavaScript|JS|Launch|EmbeddedFiles?|RichMedia|XFA|SubmitForm|ImportData|GoToR|GoToE)\b/;
 
 function doPost(e) {
   try {
+    if (!e || !e.postData || e.postData.contents.length > MAX_BODY_CHARS) {
+      return json_({ ok: false, error: "too_large" });
+    }
+
     const data = JSON.parse(e.postData.contents);
+    if (!data || typeof data !== "object") {
+      return json_({ ok: false, error: "invalid" });
+    }
 
     if (!verifyRecaptcha_(data.recaptchaToken)) {
       return json_({ ok: false, error: "recaptcha" });
@@ -32,20 +51,21 @@ function doPost(e) {
       return json_({ ok: false, error: error });
     }
 
-    const attachments = (data.attachments || []).map(function (file) {
-      return Utilities.newBlob(
-        Utilities.base64Decode(file.data),
-        file.mimeType,
-        sanitizeFileName_(file.name)
-      );
-    });
+    const attachments = buildAttachments_(data.attachments || []);
+    if (attachments.error) {
+      return json_({ ok: false, error: attachments.error });
+    }
+
+    if (isRateLimited_(data.email)) {
+      return json_({ ok: false, error: "rate_limited" });
+    }
 
     MailApp.sendEmail({
       to: prop_("TO_EMAIL"),
       replyTo: String(data.email).trim(),
-      subject: "ESA funding application – " + clean_(data.applicantName, 200),
+      subject: "ESA funding application – " + clean_(data.applicantName, 200).replace(/[\r\n]+/g, " "),
       htmlBody: buildEmail_(data),
-      attachments: attachments,
+      attachments: attachments.blobs,
       name: "NORSTEC website",
     });
 
@@ -116,17 +136,93 @@ function validate_(data) {
   if (!(Number(data.amountRequested) > 0)) return "invalid_amount";
   if (!(Number(data.expectedStudents) >= 1)) return "invalid_students";
 
-  const files = data.attachments || [];
-  if (files.length > MAX_FILES) return "too_many_files";
+  if (["student", "association"].indexOf(data.applicantType) === -1) return "invalid_type";
 
-  let totalBytes = 0;
-  for (let i = 0; i < files.length; i++) {
-    if (ALLOWED_TYPES.indexOf(files[i].mimeType) === -1) return "invalid_file_type";
-    totalBytes += Math.floor((String(files[i].data).length * 3) / 4);
+  const keys = Object.keys(data);
+  for (let i = 0; i < keys.length; i++) {
+    const value = data[keys[i]];
+    if (typeof value === "string" && value.length > MAX_FIELD_CHARS) return "too_long_" + keys[i];
   }
-  if (totalBytes > MAX_TOTAL_BYTES) return "files_too_large";
+
+  if (data.attachments !== undefined && !Array.isArray(data.attachments)) return "invalid_files";
 
   return null;
+}
+
+function buildAttachments_(files) {
+  if (files.length > MAX_FILES) return { error: "too_many_files" };
+
+  const blobs = [];
+  let totalBytes = 0;
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (!file || typeof file.data !== "string") return { error: "invalid_file" };
+
+    let bytes;
+    try {
+      bytes = Utilities.base64Decode(file.data);
+    } catch (err) {
+      return { error: "invalid_file" };
+    }
+
+    totalBytes += bytes.length;
+    if (totalBytes > MAX_TOTAL_BYTES) return { error: "files_too_large" };
+
+    const type = detectFileType_(bytes);
+    if (!type) return { error: "invalid_file_type" };
+
+    if (type.ext === "pdf" && hasDangerousPdfContent_(bytes)) {
+      return { error: "unsafe_pdf" };
+    }
+
+    // The file name is rebuilt from scratch, with the extension taken from the detected type.
+    const baseName = String(file.name || "")
+      .replace(/\.[^.]*$/, "")
+      .replace(/[^A-Za-z0-9 _-]/g, "")
+      .trim()
+      .slice(0, 60);
+    const name = (i + 1) + "-" + (baseName || "attachment") + "." + type.ext;
+
+    blobs.push(Utilities.newBlob(bytes, type.mimeType, name));
+  }
+
+  return { blobs: blobs };
+}
+
+function detectFileType_(bytes) {
+  for (let i = 0; i < FILE_SIGNATURES.length; i++) {
+    const signature = FILE_SIGNATURES[i];
+    if (bytes.length < signature.bytes.length) continue;
+
+    let matches = true;
+    for (let j = 0; j < signature.bytes.length; j++) {
+      if ((bytes[j] & 0xff) !== signature.bytes[j]) {
+        matches = false;
+        break;
+      }
+    }
+    if (matches) return signature;
+  }
+  return null;
+}
+
+function hasDangerousPdfContent_(bytes) {
+  // Decode #xx escapes in PDF names (e.g. /J#61vaScript) before checking.
+  const text = Utilities.newBlob(bytes)
+    .getDataAsString("ISO-8859-1")
+    .replace(/#([0-9A-Fa-f]{2})/g, function (_, hex) {
+      return String.fromCharCode(parseInt(hex, 16));
+    });
+  return DANGEROUS_PDF_NAMES.test(text);
+}
+
+function isRateLimited_(email) {
+  const cache = CacheService.getScriptCache();
+  const key = "esa:" + String(email).trim().toLowerCase();
+  const count = Number(cache.get(key) || 0) + 1;
+  cache.put(key, String(count), 60 * 60);
+  return count > MAX_SUBMISSIONS_PER_HOUR;
 }
 
 function buildEmail_(data) {
@@ -181,10 +277,6 @@ function escape_(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
-}
-
-function sanitizeFileName_(name) {
-  return clean_(name, 120).replace(/[^\w.\- ]/g, "_") || "attachment";
 }
 
 function toNumber_(value) {
