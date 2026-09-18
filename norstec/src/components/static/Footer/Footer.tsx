@@ -32,6 +32,7 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
     const isArticleDetailPage = pathname?.startsWith("/articles/");
     const isMerchPage = pathname?.startsWith("/merch");
     const isCartPage = pathname === "/cart";
+    const isEsaFundingPage = pathname === "/esa-funding";
     const isProgramPage = pathname?.startsWith("/summit/program");
     const isJoinLandingPage = pathname === "/join";
     const isJoinDetailPage = pathname?.startsWith("/join/");
@@ -42,6 +43,7 @@ export default function Footer({ backgroundColor, logoStyle }: FooterProps) {
         isArticlesIndexPage ||
         isMerchPage ||
         isCartPage ||
+        isEsaFundingPage ||
         isProgramPage ||
         (isJoinDetailPage && !isJoinLandingPage)
       );

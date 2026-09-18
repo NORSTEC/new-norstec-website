@@ -99,12 +99,11 @@ function validate_(data) {
     "phone",
     "institution",
     "activityName",
+    "activityDates",
     "activityDescription",
-    "startDate",
-    "endDate",
     "esaCovers",
     "esaNotCovers",
-    "budgetExplanation",
+    "budget",
   ];
 
   for (let i = 0; i < required.length; i++) {
@@ -119,7 +118,7 @@ function validate_(data) {
 
   if (!(Number(data.amountRequested) > 0)) return "invalid_amount";
   if (!(Number(data.expectedStudents) >= 1)) return "invalid_students";
-  if (!Array.isArray(data.budget) || !data.budget.length) return "missing_budget";
+  if (!(Number(data.budgetTotal) >= 0)) return "invalid_budget_total";
 
   const files = data.attachments || [];
   if (files.length > MAX_FILES) return "too_many_files";
@@ -135,50 +134,31 @@ function validate_(data) {
 }
 
 function buildEmail_(data) {
-  const budget = data.budget.map(function (row) {
-    return { item: clean_(row.item, 300), amount: toNumber_(row.amount) };
-  });
-  const budgetTotal = budget.reduce(function (sum, row) {
-    return sum + row.amount;
-  }, 0);
+  const budgetTotal = toNumber_(data.budgetTotal);
   const otherSupportAmount = toNumber_(data.otherSupportAmount);
   const remainingNeed = Math.max(0, budgetTotal - otherSupportAmount);
   const isAssociation = data.applicantType === "association";
-
-  const rows = [
-    ["Applicant type", isAssociation ? "Student association" : "Student"],
-    ["1. Applicant", data.applicantName],
-    ["2. Contact person", data.contactPerson],
-    ["Email", data.email],
-    ["Phone", data.phone],
-    ["3. Place of study", data.institution],
-    ["4. Organization number", isAssociation ? data.orgNumber : "–"],
-    ["6. Activity", data.activityName],
-    ["Dates", data.startDate + " – " + data.endDate],
-    ["Link", data.activityUrl || "–"],
-    ["Description", data.activityDescription],
-    ["What ESA covers", data.esaCovers],
-    ["What ESA does not cover", data.esaNotCovers],
-    ["10. Expected number of students", data.expectedStudents],
-  ];
-
-  const budgetRows = budget
-    .map(function (row) {
-      return "<tr><td>" + escape_(row.item) + "</td><td align='right'>" + nok_(row.amount) + "</td></tr>";
-    })
-    .join("");
 
   return (
     "<h2>ESA funding application</h2>" +
     "<p>Reply to this email to answer the applicant. Remember to ask for bank account number" +
     " (and receipts if they are not attached).</p>" +
-    table_(rows) +
-    "<h3>8. Budget (costs not covered by ESA)</h3>" +
-    "<table cellpadding='6' border='1' style='border-collapse:collapse'>" +
-    budgetRows +
-    "<tr><td><b>Total</b></td><td align='right'><b>" + nok_(budgetTotal) + "</b></td></tr></table>" +
     table_([
-      ["How the amount was calculated", data.budgetExplanation],
+      ["Applicant type", isAssociation ? "Student association" : "Student"],
+      ["1. Applicant", data.applicantName],
+      ["2. Contact person", data.contactPerson],
+      ["Email", data.email],
+      ["Phone", data.phone],
+      ["3. Place of study", data.institution],
+      ["4. Organization number", isAssociation ? data.orgNumber : "–"],
+      ["6. Activity", data.activityName],
+      ["Dates and location", data.activityDates],
+      ["Description", data.activityDescription],
+      ["10. Expected number of students", data.expectedStudents],
+      ["What ESA covers", data.esaCovers],
+      ["What ESA does not cover", data.esaNotCovers],
+      ["8. Budget and calculation", data.budget],
+      ["Total costs not covered by ESA", nok_(budgetTotal)],
       ["9. Support from others", data.otherSupport || "–"],
       ["Support from others (NOK)", nok_(otherSupportAmount)],
       ["Remaining funding need", nok_(remainingNeed)],

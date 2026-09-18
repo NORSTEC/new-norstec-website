@@ -2,7 +2,8 @@
 
 The `/esa-funding` page lets students apply for NORSTEC funding for ESA courses and conferences.
 
-- **Guidelines** are edited in Sanity (**ESA funding page**).
+- **The page** is built from Sanity sections (**ESA funding page**), e.g. a text section with the
+  guidelines and the **ESA funding form section**.
 - **The form** posts to a Google Apps Script, which verifies reCAPTCHA Enterprise and emails the
   application (with any attachments) to `economy@norstec.no`. Reply-to is the applicant, so the
   finance team answers straight from the inbox.
@@ -65,10 +66,16 @@ organization) can post.
 
 ## 4. Sanity
 
+The page is built from sections, like the join page.
+
 1. Deploy the studio (`npm run deploy` in `studio/`) so **ESA funding page** shows up.
-2. Fill in the title and guidelines, and publish.
-3. When the funding pot is used up, turn off **Accepting applications**. The form is hidden and the
-   closed message is shown instead.
+2. Create the sections and add them to **ESA funding page**, for example:
+   - **Text + Image Section** with the guidelines (no images, turn on **Mirror layout** for stripes
+     on the right)
+   - **ESA funding form section** with a title and a short intro
+3. Publish.
+4. When the funding pot is used up, open the **ESA funding form section** and turn off **Accepting
+   applications**. The form is hidden and the closed message is shown instead.
 
 ## 5. Test
 

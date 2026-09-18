@@ -28,5 +28,9 @@ export const metadata: Metadata = {
 export default async function EsaFundingPage() {
   const esaFundingPage = await getEsaFundingPage();
 
+  if (!esaFundingPage) {
+    return <p>loading</p>;
+  }
+
   return <ClientEsaFundingPage data={esaFundingPage} />;
 }
