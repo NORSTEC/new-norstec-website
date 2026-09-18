@@ -57,6 +57,7 @@ import application from "./sections/application/applicationForm"
 import {sectionSummitBillboard} from "./sections/summit/sectionSummitBillboard";
 import summitProgramPage from "./sections/summit/newPage/SummitProgramPage";
 import merchPage from "./pages/merchPage";
+import esaFundingPage from "./pages/esaFundingPage";
 
 
 
@@ -73,6 +74,7 @@ export const schemaTypes = [
     articlePage,
     summitProgramPage,
     merchPage,
+    esaFundingPage,
 
     // Globals
     contactInfo,

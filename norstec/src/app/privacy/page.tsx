@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 export default function PrivacyPage() {
-  const lastUpdated = "22/12/2025";
+  const lastUpdated = "18/09/2026";
 
   return (
     <>
@@ -45,6 +45,10 @@ export default function PrivacyPage() {
           <PolicySection title="2. What personal data we collect">
             <ul className="list-disc pl-5 space-y-2 text-moody leading-relaxed">
               <li>Email address (when you subscribe to our newsletter)</li>
+              <li>
+                Contact details, place of study and information about your activity and budget
+                (when you apply for ESA funding)
+              </li>
               <li>Technical/security data required for abuse prevention (via reCAPTCHA)</li>
             </ul>
             <p className="mt-4 leading-relaxed">
@@ -85,7 +89,22 @@ export default function PrivacyPage() {
             </div>
           </PolicySection>
 
-          <PolicySection title="4. Third-party services">
+          <PolicySection title="4. ESA funding applications">
+            <p className="text-moody leading-relaxed">
+              When you apply for funding for an ESA course or conference, the information you
+              enter in the form and any attachments are sent by email to NORSTEC&apos;s finance
+              team (economy@norstec.no). We use the information to process your application, pay
+              out any funding and report to the Norwegian Space Agency.
+            </p>
+
+            <ul className="mt-4 list-disc pl-5 space-y-2 text-moody leading-relaxed">
+              <li>The information is not stored on the website</li>
+              <li>We do not ask for your bank account number in the form</li>
+              <li>Only the people handling applications have access to the information</li>
+            </ul>
+          </PolicySection>
+
+          <PolicySection title="5. Third-party services">
             <h3 className="text-lg font-medium text-moody mt-1">Google reCAPTCHA</h3>
             <p className="mt-2 text-moody leading-relaxed">
               This site is protected by Google reCAPTCHA to prevent spam and abuse. reCAPTCHA may
@@ -113,11 +132,15 @@ export default function PrivacyPage() {
             </div>
           </PolicySection>
 
-          <PolicySection title="5. Legal basis for processing">
+          <PolicySection title="6. Legal basis for processing">
             <p className="text-moody leading-relaxed">We process personal data based on:</p>
             <ul className="mt-4 list-disc pl-5 space-y-2 text-moody leading-relaxed">
               <li>
                 <span className="font-medium text-moody">Consent</span> (newsletter subscriptions)
+              </li>
+              <li>
+                <span className="font-medium text-moody">Contract and legal obligation</span>{" "}
+                (processing ESA funding applications, payment and accounting)
               </li>
               <li>
                 <span className="font-medium text-moody">Legitimate interest</span> (site security
@@ -129,17 +152,21 @@ export default function PrivacyPage() {
             </p>
           </PolicySection>
 
-          <PolicySection title="6. How long we store your data">
+          <PolicySection title="7. How long we store your data">
             <p className="text-moody leading-relaxed">
               We store personal data only for as long as necessary for the purposes described:
             </p>
             <ul className="mt-4 list-disc pl-5 space-y-2 text-moody leading-relaxed">
               <li>Newsletter data is stored until you unsubscribe</li>
+              <li>
+                ESA funding applications and payment documentation are stored for at least five
+                years, as required by our funding guidelines
+              </li>
               <li>Security-related data is retained according to third-party service policies</li>
             </ul>
           </PolicySection>
 
-          <PolicySection title="7. Your rights">
+          <PolicySection title="8. Your rights">
             <p className="text-moody leading-relaxed">
               Under applicable data protection laws, you have the right to:
             </p>
@@ -154,14 +181,14 @@ export default function PrivacyPage() {
             </p>
           </PolicySection>
 
-          <PolicySection title="8. Changes to this policy">
+          <PolicySection title="9. Changes to this policy">
             <p className="text-moody leading-relaxed">
               We may update this Privacy Policy from time to time. Any changes will be published on
               this page with an updated revision date.
             </p>
           </PolicySection>
 
-          <PolicySection title="9. Contact">
+          <PolicySection title="10. Contact">
             <p className="text-moody leading-relaxed">
               If you have any questions about this Privacy Policy or how we handle your data, please
               contact us:

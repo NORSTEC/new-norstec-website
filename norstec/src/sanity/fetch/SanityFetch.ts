@@ -24,6 +24,8 @@ import { ApplicationPage } from "@/types/pages/applicationPage";
 import { APPLICATION_BY_SLUG_QUERY } from "@/sanity/queries/applicationPage";
 import { MERCH_PAGE_QUERY } from "@/sanity/queries/merch";
 import type { MerchPage } from "@/types/pages/merchPage";
+import type { EsaFundingPage } from "@/types/pages/esaFundingPage";
+import { ESA_FUNDING_PAGE_QUERY } from "@/sanity/queries/esaFundingPage";
 
 // ============== HOME ============== //
 export const getHomePage = async (): Promise<HomePage | null> => {
@@ -181,6 +183,17 @@ export const getMerchPage = async (): Promise<MerchPage | null> => {
     return (data as MerchPage) ?? null;
   } catch (e) {
     console.error("Error fetching merch page:", e);
+    return null;
+  }
+};
+
+// ============== ESA FUNDING ============== //
+export const getEsaFundingPage = async (): Promise<EsaFundingPage | null> => {
+  try {
+    const { data } = await sanityFetch({ query: ESA_FUNDING_PAGE_QUERY });
+    return (data as EsaFundingPage) ?? null;
+  } catch (e) {
+    console.error("Error fetching ESA funding page:", e);
     return null;
   }
 };
