@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, ReactNode, useState } from "react";
+import { ChangeEvent, FormEvent, ReactNode, useRef, useState } from "react";
 import { PortableText } from "next-sanity";
 import Link from "next/link";
 import Script from "next/script";
@@ -144,6 +144,7 @@ export default function SectionEsaFundingForm({
   const [amountRequested, setAmountRequested] = useState("");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [fileError, setFileError] = useState("");
+  const sectionRef = useRef<HTMLElement>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState(DEFAULT_ERROR);
 
@@ -247,6 +248,8 @@ export default function SectionEsaFundingForm({
       }
 
       setStatus("success");
+      // The form is replaced by a short message, so bring the section back into view.
+      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch {
       setErrorMessage(DEFAULT_ERROR);
       setStatus("error");
@@ -254,10 +257,10 @@ export default function SectionEsaFundingForm({
   };
 
   return (
-    <section className={`section relative mobile-container ${className}`}>
+    <section ref={sectionRef} className={`section relative mobile-container ${className}`}>
       <StripesVertical side="right" />
 
-      <div className="flex flex-col gap-6 stripes-right py-0! ">
+      <div className="flex flex-col gap-6 stripes-right py-0! min-h-screen">
         {title && (
           <h2 className="text-h2 uppercase flex items-center gap-3">
             {title}
