@@ -12,6 +12,7 @@ import { useReducedMotion } from "motion/react";
 import { useHideOnScrollMobile } from "@/hooks/useHideOnScrollMobile";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Countdown from "@/components/static/Countdown";
+import { SUMMIT_DATE } from "@/config/summit";
 import { useTheme } from "@/hooks/useTheme";
 import { useCart } from "@/components/merch/CartProvider";
 
@@ -367,7 +368,7 @@ export default function Navbar({
                   <p className="font-normal text-[1.25rem]! 2xl:text-[1.5rem]! italic">
                     Securing our future in space.
                   </p>
-                  <Countdown targetDate={new Date(2026, 2, 12, 0, 0, 0)} />
+                  <Countdown targetDate={SUMMIT_DATE} />
                 </div>
               </motion.div>
 
