@@ -5,6 +5,7 @@ import { PortableText } from "next-sanity";
 import Link from "next/link";
 import Script from "next/script";
 import StripesVertical from "@/components/items/stripes/StripesVertical";
+import Checkbox from "@/components/items/Checkbox";
 import { SectionEsaFundingForm as SectionEsaFundingFormType } from "@/types/sections/sectionEsaFundingForm";
 
 declare global {
@@ -91,33 +92,6 @@ function Field({
         )}
       </span>
       {children}
-    </label>
-  );
-}
-
-// Same markup and classes as the newsletter opt-in checkbox (styled by the global Brevo stylesheet).
-function Checkbox({
-  checked,
-  onChange,
-  required,
-  children,
-}: {
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-  required?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <label className="sib-form relative flex items-start gap-2 p-0! m-0! font-barlow! text-sm text-moody cursor-pointer">
-      <input
-        type="checkbox"
-        className="input_replaced"
-        checked={checked}
-        onChange={onChange ? (e) => onChange(e.target.checked) : undefined}
-        required={required}
-      />
-      <span className="checkbox checkbox_tick_positive shrink-0 mt-[0.35em]"></span>
-      <span>{children}</span>
     </label>
   );
 }
