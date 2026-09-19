@@ -7,6 +7,8 @@ import { ApplicationPage } from "@/types/pages/applicationPage";
 import TeamCarousel from "@/components/items/team/TeamCarousel";
 import type { SectionTeamMember } from "@/types/sections/sectionTeam";
 import Script from "next/script";
+import Link from "next/link";
+import Checkbox from "@/components/items/Checkbox";
 
 declare global {
   interface Window {
@@ -82,7 +84,7 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
         });
       });
 
-      await fetch(APPS_SCRIPT_URL, {
+      const response = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({
@@ -94,8 +96,17 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
         }),
       });
 
+      const result = (await response.json()) as { ok?: boolean; error?: string };
+
+      if (!result.ok) {
+        console.error("Application submission rejected:", result.error);
+        setStatus("error");
+        return;
+      }
+
       setStatus("success");
-    } catch {
+    } catch (err) {
+      console.error("Application submission failed:", err);
       setStatus("error");
     }
   };
@@ -156,6 +167,14 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
                     required
                 />
             </label>
+
+            <Checkbox required>
+                I consent to NORSTEC storing and processing my application as described in the{" "}
+                <Link href="/privacy" className="underline">
+                    privacy policy
+                </Link>
+                . <span aria-hidden className="text-copper">*</span>
+            </Checkbox>
 
             <div>
                 <button
