@@ -2,15 +2,15 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ClientSummitPage from "@/app/summit/ClientSummitPage";
 import { getInitiativeBySlug } from "@/sanity/fetch/SanityFetch";
+import { SUMMIT_DATE } from "@/config/summit";
 
 const SUMMIT_SLUG = "summit";
-const SUMMIT_DATE = "2027-03-12T00:00:00Z"; 
 
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const now = new Date();
-  const event = new Date(SUMMIT_DATE);
+  const event = SUMMIT_DATE;
 
   const MS_PER_DAY = 1000 * 60 * 60 * 24;
   const diffMs = event.getTime() - now.getTime();

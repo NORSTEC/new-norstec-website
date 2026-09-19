@@ -2,8 +2,7 @@ import React from "react";
 import type { SectionSummitTimer } from "@/types/sections/summit/sectionSummitTimer";
 import StripesCornerTopRight from "@/components/items/stripes/StripesCornerTopRight";
 import StripesCornerBottomRight from "@/components/items/stripes/StripesCornerBottomRight";
-
-const SUMMIT_DATE = new Date(2026, 2, 12, 0, 0, 0);
+import { SUMMIT_DATE } from "@/config/summit";
 
 export default function SectionSummitTimer({
   section,

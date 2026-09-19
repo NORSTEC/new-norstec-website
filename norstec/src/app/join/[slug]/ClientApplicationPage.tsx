@@ -180,7 +180,7 @@ function ApplyForm({ positionTitle }: { positionTitle: string }) {
                 <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="inline-flex items-center justify-center rounded-xl border-2 border-moody bg-moody text-egg px-6 py-3 text-[1rem] font-semibold tracking-wide transition hover:bg-transparent hover:text-moody cursor-pointer"
+                    className="inline-flex items-center justify-center rounded-xl border-2 border-moody bg-moody text-egg px-6 py-3 text-[1rem] font-semibold tracking-wide transition hover:bg-transparent hover:text-moody cursor-pointer mt-2"
                 >
                     {status === "loading" ? "Sending…" : "Apply Now"}
                 </button>
